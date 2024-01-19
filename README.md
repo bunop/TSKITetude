@@ -18,6 +18,12 @@ Then recover this environment by entering on the cloned folder and type:
 poetry install
 ```
 
+Next, set up the git filter and attributes provided by [nbstripout](https://github.com/kynan/nbstripout):
+
+```bash
+nbstripout --install
+```
+
 ## Activate poetry environment
 
 In your `TSKITetude` folder, simply type:
