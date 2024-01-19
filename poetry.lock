@@ -1419,13 +1419,13 @@ test = ["flaky", "ipykernel (>=6.19.3)", "ipython", "ipywidgets", "nbconvert (>=
 
 [[package]]
 name = "nbconvert"
-version = "7.14.0"
+version = "7.14.2"
 description = "Converting Jupyter Notebooks"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "nbconvert-7.14.0-py3-none-any.whl", hash = "sha256:483dde47facdaa4875903d651305ad53cd76e2255ae3c61efe412a95f2d22a24"},
-    {file = "nbconvert-7.14.0.tar.gz", hash = "sha256:92b9a44b63e5a7fb4f6fa0ef41261e35c16925046ccd1c04a5c8099bf100476e"},
+    {file = "nbconvert-7.14.2-py3-none-any.whl", hash = "sha256:db28590cef90f7faf2ebbc71acd402cbecf13d29176df728c0a9025a49345ea1"},
+    {file = "nbconvert-7.14.2.tar.gz", hash = "sha256:a7f8808fd4e082431673ac538400218dd45efd076fbeb07cc6e5aa5a3a4e949e"},
 ]
 
 [package.dependencies]
@@ -1475,6 +1475,20 @@ traitlets = ">=5.1"
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx", "sphinxcontrib-github-alt", "sphinxcontrib-spelling"]
 test = ["pep440", "pre-commit", "pytest", "testpath"]
+
+[[package]]
+name = "nbstripout"
+version = "0.6.1"
+description = "Strips outputs from Jupyter and IPython notebooks"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "nbstripout-0.6.1-py2.py3-none-any.whl", hash = "sha256:5ff6eb0debbcd656c4a64db8e082a24fabcfc753a9e8c9f6d786971e8f29e110"},
+    {file = "nbstripout-0.6.1.tar.gz", hash = "sha256:9065bcdd1488b386e4f3c081ffc1d48f4513a2f8d8bf4d0d9a28208c5dafe9d3"},
+]
+
+[package.dependencies]
+nbformat = "*"
 
 [[package]]
 name = "nest-asyncio"
@@ -2634,4 +2648,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "7c429e92df27764495e962c8a3ecb579af6d2578c9f0ab33970f8a7e078d67e4"
+content-hash = "8f5eee55d42b4ab1297bb001acbb3c5d0ab75e062c0569452e5be87a03674227"
