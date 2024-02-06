@@ -3,7 +3,9 @@
         "msprime",
         "mypath",
         "nbstripout",
+        "tsinfer",
         "TSKIT",
-        "tskitetude"
+        "tskitetude",
+        "tstree"
     ]
 }
