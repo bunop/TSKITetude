@@ -13,6 +13,12 @@ def summary_params = paramsSummaryMap(workflow)
 // Print parameter summary log to screen
 log.info logo + paramsSummaryLog(workflow) + citation
 
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    VALIDATE INPUTS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
 WorkflowTskit.initialise(params, log)
 
 /*
@@ -46,6 +52,7 @@ WorkflowTskit.initialise(params, log)
 //
 // MODULE: Installed directly from nf-core/modules
 //
+include { PLINK_RECODE } from '../modules/nf-core/plink/recode/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -58,8 +65,20 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoft
 def multiqc_report = []
 
 workflow TSKIT {
-
     ch_versions = Channel.empty()
+
+    // getting plink input files
+    bed =  Channel.fromPath( "${params.plink_bfile}.bed")
+    bim =  Channel.fromPath( "${params.plink_bfile}.bim")
+    fam =  Channel.fromPath( "${params.plink_bfile}.fam")
+
+    plink_input_ch = bed.concat(bim, fam)
+        .collect()
+        .map( it -> [[ id: "${file(params.plink_bfile).getBaseName()}" ], it[0], it[1], it[2]])
+        // .view()
+
+    PLINK_RECODE(plink_input_ch)
+    ch_versions = ch_versions.mix(PLINK_RECODE.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
