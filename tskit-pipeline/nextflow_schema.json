@@ -224,6 +224,9 @@
     },
     "plink_species": {
       "type": "string"
+    },
+    "plink_keep": {
+      "type": "string"
     }
   }
 }

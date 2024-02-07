@@ -52,8 +52,9 @@ WorkflowTskit.initialise(params, log)
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { PLINK_RECODE } from '../modules/nf-core/plink/recode/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include { PLINK_SUBSET                  } from '../modules/local/plink_subset.nf'
+include { PLINK_RECODE                  } from '../modules/nf-core/plink/recode/main'
+include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,16 +69,23 @@ workflow TSKIT {
     ch_versions = Channel.empty()
 
     // getting plink input files
-    bed =  Channel.fromPath( "${params.plink_bfile}.bed")
-    bim =  Channel.fromPath( "${params.plink_bfile}.bim")
-    fam =  Channel.fromPath( "${params.plink_bfile}.fam")
+    bed =  Channel.fromPath( "${params.plink_bfile}.bed" )
+    bim =  Channel.fromPath( "${params.plink_bfile}.bim" )
+    fam =  Channel.fromPath( "${params.plink_bfile}.fam" )
 
     plink_input_ch = bed.concat(bim, fam)
         .collect()
         .map( it -> [[ id: "${file(params.plink_bfile).getBaseName()}" ], it[0], it[1], it[2]])
         // .view()
 
-    PLINK_RECODE(plink_input_ch)
+    // getting samples to keep
+    samples = Channel.fromPath( params.plink_keep, checkIfExists: true )
+
+    // extract the samples I want. See modules.confing for other options
+    PLINK_SUBSET(plink_input_ch, samples)
+    ch_versions = ch_versions.mix(PLINK_SUBSET.out.versions)
+
+    PLINK_RECODE(PLINK_SUBSET.out.bed.join(PLINK_SUBSET.out.bim).join(PLINK_SUBSET.out.fam))
     ch_versions = ch_versions.mix(PLINK_RECODE.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (

@@ -18,6 +18,9 @@ class WorkflowTskit {
         if (!params.plink_species) {
             Nextflow.error "Error: 'plink_species' parameter not specified"
         }
+        if (!params.plink_keep) {
+            Nextflow.error "Error: 'plink_keep' parameter not specified"
+        }
     }
 
     //
