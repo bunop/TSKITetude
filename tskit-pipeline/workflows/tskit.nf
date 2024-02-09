@@ -54,7 +54,7 @@ WorkflowTskit.initialise(params, log)
 //
 include { PLINK_SUBSET                  } from '../modules/local/plink_subset.nf'
 include { PLINK_RECODE                  } from '../modules/nf-core/plink/recode/main'
-include { TABIX_BGZIP                   } from '../modules/nf-core/tabix/bgzip/main'
+include { BEAGLE5_BEAGLE                } from '../modules/nf-core/beagle5/beagle/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -90,9 +90,9 @@ workflow TSKIT {
     PLINK_RECODE(PLINK_SUBSET.out.bed.join(PLINK_SUBSET.out.bim).join(PLINK_SUBSET.out.fam))
     ch_versions = ch_versions.mix(PLINK_RECODE.out.versions)
 
-    // compress the vcf file
-    TABIX_BGZIP(PLINK_RECODE.out.vcf)
-    ch_versions = ch_versions.mix(TABIX_BGZIP.out.versions)
+    // phase and inpute with beagle5
+    BEAGLE5_BEAGLE(PLINK_RECODE.out.vcfgz, [], [], [], [])
+    ch_versions = ch_versions.mix(BEAGLE5_BEAGLE.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
