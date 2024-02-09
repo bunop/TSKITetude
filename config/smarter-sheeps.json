@@ -1,0 +1,6 @@
+{
+    "plink_species": "--chr-set 26 no-xy no-mt --allow-no-sex",
+    "plink_bfile": "data/SMARTER-OA-OAR3-forward-0.4.9_updated",
+    "plink_keep": "data/sheep_dataset.tsv",
+    "max_memory": "48.GB"
+}
