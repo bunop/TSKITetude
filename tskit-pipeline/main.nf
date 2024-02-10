@@ -45,7 +45,7 @@ include { TSKIT } from './workflows/tskit'
 //
 // WORKFLOW: Run main cnr-ibba/nf-tskit analysis pipeline
 //
-workflow NFCORE_TSKIT {
+workflow CNR_IBBA {
     TSKIT ()
 }
 
@@ -60,7 +60,7 @@ workflow NFCORE_TSKIT {
 // See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    NFCORE_TSKIT ()
+    CNR_IBBA ()
 }
 
 /*

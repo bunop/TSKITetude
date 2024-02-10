@@ -77,7 +77,7 @@ workflow TSKIT {
 
     plink_input_ch = bed.concat(bim, fam)
         .collect()
-        .map( it -> [[ id: "${file(params.plink_bfile).getBaseName()}" ], it[0], it[1], it[2]])
+        .map( it -> [[ id: "${it[0].getBaseName(1)}" ], it[0], it[1], it[2]])
         // .view()
 
     // getting samples to keep
