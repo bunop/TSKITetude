@@ -227,6 +227,10 @@
     },
     "plink_keep": {
       "type": "string"
+    },
+    "plink_geno": {
+      "type": "number",
+      "default": 0.01
     }
   }
 }
