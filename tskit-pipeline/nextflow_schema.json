@@ -231,6 +231,15 @@
     "plink_geno": {
       "type": "number",
       "default": 0.1
+    },
+    "outgroup1": {
+      "type": "string"
+    },
+    "outgroup2": {
+      "type": "string"
+    },
+    "outgroup3": {
+      "type": "string"
     }
   }
 }

@@ -52,10 +52,11 @@ WorkflowTskit.initialise(params, log)
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { PLINK_SUBSET                  } from '../modules/local/plink_subset.nf'
+include { PLINK_SUBSET as PLINK_FOCAL   } from '../modules/local/plink_subset.nf'
 include { PLINK_RECODE                  } from '../modules/nf-core/plink/recode/main'
 include { BEAGLE5_BEAGLE                } from '../modules/nf-core/beagle5/beagle/main'
 include { TABIX_TABIX                   } from '../modules/nf-core/tabix/tabix/main'
+include { ESTSFS_INPUT                  } from '../modules/local/estsfs_input'
 include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -80,15 +81,25 @@ workflow TSKIT {
         .map( it -> [[ id: "${it[0].getBaseName(1)}" ], it[0], it[1], it[2]])
         // .view()
 
-    // getting samples to keep
+    // getting focal samples to keep
     samples = Channel.fromPath( params.plink_keep, checkIfExists: true )
 
+    // collect the outgroup sample list files. At least one outgroup
+    outgroup1 = Channel.fromPath( params.outgroup1, checkIfExists: true)
+    outgroup2 = params.outgroup2 ? Channel.fromPath(params.outgroup2, checkIfExists: true): Channel.empty()
+    outgroup3 = params.outgroup3 ? Channel.fromPath(params.outgroup3, checkIfExists: true): Channel.empty()
+    outgroup_ch = outgroup1
+        .concat(outgroup2)
+        .concat(outgroup3)
+        .collect()
+        //.view()
+
     // extract the samples I want. See modules.confing for other options
-    PLINK_SUBSET(plink_input_ch, samples)
-    ch_versions = ch_versions.mix(PLINK_SUBSET.out.versions)
+    PLINK_FOCAL(plink_input_ch, samples)
+    ch_versions = ch_versions.mix(PLINK_FOCAL.out.versions)
 
     // transform the plink files to vcf
-    PLINK_RECODE(PLINK_SUBSET.out.bed.join(PLINK_SUBSET.out.bim).join(PLINK_SUBSET.out.fam))
+    PLINK_RECODE(PLINK_FOCAL.out.bed.join(PLINK_FOCAL.out.bim).join(PLINK_FOCAL.out.fam))
     ch_versions = ch_versions.mix(PLINK_RECODE.out.versions)
 
     // phase and inpute with beagle5
@@ -98,6 +109,8 @@ workflow TSKIT {
     // index beagle genotype
     TABIX_TABIX(BEAGLE5_BEAGLE.out.vcf)
     ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
+
+    ESTSFS_INPUT(BEAGLE5_BEAGLE.out.vcf, TABIX_TABIX.out.tbi, outgroup_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

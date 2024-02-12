@@ -21,6 +21,9 @@ class WorkflowTskit {
         if (!params.plink_keep) {
             Nextflow.error "Error: 'plink_keep' parameter not specified"
         }
+        if (!params.outgroup1) {
+            Nextflow.error "Error: 'outgroup1' parameter not specified: you need to specify at least one outgroup"
+        }
     }
 
     //
