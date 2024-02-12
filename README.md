@@ -33,3 +33,26 @@ poetry shell
 ```
 
 to activate the poetry environment
+
+## Get SMARTER-data
+
+## Collect SMARTER genotypes
+
+Connect to SMARTER FTPs site and download *Sheep* and *Goat* datasets:
+
+```lftp
+cd SHEEP/OAR3
+mget SMARTER-OA-OAR3-top-0.4.9.*
+```
+
+### Convert into *forward* coding
+
+SMARTER data is stored in *illumina top*. It is possible to convert data into
+forward coordinates with `SNPconvert.py` coming from [SMARTER-database](https://github.com/cnr-ibba/SMARTER-database)
+project:
+
+```bash
+python src/data/SNPconvert.py --bfile ~/Projects/TSKITetude/data/SMARTER-OA-OAR3-top-0.4.9 \
+    --src_coding top --dst_coding forward --assembly OAR3 --species Sheep \
+    --results_dir ~/Projects/TSKITetude/data/
+```

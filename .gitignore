@@ -162,3 +162,8 @@ cython_debug/
 # data files
 *.trees
 data/
+
+# nextflow related stuff
+.nextflow*
+work/
+results/
