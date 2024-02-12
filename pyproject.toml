@@ -21,6 +21,8 @@ pandas = "^2.2.0"
 pyarrow = "^15.0.0"
 cyvcf2 = "^0.30.28"
 click = "^8.1.7"
+plinkio = {git = "https://github.com/bunop/libplinkio.git", rev = "bc1c13507cf5c2d60ffe20e12a1997021f37ceb4"}
+pickleshare = "^0.7.5"
 
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.cli:make_est_sfs_input"
