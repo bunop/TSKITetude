@@ -230,7 +230,7 @@
     },
     "plink_geno": {
       "type": "number",
-      "default": 0.01
+      "default": 0.1
     }
   }
 }
