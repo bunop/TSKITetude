@@ -1,12 +1,16 @@
 {
     "cSpell.words": [
+        "cyvcf",
         "dotenv",
         "msprime",
         "musimon",
         "mypath",
         "nbstripout",
         "outgroup",
+        "outgroups",
         "ovis",
+        "plinkfile",
+        "plinkio",
         "Renviron",
         "smarterapi",
         "tsdate",
