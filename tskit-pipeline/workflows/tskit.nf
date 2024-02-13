@@ -52,12 +52,16 @@ WorkflowTskit.initialise(params, log)
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { PLINK_SUBSET as PLINK_FOCAL   } from '../modules/local/plink_subset.nf'
-include { PLINK_RECODE                  } from '../modules/nf-core/plink/recode/main'
-include { BEAGLE5_BEAGLE                } from '../modules/nf-core/beagle5/beagle/main'
-include { TABIX_TABIX                   } from '../modules/nf-core/tabix/tabix/main'
-include { ESTSFS_INPUT                  } from '../modules/local/estsfs_input'
-include { CUSTOM_DUMPSOFTWAREVERSIONS   } from '../modules/nf-core/custom/dumpsoftwareversions/main'
+include {
+    PLINK_SUBSET as FOCAL_SUBSET;
+    PLINK_SUBSET as ANCIENT_SUBSET          } from '../modules/local/plink_subset.nf'
+include {
+    PLINK_RECODE as FOCAL_RECODE;
+    PLINK_RECODE as ANCIENT_RECODE          } from '../modules/nf-core/plink/recode/main'
+include { BEAGLE5_BEAGLE as FOCAL_BEAGLE    } from '../modules/nf-core/beagle5/beagle/main'
+include { TABIX_TABIX                       } from '../modules/nf-core/tabix/tabix/main'
+include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
+include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,6 +88,10 @@ workflow TSKIT {
     // getting focal samples to keep
     samples = Channel.fromPath( params.plink_keep, checkIfExists: true )
 
+    // extract the samples I want. See modules.confing for other options
+    FOCAL_SUBSET(plink_input_ch, samples)
+    ch_versions = ch_versions.mix(FOCAL_SUBSET.out.versions)
+
     // collect the outgroup sample list files. At least one outgroup
     outgroup1 = Channel.fromPath( params.outgroup1, checkIfExists: true)
     outgroup2 = params.outgroup2 ? Channel.fromPath(params.outgroup2, checkIfExists: true): Channel.empty()
@@ -91,26 +99,32 @@ workflow TSKIT {
     outgroup_ch = outgroup1
         .concat(outgroup2)
         .concat(outgroup3)
-        .collect()
-        //.view()
+        .splitCsv(header: ["breed", "sample_id"], sep: "\t", strip: true)
+        .map{ it -> "${it.breed}\t${it.sample_id}" }
+        .collectFile(name: 'outgroups.txt', newLine: true)
+        // .view()
 
-    // extract the samples I want. See modules.confing for other options
-    PLINK_FOCAL(plink_input_ch, samples)
-    ch_versions = ch_versions.mix(PLINK_FOCAL.out.versions)
+    // extract the ancient samples
+    ANCIENT_SUBSET(plink_input_ch, outgroup_ch)
+    ch_versions = ch_versions.mix(ANCIENT_SUBSET.out.versions)
 
     // transform the plink files to vcf
-    PLINK_RECODE(PLINK_FOCAL.out.bed.join(PLINK_FOCAL.out.bim).join(PLINK_FOCAL.out.fam))
-    ch_versions = ch_versions.mix(PLINK_RECODE.out.versions)
+    FOCAL_RECODE(FOCAL_SUBSET.out.bed.join(FOCAL_SUBSET.out.bim).join(FOCAL_SUBSET.out.fam))
+    ch_versions = ch_versions.mix(FOCAL_RECODE.out.versions)
+
+    // transform the plink files to vcf
+    ANCIENT_RECODE(ANCIENT_SUBSET.out.bed.join(ANCIENT_SUBSET.out.bim).join(ANCIENT_SUBSET.out.fam))
+    ch_versions = ch_versions.mix(ANCIENT_RECODE.out.versions)
 
     // phase and inpute with beagle5
-    BEAGLE5_BEAGLE(PLINK_RECODE.out.vcfgz, [], [], [], [])
-    ch_versions = ch_versions.mix(BEAGLE5_BEAGLE.out.versions)
+    FOCAL_BEAGLE(FOCAL_RECODE.out.vcfgz, [], [], [], [])
+    ch_versions = ch_versions.mix(FOCAL_BEAGLE.out.versions)
 
     // index beagle genotype
-    TABIX_TABIX(BEAGLE5_BEAGLE.out.vcf)
+    TABIX_TABIX(FOCAL_BEAGLE.out.vcf)
     ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
 
-    ESTSFS_INPUT(BEAGLE5_BEAGLE.out.vcf, TABIX_TABIX.out.tbi, outgroup_ch)
+    // ESTSFS_INPUT(FOCAL_BEAGLE.out.vcf, TABIX_TABIX.out.tbi, outgroup_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
