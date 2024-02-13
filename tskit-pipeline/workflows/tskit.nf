@@ -59,7 +59,10 @@ include {
     PLINK_RECODE as FOCAL_RECODE;
     PLINK_RECODE as ANCIENT_RECODE          } from '../modules/nf-core/plink/recode/main'
 include { BEAGLE5_BEAGLE as FOCAL_BEAGLE    } from '../modules/nf-core/beagle5/beagle/main'
-include { TABIX_TABIX                       } from '../modules/nf-core/tabix/tabix/main'
+include {
+    TABIX_TABIX as FOCAL_TABIX;
+    TABIX_TABIX as ANCIENT_TABIX;           } from '../modules/nf-core/tabix/tabix/main'
+include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/merge/main'
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
 include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
@@ -116,15 +119,35 @@ workflow TSKIT {
     ANCIENT_RECODE(ANCIENT_SUBSET.out.bed.join(ANCIENT_SUBSET.out.bim).join(ANCIENT_SUBSET.out.fam))
     ch_versions = ch_versions.mix(ANCIENT_RECODE.out.versions)
 
+    // index ancient vcf
+    ANCIENT_TABIX(ANCIENT_RECODE.out.vcfgz)
+    ch_versions = ch_versions.mix(ANCIENT_TABIX.out.versions)
+
     // phase and inpute with beagle5
     FOCAL_BEAGLE(FOCAL_RECODE.out.vcfgz, [], [], [], [])
     ch_versions = ch_versions.mix(FOCAL_BEAGLE.out.versions)
 
     // index beagle genotype
-    TABIX_TABIX(FOCAL_BEAGLE.out.vcf)
-    ch_versions = ch_versions.mix(TABIX_TABIX.out.versions)
+    FOCAL_TABIX(FOCAL_BEAGLE.out.vcf)
+    ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
 
-    // ESTSFS_INPUT(FOCAL_BEAGLE.out.vcf, TABIX_TABIX.out.tbi, outgroup_ch)
+    // merge the ancient and focal vcf
+    vcf_ch = FOCAL_BEAGLE.out.vcf
+        .concat(ANCIENT_RECODE.out.vcfgz)
+        .groupTuple()
+        // .view()
+    tbi_ch = FOCAL_TABIX.out.tbi
+        .concat(ANCIENT_TABIX.out.tbi)
+        .groupTuple()
+        // .view()
+
+    bcftools_input_ch = vcf_ch.join(tbi_ch)
+        // .view()
+
+    BCFTOOLS_MERGE(bcftools_input_ch, [[], []], [[], []], [])
+    ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
+
+    // ESTSFS_INPUT(FOCAL_BEAGLE.out.vcf, FOCAL_TABIX.out.tbi, outgroup_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
