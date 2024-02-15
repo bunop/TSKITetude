@@ -243,6 +243,14 @@
     },
     "genome": {
       "type": "string"
+    },
+    "estsfs_model": {
+      "type": "integer",
+      "default": 2
+    },
+    "estsfs_nrandom": {
+      "type": "integer",
+      "default": 10
     }
   }
 }

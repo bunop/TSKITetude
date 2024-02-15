@@ -1,6 +1,5 @@
 
 import csv
-import sys
 from typing import List
 
 import click
@@ -31,10 +30,32 @@ from .helper import open_csv
     type=click.Path(exists=True),
     required=True,
 )
+@click.option(
+    "--output_data",
+    help="Output data file",
+    required=True
+)
+@click.option(
+    "--output_config",
+    help="Output config file",
+    required=True
+)
+@click.option(
+    "--model",
+    help="Model type",
+    default=2
+)
+@click.option(
+    "--nrandom",
+    help="N random iterations",
+    default=10
+)
 def make_est_sfs_input(
-        vcf_file: click.Path, focal: click.Path, outgroups: List[click.Path]):
+        vcf_file: click.Path, focal: click.Path, outgroups: List[click.Path],
+        output_data: str, output_config: str, model: int, nrandom: int):
 
-    writer = csv.writer(sys.stdout, delimiter="\t", lineterminator="\n")
+    data_handle = open(output_data, "w")
+    writer = csv.writer(data_handle, delimiter="\t", lineterminator="\n")
 
     # read focal samples
     focal_samples = [sample_id for _, sample_id in open_csv(focal)]
@@ -98,3 +119,11 @@ def make_est_sfs_input(
 
         # print a est-sfs input file record
         writer.writerow(record)
+
+    data_handle.close()
+
+    # write a config file
+    with open(output_config, "w") as handle:
+        handle.write(f"n_outgroup {len(outgroups)}\n")
+        handle.write(f"model {model}\n")
+        handle.write(f"nrandom {nrandom}\n")

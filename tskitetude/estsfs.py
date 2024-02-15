@@ -1,7 +1,7 @@
 
 from plinkio import plinkfile
 
-
+# TODO: remove this?
 def search_samples(samples: list[tuple], plink: plinkfile.PlinkFile):
     """
     Search for samples in a plink file a dictionary of sample ids and their
