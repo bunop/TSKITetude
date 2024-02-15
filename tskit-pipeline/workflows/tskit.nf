@@ -58,6 +58,9 @@ include {
 include {
     PLINK_RECODE as FOCAL_RECODE;
     PLINK_RECODE as ANCIENT_RECODE          } from '../modules/nf-core/plink/recode/main'
+include {
+    BCFTOOLS_NORM as FOCAL_NORM;
+    BCFTOOLS_NORM as ANCIENT_NORM           } from '../modules/nf-core/bcftools/norm/main'
 include { BEAGLE5_BEAGLE as FOCAL_BEAGLE    } from '../modules/nf-core/beagle5/beagle/main'
 include {
     TABIX_TABIX as FOCAL_TABIX;
@@ -127,6 +130,17 @@ workflow TSKIT {
     ANCIENT_TABIX(ANCIENT_RECODE.out.vcfgz)
     ch_versions = ch_versions.mix(ANCIENT_TABIX.out.versions)
 
+    // need to define a genome channel
+    genome_ch = Channel.fromPath(params.genome, checkIfExists: true)
+        .map{ it -> [[ id: "${it.getBaseName()}" ], it]}
+        // .view()
+
+    // Normalize ancient VCF
+    ANCIENT_NORM(
+        ANCIENT_RECODE.out.vcfgz.join(
+            ANCIENT_TABIX.out.tbi),
+        genome_ch)
+
     // phase and inpute with beagle5
     FOCAL_BEAGLE(FOCAL_RECODE.out.vcfgz, [], [], [], [])
     ch_versions = ch_versions.mix(FOCAL_BEAGLE.out.versions)
@@ -134,6 +148,12 @@ workflow TSKIT {
     // index beagle genotype
     FOCAL_TABIX(FOCAL_BEAGLE.out.vcf)
     ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
+
+    // Normalize focal VCF
+    FOCAL_NORM(
+        FOCAL_BEAGLE.out.vcf.join(
+            FOCAL_TABIX.out.tbi),
+        genome_ch)
 
     // merge the ancient and focal vcf
     vcf_ch = FOCAL_BEAGLE.out.vcf
