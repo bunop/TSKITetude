@@ -83,16 +83,16 @@ workflow TSKIT {
     bim =  Channel.fromPath( "${params.plink_bfile}.bim" )
     fam =  Channel.fromPath( "${params.plink_bfile}.fam" )
 
-    plink_input_ch = bed.concat(bim, fam)
+    focal_input_ch = bed.concat(bim, fam)
         .collect()
-        .map( it -> [[ id: "${it[0].getBaseName(1)}" ], it[0], it[1], it[2]])
+        .map{ it -> [[ id: "${it[0].getBaseName(1)}.focal" ], it[0], it[1], it[2]] }
         // .view()
 
     // getting focal samples to keep
     samples = Channel.fromPath( params.plink_keep, checkIfExists: true )
 
     // extract the samples I want. See modules.confing for other options
-    FOCAL_SUBSET(plink_input_ch, samples)
+    FOCAL_SUBSET(focal_input_ch, samples)
     ch_versions = ch_versions.mix(FOCAL_SUBSET.out.versions)
 
     // collect the outgroup sample list files. At least one outgroup
@@ -107,8 +107,12 @@ workflow TSKIT {
         .collectFile(name: 'outgroups.txt', newLine: true)
         // .view()
 
+    ancient_input_ch = focal_input_ch
+        .map{ meta, bed, bim, fam -> [[id: "${bed.getBaseName(1)}.ancient"], bed, bim, fam] }
+        // .view()
+
     // extract the ancient samples
-    ANCIENT_SUBSET(plink_input_ch, outgroup_ch)
+    ANCIENT_SUBSET(ancient_input_ch, outgroup_ch)
     ch_versions = ch_versions.mix(ANCIENT_SUBSET.out.versions)
 
     // transform the plink files to vcf
