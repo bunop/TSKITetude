@@ -30,6 +30,11 @@
             "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
             "installed_by": ["modules"]
           },
+          "estsfs": {
+            "branch": "master",
+            "git_sha": "9678944d908e5aedab318c94a79d6ecbfa854fbc",
+            "installed_by": ["modules"]
+          },
           "plink/recode": {
             "branch": "master",
             "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
