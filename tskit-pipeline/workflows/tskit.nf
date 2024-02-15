@@ -62,6 +62,8 @@ include {
     BCFTOOLS_NORM as FOCAL_NORM;
     BCFTOOLS_NORM as ANCIENT_NORM           } from '../modules/nf-core/bcftools/norm/main'
 include { BEAGLE5_BEAGLE as FOCAL_BEAGLE    } from '../modules/nf-core/beagle5/beagle/main'
+include { SAMTOOLS_FAIDX                    } from '../modules/nf-core/samtools/faidx/main'
+include { BCFTOOLS_REHEADER                 } from '../modules/nf-core/bcftools/reheader/main'
 include {
     TABIX_TABIX as FOCAL_TABIX;
     TABIX_TABIX as ANCIENT_TABIX;           } from '../modules/nf-core/tabix/tabix/main'
@@ -126,10 +128,6 @@ workflow TSKIT {
     ANCIENT_RECODE(ANCIENT_SUBSET.out.bed.join(ANCIENT_SUBSET.out.bim).join(ANCIENT_SUBSET.out.fam))
     ch_versions = ch_versions.mix(ANCIENT_RECODE.out.versions)
 
-    // index ancient vcf
-    ANCIENT_TABIX(ANCIENT_RECODE.out.vcfgz)
-    ch_versions = ch_versions.mix(ANCIENT_TABIX.out.versions)
-
     // need to define a genome channel
     genome_ch = Channel.fromPath(params.genome, checkIfExists: true)
         .map{ it -> [[ id: "${it.getBaseName()}" ], it]}
@@ -137,31 +135,50 @@ workflow TSKIT {
 
     // Normalize ancient VCF
     ANCIENT_NORM(
-        ANCIENT_RECODE.out.vcfgz.join(
-            ANCIENT_TABIX.out.tbi),
-        genome_ch)
+        // the third element of the input channel is a tbi
+        ANCIENT_RECODE.out.vcfgz.map{ meta, vcf -> [meta, vcf, []] },
+        genome_ch
+    )
+    ch_versions = ch_versions.mix(ANCIENT_NORM.out.versions)
+
+    // index ancient vcf
+    ANCIENT_TABIX(ANCIENT_NORM.out.vcf)
+    ch_versions = ch_versions.mix(ANCIENT_TABIX.out.versions)
 
     // phase and inpute with beagle5
     FOCAL_BEAGLE(FOCAL_RECODE.out.vcfgz, [], [], [], [])
     ch_versions = ch_versions.mix(FOCAL_BEAGLE.out.versions)
 
-    // index beagle genotype
-    FOCAL_TABIX(FOCAL_BEAGLE.out.vcf)
-    ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
+    // index genome sequence
+    SAMTOOLS_FAIDX(genome_ch, [[], []])
+    ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
+
+    BCFTOOLS_REHEADER(
+        FOCAL_BEAGLE.out.vcf.map{ meta, vcf -> [meta, vcf, [], []] },
+        SAMTOOLS_FAIDX.out.fai
+    )
+    ch_versions = ch_versions.mix(BCFTOOLS_REHEADER.out.versions)
 
     // Normalize focal VCF
     FOCAL_NORM(
-        FOCAL_BEAGLE.out.vcf.join(
-            FOCAL_TABIX.out.tbi),
-        genome_ch)
+        BCFTOOLS_REHEADER.out.vcf.map{ meta, vcf -> [meta, vcf, []] },
+        genome_ch
+    )
+    ch_versions = ch_versions.mix(FOCAL_NORM.out.versions)
+
+    // index beagle genotype
+    FOCAL_TABIX(FOCAL_NORM.out.vcf)
+    ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
 
     // merge the ancient and focal vcf
-    vcf_ch = FOCAL_BEAGLE.out.vcf
-        .concat(ANCIENT_RECODE.out.vcfgz)
+    vcf_ch = FOCAL_NORM.out.vcf
+        .concat(ANCIENT_NORM.out.vcf)
+        .map{ meta, it -> [[id: "samples-merged"], it] }
         .groupTuple()
         // .view()
     tbi_ch = FOCAL_TABIX.out.tbi
         .concat(ANCIENT_TABIX.out.tbi)
+        .map{ meta, it -> [[id: "samples-merged"], it] }
         .groupTuple()
         // .view()
 
