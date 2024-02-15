@@ -1,6 +1,5 @@
 
 from plinkio import plinkfile
-from cyvcf2 import VCF
 
 
 def search_samples(samples: list[tuple], plink: plinkfile.PlinkFile):

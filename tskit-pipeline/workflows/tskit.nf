@@ -94,17 +94,17 @@ workflow TSKIT {
         // .view()
 
     // getting focal samples to keep
-    samples = Channel.fromPath( params.plink_keep, checkIfExists: true )
+    samples_ch = Channel.fromPath( params.plink_keep, checkIfExists: true )
 
     // extract the samples I want. See modules.confing for other options
-    FOCAL_SUBSET(focal_input_ch, samples)
+    FOCAL_SUBSET(focal_input_ch, samples_ch)
     ch_versions = ch_versions.mix(FOCAL_SUBSET.out.versions)
 
     // collect the outgroup sample list files. At least one outgroup
     outgroup1 = Channel.fromPath( params.outgroup1, checkIfExists: true)
     outgroup2 = params.outgroup2 ? Channel.fromPath(params.outgroup2, checkIfExists: true): Channel.empty()
     outgroup3 = params.outgroup3 ? Channel.fromPath(params.outgroup3, checkIfExists: true): Channel.empty()
-    outgroup_ch = outgroup1
+    outgroups_ch = outgroup1
         .concat(outgroup2)
         .concat(outgroup3)
         .splitCsv(header: ["breed", "sample_id"], sep: "\t", strip: true)
@@ -117,7 +117,7 @@ workflow TSKIT {
         // .view()
 
     // extract the ancient samples
-    ANCIENT_SUBSET(ancient_input_ch, outgroup_ch)
+    ANCIENT_SUBSET(ancient_input_ch, outgroups_ch)
     ch_versions = ch_versions.mix(ANCIENT_SUBSET.out.versions)
 
     // transform the plink files to vcf
@@ -188,7 +188,7 @@ workflow TSKIT {
     BCFTOOLS_MERGE(bcftools_input_ch, [[], []], [[], []], [])
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
-    // ESTSFS_INPUT(FOCAL_BEAGLE.out.vcf, FOCAL_TABIX.out.tbi, outgroup_ch)
+    ESTSFS_INPUT(BCFTOOLS_MERGE.out.merged_variants, samples_ch, outgroups_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

@@ -4,8 +4,8 @@ process ESTSFS_INPUT {
     label 'process_single'
 
     input:
-    tuple val(meta), path(vcf_focal)
-    tuple val(meta), path(tbi_focal)
+    tuple val(meta), path(vcf)
+    path(sample_file)
     path(outgroup_files)
 
     when:
@@ -13,7 +13,11 @@ process ESTSFS_INPUT {
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def outgroup_opts = outgroup_files.join('--outgroup ')
     """
-    echo ${vcf_focal} : ${outgroup_files}
+    make_est_sfs_input \\
+        --vcf ${vcf} \\
+        --focal ${sample_file} \\
+        --outgroup ${outgroup_opts}
     """
 }
