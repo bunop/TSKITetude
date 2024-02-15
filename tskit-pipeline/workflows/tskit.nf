@@ -189,6 +189,7 @@ workflow TSKIT {
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
     ESTSFS_INPUT(BCFTOOLS_MERGE.out.merged_variants, samples_ch, outgroups_ch)
+    ESTSFS_INPUT.out.estsfs_input.view()
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

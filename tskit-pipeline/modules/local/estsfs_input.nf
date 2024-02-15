@@ -8,6 +8,9 @@ process ESTSFS_INPUT {
     path(sample_file)
     path(outgroup_files)
 
+    output:
+    tuple val(meta), path("*.txt"), emit: estsfs_input
+
     when:
     task.ext.when == null || task.ext.when
 
@@ -18,6 +21,7 @@ process ESTSFS_INPUT {
     make_est_sfs_input \\
         --vcf ${vcf} \\
         --focal ${sample_file} \\
-        --outgroup ${outgroup_opts}
+        --outgroup ${outgroup_opts} \\
+        > ${prefix}.txt
     """
 }
