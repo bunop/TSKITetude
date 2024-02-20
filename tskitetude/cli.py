@@ -1,6 +1,8 @@
 
 import csv
 import logging
+import itertools
+import collections
 from typing import List
 
 import click
@@ -210,5 +212,65 @@ def make_est_sfs_input(
     type=click.Path(exists=True),
     required=True
 )
-def parse_est_sfs_output(mapping: click.Path, pvalues: click.Path):
-    pass
+@click.option(
+    "--output",
+    help="Output results file",
+    type=click.Path(exists=False),
+    required=True
+)
+def parse_est_sfs_output(
+        mapping: click.Path, pvalues: click.Path, output: click.Path):
+    """
+    inspired from: https://github.com/Popgen48/scalepopgen_v1/blob/defb5d6a8a95b3fd84bd4312c4a42ef2ef6b9b7b/modules/local/gawk/create_anc_files/main.nf
+    """
+
+    output_file = open(output, "w")
+    result_writer = csv.writer(output_file, delimiter=",", lineterminator="\n")
+
+    with open(mapping, "r") as mapping_file, open(pvalues, "r") as pvalues_file:
+        mapping_reader = csv.reader(mapping_file, delimiter=",", lineterminator="\n")
+        mapping_header = next(mapping_reader)
+
+        MappingRecord = collections.namedtuple('MappingRecord', mapping_header)
+
+        # drop 7 rows from pvalues file
+        pvalues_reader = csv.reader(pvalues_file, delimiter=" ", lineterminator="\n")
+        pvalues_header = next(itertools.islice(pvalues_reader, 7, 8))
+        pvalues_header[3] = "pmajor_ancestral"
+        del(pvalues_header[0])
+
+        PvaluesRecord = collections.namedtuple('PvaluesRecord', pvalues_header, rename=True)
+
+        result_header = mapping_header + ["pmajor_ancestral", "anc_allele", "der_allele"]
+        ResultRecord = collections.namedtuple('ResultRecord', result_header)
+        result_writer.writerow(result_header)
+
+        for tmp1, tmp2 in zip(mapping_reader, pvalues_reader):
+            mapping_record = MappingRecord(*tmp1)
+
+            # delete last element from tmp2 if empty
+            if tmp2[-1] == '':
+                tmp2 = tmp2[:-1]
+            pvalues_record = PvaluesRecord(*tmp2)
+
+            # determine if major allele is ALT  or REF
+            if mapping_record.major == mapping_record.ref:
+                if float(pvalues_record.pmajor_ancestral) < 0.5:
+                    anc_allele = mapping_record.alt
+                    der_allele = mapping_record.ref
+                else:
+                    anc_allele = mapping_record.ref
+                    der_allele = mapping_record.alt
+
+            else:
+                if float(pvalues_record.pmajor_ancestral) < 0.5:
+                    anc_allele = mapping_record.ref
+                    der_allele = mapping_record.alt
+                else:
+                    anc_allele = mapping_record.alt
+                    der_allele = mapping_record.ref
+
+            result_record = ResultRecord(*tmp1+[float(pvalues_record.pmajor_ancestral), anc_allele, der_allele])
+            result_writer.writerow(result_record)
+
+    output_file.close()

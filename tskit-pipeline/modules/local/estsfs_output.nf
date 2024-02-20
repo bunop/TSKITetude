@@ -6,10 +6,8 @@ process ESTSFS_OUTPUT {
     input:
     tuple val(meta), path(mapping), path(pvalues)
 
-    // output:
-    // tuple val(meta), path("*.txt"),     emit: input
-    // tuple val(meta), path("*.config"),  emit: config
-    // tuple val(meta), path("*.mapping"), emit: mapping
+    output:
+    tuple val(meta), path("*.ancestral.csv"),     emit: ancestral
 
     when:
     task.ext.when == null || task.ext.when
@@ -19,6 +17,7 @@ process ESTSFS_OUTPUT {
     """
     parse_est_sfs_output \\
         --mapping ${mapping} \\
-        --pvalues ${pvalues}
+        --pvalues ${pvalues} \\
+        --output ${prefix}.ancestral.csv
     """
 }

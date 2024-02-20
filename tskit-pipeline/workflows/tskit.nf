@@ -70,6 +70,7 @@ include {
 include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/merge/main'
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
 include { ESTSFS                            } from '../modules/nf-core/estsfs/main'
+include { ESTSFS_OUTPUT                     } from '../modules/local/estsfs_output'
 include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -196,6 +197,8 @@ workflow TSKIT {
         ESTSFS_INPUT.out.config.join(ESTSFS_INPUT.out.input)
     )
     ch_versions = ch_versions.mix(ESTSFS.out.versions)
+
+    ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
