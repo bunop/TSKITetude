@@ -1,11 +1,18 @@
 
 import csv
+import logging
 from typing import List
 
 import click
 from cyvcf2 import VCF
 
 from .helper import open_csv
+
+log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logging.basicConfig(level=logging.INFO, format=log_fmt)
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 @click.command()
@@ -41,6 +48,11 @@ from .helper import open_csv
     required=True
 )
 @click.option(
+    "--output_mapping",
+    help="Output mapping file",
+    required=True
+)
+@click.option(
     "--model",
     help="Model type",
     default=2
@@ -52,10 +64,22 @@ from .helper import open_csv
 )
 def make_est_sfs_input(
         vcf_file: click.Path, focal: click.Path, outgroups: List[click.Path],
-        output_data: str, output_config: str, model: int, nrandom: int):
+        output_data: str, output_config: str, output_mapping: str, model: int,
+        nrandom: int):
 
     data_handle = open(output_data, "w")
-    writer = csv.writer(data_handle, delimiter="\t", lineterminator="\n")
+    data_writer = csv.writer(data_handle, delimiter="\t", lineterminator="\n")
+
+    mapping_handle = open(output_mapping, "w")
+    mapping_writer = csv.writer(mapping_handle, delimiter=",", lineterminator="\n")
+
+    # since the mapping writer will be used by the pipeline, add header:
+    header = ["chrom", "pos", "ref", "alt"]
+
+    for idx, outgroup in enumerate(outgroups):
+        header.append(f"outgroup_{idx+1}")
+
+    mapping_writer.writerow(header)
 
     # read focal samples
     focal_samples = [sample_id for _, sample_id in open_csv(focal)]
@@ -70,22 +94,56 @@ def make_est_sfs_input(
 
     for variant in vcf:
         # test if I have all genotypes for focal samples. All my focal variants
-        # are at the left side of the VCF
+        # are at the left side of the VCF (I have imputed this data, if I'm skipping
+        # a variant, maybe I have ancient allele and not focal, for example
+        # when ancient is an HD variant and focal not)
         if (-1, -1) in [
             (a1, a2) for a1, a2, _ in variant.genotypes[0:len(focal_samples)]]:
+            logger.debug(
+                f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
+                "missing a focal sample genotype"
+            )
             continue
 
+        # there's the possibility to have no ALT  allele
+        if not variant.ALT:
+            logger.warning(
+                f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
+                "no ALT allele!"
+            )
+            continue
+
+        # there's the possibility to have more than 1 ALT allele: s42964.1
+        # for example seems to have different reference sequence than forward
+        # and ncbi alleles, while normalization fix the reference allele
+        # but not genotypes. Discard SNP
+        if len(variant.ALT) > 1:
+            logger.warning(
+                f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
+                f"multiple ALT alleles ({variant.ALT})"
+            )
+            continue
+
+        # TODO: need I to check if I have *at least* one allele for all outgroups?
+
+        # get all genotype (as letters) for each sample
         genotypes = {sample: genotype for sample, genotype in zip(
             vcf.samples, variant.gt_bases)}
+
+        mapping_record = [
+            variant.CHROM, variant.POS, variant.REF, variant.ALT[0]]
 
         # A, C, G, T count for focal samples
         bases = ["A", "C", "G", "T"]
         focal_counts = [0, 0, 0, 0]
 
+        # instantiate counts for outgroups. This will be a dict, where key is
+        # the outgroup index, and value the count array
         outgroup_counts = {}
         for i in range(len(outgroups)):
             outgroup_counts[i] = [0, 0, 0, 0]
 
+        # process all focal samples and count alleles
         for focal_sample in focal_samples:
             # I suppose that my focal samples are always phased
             genotype = genotypes[focal_sample].split("|")
@@ -103,7 +161,9 @@ def make_est_sfs_input(
                     idx = bases.index(allele)
                     outgroup_counts[i][idx] += 1
 
-            # get the most common allele for outgroup
+            # get the most common allele for outgroup, since outgroup
+            # alleles need to have only one count for ancestor alleles,
+            # not the total count as samples
             most_common_idx = max(
                 enumerate(outgroup_counts[i]), key=lambda x: x[1])[0]
 
@@ -111,16 +171,22 @@ def make_est_sfs_input(
             outgroup_counts[i] = [0, 0, 0, 0]
             outgroup_counts[i][most_common_idx] = 1
 
+            # track outgroup allele
+            mapping_record.append(bases[most_common_idx])
+
         # time to define the output record
-        record = [",".join([str(count) for count in focal_counts])]
+        data_record = [",".join([str(count) for count in focal_counts])]
 
         for i in range(len(outgroups)):
-            record += [",".join([str(count) for count in outgroup_counts[i]])]
+            data_record += [
+                ",".join([str(count) for count in outgroup_counts[i]])]
 
-        # print a est-sfs input file record
-        writer.writerow(record)
+        # print a est-sfs input file record and track mapping
+        data_writer.writerow(data_record)
+        mapping_writer.writerow(mapping_record)
 
     data_handle.close()
+    mapping_handle.close()
 
     # write a config file
     with open(output_config, "w") as handle:
