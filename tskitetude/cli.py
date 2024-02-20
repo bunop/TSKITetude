@@ -67,6 +67,10 @@ def make_est_sfs_input(
         output_data: str, output_config: str, output_mapping: str, model: int,
         nrandom: int):
 
+    """
+    inspired from: "https://github.com/Popgen48/scalepopgen_v1/blob/defb5d6a8a95b3fd84bd4312c4a42ef2ef6b9b7b/bin/create_estsfs_inputs.py"
+    """
+
     data_handle = open(output_data, "w")
     data_writer = csv.writer(data_handle, delimiter="\t", lineterminator="\n")
 
@@ -74,11 +78,7 @@ def make_est_sfs_input(
     mapping_writer = csv.writer(mapping_handle, delimiter=",", lineterminator="\n")
 
     # since the mapping writer will be used by the pipeline, add header:
-    header = ["chrom", "pos", "ref", "alt"]
-
-    for idx, outgroup in enumerate(outgroups):
-        header.append(f"outgroup_{idx+1}")
-
+    header = ["chrom", "pos", "ref", "alt", "major"]
     mapping_writer.writerow(header)
 
     # read focal samples
@@ -171,8 +171,10 @@ def make_est_sfs_input(
             outgroup_counts[i] = [0, 0, 0, 0]
             outgroup_counts[i][most_common_idx] = 1
 
-            # track outgroup allele
-            mapping_record.append(bases[most_common_idx])
+        # determine the major allele in focal samples
+        most_common_idx = max(
+            enumerate(focal_counts), key=lambda x: x[1])[0]
+        mapping_record.append(bases[most_common_idx])
 
         # time to define the output record
         data_record = [",".join([str(count) for count in focal_counts])]

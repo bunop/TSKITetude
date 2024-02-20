@@ -11,6 +11,7 @@ process ESTSFS_INPUT {
     output:
     tuple val(meta), path("*.txt"),     emit: input
     tuple val(meta), path("*.config"),  emit: config
+    tuple val(meta), path("*.mapping"), emit: mapping
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,6 +28,7 @@ process ESTSFS_INPUT {
         --outgroup ${outgroup_opts} \\
         --output_data ${prefix}.txt \\
         --output_config ${prefix}.config \\
+        --output_mapping ${prefix}.mapping \\
         --model ${model} \\
         --nrandom ${nrandom}
     """
