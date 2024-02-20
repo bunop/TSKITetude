@@ -195,3 +195,20 @@ def make_est_sfs_input(
         handle.write(f"n_outgroup {len(outgroups)}\n")
         handle.write(f"model {model}\n")
         handle.write(f"nrandom {nrandom}\n")
+
+
+@click.command()
+@click.option(
+    "--mapping",
+    help="est-sfs mapping file",
+    type=click.Path(exists=True),
+    required=True
+)
+@click.option(
+    "--pvalues",
+    help="est-sfs pvalues file",
+    type=click.Path(exists=True),
+    required=True
+)
+def parse_est_sfs_output(mapping: click.Path, pvalues: click.Path):
+    pass

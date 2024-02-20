@@ -26,6 +26,7 @@ pickleshare = "^0.7.5"
 
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.cli:make_est_sfs_input"
+parse_est_sfs_output = "tskitetude.cli:parse_est_sfs_output"
 
 [build-system]
 requires = ["poetry-core"]
