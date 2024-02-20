@@ -81,14 +81,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/du
 // Info required for completion email and summary
 def multiqc_report = []
 
-process GENERATE_SEED {
-    output:
-    path 'seedfile.txt'
-
-    '''
-    echo $RANDOM > seedfile.txt
-    '''
-}
 
 workflow TSKIT {
     ch_versions = Channel.empty()
@@ -200,17 +192,9 @@ workflow TSKIT {
 
     ESTSFS_INPUT(BCFTOOLS_MERGE.out.merged_variants, samples_ch, outgroups_ch)
 
-    // determine a seedfile
-    seedfile = GENERATE_SEED()
-
-    estsfs_input_ch = ESTSFS_INPUT.out.input
-        .join(ESTSFS_INPUT.out.config)
-        .concat(seedfile)
-        .collect()
-        .map{ meta, data, config, seed -> [meta, config, data, seed]}
-        // .view()
-
-    ESTSFS(estsfs_input_ch)
+    ESTSFS(
+        ESTSFS_INPUT.out.config.join(ESTSFS_INPUT.out.input)
+    )
     ch_versions = ch_versions.mix(ESTSFS.out.versions)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
