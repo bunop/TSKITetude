@@ -55,4 +55,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=bunop/tskitetude:latest
-          cache-to: type=inline
+          cache-to: type=registry,ref=bunop/tskitetude:latest,mode=max
