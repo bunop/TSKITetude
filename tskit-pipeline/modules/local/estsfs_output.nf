@@ -3,7 +3,7 @@ process ESTSFS_OUTPUT {
     tag "$meta.id"
     label 'process_single'
 
-    container "docker.io/bunop/tskitetude:0.1.0"
+    container "docker.io/bunop/tskitetude:0.2.0"
 
     input:
     tuple val(meta), path(mapping), path(pvalues)
