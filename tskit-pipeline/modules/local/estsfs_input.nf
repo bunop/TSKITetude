@@ -3,6 +3,8 @@ process ESTSFS_INPUT {
     tag "$meta.id"
     label 'process_single'
 
+    container "docker.io/bunop/tskitetude:0.1.0"
+
     input:
     tuple val(meta), path(vcf)
     path(sample_file)

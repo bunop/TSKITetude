@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "ATCG",
+        "bumpversion",
         "chrom",
         "cyvcf",
         "dotenv",

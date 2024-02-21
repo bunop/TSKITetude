@@ -1,5 +1,15 @@
 # TSKITetude
 
+## Install poetry
+
+Install poetry (see <https://python-poetry.org/docs/#installation>)
+
+Install [poetry-bumpversion](https://pypi.org/project/poetry-bumpversion/) plugin with:
+
+```bash
+poetry self add poetry-bumpversion
+```
+
 ## Install from git repository
 
 Simply clone this project with

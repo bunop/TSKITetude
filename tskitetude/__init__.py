@@ -5,9 +5,8 @@ An helper library to deal with tskit objects
 """
 
 import pathlib
-import pkg_resources
 
-__version__ = pkg_resources.get_distribution(__name__).version
+__version__ = "0.1.0"
 __author__ = "Paolo Cozzi"
 
 
