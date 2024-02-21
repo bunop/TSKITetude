@@ -256,19 +256,19 @@ def parse_est_sfs_output(
             # determine if major allele is ALT  or REF
             if mapping_record.major == mapping_record.ref:
                 if float(pvalues_record.pmajor_ancestral) < 0.5:
-                    anc_allele = mapping_record.alt
-                    der_allele = mapping_record.ref
+                    anc_allele = 1
+                    der_allele = 0
                 else:
-                    anc_allele = mapping_record.ref
-                    der_allele = mapping_record.alt
+                    anc_allele = 0
+                    der_allele = 1
 
             else:
                 if float(pvalues_record.pmajor_ancestral) < 0.5:
-                    anc_allele = mapping_record.ref
-                    der_allele = mapping_record.alt
+                    anc_allele = 0
+                    der_allele = 1
                 else:
-                    anc_allele = mapping_record.alt
-                    der_allele = mapping_record.ref
+                    anc_allele = 1
+                    der_allele = 0
 
             result_record = ResultRecord(*tmp1+[float(pvalues_record.pmajor_ancestral), anc_allele, der_allele])
             result_writer.writerow(result_record)

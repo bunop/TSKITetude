@@ -69,6 +69,6 @@ def get_ancestors_alleles(csv_file: str) -> dict:
     ancestors = {}
 
     for record in (ResultRecord(*line) for line in reader):
-        ancestors[(record.chrom, int(record.pos))] = record.anc_allele
+        ancestors[(record.chrom, int(record.pos))] = int(record.anc_allele)
 
     return ancestors
