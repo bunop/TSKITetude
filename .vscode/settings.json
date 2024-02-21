@@ -4,6 +4,7 @@
         "cyvcf",
         "dotenv",
         "estsfs",
+        "indv",
         "msprime",
         "musimon",
         "mypath",
@@ -14,14 +15,21 @@
         "ovis",
         "plinkfile",
         "plinkio",
+        "ploidy",
         "pmajor",
         "pvalues",
         "Renviron",
+        "seqlen",
+        "seqlens",
+        "seqname",
+        "seqnames",
         "smarterapi",
+        "tqdm",
         "tsdate",
         "tsinfer",
         "TSKIT",
         "tskitetude",
-        "tstree"
+        "tstree",
+        "Unphased"
     ]
 }

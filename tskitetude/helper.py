@@ -1,5 +1,7 @@
 
 import csv
+import collections
+
 import tsinfer
 
 
@@ -52,3 +54,21 @@ def add_diploid_individuals(
         )
 
     return indv_lookup
+
+
+def get_ancestors_alleles(csv_file: str) -> dict:
+    """
+    read tskit-pipeline ancestor file an returns a dictionary
+    """
+
+    reader = open_csv(csv_file)
+    header = next(reader)
+
+    ResultRecord = collections.namedtuple('ResultRecord', header)
+
+    ancestors = {}
+
+    for record in (ResultRecord(*line) for line in reader):
+        ancestors[(record.chrom, int(record.pos))] = record.anc_allele
+
+    return ancestors
