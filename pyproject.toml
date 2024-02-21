@@ -25,8 +25,8 @@ plinkio = {git = "https://github.com/bunop/libplinkio.git", rev = "bc1c13507cf5c
 pickleshare = "^0.7.5"
 
 [tool.poetry.scripts]
-make_est_sfs_input = "tskitetude.cli:make_est_sfs_input"
-parse_est_sfs_output = "tskitetude.cli:parse_est_sfs_output"
+make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"
+parse_est_sfs_output = "tskitetude.estsfs:parse_est_sfs_output"
 
 [build-system]
 requires = ["poetry-core"]
