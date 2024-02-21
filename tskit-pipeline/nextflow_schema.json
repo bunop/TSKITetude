@@ -230,7 +230,27 @@
     },
     "plink_geno": {
       "type": "number",
-      "default": 0.01
+      "default": 0.1
+    },
+    "outgroup1": {
+      "type": "string"
+    },
+    "outgroup2": {
+      "type": "string"
+    },
+    "outgroup3": {
+      "type": "string"
+    },
+    "genome": {
+      "type": "string"
+    },
+    "estsfs_model": {
+      "type": "integer",
+      "default": 2
+    },
+    "estsfs_nrandom": {
+      "type": "integer",
+      "default": 10
     }
   }
 }
