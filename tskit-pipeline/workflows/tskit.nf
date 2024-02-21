@@ -71,6 +71,7 @@ include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
 include { ESTSFS                            } from '../modules/nf-core/estsfs/main'
 include { ESTSFS_OUTPUT                     } from '../modules/local/estsfs_output'
+include { TSINFER                           } from '../modules/local/tsinfer'
 include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
 /*
@@ -191,6 +192,7 @@ workflow TSKIT {
     BCFTOOLS_MERGE(bcftools_input_ch, [[], []], [[], []], [])
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
+    // calculate ancestral alleles
     ESTSFS_INPUT(BCFTOOLS_MERGE.out.merged_variants, samples_ch, outgroups_ch)
 
     ESTSFS(
@@ -199,6 +201,9 @@ workflow TSKIT {
     ch_versions = ch_versions.mix(ESTSFS.out.versions)
 
     ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
+
+    // now create a tstree file
+    TSINFER(FOCAL_NORM.out.vcf, ESTSFS_OUTPUT.out.ancestral, samples_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

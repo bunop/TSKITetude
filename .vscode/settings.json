@@ -1,10 +1,13 @@
 {
     "cSpell.words": [
+        "ATCG",
         "chrom",
         "cyvcf",
         "dotenv",
         "estsfs",
         "indv",
+        "levelname",
+        "mininterval",
         "msprime",
         "musimon",
         "mypath",

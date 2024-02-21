@@ -27,6 +27,7 @@ pickleshare = "^0.7.5"
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"
 parse_est_sfs_output = "tskitetude.estsfs:parse_est_sfs_output"
+create_tstree = "tskitetude.helper:create_tstree"
 
 [build-system]
 requires = ["poetry-core"]
