@@ -203,13 +203,13 @@ workflow TSKIT {
     // split estsfs input file by size
     estsfs_in_ch = ESTSFS_INPUT.out.input
         .map{ it -> it[1] }
-        .splitText(by: 500, file: true)
+        .splitText(by: params.estsfs_maxalleles, file: true)
         // .view()
 
     // mind header with mapping file. Re assign a meta id for joining later
     estsfs_map_ch = ESTSFS_INPUT.out.mapping
         .map{ it -> it[1] }
-        .splitText(by: 500, file: true, keepHeader: true)
+        .splitText(by: params.estsfs_maxalleles, file: true, keepHeader: true)
         .map{ it -> [[id:it.getBaseName()], it] }
         // .view()
 
