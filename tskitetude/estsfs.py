@@ -98,12 +98,24 @@ def make_est_sfs_input(
         # test if I have all genotypes for focal samples. All my focal variants
         # are at the left side of the VCF (I have imputed this data, if I'm skipping
         # a variant, maybe I have ancient allele and not focal, for example
-        # when ancient is an HD variant and focal not)
-        if (-1, -1) in [
-            (a1, a2) for a1, a2, _ in variant.genotypes[0:len(focal_samples)]]:
+        # when ancient is an HD variant and focal not).
+        # My focal samples have been inputed, so I will not expect an half missing
+        # or a missing samples in focal genotype
+        if (-1, -1) in (
+            (a1, a2) for a1, a2, _ in variant.genotypes[0:len(focal_samples)]):
             logger.debug(
                 f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
                 "missing a focal sample genotype"
+            )
+            continue
+
+        # there's also the possibility that all the ancient genotypes are missing:
+        # even in this casa I need to skip the variant
+        if all(x == (-1, -1) for x in (
+                (a1, a2) for a1, a2, _ in variant.genotypes[len(focal_samples):])):
+            logger.warning(
+                f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
+                "all ancient samples are missing"
             )
             continue
 
@@ -160,7 +172,15 @@ def make_est_sfs_input(
                 genotype = genotypes[outgroup_sample].split("/")
 
                 for allele in genotype:
-                    idx = bases.index(allele)
+                    if allele == '.':
+                        # I've already excluded that all my samples are missing
+                        logger.warning(
+                            f"skipping allele for {outgroup_sample} at "
+                            f"{variant.ID} ({variant.CHROM}:{variant.POS}): "
+                            f"{genotype}"
+                        )
+                        continue
+
                     outgroup_counts[i][idx] += 1
 
             # get the most common allele for outgroup, since outgroup
