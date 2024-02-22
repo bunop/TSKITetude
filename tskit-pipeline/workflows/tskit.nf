@@ -108,9 +108,10 @@ workflow TSKIT {
     outgroup1 = Channel.fromPath( params.outgroup1, checkIfExists: true)
     outgroup2 = params.outgroup2 ? Channel.fromPath(params.outgroup2, checkIfExists: true): Channel.empty()
     outgroup3 = params.outgroup3 ? Channel.fromPath(params.outgroup3, checkIfExists: true): Channel.empty()
-    outgroups_ch = outgroup1
+    outgroup_files_ch = outgroup1
         .concat(outgroup2)
         .concat(outgroup3)
+    outgroups_ch = outgroup_files_ch
         .splitCsv(header: ["breed", "sample_id"], sep: "\t", strip: true)
         .map{ it -> "${it.breed}\t${it.sample_id}" }
         .collectFile(name: 'outgroups.txt', newLine: true)
@@ -193,7 +194,11 @@ workflow TSKIT {
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
     // calculate ancestral alleles
-    ESTSFS_INPUT(BCFTOOLS_MERGE.out.merged_variants, samples_ch, outgroups_ch)
+    ESTSFS_INPUT(
+        BCFTOOLS_MERGE.out.merged_variants,
+        samples_ch,
+        outgroup_files_ch.collect()
+    )
 
     ESTSFS(
         ESTSFS_INPUT.out.config.join(ESTSFS_INPUT.out.input)

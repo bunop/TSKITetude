@@ -20,7 +20,7 @@ process ESTSFS_INPUT {
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def outgroup_opts = outgroup_files.join('--outgroup ')
+    def outgroup_opts = outgroup_files.join(' --outgroup ')
     def model = "${params.estsfs_model}"
     def nrandom = "${params.estsfs_nrandom}"
     """

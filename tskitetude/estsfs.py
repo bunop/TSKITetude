@@ -228,6 +228,9 @@ def make_est_sfs_input(
         data_writer.writerow(data_record)
         mapping_writer.writerow(mapping_record)
 
+        data_handle.flush()
+        mapping_handle.flush()
+
     data_handle.close()
     mapping_handle.close()
 
