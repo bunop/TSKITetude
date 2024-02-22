@@ -113,7 +113,7 @@ def make_est_sfs_input(
         # even in this casa I need to skip the variant
         if all(x == (-1, -1) for x in (
                 (a1, a2) for a1, a2, _ in variant.genotypes[len(focal_samples):])):
-            logger.warning(
+            logger.debug(
                 f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
                 "all ancient samples are missing"
             )
@@ -163,7 +163,16 @@ def make_est_sfs_input(
             genotype = genotypes[focal_sample].split("|")
 
             for allele in genotype:
-                idx = bases.index(allele)
+                try:
+                    # search upper allele: reference sequence coul be soft
+                    # masked
+                    idx = bases.index(allele.upper())
+
+                except ValueError as exc:
+                    logger.warning(f"{variant}")
+                    logger.warning(f"{genotype}")
+                    raise exc
+
                 focal_counts[idx] += 1
 
         # time to count for outgroup samples
@@ -174,12 +183,22 @@ def make_est_sfs_input(
                 for allele in genotype:
                     if allele == '.':
                         # I've already excluded that all my samples are missing
-                        logger.warning(
+                        logger.debug(
                             f"skipping allele for {outgroup_sample} at "
                             f"{variant.ID} ({variant.CHROM}:{variant.POS}): "
                             f"{genotype}"
                         )
                         continue
+
+                    try:
+                        # search upper allele: reference sequence coul be soft
+                        # masked
+                        idx = bases.index(allele.upper())
+
+                    except ValueError as exc:
+                        logger.warning(f"{variant}")
+                        logger.warning(f"{genotype}")
+                        raise exc
 
                     outgroup_counts[i][idx] += 1
 
