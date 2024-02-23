@@ -108,9 +108,10 @@ workflow TSKIT {
     outgroup1 = Channel.fromPath( params.outgroup1, checkIfExists: true)
     outgroup2 = params.outgroup2 ? Channel.fromPath(params.outgroup2, checkIfExists: true): Channel.empty()
     outgroup3 = params.outgroup3 ? Channel.fromPath(params.outgroup3, checkIfExists: true): Channel.empty()
-    outgroups_ch = outgroup1
+    outgroup_files_ch = outgroup1
         .concat(outgroup2)
         .concat(outgroup3)
+    outgroups_ch = outgroup_files_ch
         .splitCsv(header: ["breed", "sample_id"], sep: "\t", strip: true)
         .map{ it -> "${it.breed}\t${it.sample_id}" }
         .collectFile(name: 'outgroups.txt', newLine: true)
@@ -193,17 +194,47 @@ workflow TSKIT {
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
     // calculate ancestral alleles
-    ESTSFS_INPUT(BCFTOOLS_MERGE.out.merged_variants, samples_ch, outgroups_ch)
+    ESTSFS_INPUT(
+        BCFTOOLS_MERGE.out.merged_variants,
+        samples_ch,
+        outgroup_files_ch.collect()
+    )
 
+    // split estsfs input file by size
+    estsfs_in_ch = ESTSFS_INPUT.out.input
+        .map{ it -> it[1] }
+        .splitText(by: params.estsfs_maxalleles, file: true)
+        // .view()
+
+    // mind header with mapping file. Re assign a meta id for joining later
+    estsfs_map_ch = ESTSFS_INPUT.out.mapping
+        .map{ it -> it[1] }
+        .splitText(by: params.estsfs_maxalleles, file: true, keepHeader: true)
+        .map{ it -> [[id:it.getBaseName()], it] }
+        // .view()
+
+    // here's a single call of est-sfs with a single chunk
     ESTSFS(
-        ESTSFS_INPUT.out.config.join(ESTSFS_INPUT.out.input)
+        ESTSFS_INPUT.out.config
+            .combine(estsfs_in_ch)
+            .map { meta, config, data -> [[id:data.getBaseName()], config, data] }
+            // .view()
     )
     ch_versions = ch_versions.mix(ESTSFS.out.versions)
 
-    ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
+    // processing est-sfs by joining mapping files with common meta.id
+    ESTSFS_OUTPUT(estsfs_map_ch.join(ESTSFS.out.pvalues_out))
+
+    // take all the processed file into one. Ideally the order does't matter
+    // considering how is implemented TSINFER step
+    ancestral_ch = ESTSFS_OUTPUT.out.ancestral
+        .map{ it -> it[1] }
+        .collectFile(name: "samples-merged.ancestral.csv", keepHeader: true)
+        .map{ it -> [[id: "samples-merged"], it]}
+        // .view()
 
     // now create a tstree file
-    TSINFER(FOCAL_NORM.out.vcf, ESTSFS_OUTPUT.out.ancestral, samples_ch)
+    TSINFER(FOCAL_NORM.out.vcf, ancestral_ch, samples_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')

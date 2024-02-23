@@ -121,7 +121,8 @@ def get_chromosome_lengths(vcf: cyvcf2.VCF) -> Dict[str, int]:
 
 def add_diploid_sites(
         vcf: cyvcf2.VCF, samples: tsinfer.Sample,
-        ancestors_alleles: Dict[Tuple[str, int], int]):
+        ancestors_alleles: Dict[Tuple[str, int], int],
+        chromosome_length: Dict[str, int]):
     """
     Read the sites in the vcf and add them to the samples object.
     """
@@ -130,6 +131,11 @@ def add_diploid_sites(
     # "*" (a spanning deletion) to be a valid allele state
     allele_chars = set("ATCG*")
     pos = 0
+
+    # we are supposing to append positions to the same chromosome. I need
+    # to track an offset for the region I've already seen
+    old_chrom = None
+    offset = 0
 
     # deal with logging an progress bar
     tqdm_out = TqdmToLogger(logger, level=logging.INFO)
@@ -140,15 +146,26 @@ def add_diploid_sites(
         unit='bp',
         file=tqdm_out)
 
-    for variant in vcf:  # Loop over variants, each assumed at a unique site
-        progressbar.update(variant.POS - pos)
+    # Loop over variants, each assumed at a unique site
+    for variant in vcf:
+        if not old_chrom:
+            # initialize first chrom
+            old_chrom = variant.CHROM
 
-        if pos == variant.POS:
+        if old_chrom != variant.CHROM:
+            # update offset
+            offset += chromosome_length[old_chrom]
+            old_chrom = variant.CHROM
+
+        # considering offset when doing stuff
+        progressbar.update(variant.POS + offset - pos)
+
+        if pos == variant.POS + offset:
             print(f"Duplicate entries at position {pos}, ignoring all but the first")
             continue
 
         else:
-            pos = variant.POS
+            pos = variant.POS + offset
 
         if any([not phased for _, _, phased in variant.genotypes]):
             raise ValueError("Unphased genotypes for variant at position", pos)
@@ -200,9 +217,29 @@ def add_diploid_sites(
     type=click.Path(exists=False),
     required=True
 )
+@click.option(
+    "--num_threads",
+    help="number of threads with tsinfer",
+    type=int,
+    default=1
+)
+@click.option(
+    "--mutation_rate",
+    help="tsdate mutation rate",
+    type=float,
+    default=1e-8
+)
+@click.option(
+    "--ne",
+    "Ne",
+    help="tsdate effective population size",
+    type=float,
+    default=1e4
+)
 def create_tstree(
         vcf_file: click.Path, focal_csv: click.Path, ancestral: click.Path,
-        output_samples: click.Path, output_trees: click.Path):
+        output_samples: click.Path, output_trees: click.Path, num_threads: int,
+        mutation_rate: float, Ne: float):
     """
     Read data from phased VCF an try to create a tsinfer.Sample using ancestor
     alleles CSV file
@@ -223,7 +260,7 @@ def create_tstree(
 
         pop_lookup = add_populations(focal_csv, samples)
         add_diploid_individuals(focal_csv, pop_lookup, samples)
-        add_diploid_sites(vcf, samples, ancestors_alleles)
+        add_diploid_sites(vcf, samples, ancestors_alleles, chromosome_lengths)
 
     logger.info(
         f"Sample file created for {samples.num_samples} samples "
@@ -232,7 +269,10 @@ def create_tstree(
     )
 
     # Do the inference
-    sparrow_ts = tsinfer.infer(samples)
+    sparrow_ts = tsinfer.infer(
+        samples,
+        num_threads=num_threads
+    )
 
     logger.info(
         f"Inferred tree sequence `sparrow_ts`: {sparrow_ts.num_trees} "
@@ -254,7 +294,11 @@ def create_tstree(
 
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
     inferred_ts = tsdate.preprocess_ts(sparrow_ts, filter_sites=False)
-    dated_ts = tsdate.date(inferred_ts, mutation_rate=1e-8, Ne=1e4)
+    dated_ts = tsdate.date(
+        inferred_ts,
+        mutation_rate=mutation_rate,
+        Ne=Ne
+    )
 
     # save generated tree
     dated_ts.dump(output_trees)

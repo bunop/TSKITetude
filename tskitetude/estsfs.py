@@ -98,12 +98,24 @@ def make_est_sfs_input(
         # test if I have all genotypes for focal samples. All my focal variants
         # are at the left side of the VCF (I have imputed this data, if I'm skipping
         # a variant, maybe I have ancient allele and not focal, for example
-        # when ancient is an HD variant and focal not)
-        if (-1, -1) in [
-            (a1, a2) for a1, a2, _ in variant.genotypes[0:len(focal_samples)]]:
+        # when ancient is an HD variant and focal not).
+        # My focal samples have been inputed, so I will not expect an half missing
+        # or a missing samples in focal genotype
+        if (-1, -1) in (
+            (a1, a2) for a1, a2, _ in variant.genotypes[0:len(focal_samples)]):
             logger.debug(
                 f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
                 "missing a focal sample genotype"
+            )
+            continue
+
+        # there's also the possibility that all the ancient genotypes are missing:
+        # even in this casa I need to skip the variant
+        if all(x == (-1, -1) for x in (
+                (a1, a2) for a1, a2, _ in variant.genotypes[len(focal_samples):])):
+            logger.debug(
+                f"skipping {variant.ID} ({variant.CHROM}:{variant.POS}): "
+                "all ancient samples are missing"
             )
             continue
 
@@ -151,7 +163,16 @@ def make_est_sfs_input(
             genotype = genotypes[focal_sample].split("|")
 
             for allele in genotype:
-                idx = bases.index(allele)
+                try:
+                    # search upper allele: reference sequence coul be soft
+                    # masked
+                    idx = bases.index(allele.upper())
+
+                except ValueError as exc:
+                    logger.warning(f"{variant}")
+                    logger.warning(f"{genotype}")
+                    raise exc
+
                 focal_counts[idx] += 1
 
         # time to count for outgroup samples
@@ -160,7 +181,25 @@ def make_est_sfs_input(
                 genotype = genotypes[outgroup_sample].split("/")
 
                 for allele in genotype:
-                    idx = bases.index(allele)
+                    if allele == '.':
+                        # I've already excluded that all my samples are missing
+                        logger.debug(
+                            f"skipping allele for {outgroup_sample} at "
+                            f"{variant.ID} ({variant.CHROM}:{variant.POS}): "
+                            f"{genotype}"
+                        )
+                        continue
+
+                    try:
+                        # search upper allele: reference sequence coul be soft
+                        # masked
+                        idx = bases.index(allele.upper())
+
+                    except ValueError as exc:
+                        logger.warning(f"{variant}")
+                        logger.warning(f"{genotype}")
+                        raise exc
+
                     outgroup_counts[i][idx] += 1
 
             # get the most common allele for outgroup, since outgroup
@@ -188,6 +227,9 @@ def make_est_sfs_input(
         # print a est-sfs input file record and track mapping
         data_writer.writerow(data_record)
         mapping_writer.writerow(mapping_record)
+
+        data_handle.flush()
+        mapping_handle.flush()
 
     data_handle.close()
     mapping_handle.close()
@@ -248,10 +290,9 @@ def parse_est_sfs_output(
         for tmp1, tmp2 in zip(mapping_reader, pvalues_reader):
             mapping_record = MappingRecord(*tmp1)
 
-            # delete last element from tmp2 if empty
-            if tmp2[-1] == '':
-                tmp2 = tmp2[:-1]
-            pvalues_record = PvaluesRecord(*tmp2)
+            # est-sfs define up to 19 colums: for the moment I will truncate
+            # all the data after the header size
+            pvalues_record = PvaluesRecord(*tmp2[:len(pvalues_header)])
 
             # determine if major allele is ALT  or REF
             if mapping_record.major == mapping_record.ref:

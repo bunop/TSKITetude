@@ -5,5 +5,6 @@
     "outgroup1": "data/european_mouflon.tsv",
     "outgroup2": "data/sardinian_mouflon.tsv",
     "outgroup3": "data/spanish_mouflon.tsv",
+    "genome": "data/Oar_v3.1_genome.fna.gz",
     "max_memory": "48.GB"
 }
