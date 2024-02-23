@@ -290,10 +290,9 @@ def parse_est_sfs_output(
         for tmp1, tmp2 in zip(mapping_reader, pvalues_reader):
             mapping_record = MappingRecord(*tmp1)
 
-            # delete last element from tmp2 if empty
-            if tmp2[-1] == '':
-                tmp2 = tmp2[:-1]
-            pvalues_record = PvaluesRecord(*tmp2)
+            # est-sfs define up to 19 colums: for the moment I will truncate
+            # all the data after the header size
+            pvalues_record = PvaluesRecord(*tmp2[:len(pvalues_header)])
 
             # determine if major allele is ALT  or REF
             if mapping_record.major == mapping_record.ref:
