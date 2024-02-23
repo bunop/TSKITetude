@@ -3,7 +3,7 @@ process TSINFER {
     tag "$meta.id"
     label 'process_medium'
 
-    container "docker.io/bunop/tskitetude:0.2.0"
+    container "docker.io/bunop/tskitetude:0.2.1"
 
     input:
     tuple val(meta), path(vcf)
