@@ -1,7 +1,7 @@
 
 process TSINFER {
     tag "$meta.id"
-    label 'process_single'
+    label 'process_medium'
 
     container "docker.io/bunop/tskitetude:0.2.0"
 
@@ -19,12 +19,15 @@ process TSINFER {
 
     script:
     def prefix = task.ext.prefix ?: "${meta.id}"
+    def args = task.ext.args ?: ''
     """
     create_tstree \\
         --vcf ${vcf} \\
         --focal ${sample_file} \\
         --ancestral ${ancestral} \\
         --output_samples ${prefix}.samples \\
-        --output_trees ${prefix}.trees
+        --output_trees ${prefix}.trees \\
+        --num_threads $task.cpus \\
+        $args
     """
 }

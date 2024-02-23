@@ -217,9 +217,29 @@ def add_diploid_sites(
     type=click.Path(exists=False),
     required=True
 )
+@click.option(
+    "--num_threads",
+    help="number of threads with tsinfer",
+    type=int,
+    default=1
+)
+@click.option(
+    "--mutation_rate",
+    help="tsdate mutation rate",
+    type=float,
+    default=1e-8
+)
+@click.option(
+    "--ne",
+    "Ne",
+    help="tsdate effective population size",
+    type=float,
+    default=1e4
+)
 def create_tstree(
         vcf_file: click.Path, focal_csv: click.Path, ancestral: click.Path,
-        output_samples: click.Path, output_trees: click.Path):
+        output_samples: click.Path, output_trees: click.Path, num_threads: int,
+        mutation_rate: float, Ne: float):
     """
     Read data from phased VCF an try to create a tsinfer.Sample using ancestor
     alleles CSV file
@@ -249,7 +269,10 @@ def create_tstree(
     )
 
     # Do the inference
-    sparrow_ts = tsinfer.infer(samples)
+    sparrow_ts = tsinfer.infer(
+        samples,
+        num_threads=num_threads
+    )
 
     logger.info(
         f"Inferred tree sequence `sparrow_ts`: {sparrow_ts.num_trees} "
@@ -271,7 +294,11 @@ def create_tstree(
 
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
     inferred_ts = tsdate.preprocess_ts(sparrow_ts, filter_sites=False)
-    dated_ts = tsdate.date(inferred_ts, mutation_rate=1e-8, Ne=1e4)
+    dated_ts = tsdate.date(
+        inferred_ts,
+        mutation_rate=mutation_rate,
+        Ne=Ne
+    )
 
     # save generated tree
     dated_ts.dump(output_trees)
