@@ -70,7 +70,7 @@ include { BCFTOOLS_REHEADER                 } from '../modules/nf-core/bcftools/
 include {
     TABIX_TABIX as FOCAL_TABIX;
     TABIX_TABIX as ANCIENT_TABIX;
-    TABIX_TABIX as BEAGLE_TABIX;
+    TABIX_TABIX as REHEADER_TABIX;
     TABIX_TABIX as ANCIENT_SPLIT_TABIX      } from '../modules/nf-core/tabix/tabix/main'
 include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/merge/main'
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
@@ -201,7 +201,7 @@ workflow TSKIT {
     ch_versions = ch_versions.mix(BCFTOOLS_REHEADER.out.versions)
 
     // index beagle genotype
-    BEAGLE_TABIX(BCFTOOLS_REHEADER.out.vcf)
+    REHEADER_TABIX(BCFTOOLS_REHEADER.out.vcf)
     ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
 
     // merge the ancient and focal vcf
@@ -218,7 +218,7 @@ workflow TSKIT {
         // .view()
 
     // merge the ancient and focal tbi
-    tbi_ch = BEAGLE_TABIX.out.tbi
+    tbi_ch = REHEADER_TABIX.out.tbi
         .map{ meta, it -> [[id: "samples-merged.${meta.chrom}"], it] }
         .concat(
             ANCIENT_SPLIT_TABIX.out.tbi
@@ -251,7 +251,7 @@ workflow TSKIT {
     ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
 
     // now create a tstree file
-    TSINFER(FOCAL_NORM.out.vcf, ESTSFS_OUTPUT.out.ancestral, samples_ch)
+    TSINFER(BCFTOOLS_REHEADER.out.vcf, ESTSFS_OUTPUT.out.ancestral, samples_ch)
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
