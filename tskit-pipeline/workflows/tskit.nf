@@ -61,12 +61,17 @@ include {
 include {
     BCFTOOLS_NORM as FOCAL_NORM;
     BCFTOOLS_NORM as ANCIENT_NORM           } from '../modules/nf-core/bcftools/norm/main'
+include {
+    BCFTOOLS_SPLIT as FOCAL_SPLIT;
+    BCFTOOLS_SPLIT as ANCIENT_SPLIT         } from '../modules/nf-core/bcftools/split/main'
 include { BEAGLE5_BEAGLE as FOCAL_BEAGLE    } from '../modules/nf-core/beagle5/beagle/main'
 include { SAMTOOLS_FAIDX                    } from '../modules/nf-core/samtools/faidx/main'
 include { BCFTOOLS_REHEADER                 } from '../modules/nf-core/bcftools/reheader/main'
 include {
     TABIX_TABIX as FOCAL_TABIX;
-    TABIX_TABIX as ANCIENT_TABIX;           } from '../modules/nf-core/tabix/tabix/main'
+    TABIX_TABIX as ANCIENT_TABIX;
+    TABIX_TABIX as BEAGLE_TABIX;
+    TABIX_TABIX as ANCIENT_SPLIT_TABIX      } from '../modules/nf-core/tabix/tabix/main'
 include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/merge/main'
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
 include { ESTSFS                            } from '../modules/nf-core/estsfs/main'
@@ -138,6 +143,13 @@ workflow TSKIT {
         .map{ it -> [[ id: "${it.getBaseName()}" ], it]}
         // .view()
 
+    // Normalize focal VCF
+    FOCAL_NORM(
+        FOCAL_RECODE.out.vcfgz.map{ meta, vcf -> [meta, vcf, []] },
+        genome_ch
+    )
+    ch_versions = ch_versions.mix(FOCAL_NORM.out.versions)
+
     // Normalize ancient VCF
     ANCIENT_NORM(
         // the third element of the input channel is a tbi
@@ -146,12 +158,36 @@ workflow TSKIT {
     )
     ch_versions = ch_versions.mix(ANCIENT_NORM.out.versions)
 
+    // index focal vcf
+    FOCAL_TABIX(FOCAL_NORM.out.vcf)
+    ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
+
     // index ancient vcf
     ANCIENT_TABIX(ANCIENT_NORM.out.vcf)
     ch_versions = ch_versions.mix(ANCIENT_TABIX.out.versions)
 
+    // split data by chromosomes for focal
+    FOCAL_SPLIT(FOCAL_NORM.out.vcf.join(FOCAL_TABIX.out.tbi))
+    ch_versions = ch_versions.mix(FOCAL_SPLIT.out.versions)
+
+    // split data by chromosomes for ancestor
+    ANCIENT_SPLIT(ANCIENT_NORM.out.vcf.join(ANCIENT_TABIX.out.tbi))
+    ch_versions = ch_versions.mix(ANCIENT_SPLIT.out.versions)
+
+    // index the splitted ancestor
+    ANCIENT_SPLIT_TABIX(ANCIENT_SPLIT.out.split_vcf)
+    ch_versions = ch_versions.mix(ANCIENT_SPLIT_TABIX.out.versions)
+
+    // get the chromosome name from the vcf file name
+    beagle_in_ch = FOCAL_SPLIT.out.split_vcf
+        .map{ meta, vcf ->
+            chrom = vcf.name.tokenize(".")[-3]
+            [[id: "${meta.id}.${chrom}", chrom: chrom], vcf]
+        }
+        // .view()
+
     // phase and inpute with beagle5
-    FOCAL_BEAGLE(FOCAL_RECODE.out.vcfgz, [], [], [], [])
+    FOCAL_BEAGLE(beagle_in_ch, [], [], [], [])
     ch_versions = ch_versions.mix(FOCAL_BEAGLE.out.versions)
 
     // index genome sequence
@@ -164,26 +200,33 @@ workflow TSKIT {
     )
     ch_versions = ch_versions.mix(BCFTOOLS_REHEADER.out.versions)
 
-    // Normalize focal VCF
-    FOCAL_NORM(
-        BCFTOOLS_REHEADER.out.vcf.map{ meta, vcf -> [meta, vcf, []] },
-        genome_ch
-    )
-    ch_versions = ch_versions.mix(FOCAL_NORM.out.versions)
-
     // index beagle genotype
-    FOCAL_TABIX(FOCAL_NORM.out.vcf)
+    BEAGLE_TABIX(BCFTOOLS_REHEADER.out.vcf)
     ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
 
     // merge the ancient and focal vcf
-    vcf_ch = FOCAL_NORM.out.vcf
-        .concat(ANCIENT_NORM.out.vcf)
-        .map{ meta, it -> [[id: "samples-merged"], it] }
+    vcf_ch = BCFTOOLS_REHEADER.out.vcf
+        .map{ meta, it -> [[id: "samples-merged.${meta.chrom}"], it] }
+        .concat(
+            ANCIENT_SPLIT.out.split_vcf
+                .map{ meta, vcf ->
+                    chrom = vcf.name.tokenize(".")[-3]
+                    [[id: "samples-merged.${chrom}"], vcf]
+                }
+        )
         .groupTuple()
         // .view()
-    tbi_ch = FOCAL_TABIX.out.tbi
-        .concat(ANCIENT_TABIX.out.tbi)
-        .map{ meta, it -> [[id: "samples-merged"], it] }
+
+    // merge the ancient and focal tbi
+    tbi_ch = BEAGLE_TABIX.out.tbi
+        .map{ meta, it -> [[id: "samples-merged.${meta.chrom}"], it] }
+        .concat(
+            ANCIENT_SPLIT_TABIX.out.tbi
+                .map{ meta, tbi ->
+                    chrom = tbi.name.tokenize(".")[-4]
+                    [[id: "samples-merged.${chrom}"], tbi]
+                }
+        )
         .groupTuple()
         // .view()
 
