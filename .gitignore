@@ -166,4 +166,4 @@ data/
 # nextflow related stuff
 .nextflow*
 work/
-results/
+results*/

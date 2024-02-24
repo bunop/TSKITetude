@@ -175,11 +175,12 @@ workflow TSKIT {
     ch_versions = ch_versions.mix(ANCIENT_SPLIT.out.versions)
 
     // index the splitted ancestor
-    ANCIENT_SPLIT_TABIX(ANCIENT_SPLIT.out.split_vcf)
+    ANCIENT_SPLIT_TABIX(ANCIENT_SPLIT.out.split_vcf.transpose())
     ch_versions = ch_versions.mix(ANCIENT_SPLIT_TABIX.out.versions)
 
     // get the chromosome name from the vcf file name
     beagle_in_ch = FOCAL_SPLIT.out.split_vcf
+        .transpose()
         .map{ meta, vcf ->
             chrom = vcf.name.tokenize(".")[-3]
             [[id: "${meta.id}.${chrom}", chrom: chrom], vcf]
@@ -209,6 +210,7 @@ workflow TSKIT {
         .map{ meta, it -> [[id: "samples-merged.${meta.chrom}"], it] }
         .concat(
             ANCIENT_SPLIT.out.split_vcf
+                .transpose()
                 .map{ meta, vcf ->
                     chrom = vcf.name.tokenize(".")[-3]
                     [[id: "samples-merged.${chrom}"], vcf]
