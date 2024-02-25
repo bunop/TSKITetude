@@ -195,9 +195,15 @@ workflow TSKIT {
     SAMTOOLS_FAIDX(genome_ch, [[], []])
     ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
+    // it's not clear to me why we need to combine the fai and vcf meta
+    // to have the same number of elements in both channels
+    fai_ch = FOCAL_BEAGLE.out.vcf.map{ meta, vcf -> [meta] }
+        .combine(SAMTOOLS_FAIDX.out.fai.map{ meta, fai -> [fai] })
+        // .view()
+
     BCFTOOLS_REHEADER(
         FOCAL_BEAGLE.out.vcf.map{ meta, vcf -> [meta, vcf, [], []] },
-        SAMTOOLS_FAIDX.out.fai
+        fai_ch
     )
     ch_versions = ch_versions.mix(BCFTOOLS_REHEADER.out.versions)
 
