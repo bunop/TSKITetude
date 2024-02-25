@@ -195,15 +195,12 @@ workflow TSKIT {
     SAMTOOLS_FAIDX(genome_ch, [[], []])
     ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
-    // it's not clear to me why we need to combine the fai and vcf meta
-    // to have the same number of elements in both channels
-    fai_ch = FOCAL_BEAGLE.out.vcf.map{ meta, vcf -> [meta] }
-        .combine(SAMTOOLS_FAIDX.out.fai.map{ meta, fai -> [fai] })
-        // .view()
-
+    // when I have two queues of different size, I can use the first() method
+    // to transform the queue in a value channel
+    // https://training.nextflow.io/basic_training/channels/#value-channels
     BCFTOOLS_REHEADER(
         FOCAL_BEAGLE.out.vcf.map{ meta, vcf -> [meta, vcf, [], []] },
-        fai_ch
+        SAMTOOLS_FAIDX.out.fai.first()
     )
     ch_versions = ch_versions.mix(BCFTOOLS_REHEADER.out.versions)
 
@@ -244,10 +241,11 @@ workflow TSKIT {
     BCFTOOLS_MERGE(bcftools_input_ch, [[], []], [[], []], [])
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
-    // calculate ancestral alleles
+    // calculate ancestral alleles. I need to use the first() method to transform
+    // the queue in a value channel
     ESTSFS_INPUT(
         BCFTOOLS_MERGE.out.merged_variants,
-        samples_ch,
+        samples_ch.first(),
         outgroup_files_ch.collect()
     )
 
@@ -259,7 +257,11 @@ workflow TSKIT {
     ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
 
     // now create a tstree file
-    TSINFER(BCFTOOLS_REHEADER.out.vcf, ESTSFS_OUTPUT.out.ancestral, samples_ch)
+    TSINFER(
+        BCFTOOLS_REHEADER.out.vcf,
+        ESTSFS_OUTPUT.out.ancestral,
+        samples_ch.first()
+    )
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
