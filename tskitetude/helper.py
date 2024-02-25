@@ -121,8 +121,7 @@ def get_chromosome_lengths(vcf: cyvcf2.VCF) -> Dict[str, int]:
 
 def add_diploid_sites(
         vcf: cyvcf2.VCF, samples: tsinfer.Sample,
-        ancestors_alleles: Dict[Tuple[str, int], int],
-        chromosome_length: Dict[str, int]):
+        ancestors_alleles: Dict[Tuple[str, int], int]):
     """
     Read the sites in the vcf and add them to the samples object.
     """
@@ -131,11 +130,6 @@ def add_diploid_sites(
     # "*" (a spanning deletion) to be a valid allele state
     allele_chars = set("ATCG*")
     pos = 0
-
-    # we are supposing to append positions to the same chromosome. I need
-    # to track an offset for the region I've already seen
-    old_chrom = None
-    offset = 0
 
     # deal with logging an progress bar
     tqdm_out = TqdmToLogger(logger, level=logging.INFO)
@@ -146,26 +140,15 @@ def add_diploid_sites(
         unit='bp',
         file=tqdm_out)
 
-    # Loop over variants, each assumed at a unique site
-    for variant in vcf:
-        if not old_chrom:
-            # initialize first chrom
-            old_chrom = variant.CHROM
+    for variant in vcf:  # Loop over variants, each assumed at a unique site
+        progressbar.update(variant.POS - pos)
 
-        if old_chrom != variant.CHROM:
-            # update offset
-            offset += chromosome_length[old_chrom]
-            old_chrom = variant.CHROM
-
-        # considering offset when doing stuff
-        progressbar.update(variant.POS + offset - pos)
-
-        if pos == variant.POS + offset:
+        if pos == variant.POS:
             print(f"Duplicate entries at position {pos}, ignoring all but the first")
             continue
 
         else:
-            pos = variant.POS + offset
+            pos = variant.POS
 
         if any([not phased for _, _, phased in variant.genotypes]):
             raise ValueError("Unphased genotypes for variant at position", pos)
@@ -260,7 +243,7 @@ def create_tstree(
 
         pop_lookup = add_populations(focal_csv, samples)
         add_diploid_individuals(focal_csv, pop_lookup, samples)
-        add_diploid_sites(vcf, samples, ancestors_alleles, chromosome_lengths)
+        add_diploid_sites(vcf, samples, ancestors_alleles)
 
     logger.info(
         f"Sample file created for {samples.num_samples} samples "
