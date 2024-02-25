@@ -5,6 +5,7 @@ import json
 import logging
 import collections
 from typing import Dict, Tuple, List
+from contextlib import contextmanager
 
 import click
 import cyvcf2
@@ -140,8 +141,18 @@ def add_diploid_sites(
         unit='bp',
         file=tqdm_out)
 
+    # check chromosome we are working on
+    chrom = None
+
     for variant in vcf:  # Loop over variants, each assumed at a unique site
         progressbar.update(variant.POS - pos)
+
+        if not chrom:
+            chrom = variant.CHROM
+
+        else:
+            if chrom != variant.CHROM:
+                raise ValueError("VCF file contains multiple chromosomes")
 
         if pos == variant.POS:
             print(f"Duplicate entries at position {pos}, ignoring all but the first")
@@ -225,14 +236,20 @@ def create_tstree(
         mutation_rate: float, Ne: float):
     """
     Read data from phased VCF an try to create a tsinfer.Sample using ancestor
-    alleles CSV file
+    alleles CSV file. One chromosome at a time.
     """
 
     vcf = cyvcf2.VCF(vcf_file)
     chromosome_lengths = get_chromosome_lengths(vcf)
 
-    # determine the total length as the total genome size
-    sequence_length = sum(length for length in chromosome_lengths.values())
+    # get first variant to get the sequence length
+    variant = next(vcf)
+    sequence_length = chromosome_lengths[variant.CHROM]
+
+    logging.info(f"Getting information for chromosome {variant.CHROM} with length {sequence_length} bp")
+
+    # reset the vcf
+    vcf = cyvcf2.VCF(vcf_file)
 
     # time to get the ancestor allele dictionary
     ancestors_alleles = get_ancestors_alleles(ancestral)
