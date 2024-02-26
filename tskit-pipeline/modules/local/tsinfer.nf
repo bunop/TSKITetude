@@ -9,8 +9,7 @@ process TSINFER {
         "--volume ${HOME}/.cache/tsdate/:/.cache/tsdate/" }"""
 
     input:
-    tuple val(meta), path(vcf)
-    tuple val(meta2), path(ancestral)
+    tuple val(meta), path(vcf), path(ancestral)
     path(sample_file)
 
     output:

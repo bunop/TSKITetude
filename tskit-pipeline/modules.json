@@ -2,6 +2,17 @@
   "name": "tskit-pipeline",
   "homePage": "https://github.com/bunop/TSKITetude",
   "repos": {
+    "https://github.com/cnr-ibba/nf-modules.git": {
+      "modules": {
+        "cnr-ibba": {
+          "estsfs": {
+            "branch": "master",
+            "git_sha": "e9a3d75c0a0eb9743eeb791802f9a6876c155122",
+            "installed_by": ["modules"]
+          }
+        }
+      }
+    },
     "https://github.com/nf-core/modules.git": {
       "modules": {
         "nf-core": {
@@ -33,11 +44,6 @@
           "custom/dumpsoftwareversions": {
             "branch": "master",
             "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
-            "installed_by": ["modules"]
-          },
-          "estsfs": {
-            "branch": "master",
-            "git_sha": "9678944d908e5aedab318c94a79d6ecbfa854fbc",
             "installed_by": ["modules"]
           },
           "plink/recode": {
