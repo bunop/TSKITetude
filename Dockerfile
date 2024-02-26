@@ -55,8 +55,11 @@ WORKDIR ${APP_PATH}
 COPY poetry.lock pyproject.toml README.md ./
 COPY tskitetude/ ./tskitetude/
 
-# Install stuff
-RUN poetry install
+# Install all dependencies (taking advantage of Docker layer caching)
+RUN poetry install --no-directory
+
+# install my package
+RUN poetry install --only-root
 
 # create data dir
 RUN mkdir data

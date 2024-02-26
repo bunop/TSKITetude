@@ -252,10 +252,6 @@
       "type": "integer",
       "default": 10
     },
-    "estsfs_maxalleles": {
-      "type": "integer",
-      "default": 5000
-    },
     "tsdate_mutation_rate": {
       "type": "number",
       "default": 1e-8

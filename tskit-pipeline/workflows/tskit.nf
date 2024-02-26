@@ -61,12 +61,17 @@ include {
 include {
     BCFTOOLS_NORM as FOCAL_NORM;
     BCFTOOLS_NORM as ANCIENT_NORM           } from '../modules/nf-core/bcftools/norm/main'
+include {
+    BCFTOOLS_SPLIT as FOCAL_SPLIT;
+    BCFTOOLS_SPLIT as ANCIENT_SPLIT         } from '../modules/nf-core/bcftools/split/main'
 include { BEAGLE5_BEAGLE as FOCAL_BEAGLE    } from '../modules/nf-core/beagle5/beagle/main'
 include { SAMTOOLS_FAIDX                    } from '../modules/nf-core/samtools/faidx/main'
 include { BCFTOOLS_REHEADER                 } from '../modules/nf-core/bcftools/reheader/main'
 include {
     TABIX_TABIX as FOCAL_TABIX;
-    TABIX_TABIX as ANCIENT_TABIX;           } from '../modules/nf-core/tabix/tabix/main'
+    TABIX_TABIX as ANCIENT_TABIX;
+    TABIX_TABIX as REHEADER_TABIX;
+    TABIX_TABIX as ANCIENT_SPLIT_TABIX      } from '../modules/nf-core/tabix/tabix/main'
 include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/merge/main'
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
 include { ESTSFS                            } from '../modules/nf-core/estsfs/main'
@@ -138,6 +143,13 @@ workflow TSKIT {
         .map{ it -> [[ id: "${it.getBaseName()}" ], it]}
         // .view()
 
+    // Normalize focal VCF
+    FOCAL_NORM(
+        FOCAL_RECODE.out.vcfgz.map{ meta, vcf -> [meta, vcf, []] },
+        genome_ch
+    )
+    ch_versions = ch_versions.mix(FOCAL_NORM.out.versions)
+
     // Normalize ancient VCF
     ANCIENT_NORM(
         // the third element of the input channel is a tbi
@@ -146,44 +158,80 @@ workflow TSKIT {
     )
     ch_versions = ch_versions.mix(ANCIENT_NORM.out.versions)
 
+    // index focal vcf
+    FOCAL_TABIX(FOCAL_NORM.out.vcf)
+    ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
+
     // index ancient vcf
     ANCIENT_TABIX(ANCIENT_NORM.out.vcf)
     ch_versions = ch_versions.mix(ANCIENT_TABIX.out.versions)
 
+    // split data by chromosomes for focal
+    FOCAL_SPLIT(FOCAL_NORM.out.vcf.join(FOCAL_TABIX.out.tbi))
+    ch_versions = ch_versions.mix(FOCAL_SPLIT.out.versions)
+
+    // split data by chromosomes for ancestor
+    ANCIENT_SPLIT(ANCIENT_NORM.out.vcf.join(ANCIENT_TABIX.out.tbi))
+    ch_versions = ch_versions.mix(ANCIENT_SPLIT.out.versions)
+
+    // index the splitted ancestor
+    ANCIENT_SPLIT_TABIX(ANCIENT_SPLIT.out.split_vcf.transpose())
+    ch_versions = ch_versions.mix(ANCIENT_SPLIT_TABIX.out.versions)
+
+    // get the chromosome name from the vcf file name
+    beagle_in_ch = FOCAL_SPLIT.out.split_vcf
+        .transpose()
+        .map{ meta, vcf ->
+            chrom = vcf.name.tokenize(".")[-3]
+            [[id: "${meta.id}.${chrom}", chrom: chrom], vcf]
+        }
+        // .view()
+
     // phase and inpute with beagle5
-    FOCAL_BEAGLE(FOCAL_RECODE.out.vcfgz, [], [], [], [])
+    FOCAL_BEAGLE(beagle_in_ch, [], [], [], [])
     ch_versions = ch_versions.mix(FOCAL_BEAGLE.out.versions)
 
     // index genome sequence
     SAMTOOLS_FAIDX(genome_ch, [[], []])
     ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
+    // when I have two queues of different size, I can use the first() method
+    // to transform the queue in a value channel
+    // https://training.nextflow.io/basic_training/channels/#value-channels
     BCFTOOLS_REHEADER(
         FOCAL_BEAGLE.out.vcf.map{ meta, vcf -> [meta, vcf, [], []] },
-        SAMTOOLS_FAIDX.out.fai
+        SAMTOOLS_FAIDX.out.fai.first()
     )
     ch_versions = ch_versions.mix(BCFTOOLS_REHEADER.out.versions)
 
-    // Normalize focal VCF
-    FOCAL_NORM(
-        BCFTOOLS_REHEADER.out.vcf.map{ meta, vcf -> [meta, vcf, []] },
-        genome_ch
-    )
-    ch_versions = ch_versions.mix(FOCAL_NORM.out.versions)
-
     // index beagle genotype
-    FOCAL_TABIX(FOCAL_NORM.out.vcf)
+    REHEADER_TABIX(BCFTOOLS_REHEADER.out.vcf)
     ch_versions = ch_versions.mix(FOCAL_TABIX.out.versions)
 
     // merge the ancient and focal vcf
-    vcf_ch = FOCAL_NORM.out.vcf
-        .concat(ANCIENT_NORM.out.vcf)
-        .map{ meta, it -> [[id: "samples-merged"], it] }
+    vcf_ch = BCFTOOLS_REHEADER.out.vcf
+        .map{ meta, it -> [[id: "samples-merged.${meta.chrom}"], it] }
+        .concat(
+            ANCIENT_SPLIT.out.split_vcf
+                .transpose()
+                .map{ meta, vcf ->
+                    chrom = vcf.name.tokenize(".")[-3]
+                    [[id: "samples-merged.${chrom}"], vcf]
+                }
+        )
         .groupTuple()
         // .view()
-    tbi_ch = FOCAL_TABIX.out.tbi
-        .concat(ANCIENT_TABIX.out.tbi)
-        .map{ meta, it -> [[id: "samples-merged"], it] }
+
+    // merge the ancient and focal tbi
+    tbi_ch = REHEADER_TABIX.out.tbi
+        .map{ meta, it -> [[id: "samples-merged.${meta.chrom}"], it] }
+        .concat(
+            ANCIENT_SPLIT_TABIX.out.tbi
+                .map{ meta, tbi ->
+                    chrom = tbi.name.tokenize(".")[-4]
+                    [[id: "samples-merged.${chrom}"], tbi]
+                }
+        )
         .groupTuple()
         // .view()
 
@@ -193,48 +241,27 @@ workflow TSKIT {
     BCFTOOLS_MERGE(bcftools_input_ch, [[], []], [[], []], [])
     ch_versions = ch_versions.mix(BCFTOOLS_MERGE.out.versions)
 
-    // calculate ancestral alleles
+    // calculate ancestral alleles. I need to use the first() method to transform
+    // the queue in a value channel
     ESTSFS_INPUT(
         BCFTOOLS_MERGE.out.merged_variants,
-        samples_ch,
+        samples_ch.first(),
         outgroup_files_ch.collect()
     )
 
-    // split estsfs input file by size
-    estsfs_in_ch = ESTSFS_INPUT.out.input
-        .map{ it -> it[1] }
-        .splitText(by: params.estsfs_maxalleles, file: true)
-        // .view()
-
-    // mind header with mapping file. Re assign a meta id for joining later
-    estsfs_map_ch = ESTSFS_INPUT.out.mapping
-        .map{ it -> it[1] }
-        .splitText(by: params.estsfs_maxalleles, file: true, keepHeader: true)
-        .map{ it -> [[id:it.getBaseName()], it] }
-        // .view()
-
-    // here's a single call of est-sfs with a single chunk
     ESTSFS(
-        ESTSFS_INPUT.out.config
-            .combine(estsfs_in_ch)
-            .map { meta, config, data -> [[id:data.getBaseName()], config, data] }
-            // .view()
+        ESTSFS_INPUT.out.config.join(ESTSFS_INPUT.out.input)
     )
     ch_versions = ch_versions.mix(ESTSFS.out.versions)
 
-    // processing est-sfs by joining mapping files with common meta.id
-    ESTSFS_OUTPUT(estsfs_map_ch.join(ESTSFS.out.pvalues_out))
-
-    // take all the processed file into one. Ideally the order does't matter
-    // considering how is implemented TSINFER step
-    ancestral_ch = ESTSFS_OUTPUT.out.ancestral
-        .map{ it -> it[1] }
-        .collectFile(name: "samples-merged.ancestral.csv", keepHeader: true)
-        .map{ it -> [[id: "samples-merged"], it]}
-        // .view()
+    ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
 
     // now create a tstree file
-    TSINFER(FOCAL_NORM.out.vcf, ancestral_ch, samples_ch)
+    TSINFER(
+        BCFTOOLS_REHEADER.out.vcf,
+        ESTSFS_OUTPUT.out.ancestral,
+        samples_ch.first()
+    )
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
