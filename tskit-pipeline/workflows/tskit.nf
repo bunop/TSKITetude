@@ -272,10 +272,22 @@ workflow TSKIT {
 
     ESTSFS_OUTPUT(ESTSFS_INPUT.out.mapping.join(ESTSFS.out.pvalues_out))
 
+    tsinfer_in_ch = BCFTOOLS_REHEADER.out.vcf
+        .map{ meta, vcf -> [meta.chrom, meta, vcf] }
+        .join(
+            ESTSFS_OUTPUT.out.ancestral
+                .map{ meta, ancestral ->
+                        chrom = ancestral.name.tokenize(".")[-3]
+                        [chrom, ancestral]
+                },
+            by: [0],
+            failOnMismatch: true
+        ).map{ chrom, meta, vcf, ancestral -> [[id: meta.id], vcf, ancestral]}
+        // .view()
+
     // now create a tstree file
     TSINFER(
-        BCFTOOLS_REHEADER.out.vcf,
-        ESTSFS_OUTPUT.out.ancestral,
+        tsinfer_in_ch,
         samples_ch.first()
     )
 
