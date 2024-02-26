@@ -74,7 +74,7 @@ include {
     TABIX_TABIX as ANCIENT_SPLIT_TABIX      } from '../modules/nf-core/tabix/tabix/main'
 include { BCFTOOLS_MERGE                    } from '../modules/nf-core/bcftools/merge/main'
 include { ESTSFS_INPUT                      } from '../modules/local/estsfs_input'
-include { ESTSFS                            } from '../modules/nf-core/estsfs/main'
+include { ESTSFS                            } from '../modules/cnr-ibba/estsfs/main'
 include { ESTSFS_OUTPUT                     } from '../modules/local/estsfs_output'
 include { TSINFER                           } from '../modules/local/tsinfer'
 include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/dumpsoftwareversions/main'
@@ -87,6 +87,16 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS       } from '../modules/nf-core/custom/du
 
 // Info required for completion email and summary
 def multiqc_report = []
+
+
+process GENERATE_SEED {
+    output:
+    path 'seedfile.txt'
+
+    '''
+    echo $RANDOM > seedfile.txt
+    '''
+}
 
 
 workflow TSKIT {
@@ -249,8 +259,14 @@ workflow TSKIT {
         outgroup_files_ch.collect()
     )
 
+    // determine a seedfile
+    seedfile = GENERATE_SEED()
+
+    // call custom est-sfs
     ESTSFS(
-        ESTSFS_INPUT.out.config.join(ESTSFS_INPUT.out.input)
+        ESTSFS_INPUT.out.config
+            .join(ESTSFS_INPUT.out.input)
+            .combine(seedfile)
     )
     ch_versions = ch_versions.mix(ESTSFS.out.versions)
 

@@ -6,7 +6,7 @@
       "modules": {
         "cnr-ibba": {
           "estsfs": {
-            "branch": "issue-33",
+            "branch": "master",
             "git_sha": "e9a3d75c0a0eb9743eeb791802f9a6876c155122",
             "installed_by": ["modules"]
           }
