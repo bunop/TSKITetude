@@ -6,7 +6,7 @@ An helper library to deal with tskit objects
 
 import pathlib
 
-__version__ = "0.2.1"
+__version__ = "0.3.0"
 __author__ = "Paolo Cozzi"
 
 

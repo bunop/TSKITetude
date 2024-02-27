@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tskitetude"
-version = "0.2.1"
+version = "0.3.0"
 description = ""
 authors = ["Paolo Cozzi <bunop@libero.it>"]
 readme = "README.md"
