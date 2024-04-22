@@ -23,6 +23,8 @@ cyvcf2 = "^0.30.28"
 click = "^8.1.7"
 plinkio = {git = "https://github.com/bunop/libplinkio.git", rev = "bc1c13507cf5c2d60ffe20e12a1997021f37ceb4"}
 pickleshare = "^0.7.5"
+tsqc = {git = "https://github.com/tskit-dev/tsqc"}
+dask = {extras = ["dataframe"], version = "^2024.4.2"}
 
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"
