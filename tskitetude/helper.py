@@ -1,11 +1,11 @@
 
 import io
+import re
 import csv
 import json
 import logging
 import collections
 from typing import Dict, Tuple, List
-from contextlib import contextmanager
 
 import click
 import cyvcf2
@@ -274,26 +274,38 @@ def create_tstree(
         num_threads=num_threads
     )
 
+    # Simplify the tree sequence
+    ts = sparrow_ts.simplify()
+
     logger.info(
-        f"Inferred tree sequence `sparrow_ts`: {sparrow_ts.num_trees} "
-        f"trees over {sparrow_ts.sequence_length / 1e6} Mb"
+        f"Inferred tree sequence `ts`: {ts.num_trees} "
+        f"trees over {ts.sequence_length / 1e6} Mb"
     )
 
+    # determine the chromosome from ancestral file
+    chrom = None
+    pattern = re.compile(r"samples-merged.(\d+|\w+).ancestral.csv")
+    match = pattern.match(ancestral)
+
+    if match:
+        chrom = match.group(1)
+
     # Check the metadata
-    for sample_node_id in sparrow_ts.samples():
-        individual_id = sparrow_ts.node(sample_node_id).individual
-        population_id = sparrow_ts.node(sample_node_id).population
+    for sample_node_id in ts.samples():
+        individual_id = ts.node(sample_node_id).individual
+        population_id = ts.node(sample_node_id).population
         logger.debug(
             "Node",
             sample_node_id,
-            "labels a chr26 sampled from individual",
-            json.loads(sparrow_ts.individual(individual_id).metadata),
+            f"labels a chr {chrom} sampled from individual",
+            json.loads(ts.individual(individual_id).metadata),
             "in",
-            json.loads(sparrow_ts.population(population_id).metadata),
+            json.loads(ts.population(population_id).metadata),
         )
 
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
-    inferred_ts = tsdate.preprocess_ts(sparrow_ts, filter_sites=False)
+    inferred_ts = tsdate.preprocess_ts(ts, filter_sites=False)
+
     dated_ts = tsdate.date(
         inferred_ts,
         mutation_rate=mutation_rate,
