@@ -18,7 +18,7 @@
   of the Derived vs. the Ancestral Allelic State at a Polymorphic Site)
 * [ts-date](https://tskit.dev/software/tsdate.html) estimate age of ancestral node
 
-## Pipeline hypotesis
+## Pipeline hypothesis
 
 * Collect public (*background*) sample genotypes from SMARTER. Include ancient
   samples.
@@ -27,3 +27,4 @@
   with ancient reference allele (should ancient sample be removed?)
 * Create a `tstree` object
 * Use `ts-date`?
+* Use [tszip](https://pypi.org/project/tszip/)
