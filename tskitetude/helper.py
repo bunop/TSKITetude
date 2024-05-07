@@ -11,6 +11,7 @@ import click
 import cyvcf2
 import tsdate
 import tsinfer
+import numpy as np
 from tskit import MISSING_DATA
 from tqdm import tqdm
 
@@ -122,14 +123,14 @@ def get_chromosome_lengths(vcf: cyvcf2.VCF) -> Dict[str, int]:
 
 def add_diploid_sites(
         vcf: cyvcf2.VCF, samples: tsinfer.Sample,
-        ancestors_alleles: Dict[Tuple[str, int], int]):
+        ancestors_alleles: Dict[Tuple[str, int], int],
+        allele_chars = set("ATCG*")):
     """
     Read the sites in the vcf and add them to the samples object.
     """
 
-    # You may want to change the following line, e.g. here we allow
-    # "*" (a spanning deletion) to be a valid allele state
-    allele_chars = set("ATCG*")
+    # allele_chars is now passed as argument
+
     pos = 0
 
     # deal with logging an progress bar
@@ -314,3 +315,25 @@ def create_tstree(
 
     # save generated tree
     dated_ts.dump(output_trees)
+
+
+def create_windows(ts):
+    """
+    Create windows for the diversity function
+    """
+    # create a numpy array with position
+    sites = np.array([site.position for site in ts.sites()])
+
+    # now duplicate each element and add an offset array
+    windows = np.repeat(sites, 2) + np.tile([0, 1], len(sites))
+
+    # add the first window
+    windows = np.insert(windows, 0, 0)
+
+    # now add sequence length as the last window
+    windows = np.append(windows, ts.sequence_length)
+
+    # remove duplicated items (adjacent SNPS)
+    windows = np.unique(windows)
+
+    return windows
