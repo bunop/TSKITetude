@@ -12,6 +12,8 @@ import cyvcf2
 import tsdate
 import tsinfer
 import numpy as np
+from click_option_group import (
+    optgroup, RequiredMutuallyExclusiveOptionGroup)
 from tskit import MISSING_DATA
 from tqdm import tqdm
 
@@ -20,6 +22,10 @@ logging.basicConfig(level=logging.INFO, format=log_fmt)
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
+# set tsinfer logging to INFO
+tsinfer_log = logging.getLogger("tsinfer")
+tsinfer_log.setLevel(logging.INFO)
 
 
 class TqdmToLogger(io.StringIO):
@@ -122,15 +128,22 @@ def get_chromosome_lengths(vcf: cyvcf2.VCF) -> Dict[str, int]:
 
 
 def add_diploid_sites(
-        vcf: cyvcf2.VCF, samples: tsinfer.Sample,
+        vcf: cyvcf2.VCF,
+        samples: tsinfer.Sample,
         ancestors_alleles: Dict[Tuple[str, int], int],
-        allele_chars = set("ATCG*")):
+        allele_chars = set("ATCG*"),
+        ancestral_as_reference = False
+        ):
     """
     Read the sites in the vcf and add them to the samples object.
     """
 
+    if ancestral_as_reference:
+        logger.info("Using ancestral allele as reference allele")
+
     # allele_chars is now passed as argument
 
+    # reset position
     pos = 0
 
     # deal with logging an progress bar
@@ -166,11 +179,19 @@ def add_diploid_sites(
             raise ValueError("Unphased genotypes for variant at position", pos)
 
         alleles = [variant.REF.upper()] + [v.upper() for v in variant.ALT]
-        ancestral_allele = ancestors_alleles.get((variant.CHROM, variant.POS), MISSING_DATA)
 
-        # TODO: remove me
-        # set ancestral allele to the first allele
-        ancestral_allele = 0
+        if ancestral_as_reference:
+            # set ancestral allele to the first allele
+            ancestral_allele = 0
+        else:
+            # get the ancestral allele from the dictionary
+            ancestral_allele = ancestors_alleles.get(
+                (variant.CHROM, variant.POS), MISSING_DATA)
+
+        logger.debug(
+            f"Adding site at pos {pos} with alleles {alleles} "
+            f"(ancestral allele {ancestral_allele})"
+        )
 
         # Check we have ATCG alleles
         for a in alleles:
@@ -198,11 +219,20 @@ def add_diploid_sites(
     type=click.Path(exists=True),
     required=True
 )
-@click.option(
+@optgroup.group(
+    "Ancestral allele parameters",
+    cls=RequiredMutuallyExclusiveOptionGroup
+)
+@optgroup.option(
     "--ancestral",
     help="processed est-sfs ancient allele file",
     type=click.Path(exists=True),
-    required=True
+)
+@optgroup.option(
+    "--ancestral_as_reference",
+    help="Use ancestral allele as reference allele",
+    is_flag=True,
+    default=False
 )
 @click.option(
     "--output_samples",
@@ -237,6 +267,7 @@ def add_diploid_sites(
 )
 def create_tstree(
         vcf_file: click.Path, focal_csv: click.Path, ancestral: click.Path,
+        ancestral_as_reference: bool,
         output_samples: click.Path, output_trees: click.Path, num_threads: int,
         mutation_rate: float, Ne: float):
     """
@@ -249,15 +280,21 @@ def create_tstree(
 
     # get first variant to get the sequence length
     variant = next(vcf)
-    sequence_length = chromosome_lengths[variant.CHROM]
+    chrom = variant.CHROM
+    sequence_length = chromosome_lengths[chrom]
 
-    logging.info(f"Getting information for chromosome {variant.CHROM} with length {sequence_length} bp")
+    logging.info(
+        f"Getting information for chromosome {chrom} "
+        f"with length {sequence_length} bp")
 
     # reset the vcf
     vcf = cyvcf2.VCF(vcf_file)
 
     # time to get the ancestor allele dictionary
-    ancestors_alleles = get_ancestors_alleles(ancestral)
+    if ancestral:
+        ancestors_alleles = get_ancestors_alleles(ancestral)
+    else:
+        ancestors_alleles = {}
 
     with tsinfer.SampleData(
         path=output_samples,
@@ -265,7 +302,12 @@ def create_tstree(
 
         pop_lookup = add_populations(focal_csv, samples)
         add_diploid_individuals(focal_csv, pop_lookup, samples)
-        add_diploid_sites(vcf, samples, ancestors_alleles)
+        add_diploid_sites(
+            vcf,
+            samples,
+            ancestors_alleles,
+            ancestral_as_reference=ancestral_as_reference
+        )
 
     logger.info(
         f"Sample file created for {samples.num_samples} samples "
@@ -287,25 +329,20 @@ def create_tstree(
         f"trees over {ts.sequence_length / 1e6} Mb"
     )
 
-    # determine the chromosome from ancestral file
-    chrom = None
-    pattern = re.compile(r"samples-merged.(\d+|\w+).ancestral.csv")
-    match = pattern.match(ancestral)
-
-    if match:
-        chrom = match.group(1)
-
     # Check the metadata
     for sample_node_id in ts.samples():
         individual_id = ts.node(sample_node_id).individual
+        individual = json.loads(
+            ts.individual(individual_id).metadata)["sample_id"]
+
         population_id = ts.node(sample_node_id).population
+        population = json.loads(
+            ts.population(population_id).metadata)["breed"]
+
         logger.debug(
-            "Node",
-            sample_node_id,
-            f"labels a chr {chrom} sampled from individual",
-            json.loads(ts.individual(individual_id).metadata),
-            "in",
-            json.loads(ts.population(population_id).metadata),
+            f"Node {sample_node_id} "
+            f"labels a chr {chrom} sampled from individual "
+            f"'{individual}' in population '{population}'"
         )
 
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
