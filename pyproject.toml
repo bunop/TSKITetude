@@ -25,6 +25,7 @@ plinkio = {git = "https://github.com/bunop/libplinkio.git", rev = "bc1c13507cf5c
 pickleshare = "^0.7.5"
 tsqc = {git = "https://github.com/tskit-dev/tsqc"}
 dask = {extras = ["dataframe"], version = "^2024.4.2"}
+click-option-group = "^0.5.6"
 
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"
