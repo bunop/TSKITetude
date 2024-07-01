@@ -168,6 +168,10 @@ def add_diploid_sites(
         alleles = [variant.REF.upper()] + [v.upper() for v in variant.ALT]
         ancestral_allele = ancestors_alleles.get((variant.CHROM, variant.POS), MISSING_DATA)
 
+        # TODO: remove me
+        # set ancestral allele to the first allele
+        ancestral_allele = 0
+
         # Check we have ATCG alleles
         for a in alleles:
             if a not in allele_chars:
