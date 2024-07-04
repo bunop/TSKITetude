@@ -1,0 +1,8 @@
+{
+    "plink_species": "--chr-set 26 no-xy no-mt --allow-no-sex",
+    "plink_bfile": "data/SMARTER-OA-OAR3-forward-0.4.9",
+    "plink_keep": "data/IDF_HD.tsv",
+    "genome": "data/Oar_v3.1_genome.fna.gz",
+    "max_memory": "48.GB",
+    "outdir": "results/IDF_HD"
+}
