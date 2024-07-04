@@ -1,61 +1,92 @@
 
+import logging
 import requests
+
+log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logging.basicConfig(level=logging.INFO, format=log_fmt)
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 # global variables
 session = requests.Session()
 
 
-class SheepEndpoint():
-    url = "https://webserver.ibba.cnr.it/smarter-api/samples/sheep"
+class EndPointMixin():
+    url = None
     headers = {}
+
+    def get(self, **kwargs):
+        logger.debug(f"Getting data from {self.url}")
+        logger.debug(f"Params: {kwargs}")
+
+        # add page and size if not in kwargs
+        if "page" not in kwargs:
+            kwargs["page"] = 1
+
+        if "size" not in kwargs:
+            kwargs["size"] = 100
+
+        response = session.get(
+            self.url,
+            headers=self.headers,
+            params=kwargs
+        )
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f"Failed to get data from {self.url}: {response.text}")
+
+
+class SheepEndpoint(EndPointMixin):
+    url = "https://webserver.ibba.cnr.it/smarter-api/samples/sheep"
 
     def get_samples(
             self,
             _type: str = None,
             breed: str = None,
             code: str = None,
-            page: int = None,
-            size: int = 100) -> dict:
+            chip_name: str = None,
+            **kwargs) -> dict:
         """Get the samples from the Sheep SMARTER API."""
-        response = session.get(
-            self.url,
-            headers=self.headers,
-            params={
-                "size": size,
-                "page": page,
-                "type": _type,
-                "breed": breed,
-                "breed_code": code
-            }
+
+        return self.get(
+            type=_type,
+            breed=breed,
+            breed_code=code,
+            chip_name=chip_name,
+            **kwargs
         )
 
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception("Failed to get sheep samples: " + response.text)
 
-
-class BreedEndpoint():
+class BreedEndpoint(EndPointMixin):
     url = "https://webserver.ibba.cnr.it/smarter-api/breeds"
-    headers = {}
 
     def get_breeds(
             self,
             species: str = None,
-            page: int = None,
-            size: int = 100) -> dict:
+            **kwargs) -> dict:
         """Get the breeds from the Sheep SMARTER API."""
-        response = session.get(
-            self.url,
-            headers=self.headers,
-            params={
-                "size": size,
-                "page": page,
-                "species": species
-            }
+
+        return self.get(
+            species=species,
+            **kwargs
         )
 
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception("Failed to get sheep breeds: " + response.text)
+
+class ChipEndpoint(EndPointMixin):
+    url = "https://webserver.ibba.cnr.it/smarter-api/supported-chips"
+
+    def get_chips(
+            self,
+            species: str = None,
+            manufacturer: str = None,
+            **kwargs) -> dict:
+        """Get the chips from the Sheep SMARTER API."""
+
+        return self.get(
+            species=species,
+            manufacturer=manufacturer,
+            **kwargs
+        )
