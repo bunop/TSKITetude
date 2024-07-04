@@ -10,7 +10,6 @@ Files and folders are structured as follow:
 .
 ├── config
 ├── data
-├── Dockerfile
 ├── notebooks
 ├── poetry.lock
 ├── pyproject.toml
@@ -19,13 +18,10 @@ Files and folders are structured as follow:
 ├── tests
 ├── TODO.md
 ├── tskitetude
-└── tskit-pipeline
 ```
 
 * `config`: tskit-pipeline configuration directory
 * `data`: data folder (not tracked)
-* `Dockerfile`: create a docker image with all `TSKITetude` dependencies. Required
-  by the pipeline
 * `notebooks`: folder with *IPython notebooks* files
 * `poetry.lock`: managed by Poetry during installation. Don't touch
 * `pyproject.toml`: required to manage this project with poetry. Dependencies
