@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tskitetude"
-version = "0.3.0"
+version = "0.3.1"
 description = ""
 authors = ["Paolo Cozzi <bunop@libero.it>"]
 readme = "README.md"
@@ -37,17 +37,3 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry_bumpversion.file."tskitetude/__init__.py"]
-
-[[tool.poetry_bumpversion.replacements]]
-files = [
-    "tskit-pipeline/modules/local/tsinfer.nf",
-    "tskit-pipeline/modules/local/estsfs_input.nf",
-    "tskit-pipeline/modules/local/estsfs_output.nf"
-]
-search = 'tskitetude:{current_version}'
-replace = 'tskitetude:{new_version}'
-
-[[tool.poetry_bumpversion.replacements]]
-files = ["tskit-pipeline/nextflow.config"]
-search = "version         = '{current_version}'"
-replace = "version         = '{new_version}'"
