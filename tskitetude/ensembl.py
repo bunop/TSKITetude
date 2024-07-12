@@ -129,7 +129,7 @@ def collect_compara_ancestors(assembly, chip_name, output):
     compara = ComparaSheepSNP(base_url=compara_assemblies[assembly])
 
     writer = csv.writer(output, delimiter=',', lineterminator="\n")
-    writer.writerow(["chrom", "position", "alleles", "ancestor"])
+    writer.writerow(["chrom", "position", "alleles", "anc_allele"])
 
     # get top level regions from ensembl endpoint
     data = ensRest.getInfoAssembly(species="ovis_aries")
