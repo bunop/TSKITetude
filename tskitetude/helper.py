@@ -101,7 +101,7 @@ def add_diploid_individuals(
     return indv_lookup
 
 
-def get_ancestors_alleles(csv_file: str) -> Dict[Tuple[str, int], int]:
+def get_ancestors_estsfs(csv_file: str) -> Dict[Tuple[str, int], int]:
     """
     read tskit-pipeline ancestor file an returns a dictionary
     """
@@ -132,7 +132,8 @@ def add_diploid_sites(
         samples: tsinfer.Sample,
         ancestors_alleles: Dict[Tuple[str, int], int],
         allele_chars = set("ATCG*"),
-        ancestral_as_reference = False
+        ancestral_as_reference = False,
+        ancestral_method = "estsfs"
         ):
     """
     Read the sites in the vcf and add them to the samples object.
@@ -183,10 +184,14 @@ def add_diploid_sites(
         if ancestral_as_reference:
             # set ancestral allele to the first allele
             ancestral_allele = 0
-        else:
-            # get the ancestral allele from the dictionary
+
+        elif ancestral_method == "estsfs":
+            # get the ancestral allele from the dictionary (which is a number)
             ancestral_allele = ancestors_alleles.get(
                 (variant.CHROM, variant.POS), MISSING_DATA)
+        else:
+            raise NotImplementedError(
+                f"Ancestral method {ancestral_method} not implemented")
 
         logger.debug(
             f"Adding site at pos {pos} with alleles {alleles} "
@@ -224,8 +229,13 @@ def add_diploid_sites(
     cls=RequiredMutuallyExclusiveOptionGroup
 )
 @optgroup.option(
-    "--ancestral",
+    "--ancestral_estsfs",
     help="processed est-sfs ancient allele file",
+    type=click.Path(exists=True),
+)
+@optgroup.option(
+    "--ancestral_ensembl",
+    help="processed ensembl-compara ancient allele file",
     type=click.Path(exists=True),
 )
 @optgroup.option(
@@ -266,7 +276,8 @@ def add_diploid_sites(
     default=1e4
 )
 def create_tstree(
-        vcf_file: click.Path, focal_csv: click.Path, ancestral: click.Path,
+        vcf_file: click.Path, focal_csv: click.Path,
+        ancestral_estsfs: click.Path, ancestral_ensembl: click.Path,
         ancestral_as_reference: bool,
         output_samples: click.Path, output_trees: click.Path, num_threads: int,
         mutation_rate: float, Ne: float):
@@ -291,8 +302,14 @@ def create_tstree(
     vcf = cyvcf2.VCF(vcf_file)
 
     # time to get the ancestor allele dictionary
-    if ancestral:
-        ancestors_alleles = get_ancestors_alleles(ancestral)
+    if ancestral_estsfs:
+        ancestors_alleles = get_ancestors_estsfs(ancestral_estsfs)
+        ancestral_method = "estsfs"
+
+    elif ancestral_ensembl:
+        ancestral_method = "ensembl"
+        raise NotImplementedError("Ensembl ancestral allele not implemented")
+
     else:
         ancestors_alleles = {}
 
@@ -306,7 +323,8 @@ def create_tstree(
             vcf,
             samples,
             ancestors_alleles,
-            ancestral_as_reference=ancestral_as_reference
+            ancestral_as_reference=ancestral_as_reference,
+            ancestral_method=ancestral_method
         )
 
     logger.info(
