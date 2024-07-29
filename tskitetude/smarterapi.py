@@ -116,7 +116,7 @@ class VariantsEndpoint(EndPointMixin):
             **kwargs
         )
 
-        # unnesting locations items: get first item
+        # un-nesting locations items: get first item
         for item in response["items"]:
             item["locations"] = item["locations"][0]
 
