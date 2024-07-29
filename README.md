@@ -95,7 +95,7 @@ Connect to SMARTER FTPs site and download *Sheep* and *Goat* datasets:
 
 ```lftp
 cd SHEEP/OAR3
-mget SMARTER-OA-OAR3-top-0.4.9.*
+mget SMARTER-OA-OAR3-top-0.4.10.*
 ```
 
 ### Convert into *forward* coding
@@ -105,9 +105,9 @@ forward coordinates with `SNPconvert.py` coming from [SMARTER-database](https://
 project:
 
 ```bash
-python src/data/SNPconvert.py --bfile ~/Projects/TSKITetude/data/SMARTER-OA-OAR3-top-0.4.9 \
+python src/data/SNPconvert.py --bfile /home/core/TSKITetude/data/SMARTER-OA-OAR3-top-0.4.10 \
     --src_coding top --dst_coding forward --assembly OAR3 --species Sheep \
-    --results_dir ~/Projects/TSKITetude/data/
+    --results_dir /home/core/TSKITetude/data/
 ```
 
 ## The tskit-pipeline
@@ -127,3 +127,35 @@ using [tsinfer](https://tskit.dev/tsinfer/docs/stable/). Ages
 will be estimated with [tsdate](https://tskit.dev/software/tsdate.html)
 
 ### Select background samples
+
+Background samples can be selected by using the `notebooks/03-smarter_database.ipynb`
+notebook: this notebook was used to select only *Ovis aries* background samples from
+the SMARTER database. The output is a list of samples to be used in the pipeline
+mainly by plink with the `--keep` option. In addition, three different lists
+(`european_mouflon`, `sardinian_mouflon`, `spanish_mouflon`) are then created
+to extract *ancestor alleles* using `est-sft`: this approach was superseded by
+the *compara* and *reference* allele extraction, since we are not sure that those
+mouflon samples can be considered as ancestors instead of just *outgroups*.
+
+### Call pipeline on background samples
+
+Call the pipeline with `est-sfs` on background samples:
+
+```bash
+nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+    --outdir "results-estsfs/background_samples" --with_estsfs
+```
+
+Call the pipeline using reference alleles:
+
+```bash
+nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+    --outdir "results-reference/background_samples" --reference_ancestor
+```
+
+Call the pipeline using the *compara* reference alleles:
+
+```bash
+nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+    --outdir "results-compara/background_samples" --compara_ancestor
+```
