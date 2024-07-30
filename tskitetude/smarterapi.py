@@ -1,13 +1,11 @@
 
 import logging
 import requests
+from requests.models import PreparedRequest
 
 import asyncio
 import aiohttp
 from urllib.parse import urljoin
-
-log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-logging.basicConfig(level=logging.INFO, format=log_fmt)
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -195,6 +193,11 @@ class VariantsEndpoint(EndPointMixin):
 
         for attempt in range(retries):
             try:
+                req = PreparedRequest()
+                req.prepare_url(self.url, kwargs)
+
+                logger.debug(f"Getting data from {req.url}")
+
                 async with session.get(self.url, params=kwargs) as response:
                     response.raise_for_status()
                     result = await response.json()
@@ -219,13 +222,14 @@ class VariantsEndpoint(EndPointMixin):
                     raise exc
 
 
-async def variant_worker(queue, session, variant_api, async_processing_func, size):
+async def variant_worker(
+        queue, session, variant_api, async_processing_func, size, **kwargs):
     while True:
         page = await queue.get()
 
         try:
             response = await variant_api.get_async_variants(
-                session, page=page, size=size)
+                session, page=page, size=size, **kwargs)
 
             # call my processing function
             await async_processing_func(response)
