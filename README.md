@@ -208,6 +208,22 @@ nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file co
 ```
 ## Compare 50K samples with repetitions
 
+In order to do a fair simulation, we need to extract all `50K` SNPs from the
+SMARTER dataset: this will avoid the particular case when I extract all *HD* samples,
+which will results in a *HD* subset. By extracting only the `50K` dataset, all
+simulations should be comparable. Let's collect SNP names for `50K` SNPs:
+
+```bash
+python scripts/getSNPnames.py --chip_name IlluminaOvineSNP50 > data/50k_snp_ids.txt
+```
+
+Next, we can extract the `50K` dataset from the whole *forward* file using `plink`:
+
+```bash
+plink --chr-set 26 no-xy no-mt --allow-no-sex --bfile data/SMARTER-OA-OAR3-forward-0.4.10 \
+    --extract data/50k_snp_ids.txt --make-bed --out data/SMARTER-OA-OAR3-forward-0.4.10-50K
+```
+
 To test the effect of the number of samples / breed when creating *TreeSequence*
 objects, we select randomly `[1, 2, 5, 10, 15, 20]` breeds having each one a
 number of samples between 20 and 30 (see `notebooks/09-smarter_50k.ipynb` for
