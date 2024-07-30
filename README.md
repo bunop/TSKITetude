@@ -101,13 +101,19 @@ mget SMARTER-OA-OAR3-top-0.4.10.*
 ### Convert into *forward* coding
 
 SMARTER data is stored in *illumina top*. It is possible to convert data into
-forward coordinates with `SNPconvert.py` coming from [SMARTER-database](https://github.com/cnr-ibba/SMARTER-database)
-project:
+forward coordinates with `plink`: This could be a more fast alternative to
+`SNPconvert.py` coming from [SMARTER-database](https://github.com/cnr-ibba/SMARTER-database)
+project. First, crate a TSV file with the SNP ids, the old allele codes and the
+new allele codes. This could be done using this script:
 
 ```bash
-python src/data/SNPconvert.py --bfile /home/core/TSKITetude/data/SMARTER-OA-OAR3-top-0.4.10 \
-    --src_coding top --dst_coding forward --assembly OAR3 --species Sheep \
-    --results_dir /home/core/TSKITetude/data/
+python scripts/top2forward.py > data/OAR3_top2forward.csv
+```
+Next, you can convert the data with `plink`:
+
+```bash
+plink --chr-set 26 no-xy no-mt --allow-no-sex --bfile data/SMARTER-OA-OAR3-top-0.4.10 \
+    --update-alleles data/OAR3_top2forward.csv --make-bed --out data/SMARTER-OA-OAR3-forward-0.4.10
 ```
 
 ## The tskit-pipeline
