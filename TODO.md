@@ -2,13 +2,13 @@
 
 ## 2024-07-15
 
-- [ ] call the *reference* pipeline on smarter background sheep
-- [ ] call the *compara* pipeline on smarter background sheep
-- [ ] call the *est-sfs* pipeline on smarter background sheep
+- [x] call the *reference* pipeline on smarter background sheep
+- [x] call the *compara* pipeline on smarter background sheep
+- [x] call the *est-sfs* pipeline on smarter background sheep
 - [ ] same stuff as above but with all 50k samples from smarter
-- [ ] compare the three different approaches and check if the dataset dimension
+- [ ] compare the *compara* and *reference* approaches and check if the dataset dimension
       is implied in *trees* size and number of *mutations*.
-- [ ] update `README.md`
+- [x] update `README.md`
 
 ## Phasing
 

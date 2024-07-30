@@ -1,8 +1,11 @@
 # TSKITetude
 
-This project is an attempt to analyze SMARTER background data using [tskit](https://tskit.dev/). There's a *nextflow* pipeline able to transform SMARTER data in
+This project is an attempt to analyze SMARTER data using [tskit](https://tskit.dev/).
+Most of the analyses are done using [cnr-ibba/nf-treeseq](https://github.com/cnr-ibba/nf-treeseq)
+*nextflow* pipeline able which is able to transform SMARTER data in
 [tskit](https://tskit.dev/tskit/docs/stable/introduction.html) *TreeSequence*
-files. There's the `tskitetude` python library which does data conversion and
+files. Whithin this project, there's the `tskitetude` python library which does
+data conversion and is then used in the nextflow pipeline. There's also
 a `notebook` folder with some example code useful for analysis.
 Files and folders are structured as follow:
 
@@ -15,12 +18,13 @@ Files and folders are structured as follow:
 ├── pyproject.toml
 ├── README.md
 ├── results
+├── scripts
 ├── tests
 ├── TODO.md
 ├── tskitetude
 ```
 
-* `config`: tskit-pipeline configuration directory
+* `config`: configuration directory for analyses with nextflow
 * `data`: data folder (not tracked)
 * `notebooks`: folder with *IPython notebooks* files
 * `poetry.lock`: managed by Poetry during installation. Don't touch
@@ -32,7 +36,6 @@ Files and folders are structured as follow:
 * `test`: test code for `tskitetude` python module
 * `TODO.md`: TODO file
 * `tskitetude`: source code of this project
-* `tskit-pipeline`: the nextflow tskit pipeline
 
 This folder is managed using git, and to avoid committing every *IPython notebook*
 output you require the [nbstripout](https://github.com/kynan/nbstripout) software
@@ -119,8 +122,16 @@ plink --chr-set 26 no-xy no-mt --allow-no-sex --bfile data/SMARTER-OA-OAR3-top-0
 ## The tskit-pipeline
 
 The proposed pipeline is supposed to work starting from the entire SMARTER
-database: all the sheep background samples will be extracted from the whole
-database, including the samples required to estimate ancestor alleles: the former
+database: all the required samples are selected by the pipeline relying on
+a list of samples (like the one required by the `--keep` option of `plink`).
+Then there are three different approaches to genereate *TreeSequences* object
+using the nextflow pipeline: the `est-sfs` approach, the `reference` approach
+and the `compara` approach.
+
+### The est-sfs approach
+
+This approach requires to select a list of samples from the SMARTER
+including the samples required to estimate ancestor alleles: the former
 samples will be referred as *focal* samples, the latter *ancient*.
 The two groups will be processed separately: data will be converted into VCF
 and normalized against the reference sequence. Focal samples will be *phased* and
@@ -130,7 +141,39 @@ using [est-sfs](https://sourceforge.net/projects/est-usfs/) software
 (see [Keightley and Jackson 2018](https://academic.oup.com/genetics/article/209/3/897/5930981)).
 Then the output will be used to define *samples* and *TreeSequences*
 using [tsinfer](https://tskit.dev/tsinfer/docs/stable/). Ages
-will be estimated with [tsdate](https://tskit.dev/software/tsdate.html)
+will be finally estimated with [tsdate](https://tskit.dev/software/tsdate.html)
+
+This approach was superseded by the *compara* and *reference* allele extraction,
+since we are not sure that those ancient samples can be considered as ancestors
+instead of just *outgroups*, since they are living in the same time frame of the
+*focal* samples.
+
+### The reference approach
+
+This approach requires to select a list of samples from the SMARTER database,
+like the `est-sfs` approach: however no ancient samples are required and the
+ancestral alleles are extracted from a reference sequence.
+
+This approach should be the reference approach against other methods, since
+no assumptions are made on ancestors.
+
+### The compara approach
+
+Even this approach requires to select a list of samples from the SMARTER database.
+In addition, you require a CSV file in which the *ancestral* alleles are stored.
+This file can be generated using the `collect_compara_ancestors` script:
+
+```bash
+collect_compara_ancestors --assembly oar3 --chip_name IlluminaOvineSNP50 --output data/ancestors-OAR3-50K.csv
+```
+
+With this approach, the *ancestral* alleles are extracted from the *ensembl compara*
+database, when an alignment between sheep and goat assemblies is available. This
+datafile is specific to the assembly and the chip used to genotype the samples,
+in this case we can call the analysis on *OAR3* for the *IlluminaOvineSNP50* (50K)
+chip.
+
+## Compare background samples with three different approaches
 
 ### Select background samples
 
@@ -139,9 +182,7 @@ notebook: this notebook was used to select only *Ovis aries* background samples 
 the SMARTER database. The output is a list of samples to be used in the pipeline
 mainly by plink with the `--keep` option. In addition, three different lists
 (`european_mouflon`, `sardinian_mouflon`, `spanish_mouflon`) are then created
-to extract *ancestor alleles* using `est-sft`: this approach was superseded by
-the *compara* and *reference* allele extraction, since we are not sure that those
-mouflon samples can be considered as ancestors instead of just *outgroups*.
+to extract *ancestor alleles* using `est-sfs`.
 
 ### Call pipeline on background samples
 
@@ -152,16 +193,37 @@ nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file co
     --outdir "results-estsfs/background_samples" --with_estsfs
 ```
 
-Call the pipeline using reference alleles:
+Call the pipeline using reference alleles (the outgroup samples are not used):
 
 ```bash
 nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-reference/background_samples" --reference_ancestor
 ```
 
-Call the pipeline using the *compara* reference alleles:
+Call the pipeline using the *compara* reference alleles (the outgroup samples are not used):
 
 ```bash
 nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
-    --outdir "results-compara/background_samples" --compara_ancestor
+    --outdir "results-compara/background_samples" --compara_ancestor data/ancestors-OAR3-50K.csv
 ```
+## Compare 50K samples with repetitions
+
+To test the effect of the number of samples / breed when creating *TreeSequence*
+objects, we select randomly `[1, 2, 5, 10, 15, 20]` breeds having each one a
+number of samples between 20 and 30 (see `notebooks/09-smarter_50k.ipynb` for
+details) and we repeat this random extraction (without repetition) 5 times.
+For each combination, a input file is created inside `data` folder, and the pipeline
+can be called called with:
+
+```bash
+bash scripts/50K_simulations_reference.sh
+```
+To call the pipeline using the *reference* approach. In order to call the pipeline
+with the *compara* approach, you can use the following script:
+
+```bash
+bash scripts/50K_simulations_compara.sh
+```
+
+The `est-sfs` approach is not used in this case, since we cannot define the
+output groups that can be used to estimate the *ancestral* alleles.
