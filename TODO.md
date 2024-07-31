@@ -1,5 +1,15 @@
 # TODO
 
+## 2024-07-15
+
+- [x] call the *reference* pipeline on smarter background sheep
+- [x] call the *compara* pipeline on smarter background sheep
+- [x] call the *est-sfs* pipeline on smarter background sheep
+- [ ] same stuff as above but with all 50k samples from smarter
+- [ ] compare the *compara* and *reference* approaches and check if the dataset dimension
+      is implied in *trees* size and number of *mutations*.
+- [x] update `README.md`
+
 ## Phasing
 
 * [Phasing WIKI](https://isogg.org/wiki/Phasing)
