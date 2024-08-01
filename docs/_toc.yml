@@ -3,7 +3,12 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+parts:
+  - caption: Setting up the environment
+    chapters:
+    - file: install/install
+    - file: install/build-docs
+
+  - caption: The SMARTER dataset
+    chapters:
+      - file: 11-smarter_50K_results

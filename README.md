@@ -4,13 +4,13 @@ This project is an attempt to analyze SMARTER data using [tskit](https://tskit.d
 Most of the analyses are done using [cnr-ibba/nf-treeseq](https://github.com/cnr-ibba/nf-treeseq)
 *nextflow* pipeline able which is able to transform SMARTER data in
 [tskit](https://tskit.dev/tskit/docs/stable/introduction.html) *TreeSequence*
-files. Whithin this project, there's the `tskitetude` python library which does
+files. Within this project, there's the `tskitetude` python library which does
 data conversion and is then used in the nextflow pipeline. There's also
 a `notebook` folder with some example code useful for analysis.
 Files and folders are structured as follow:
 
-```txt
-.
+```text
+TSKITetude/
 ├── config
 ├── data
 ├── notebooks
