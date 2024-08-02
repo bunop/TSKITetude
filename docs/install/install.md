@@ -44,7 +44,7 @@ output you require the [nbstripout](https://github.com/kynan/nbstripout) softwar
 installed, which will be called every time you do a `git add` or `git status`
 command: this will strip out notebook results on the fly without erasing the
 outputs of your local notebooks (and without requiring you to strip out results
-before committing with Git).
+before committing with Git, like `git-hooks` does).
 
 ## Install poetry
 
@@ -74,3 +74,35 @@ poetry install
 ```
 
 This will install all poetry dependencies, including `nbstripout`.
+
+## Install nbstripout filters
+
+This project uses `nbstripout` to strip out notebook outputs before committing
+to git. To install the filters, type:
+
+```bash
+poetry run nbstripout --install
+```
+
+This will install the filters in your local `.git/config` file.
+
+## Install nextflow
+
+Despite not being a python package, this project uses nextflow to run the
+`cnr-ibba/nf-treeseq` pipeline. To install nextflow simply follow the steps
+described in [Getting started](https://www.nextflow.io/#GetStarted) documentation,
+or read the full [Installation](https://www.nextflow.io/docs/latest/install.html)
+instructions in nextflow documentation.
+
+## Poetry shell or Poetry run?
+
+All the code within this project is installed using poetry. You have mainly two
+options to run the code and interact with this repository contents:
+
+1. `poetry shell`: this command will activate the poetry environment and you can
+    run the code directly from the command line: a new shell will be opened with
+    the poetry environment activated. To deactivate the environment, simply type
+    `exit` or `Ctrl+D` to return to the previous shell.
+2. `poetry run`: this command will run the code directly from the command line
+    without activating the poetry environment. This is useful when you want to
+    run a single command without activating the environment.
