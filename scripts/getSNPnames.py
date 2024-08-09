@@ -19,14 +19,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-async def process_response(response, all_names, lock):
+async def process_response(response, all_names):
     """Deal with the response from the API"""
 
     # collect names
-    names = [item['name'] for item in response['items']]
-
-    async with lock:
-        all_names += names
+    all_names += [item['name'] for item in response['items']]
 
 
 async def fetch_all_names(chip_name, size):
@@ -49,12 +46,11 @@ async def fetch_all_names(chip_name, size):
         # process the first page
         all_names = [item['name'] for item in response['items']]
 
-        # create queue and lock
+        # create queue
         queue = asyncio.Queue()
-        lock = asyncio.Lock()
 
         # Create the partial function with lock and all_names
-        process_response_with_lock = partial(process_response, all_names=all_names, lock=lock)
+        process_response_with_lock = partial(process_response, all_names=all_names)
 
         # Define the number of workers
         num_workers = 5

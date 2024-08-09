@@ -21,18 +21,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-async def process_response(response, all_locations, lock):
+async def process_response(response, all_locations):
     """Deal with the response from the API"""
-
-    # collect response
-    locations = []
 
     for item in response["items"]:
         location = Location(name=item["name"], data=item["locations"])
-        locations.append(location)
+        all_locations.append(location)
 
-    async with lock:
-        all_locations += locations
 
 
 async def fetch_all_locations(size=25):
@@ -60,12 +55,11 @@ async def fetch_all_locations(size=25):
             location = Location(name=item["name"], data=item["locations"])
             all_locations.append(location)
 
-        # create queue and lock
+        # create queue
         queue = asyncio.Queue()
-        lock = asyncio.Lock()
 
         # Create the partial function with lock and all_locations
-        process_response_with_lock = partial(process_response, all_locations=all_locations, lock=lock)
+        process_response_with_lock = partial(process_response, all_locations=all_locations)
 
         # Define the number of workers
         num_workers = 5
