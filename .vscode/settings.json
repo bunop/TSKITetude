@@ -1,11 +1,14 @@
 {
     "cSpell.words": [
+        "aiohttp",
         "astype",
         "ATCG",
         "bumpversion",
         "chrom",
+        "compara",
         "cyvcf",
         "dotenv",
+        "ensembl",
         "estsfs",
         "indv",
         "levelname",
