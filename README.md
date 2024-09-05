@@ -13,11 +13,12 @@ Files and folders are structured as follow:
 TSKITetude/
 ├── config
 ├── data
-├── notebooks
+├── docs
+├── experiments
 ├── poetry.lock
 ├── pyproject.toml
 ├── README.md
-├── results
+├── results-*
 ├── scripts
 ├── tests
 ├── TODO.md
@@ -31,8 +32,8 @@ TSKITetude/
 * `pyproject.toml`: required to manage this project with poetry. Dependencies
   can be managed using poetry (see [Managing dependencies](https://python-poetry.org/docs/managing-dependencies/))
 * `README.md`: this file
-* `results`: a result folder not tracked with Git. Usually is the nextflow *results*
-  folder
+* `results-*`: results folders not tracked with Git. Usually is the nextflow *results* folder
+* `scripts`: scripts used to perform analyses
 * `test`: test code for `tskitetude` python module
 * `TODO.md`: TODO file
 * `tskitetude`: source code of this project

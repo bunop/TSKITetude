@@ -19,6 +19,7 @@ parts:
 
   - caption: The SMARTER database
     chapters:
+      - file: running/smarter-database.md
       - file: notebooks/03-smarter_database
       - file: notebooks/05-tstree-smarter
       - file: notebooks/06-nucleotide-diversity
