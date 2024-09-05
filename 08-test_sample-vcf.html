@@ -1,0 +1,1431 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Inference from a test VCF file &#8212; SheepTreeSeq</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"11d434da3e6346769eaef6cd3b828ae0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_fae59ca52d0c48b0bb0fa44ee7c7cdbf", "max": 1000000.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_1a0ff819bf4e4faabcdb2d80b4d037ec", "tabbable": null, "tooltip": null, "value": 983569.0}}, "1a0ff819bf4e4faabcdb2d80b4d037ec": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "35a3571786354364bb751c0ef02914d2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "3d912c251bb249eba3a0a71fa2562f5d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_4bc3938be6f647d5a6b12bfb0bfe181e", "placeholder": "\u200b", "style": "IPY_MODEL_35a3571786354364bb751c0ef02914d2", "tabbable": null, "tooltip": null, "value": " 983569/1000000.0 [00:04&lt;00:00, 251711.73bp/s]"}}, "47989e3712064066879c75099cec2db9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_cbd8a9baa1584c1aa1b128ad5db574c0", "placeholder": "\u200b", "style": "IPY_MODEL_b76e4651c4fa4e6c822eecb9a6b67d97", "tabbable": null, "tooltip": null, "value": "Read VCF:  98%"}}, "4bc3938be6f647d5a6b12bfb0bfe181e": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "96455f86785e4e52bbcefc240d4cada1": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "968bdae6d4544d73aaf44f91f71f7ed0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_47989e3712064066879c75099cec2db9", "IPY_MODEL_11d434da3e6346769eaef6cd3b828ae0", "IPY_MODEL_3d912c251bb249eba3a0a71fa2562f5d"], "layout": "IPY_MODEL_96455f86785e4e52bbcefc240d4cada1", "tabbable": null, "tooltip": null}}, "b76e4651c4fa4e6c822eecb9a6b67d97": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "cbd8a9baa1584c1aa1b128ad5db574c0": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fae59ca52d0c48b0bb0fa44ee7c7cdbf": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '08-test_sample-vcf';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SMARTER database" href="03-smarter_database.html" />
+    <link rel="prev" title="TSINFER with SMARTER test data" href="04-tsinfer_with_test_data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    SheepTreeSeq: Scalable analysis of sheep genome diversity using tree sequences
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="install/install.html">Setting up the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/build-docs.html">Build the documentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Inference from a test VCF file</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03-smarter_database.html">SMARTER database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2F08-test_sample-vcf.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/08-test_sample-vcf.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Inference from a test VCF file</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-nucleotide-diversity">Exploring nucleotide diversity</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="inference-from-a-test-vcf-file">
+<h1>Inference from a test VCF file<a class="headerlink" href="#inference-from-a-test-vcf-file" title="Link to this heading">#</a></h1>
+<p>Try to infer a tstree object like I did with <code class="docutils literal notranslate"><span class="pre">nf-treeseq</span></code> pipeline but using the
+sample VCF provided in <a class="reference external" href="https://github.com/HighlanderLab/sheepTSexample">sheepTSexample</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cyvcf2</span>
+<span class="kn">import</span> <span class="nn">tsinfer</span>
+<span class="kn">import</span> <span class="nn">tsdate</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">tskitetude</span> <span class="kn">import</span> <span class="n">get_project_dir</span>
+<span class="kn">from</span> <span class="nn">tskitetude.helper</span> <span class="kn">import</span> <span class="n">get_chromosome_lengths</span><span class="p">,</span> <span class="n">add_diploid_sites</span><span class="p">,</span> <span class="n">create_windows</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Configure <code class="docutils literal notranslate"><span class="pre">tskitetude</span></code> module to use <code class="docutils literal notranslate"><span class="pre">tqdm.notebook</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">import</span> <span class="nn">tskitetude.helper</span>
+
+<span class="n">tskitetude</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">tqdm</span> <span class="o">=</span> <span class="n">tqdm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcf_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;experiments/test1M/test1M.out.inf.vcf.gz&quot;</span><span class="p">)</span>
+<span class="n">vcf</span> <span class="o">=</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
+<span class="n">chromosome_lengths</span> <span class="o">=</span> <span class="n">get_chromosome_lengths</span><span class="p">(</span><span class="n">vcf</span><span class="p">)</span>
+
+<span class="c1"># get first variant like I did in the helper script</span>
+<span class="n">variant</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">vcf</span><span class="p">)</span>
+<span class="n">sequence_length</span> <span class="o">=</span> <span class="n">chromosome_lengths</span><span class="p">[</span><span class="n">variant</span><span class="o">.</span><span class="n">CHROM</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting information for chromosome </span><span class="si">{</span><span class="n">variant</span><span class="o">.</span><span class="n">CHROM</span><span class="si">}</span><span class="s2"> with length </span><span class="si">{</span><span class="n">sequence_length</span><span class="si">}</span><span class="s2"> bp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Getting information for chromosome 1 with length 1000000 bp
+</pre></div>
+</div>
+</div>
+</div>
+<p>Create <code class="docutils literal notranslate"><span class="pre">SampleData</span></code> object. Add additional information (as we did in <a class="reference external" href="https://github.com/HighlanderLab/sheepTSexample/blob/main/Notebooks/10Inference.ipynb">tutorial</a>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reset the VCF file</span>
+<span class="n">vcf</span> <span class="o">=</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">tsinfer</span><span class="o">.</span><span class="n">SampleData</span><span class="p">(</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;experiments/test1M/test1M.out.inf.samples&quot;</span><span class="p">),</span>
+        <span class="n">sequence_length</span> <span class="o">=</span> <span class="n">sequence_length</span><span class="p">)</span> <span class="k">as</span> <span class="n">samples</span><span class="p">:</span>
+
+    <span class="c1"># add population information (optional)</span>
+    <span class="n">samples</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Mouflon&quot;</span><span class="p">})</span>
+    <span class="n">samples</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Iranian&quot;</span><span class="p">})</span>
+    <span class="n">samples</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Border&quot;</span><span class="p">})</span>
+
+    <span class="c1"># add individuals (optional)</span>
+
+    <span class="c1"># create a population lookup list to iterate over</span>
+    <span class="n">popID</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">105</span><span class="p">):</span>
+        <span class="n">samples</span><span class="o">.</span><span class="n">add_individual</span><span class="p">(</span><span class="n">ploidy</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">population</span><span class="o">=</span><span class="n">popID</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;tsk_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+
+    <span class="n">add_diploid_sites</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="p">{},</span> <span class="n">allele_chars</span><span class="o">=</span><span class="nb">set</span><span class="p">(</span><span class="s2">&quot;01&quot;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Sample file created for </span><span class="si">{</span><span class="n">samples</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> samples &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">samples</span><span class="o">.</span><span class="n">num_individuals</span><span class="si">}</span><span class="s2"> individuals) &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;with </span><span class="si">{</span><span class="n">samples</span><span class="o">.</span><span class="n">num_sites</span><span class="si">}</span><span class="s2"> variable sites.&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:47,331 - tskitetude.helper - INFO - Using ancestral allele from est-sfs
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "968bdae6d4544d73aaf44f91f71f7ed0", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 83850, ignoring all but the first
+Duplicate entries at position 119222, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 176965, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 214451, ignoring all but the first
+Duplicate entries at position 231728, ignoring all but the first
+Duplicate entries at position 232122, ignoring all but the first
+Duplicate entries at position 233613, ignoring all but the first
+Duplicate entries at position 250950, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 289598, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 355578, ignoring all but the first
+Duplicate entries at position 368226, ignoring all but the first
+Duplicate entries at position 380744, ignoring all but the first
+Duplicate entries at position 389742, ignoring all but the first
+Duplicate entries at position 401443, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 423892, ignoring all but the first
+Duplicate entries at position 463723, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 484903, ignoring all but the first
+Duplicate entries at position 497351, ignoring all but the first
+Duplicate entries at position 530338, ignoring all but the first
+Duplicate entries at position 533058, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 547183, ignoring all but the first
+Duplicate entries at position 559588, ignoring all but the first
+Duplicate entries at position 585695, ignoring all but the first
+Duplicate entries at position 588075, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 641377, ignoring all but the first
+Duplicate entries at position 668752, ignoring all but the first
+Duplicate entries at position 685839, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 708451, ignoring all but the first
+Duplicate entries at position 708624, ignoring all but the first
+Duplicate entries at position 738714, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 771513, ignoring all but the first
+Duplicate entries at position 796270, ignoring all but the first
+Duplicate entries at position 801989, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 842642, ignoring all but the first
+Duplicate entries at position 844811, ignoring all but the first
+Duplicate entries at position 849212, ignoring all but the first
+Duplicate entries at position 869978, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 901725, ignoring all but the first
+Duplicate entries at position 917886, ignoring all but the first
+Duplicate entries at position 925039, ignoring all but the first
+Duplicate entries at position 950803, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample file created for 210 samples (105 individuals) with 12844 variable sites.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do the inference</span>
+<span class="n">sparrow_ts</span> <span class="o">=</span> <span class="n">tsinfer</span><span class="o">.</span><span class="n">infer</span><span class="p">(</span>
+    <span class="n">samples</span><span class="p">,</span>
+    <span class="n">num_threads</span><span class="o">=</span><span class="mi">4</span>
+<span class="p">)</span>
+
+<span class="c1"># Simplify the tree sequence</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">sparrow_ts</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Inferred tree sequence `ts`: </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">num_trees</span><span class="si">}</span><span class="s2"> &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;trees over </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">sequence_length</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">}</span><span class="s2"> Mb&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,459 - tsinfer.inference - INFO - Starting addition of 12844 sites
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,746 - tsinfer.inference - INFO - Finished adding sites
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,747 - tsinfer.inference - WARNING - No sites used for inference
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,759 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,759 - tsinfer.inference - INFO - Fewer than two inference sites: no recombination possible
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,760 - tsinfer.inference - INFO - No inference sites: no mismatch possible
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,760 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,763 - tsinfer.inference - INFO - Starting ancestor matching for 0 epochs
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,765 - tsinfer.inference - INFO - Finished ancestor matching
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,767 - tsinfer.inference - WARNING - No sites used for inference
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,778 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,779 - tsinfer.inference - INFO - Fewer than two inference sites: no recombination possible
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,780 - tsinfer.inference - INFO - No inference sites: no mismatch possible
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,780 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,792 - tsinfer.inference - INFO - Loaded 210 samples 0 nodes; 0 edges; 0 sites; 0 mutations
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,793 - tsinfer.inference - INFO - Started matching for 210 samples
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,793 - tsinfer.inference - INFO - Finalising tree sequence
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,810 - tsinfer.inference - INFO - Built samples tree sequence: 212 nodes (0 pc); 211 edges; 0 sites; 0 mutations
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:51,811 - tsinfer.inference - INFO - Mapping additional sites
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,563 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,590 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,630 - tsinfer.inference - INFO - Erased flanks covering 0.0119% of the genome: 108.0 units at the start and 11.0 units at the end
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,631 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 212 nodes and 210 edges
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,644 - tsinfer.inference - INFO - Finished simplify; now have 211 nodes and 210 edges
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inferred tree sequence `ts`: 3 trees over 1.0 Mb
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>3</td></tr>
+                      <tr><td>Sequence Length</td><td>1000000.0</td></tr>
+                      <tr><td>Time Units</td><td>uncalibrated</td></tr>
+                      <tr><td>Sample Nodes</td><td>210</td></tr>
+                      <tr><td>Total Size</td><td>7.3 MiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">
+                <div>
+                  <span class="tskit-details-label"></span>
+                  <details open>
+                    <summary>dict</summary>
+                    
+                  </details>
+                </div>
+                </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>210</td>
+                      <td>6.6 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>105</td>
+                      <td>4.7 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>187726</td>
+                      <td>6.6 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>211</td>
+                      <td>5.8 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>3</td>
+                      <td>88 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>2</td>
+                      <td>1.0 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>12844</td>
+                      <td>702.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Removes unary nodes (currently required in tsdate), keeps historical-only sites</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">preprocess_ts</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">filter_sites</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">date</span><span class="p">(</span>
+    <span class="n">ts</span><span class="p">,</span>
+    <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
+    <span class="n">Ne</span><span class="o">=</span><span class="mf">1e4</span>
+<span class="p">)</span>
+
+<span class="n">ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,737 - tsdate.util - INFO - Beginning preprocessing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,738 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,740 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 107.0.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:42:53,740 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 999989.0 to end of sequence at 1000000.0.
+</pre></div>
+</div>
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>3</td></tr>
+                      <tr><td>Sequence Length</td><td>1000000.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>210</td></tr>
+                      <tr><td>Total Size</td><td>7.3 MiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">
+                <div>
+                  <span class="tskit-details-label"></span>
+                  <details open>
+                    <summary>dict</summary>
+                    
+                  </details>
+                </div>
+                </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>210</td>
+                      <td>6.6 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>105</td>
+                      <td>4.7 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>187726</td>
+                      <td>6.6 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>211</td>
+                      <td>5.8 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>3</td>
+                      <td>88 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>4</td>
+                      <td>2.3 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>12844</td>
+                      <td>702.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+<p>dump the <em>treesequence</em> file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save generated tree</span>
+<span class="n">ts</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;tests/test1M.out.inf.trees&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I want to try to collect the first tree like I did in a previous example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">POS</span> <span class="o">=</span> <span class="mi">108</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">POS</span><span class="p">)</span>
+<span class="n">tree</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-tree-class"> Tree </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Index</td><td>1</td></tr>
+                      <tr><td>Interval</td><td>108-999989 (999881)</td></tr>
+                      <tr><td>Roots</td><td>1</td></tr>
+                      <tr><td>Nodes</td><td>211</td></tr>
+                      <tr><td>Sites</td><td>12844</td></tr>
+                      <tr><td>Mutations</td><td>187726</td></tr>
+                      <tr><td>Total Branch Length</td><td>17122624</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+<p>Now get the intervals of this tree. Then try to filter out edges between those positions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">interval</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">interval</span>
+<span class="n">left_bound</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">left</span>
+<span class="n">right_bound</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">right</span>
+
+<span class="n">filtered_edges</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">left_bound</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">right</span> <span class="o">&lt;=</span> <span class="n">right_bound</span><span class="p">)]</span>
+<span class="n">filtered_edges</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <div>
+            <style scoped="">
+                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
+                .tskit-table tbody tr th {vertical-align: top;}
+                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
+                .tskit-table tbody th {padding: 0.5em 0.5em;}
+            </style>
+            <table border="1" class="tskit-table">
+                <thead>
+                    <tr>
+                        <th>id</th><th>left</th><th>right</th><th>parent</th><th>child</th><th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>108</td><td>999989</td><td>210</td><td>0</td><td></td></tr>
+<tr><td>1</td><td>108</td><td>999989</td><td>210</td><td>1</td><td></td></tr>
+<tr><td>2</td><td>108</td><td>999989</td><td>210</td><td>2</td><td></td></tr>
+<tr><td>3</td><td>108</td><td>999989</td><td>210</td><td>3</td><td></td></tr>
+<tr><td>4</td><td>108</td><td>999989</td><td>210</td><td>4</td><td></td></tr>
+<tr><td>5</td><td>108</td><td>999989</td><td>210</td><td>5</td><td></td></tr>
+<tr><td>6</td><td>108</td><td>999989</td><td>210</td><td>6</td><td></td></tr>
+<tr><td>7</td><td>108</td><td>999989</td><td>210</td><td>7</td><td></td></tr>
+<tr><td>8</td><td>108</td><td>999989</td><td>210</td><td>8</td><td></td></tr>
+<tr><td>9</td><td>108</td><td>999989</td><td>210</td><td>9</td><td></td></tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">filtered_edges</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>210
+</pre></div>
+</div>
+</div>
+</div>
+<p>why so few edges in this cases? How I can draw a tree with so few edges? Maybe the table
+itself doesn’t model every connection between nodes. Or the way I collect data on edges
+is completely wrong.</p>
+<p>Can I filter out the nodes in the same way? In this case I don’t have a left and right
+position like in the edge table. However, from the edge table I can derive which nodes are
+<em>child</em> of <em>parents</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parents</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">filtered_edges</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+<span class="n">childs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">filtered_edges</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+
+<span class="n">node_ids</span> <span class="o">=</span> <span class="n">parents</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">childs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">node_ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> distinct nodes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got 211 distinct nodes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># heavy intensive operation</span>
+<span class="c1"># tree.draw_svg(</span>
+<span class="c1">#     size=(800, 400),</span>
+<span class="c1">#     time_scale=&quot;log_time&quot;,</span>
+<span class="c1"># )</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exploring-nucleotide-diversity">
+<h2>Exploring nucleotide diversity<a class="headerlink" href="#exploring-nucleotide-diversity" title="Link to this heading">#</a></h2>
+<p>Calculate diversity <em>per SNP positions</em>: use the <code class="docutils literal notranslate"><span class="pre">create_windows</span></code> function and select all the
+odd positions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove the 0 values will be enough!</span>
+<span class="n">ts_diversity</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">windows</span><span class="o">=</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span>
+<span class="n">ts_diversity</span> <span class="o">=</span> <span class="n">ts_diversity</span><span class="p">[</span><span class="n">ts_diversity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">ts_diversity</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.18086124, 0.01895648, 0.00952381, 0.00952381, 0.04670768,
+       0.06475279, 0.06475279, 0.00952381, 0.01895648, 0.04670768])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s compare the nucleotide diversity calculated using vcftools: here’s the
+command line to calculate nucleotide diversity <em>per site</em>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="nb">test</span>
+vcftools<span class="w"> </span>--gzvcf<span class="w"> </span>test1M.out.inf.vcf.gz<span class="w"> </span>--out<span class="w"> </span>allsamples_pi<span class="w"> </span>--site-pi
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">allsamples_pi.sites.pi</span></code> is a <em>TSV</em> file with the positions and the nucleotide diversity. Read it with pandas:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcftools_diversity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;experiments/test1M/allsamples_pi.sites.pi&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">vcftools_diversity</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CHROM</th>
+      <th>POS</th>
+      <th>PI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>108</td>
+      <td>0.180861</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>120</td>
+      <td>0.018957</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>307</td>
+      <td>0.009524</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>355</td>
+      <td>0.009524</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>372</td>
+      <td>0.046708</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ts_diversity is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_diversity</span><span class="p">)</span><span class="si">}</span><span class="s2"> in size&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vcftools_diversity is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vcftools_diversity</span><span class="p">)</span><span class="si">}</span><span class="s2"> in size&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ts_diversity is 12844 in size
+vcftools_diversity is 12885 in size
+</pre></div>
+</div>
+</div>
+</div>
+<p>this dataframe has more values than ts_diversity, since there are duplicated positions. Since I’ve
+dropped duplicated positions in <code class="docutils literal notranslate"><span class="pre">create_windows</span></code>, I need to drop duplicates in this dataframe. However
+the diveristy I can misure in those points will be different:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcftools_diversity</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;POS&#39;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Are this values similar?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">ts_diversity</span><span class="p">,</span> <span class="n">vcftools_diversity</span><span class="p">[</span><span class="s2">&quot;PI&quot;</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>Calculate diversity using <em>branch</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove the 0 values will be enough!</span>
+<span class="n">ts_diversity_branch</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;branch&#39;</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span>
+<span class="n">ts_diversity_branch</span> <span class="o">=</span> <span class="n">ts_diversity_branch</span><span class="p">[</span><span class="n">ts_diversity_branch</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_diversity_branch</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ts_diversity_branch is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_diversity_branch</span><span class="p">)</span><span class="si">}</span><span class="s2"> in size&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[163072.61104365 163072.61104365 163072.61104365 163072.61104365
+ 163072.61104365 163072.61104365 163072.61104365 163072.61104365
+ 163072.61104365 163072.61104365]
+ts_diversity_branch is 25579 in size
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;branch&#39;</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts</span><span class="p">))[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts</span><span class="p">)[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[     0.         163072.61104365 163072.61104365 163072.61104365
+ 163072.61104365 163072.61104365 163072.61104365 163072.61104365
+ 163072.61104365 163072.61104365]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  0. 108. 109. 120. 121. 307. 308. 355. 356. 372.]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try to plot the tow different diversities with vcftools output:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ts_diversity</span><span class="p">,</span> <span class="n">vcftools_diversity</span><span class="p">[</span><span class="s2">&quot;PI&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f44d683ff70&gt;
+</pre></div>
+</div>
+<img alt="_images/4eaefbf2fc4526b3e7b6aee6655ff2f445dbb336cc45c14bf9f4a3673e24e8e2.png" src="_images/4eaefbf2fc4526b3e7b6aee6655ff2f445dbb336cc45c14bf9f4a3673e24e8e2.png" />
+</div>
+</div>
+<p>The <em>branch</em> nuclueotide diversity need to be fixed: it doesn’t have <code class="docutils literal notranslate"><span class="pre">0</span></code> in positions between windows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.scatter(ts_diversity_branch, vcftools_diversity[&quot;PI&quot;])</span>
+<span class="c1"># plt.xlim(0, 300)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04-tsinfer_with_test_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">TSINFER with SMARTER test data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03-smarter_database.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SMARTER database</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-nucleotide-diversity">Exploring nucleotide diversity</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Paolo Cozzi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,928 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TSINFER with SMARTER test data &#8212; SheepTreeSeq</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"1739816510b14797a69525d9965b6ed9": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "54f0f536b05d4892820ef59be479c08b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "56838833f35f4698a3f88213ddf2e611": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "6927d803f2ef45d6a4e6cff09e471cbe": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8cf059ad034042299298bce911890945": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9016cd25d71b4644b252f1c84aff1329": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_8cf059ad034042299298bce911890945", "placeholder": "\u200b", "style": "IPY_MODEL_56838833f35f4698a3f88213ddf2e611", "tabbable": null, "tooltip": null, "value": "Read VCF:  53%"}}, "a19a1047af0249bdba65774dc2e1ec34": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "b0b25dc1e7d84bfc946b32db0447a0dd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_6927d803f2ef45d6a4e6cff09e471cbe", "placeholder": "\u200b", "style": "IPY_MODEL_a19a1047af0249bdba65774dc2e1ec34", "tabbable": null, "tooltip": null, "value": " 23396201/44077779.0 [00:00&lt;00:00, 233957212.94bp/s]"}}, "b4a5ead49a974b87be100ff0ad0f466a": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d406092e6fc5458bb236f6beb6bcb285": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_1739816510b14797a69525d9965b6ed9", "max": 44077779.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_54f0f536b05d4892820ef59be479c08b", "tabbable": null, "tooltip": null, "value": 23396201.0}}, "fb4debf0f2694e88a925c0eb180a9cb8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_9016cd25d71b4644b252f1c84aff1329", "IPY_MODEL_d406092e6fc5458bb236f6beb6bcb285", "IPY_MODEL_b0b25dc1e7d84bfc946b32db0447a0dd"], "layout": "IPY_MODEL_b4a5ead49a974b87be100ff0ad0f466a", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04-tsinfer_with_test_data';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Inference from a test VCF file" href="08-test_sample-vcf.html" />
+    <link rel="prev" title="TSINFER tutorial" href="02-tsinfer.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    SheepTreeSeq: Scalable analysis of sheep genome diversity using tree sequences
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="install/install.html">Setting up the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/build-docs.html">Build the documentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-test_sample-vcf.html">Inference from a test VCF file</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03-smarter_database.html">SMARTER database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2F04-tsinfer_with_test_data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/04-tsinfer_with_test_data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>TSINFER with SMARTER test data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tsinfer-with-smarter-test-data">
+<h1>TSINFER with SMARTER test data<a class="headerlink" href="#tsinfer-with-smarter-test-data" title="Link to this heading">#</a></h1>
+<p>I’ve created a test dataset consisting of 10 samples and genotype data for the
+chromosome <em>26</em> of the SMARTER database. I’ve created a nextflow pipeline to prepare
+a dataset and generate a <em>phased/imputed</em> genotype with <em>Beagle</em>. You can simply test the
+pipeline using the nextflow test profile: first collect test input file in the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/tests/Oar_v3.1_chr26.fna.gz?download<span class="o">=</span><span class="w"> </span>-O<span class="w"> </span>data/Oar_v3.1_chr26.fna.gz
+wget<span class="w"> </span>https://raw.githubusercontent.com/cnr-ibba/nf-treeseq/master/tests/test_dataset.tsv<span class="w"> </span>-O<span class="w"> </span>data/test_dataset.tsv
+wget<span class="w"> </span>https://raw.githubusercontent.com/cnr-ibba/nf-treeseq/master/tests/test_outgroup.tsv<span class="w"> </span>-O<span class="w"> </span>data/test_outgroup.tsv
+wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/tests/test_dataset.bed?download<span class="o">=</span><span class="w"> </span>-O<span class="w"> </span>data/test_dataset.bed
+wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/tests/test_dataset.bim?download<span class="o">=</span><span class="w"> </span>-O<span class="w"> </span>data/test_dataset.bim
+wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/tests/test_dataset.fam?download<span class="o">=</span><span class="w"> </span>-O<span class="w"> </span>data/test_dataset.fam
+</pre></div>
+</div>
+<p>Then run the pipeline with the test profile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-profile<span class="w"> </span>test,singularity<span class="w"> </span>--plink_bfile<span class="w"> </span>data/test_dataset<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--plink_keep<span class="w"> </span>data/test_dataset.tsv<span class="w"> </span>--genome<span class="w"> </span>data/Oar_v3.1_chr26.fna.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--outdir<span class="w"> </span>results-estsfs/test<span class="w"> </span>--with_estsfs<span class="w"> </span>--outgroup1<span class="w"> </span>data/test_outgroup.tsv
+</pre></div>
+</div>
+<p>Now try to read and determine a <em>tstree</em> object with <em>tsdata</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">tsinfer</span>
+<span class="kn">import</span> <span class="nn">tsdate</span>
+<span class="kn">import</span> <span class="nn">cyvcf2</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">tskit</span> <span class="kn">import</span> <span class="n">MISSING_DATA</span>
+
+<span class="kn">from</span> <span class="nn">tskitetude</span> <span class="kn">import</span> <span class="n">get_project_dir</span>
+<span class="kn">from</span> <span class="nn">tskitetude.helper</span> <span class="kn">import</span> <span class="n">add_populations</span><span class="p">,</span> <span class="n">add_diploid_individuals</span><span class="p">,</span> <span class="n">get_ancestors_alleles</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define some useful stuff:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_chromosome_lengths</span><span class="p">(</span><span class="n">vcf</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">seqname</span><span class="p">,</span> <span class="n">seqlen</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">vcf</span><span class="o">.</span><span class="n">seqnames</span><span class="p">,</span> <span class="n">vcf</span><span class="o">.</span><span class="n">seqlens</span><span class="p">):</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">seqname</span><span class="p">]</span> <span class="o">=</span> <span class="n">seqlen</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="n">vcf_location</span> <span class="o">=</span> <span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-estsfs/test/focal/test_dataset.focal.26.vcf.gz&quot;</span>
+<span class="n">samples_location</span> <span class="o">=</span> <span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-estsfs/test/tsinfer/test_dataset.focal.26.samples&quot;</span>
+
+<span class="n">vcf</span> <span class="o">=</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_location</span><span class="p">)</span>
+<span class="n">chromosome_lengths</span> <span class="o">=</span> <span class="n">get_chromosome_lengths</span><span class="p">(</span><span class="n">vcf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’ve derived ancient alleles with <code class="docutils literal notranslate"><span class="pre">est-sfs</span></code>. Try to load data from my results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ancestors_alleles</span> <span class="o">=</span> <span class="n">get_ancestors_alleles</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-estsfs/test/estsfs/samples-merged.26.ancestral.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now try to define a custom function to deal with VCF data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_diploid_sites</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">ancestors_alleles</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read the sites in the vcf and add them to the samples object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># You may want to change the following line, e.g. here we allow</span>
+    <span class="c1"># &quot;*&quot; (a spanning deletion) to be a valid allele state</span>
+    <span class="n">allele_chars</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;ATGCatgc*&quot;</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">progressbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">samples</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Read VCF&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;bp&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">vcf</span><span class="p">:</span>  <span class="c1"># Loop over variants, each assumed at a unique site</span>
+        <span class="n">progressbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">variant</span><span class="o">.</span><span class="n">POS</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Duplicate entries at position </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2">, ignoring all but the first&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span>
+
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">phased</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">phased</span> <span class="ow">in</span> <span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unphased genotypes for variant at position&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+        <span class="n">alleles</span> <span class="o">=</span> <span class="p">[</span><span class="n">variant</span><span class="o">.</span><span class="n">REF</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span> <span class="o">+</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variant</span><span class="o">.</span><span class="n">ALT</span><span class="p">]</span>
+        <span class="n">ancestral_allele</span> <span class="o">=</span> <span class="n">ancestors_alleles</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">variant</span><span class="o">.</span><span class="n">CHROM</span><span class="p">,</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span><span class="p">),</span> <span class="n">MISSING_DATA</span><span class="p">)</span>
+
+        <span class="c1"># Check we have ATCG alleles</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alleles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">allele_chars</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ignoring site at pos </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2">: allele </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> not in </span><span class="si">{</span><span class="n">allele_chars</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+        <span class="c1"># Map original allele indexes to their indexes in the new alleles list.</span>
+        <span class="n">genotypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="n">samples</span><span class="o">.</span><span class="n">add_site</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">genotypes</span><span class="p">,</span> <span class="n">alleles</span><span class="p">,</span> <span class="n">ancestral_allele</span><span class="o">=</span><span class="n">ancestral_allele</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Add individual and populations to empty samples data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">tsinfer</span><span class="o">.</span><span class="n">SampleData</span><span class="p">(</span>
+        <span class="n">path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">samples_location</span><span class="p">),</span> <span class="n">sequence_length</span><span class="o">=</span><span class="n">chromosome_lengths</span><span class="p">[</span><span class="s2">&quot;26&quot;</span><span class="p">])</span> <span class="k">as</span> <span class="n">samples</span><span class="p">:</span>
+    <span class="n">samples_tsv</span> <span class="o">=</span> <span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;data/test_dataset.tsv&quot;</span>
+    <span class="n">pop_lookup</span> <span class="o">=</span> <span class="n">add_populations</span><span class="p">(</span><span class="n">samples_tsv</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+    <span class="n">indv_lookup</span> <span class="o">=</span> <span class="n">add_diploid_individuals</span><span class="p">(</span><span class="n">samples_tsv</span><span class="p">,</span> <span class="n">pop_lookup</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+    <span class="n">add_diploid_sites</span><span class="p">(</span><span class="n">vcf</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">ancestors_alleles</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fb4debf0f2694e88a925c0eb180a9cb8", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Sample file created for </span><span class="si">{}</span><span class="s2"> samples &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">num_samples</span><span class="p">)</span>
+    <span class="o">+</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2"> individuals) &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">num_individuals</span><span class="p">)</span>
+    <span class="o">+</span> <span class="s2">&quot;with </span><span class="si">{}</span><span class="s2"> variable sites.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">num_sites</span><span class="p">),</span>
+    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Do the inference</span>
+<span class="n">sparrow_ts</span> <span class="o">=</span> <span class="n">tsinfer</span><span class="o">.</span><span class="n">infer</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Inferred tree sequence `</span><span class="si">{}</span><span class="s2">`: </span><span class="si">{}</span><span class="s2"> trees over </span><span class="si">{}</span><span class="s2"> Mb&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="s2">&quot;sparrow_ts&quot;</span><span class="p">,</span> <span class="n">sparrow_ts</span><span class="o">.</span><span class="n">num_trees</span><span class="p">,</span> <span class="n">sparrow_ts</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">/</span> <span class="mf">1e6</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="c1"># Check the metadata</span>
+<span class="k">for</span> <span class="n">sample_node_id</span> <span class="ow">in</span> <span class="n">sparrow_ts</span><span class="o">.</span><span class="n">samples</span><span class="p">():</span>
+    <span class="n">individual_id</span> <span class="o">=</span> <span class="n">sparrow_ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">sample_node_id</span><span class="p">)</span><span class="o">.</span><span class="n">individual</span>
+    <span class="n">population_id</span> <span class="o">=</span> <span class="n">sparrow_ts</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">sample_node_id</span><span class="p">)</span><span class="o">.</span><span class="n">population</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Node&quot;</span><span class="p">,</span>
+        <span class="n">sample_node_id</span><span class="p">,</span>
+        <span class="s2">&quot;labels a chr26 sampled from individual&quot;</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sparrow_ts</span><span class="o">.</span><span class="n">individual</span><span class="p">(</span><span class="n">individual_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">),</span>
+        <span class="s2">&quot;in&quot;</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sparrow_ts</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">population_id</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample file created for 18 samples (9 individuals) with 680 variable sites.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,096 - tsinfer.inference - INFO - Starting addition of 680 sites
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,125 - tsinfer.inference - INFO - Finished adding sites
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,125 - tsinfer.inference - INFO - Starting build for 548 ancestors
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,255 - tsinfer.inference - INFO - Finished building ancestors
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,262 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,263 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,264 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,264 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,270 - tsinfer.inference - INFO - Starting ancestor matching for 18 epochs
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,355 - tsinfer.inference - INFO - Built ancestors tree sequence: 630 nodes (80 pc ancestors); 2809 edges; 550 sites; 550 mutations
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,357 - tsinfer.inference - INFO - Finished ancestor matching
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,360 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,361 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,362 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,363 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,379 - tsinfer.inference - INFO - Loaded 18 samples 630 nodes; 2809 edges; 550 sites; 550 mutations
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,380 - tsinfer.inference - INFO - Started matching for 18 samples
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,403 - tsinfer.inference - INFO - Inserting sample paths: 1225 edges in total
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,406 - tsinfer.inference - INFO - Finalising tree sequence
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,426 - tsinfer.inference - INFO - Built samples tree sequence: 657 nodes (89 pc); 4031 edges; 550 sites; 550 mutations
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,427 - tsinfer.inference - INFO - Mapping additional sites
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,445 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,449 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,453 - tsinfer.inference - INFO - Splitting ultimate ancestor into 301 nodes
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,461 - tsinfer.inference - INFO - Erased flanks covering 0.5445215377117799% of the genome: 166516.0 units at the start and 73497.0 units at the end
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,462 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 958 nodes and 5024 edges
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,463 - tsinfer.inference - INFO - Finished simplify; now have 950 nodes and 3840 edges
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inferred tree sequence `sparrow_ts`: 536 trees over 44.077779 Mb
+Node 0 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-TEX-000000001&#39;} in {&#39;breed&#39;: &#39;TEX&#39;}
+Node 1 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-TEX-000000001&#39;} in {&#39;breed&#39;: &#39;TEX&#39;}
+Node 2 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;GROA-FRZ-000000170&#39;} in {&#39;breed&#39;: &#39;FRZ&#39;}
+Node 3 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;GROA-FRZ-000000170&#39;} in {&#39;breed&#39;: &#39;FRZ&#39;}
+Node 4 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-MER-000000224&#39;} in {&#39;breed&#39;: &#39;MER&#39;}
+Node 5 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-MER-000000224&#39;} in {&#39;breed&#39;: &#39;MER&#39;}
+Node 6 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-CRR-000000320&#39;} in {&#39;breed&#39;: &#39;CRR&#39;}
+Node 7 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-CRR-000000320&#39;} in {&#39;breed&#39;: &#39;CRR&#39;}
+Node 8 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-CRL-000000380&#39;} in {&#39;breed&#39;: &#39;CRL&#39;}
+Node 9 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;UYOA-CRL-000000380&#39;} in {&#39;breed&#39;: &#39;CRL&#39;}
+Node 10 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;FROA-BER-000000478&#39;} in {&#39;breed&#39;: &#39;BER&#39;}
+Node 11 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;FROA-BER-000000478&#39;} in {&#39;breed&#39;: &#39;BER&#39;}
+Node 12 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-ALT-000001084&#39;} in {&#39;breed&#39;: &#39;ALT&#39;}
+Node 13 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-ALT-000001084&#39;} in {&#39;breed&#39;: &#39;ALT&#39;}
+Node 14 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-LEC-000002620&#39;} in {&#39;breed&#39;: &#39;LEC&#39;}
+Node 15 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-LEC-000002620&#39;} in {&#39;breed&#39;: &#39;LEC&#39;}
+Node 16 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-SAB-000003324&#39;} in {&#39;breed&#39;: &#39;SAB&#39;}
+Node 17 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-SAB-000003324&#39;} in {&#39;breed&#39;: &#39;SAB&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try to infer <em>dates</em> on my tree:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Removes unary nodes (currently required in tsdate), keeps historical-only sites</span>
+<span class="n">inferred_ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">preprocess_ts</span><span class="p">(</span><span class="n">sparrow_ts</span><span class="p">,</span> <span class="n">filter_sites</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">dated_ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">inferred_ts</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+
+<span class="n">dated_ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,475 - tsdate.util - INFO - Beginning preprocessing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,476 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,476 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-05 12:19:14,477 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
+</pre></div>
+</div>
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>536</td></tr>
+                      <tr><td>Sequence Length</td><td>44077779.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>18</td></tr>
+                      <tr><td>Total Size</td><td>305.1 KiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">
+                <div>
+                  <span class="tskit-details-label"></span>
+                  <details open>
+                    <summary>dict</summary>
+                    
+                  </details>
+                </div>
+                </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>4468</td>
+                      <td>139.6 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>9</td>
+                      <td>591 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>858</td>
+                      <td>31.0 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>824</td>
+                      <td>62.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>9</td>
+                      <td>224 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>3</td>
+                      <td>1.9 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>680</td>
+                      <td>34.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02-tsinfer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">TSINFER tutorial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="08-test_sample-vcf.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Inference from a test VCF file</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Paolo Cozzi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

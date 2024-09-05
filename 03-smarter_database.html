@@ -1,0 +1,1908 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SMARTER database &#8212; SheepTreeSeq</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03-smarter_database';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reading data from chromosome 26" href="05-tstree-smarter.html" />
+    <link rel="prev" title="Inference from a test VCF file" href="08-test_sample-vcf.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    SheepTreeSeq: Scalable analysis of sheep genome diversity using tree sequences
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="install/install.html">Setting up the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install/build-docs.html">Build the documentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-test_sample-vcf.html">Inference from a test VCF file</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SMARTER database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2F03-smarter_database.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03-smarter_database.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SMARTER database</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infer-ancestry-using-est-sfs">Infer ancestry using EST-SFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-to-limit-sample-size">Attempt to limit sample size</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="smarter-database">
+<h1>SMARTER database<a class="headerlink" href="#smarter-database" title="Link to this heading">#</a></h1>
+<section id="infer-ancestry-using-est-sfs">
+<h2>Infer ancestry using EST-SFS<a class="headerlink" href="#infer-ancestry-using-est-sfs" title="Link to this heading">#</a></h2>
+<p>This was the first attempt to create <em>tstree</em> object using EST-SFS. In this example
+we collect all <em>background</em> samples from SMARTER database and we use all <em>Ovis
+aries</em> samples as <em>focal samples</em>, and <em>european</em>, <em>sardinian</em> and <em>spanish mouflon</em>
+as three different <em>outgroups</em> to make inference with EST-SFS. We will write all
+selection of samples as CSV files with <code class="docutils literal notranslate"><span class="pre">FID</span></code> and <code class="docutils literal notranslate"><span class="pre">IID</span></code> columns in order to extract
+from the whole genotype files only the samples we need.</p>
+<p>Try to collect sheep <em>background</em> samples from SMARTER database:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">tskitetude</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
+<span class="kn">from</span> <span class="nn">tskitetude.smarterapi</span> <span class="kn">import</span> <span class="n">SheepEndpoint</span><span class="p">,</span> <span class="n">BreedEndpoint</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Connect to <em>SMARTER</em> database and retrieve information un <em>background</em> samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep_api</span> <span class="o">=</span> <span class="n">SheepEndpoint</span><span class="p">()</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sheep_api</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">_type</span><span class="o">=</span><span class="s2">&quot;background&quot;</span><span class="p">)</span>
+<span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sheep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+
+<span class="k">while</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;next&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">sheep_api</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">_type</span><span class="o">=</span><span class="s2">&quot;background&quot;</span><span class="p">)</span>
+    <span class="n">df_page</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;page&quot;</span><span class="p">]</span>
+    <span class="n">sheep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">sheep</span><span class="p">,</span> <span class="n">df_page</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sheep</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 5892 entries, 0 to 5891
+Data columns (total 17 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   _id          5892 non-null   object 
+ 1   breed        5892 non-null   object 
+ 2   breed_code   5892 non-null   object 
+ 3   chip_name    5892 non-null   object 
+ 4   country      5892 non-null   object 
+ 5   dataset_id   5892 non-null   object 
+ 6   locations    4849 non-null   object 
+ 7   metadata     4878 non-null   object 
+ 8   original_id  5892 non-null   object 
+ 9   phenotype    577 non-null    object 
+ 10  smarter_id   5892 non-null   object 
+ 11  species      5892 non-null   object 
+ 12  type         5892 non-null   object 
+ 13  father_id    58 non-null     object 
+ 14  mother_id    58 non-null     object 
+ 15  sex          501 non-null    float64
+ 16  alias        156 non-null    object 
+dtypes: float64(1), object(16)
+memory usage: 782.7+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Are those all <em>background</em> samples?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>type
+background    5892
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok. Let’s collect all available species:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="s2">&quot;species&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>species
+Ovis aries                5739
+Ovis aries musimon         134
+Ovis orientalis             16
+Ovis orientalis ophion       3
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok, now collect all samples which are <em>Ovis aries</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ovis_aries</span> <span class="o">=</span> <span class="n">sheep</span><span class="p">[</span><span class="n">sheep</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Ovis aries&quot;</span><span class="p">]</span>
+<span class="n">ovis_aries</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>phenotype</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+      <th>father_id</th>
+      <th>mother_id</th>
+      <th>sex</th>
+      <th>alias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{'$oid': '66544dd515d202ad5f28dc8e'}</td>
+      <td>Texel</td>
+      <td>TEX</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Uruguay</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b67'}</td>
+      <td>{'coordinates': [[-54.79980235632396, -32.8596...</td>
+      <td>{'gps_2': 'https://www.google.com/maps/place/E...</td>
+      <td>20181210002</td>
+      <td>{'purpose': 'Meat'}</td>
+      <td>UYOA-TEX-000000001</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{'$oid': '66544dd615d202ad5f28dc8f'}</td>
+      <td>Texel</td>
+      <td>TEX</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Uruguay</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b67'}</td>
+      <td>{'coordinates': [[-54.79980235632396, -32.8596...</td>
+      <td>{'gps_2': 'https://www.google.com/maps/place/E...</td>
+      <td>20181210003</td>
+      <td>{'purpose': 'Meat'}</td>
+      <td>UYOA-TEX-000000002</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{'$oid': '66544dd615d202ad5f28dc90'}</td>
+      <td>Texel</td>
+      <td>TEX</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Uruguay</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b67'}</td>
+      <td>{'coordinates': [[-54.79980235632396, -32.8596...</td>
+      <td>{'gps_2': 'https://www.google.com/maps/place/E...</td>
+      <td>20181210005</td>
+      <td>{'purpose': 'Meat'}</td>
+      <td>UYOA-TEX-000000003</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{'$oid': '66544dd715d202ad5f28dc91'}</td>
+      <td>Texel</td>
+      <td>TEX</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Uruguay</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b67'}</td>
+      <td>{'coordinates': [[-54.79980235632396, -32.8596...</td>
+      <td>{'gps_2': 'https://www.google.com/maps/place/E...</td>
+      <td>20181210006</td>
+      <td>{'purpose': 'Meat'}</td>
+      <td>UYOA-TEX-000000004</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{'$oid': '66544dd715d202ad5f28dc92'}</td>
+      <td>Texel</td>
+      <td>TEX</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Uruguay</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b67'}</td>
+      <td>{'coordinates': [[-54.79980235632396, -32.8596...</td>
+      <td>{'gps_2': 'https://www.google.com/maps/place/E...</td>
+      <td>20181210008</td>
+      <td>{'purpose': 'Meat'}</td>
+      <td>UYOA-TEX-000000005</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>How many breeds I have?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ovis_aries</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="s2">&quot;breed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>breed
+Frizarta          322
+Corriedale        214
+Texel             193
+Churra            120
+Soay              110
+                 ... 
+Spael-coloured      3
+Privorska           2
+Recka               2
+Dubska              2
+Sri Lankan          1
+Name: count, Length: 202, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ensure that there are no <em>mouflon</em> in sheep breed names:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ovis_aries</span><span class="p">[</span><span class="s2">&quot;breed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Mouflon&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok, now collect <em>Ovis aries musimon</em> samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ovis_aries_musimon</span> <span class="o">=</span> <span class="n">sheep</span><span class="p">[</span><span class="n">sheep</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Ovis aries musimon&quot;</span><span class="p">]</span>
+<span class="n">ovis_aries_musimon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>phenotype</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+      <th>father_id</th>
+      <th>mother_id</th>
+      <th>sex</th>
+      <th>alias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>788</th>
+      <td>{'$oid': '665468ffe91476d662a729a2'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[9.0129, 42.0396]], 'type': '...</td>
+      <td>{'link': 'https://en.wikipedia.org/wiki/Mouflo...</td>
+      <td>EUR1</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000000789</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>789</th>
+      <td>{'$oid': '66546903e91476d662a729a3'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[9.0129, 42.0396]], 'type': '...</td>
+      <td>{'link': 'https://en.wikipedia.org/wiki/Mouflo...</td>
+      <td>EUR2</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000000790</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4849</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e1'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF1</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010795</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4850</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e2'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF2</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010796</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4851</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e3'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF3</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010797</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>How many breeds I have?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ovis_aries_musimon</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="s2">&quot;breed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>breed
+Sardinian mouflon    79
+European mouflon     23
+Spanish mouflon      21
+Hungarian mouflon     8
+Corsican mouflon      3
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok, try to collect <em>European mouflon</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">european_mouflon</span> <span class="o">=</span> <span class="n">ovis_aries_musimon</span><span class="p">[</span><span class="n">ovis_aries_musimon</span><span class="p">[</span><span class="s2">&quot;breed&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;European mouflon&quot;</span><span class="p">]</span>
+<span class="n">european_mouflon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>phenotype</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+      <th>father_id</th>
+      <th>mother_id</th>
+      <th>sex</th>
+      <th>alias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>788</th>
+      <td>{'$oid': '665468ffe91476d662a729a2'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[9.0129, 42.0396]], 'type': '...</td>
+      <td>{'link': 'https://en.wikipedia.org/wiki/Mouflo...</td>
+      <td>EUR1</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000000789</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>789</th>
+      <td>{'$oid': '66546903e91476d662a729a3'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[9.0129, 42.0396]], 'type': '...</td>
+      <td>{'link': 'https://en.wikipedia.org/wiki/Mouflo...</td>
+      <td>EUR2</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000000790</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5739</th>
+      <td>{'$oid': '66549c6eb20eb5227329c2ca'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>France</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014012'}</td>
+      <td>{'coordinates': [[9.15, 42.31]], 'type': 'Mult...</td>
+      <td>{'region': 'Corsica', 'type_': 'Mouflon'}</td>
+      <td>EMF1</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000011685</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5740</th>
+      <td>{'$oid': '66549c6eb20eb5227329c2cb'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>France</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014012'}</td>
+      <td>{'coordinates': [[9.15, 42.31]], 'type': 'Mult...</td>
+      <td>{'region': 'Corsica', 'type_': 'Mouflon'}</td>
+      <td>EMF2</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000011686</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5741</th>
+      <td>{'$oid': '66549c6eb20eb5227329c2cc'}</td>
+      <td>European mouflon</td>
+      <td>EUR</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>France</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014012'}</td>
+      <td>{'coordinates': [[9.15, 42.31]], 'type': 'Mult...</td>
+      <td>{'region': 'Corsica', 'type_': 'Mouflon'}</td>
+      <td>EMF3</td>
+      <td>NaN</td>
+      <td>FROA-EUR-000011687</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Ok, I’m also interested in <em>Sardinian mouflon</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sardinian_mouflon</span> <span class="o">=</span> <span class="n">ovis_aries_musimon</span><span class="p">[</span><span class="n">ovis_aries_musimon</span><span class="p">[</span><span class="s2">&quot;breed&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Sardinian mouflon&quot;</span><span class="p">]</span>
+<span class="n">sardinian_mouflon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>phenotype</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+      <th>father_id</th>
+      <th>mother_id</th>
+      <th>sex</th>
+      <th>alias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4881</th>
+      <td>{'$oid': '66549c5368b308e4e558b301'}</td>
+      <td>Sardinian mouflon</td>
+      <td>MSA</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Italy</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>72_MufloneS</td>
+      <td>NaN</td>
+      <td>ITOA-MSA-000010827</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4882</th>
+      <td>{'$oid': '66549c5368b308e4e558b302'}</td>
+      <td>Sardinian mouflon</td>
+      <td>MSA</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Italy</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>73_MufloneS</td>
+      <td>NaN</td>
+      <td>ITOA-MSA-000010828</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4883</th>
+      <td>{'$oid': '66549c5368b308e4e558b303'}</td>
+      <td>Sardinian mouflon</td>
+      <td>MSA</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Italy</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>74_MufloneS</td>
+      <td>NaN</td>
+      <td>ITOA-MSA-000010829</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4884</th>
+      <td>{'$oid': '66549c5368b308e4e558b304'}</td>
+      <td>Sardinian mouflon</td>
+      <td>MSA</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Italy</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>75_MufloneS</td>
+      <td>NaN</td>
+      <td>ITOA-MSA-000010830</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4885</th>
+      <td>{'$oid': '66549c5368b308e4e558b305'}</td>
+      <td>Sardinian mouflon</td>
+      <td>MSA</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Italy</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>76_MufloneS</td>
+      <td>NaN</td>
+      <td>ITOA-MSA-000010831</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Should I take <em>Spanish mouflon</em> as third outgroup?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spanish_mouflon</span> <span class="o">=</span> <span class="n">ovis_aries_musimon</span><span class="p">[</span><span class="n">ovis_aries_musimon</span><span class="p">[</span><span class="s2">&quot;breed&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Spanish mouflon&quot;</span><span class="p">]</span>
+<span class="n">spanish_mouflon</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>phenotype</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+      <th>father_id</th>
+      <th>mother_id</th>
+      <th>sex</th>
+      <th>alias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4849</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e1'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF1</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010795</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4850</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e2'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF2</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010796</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4851</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e3'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF3</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010797</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4852</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e4'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF4</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010798</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4853</th>
+      <td>{'$oid': '66549c5268b308e4e558b2e5'}</td>
+      <td>Spanish mouflon</td>
+      <td>MSP</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '639b4b922cee7f5ed2014011'}</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EMF5</td>
+      <td>NaN</td>
+      <td>ESOA-MSP-000010799</td>
+      <td>Ovis aries musimon</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Ok, now track those breeds as three different <em>outgroup</em> list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">european_mouflon</span><span class="p">[[</span><span class="s2">&quot;breed_code&quot;</span><span class="p">,</span> <span class="s2">&quot;smarter_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;european_mouflon.tsv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">sardinian_mouflon</span><span class="p">[[</span><span class="s2">&quot;breed_code&quot;</span><span class="p">,</span> <span class="s2">&quot;smarter_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sardinian_mouflon.tsv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">spanish_mouflon</span><span class="p">[[</span><span class="s2">&quot;breed_code&quot;</span><span class="p">,</span> <span class="s2">&quot;smarter_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;spanish_mouflon.tsv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, create a <em>sample txt</em> file which I can use to extract the <em>focal</em> sample I need from smarter database using plink:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ovis_aries</span><span class="p">[[</span><span class="s2">&quot;breed_code&quot;</span><span class="p">,</span> <span class="s2">&quot;smarter_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheep_dataset.tsv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="attempt-to-limit-sample-size">
+<h2>Attempt to limit sample size<a class="headerlink" href="#attempt-to-limit-sample-size" title="Link to this heading">#</a></h2>
+<p>Ok try to download a small dataset to test the pipeline: get information about
+breeds:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breed_api</span> <span class="o">=</span> <span class="n">BreedEndpoint</span><span class="p">()</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">breed_api</span><span class="o">.</span><span class="n">get_breeds</span><span class="p">(</span><span class="n">species</span><span class="o">=</span><span class="s2">&quot;Sheep&quot;</span><span class="p">)</span>
+<span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">breeds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+
+<span class="k">while</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;next&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">breed_api</span><span class="o">.</span><span class="n">get_breeds</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="n">page</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">species</span><span class="o">=</span><span class="s2">&quot;Sheep&quot;</span><span class="p">)</span>
+    <span class="n">df_page</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;page&quot;</span><span class="p">]</span>
+    <span class="n">breeds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">breeds</span><span class="p">,</span> <span class="n">df_page</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">breeds</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 285 entries, 0 to 284
+Data columns (total 6 columns):
+ #   Column         Non-Null Count  Dtype 
+---  ------         --------------  ----- 
+ 0   _id            285 non-null    object
+ 1   aliases        285 non-null    object
+ 2   code           285 non-null    object
+ 3   n_individuals  285 non-null    int64 
+ 4   name           285 non-null    object
+ 5   species        285 non-null    object
+dtypes: int64(1), object(5)
+memory usage: 13.5+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try to select samples with a limited number of individuals, for example 50:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breeds</span><span class="p">[</span><span class="n">breeds</span><span class="p">[</span><span class="s2">&quot;n_individuals&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">50</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>aliases</th>
+      <th>code</th>
+      <th>n_individuals</th>
+      <th>name</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>30</th>
+      <td>{'$oid': '66544d66332b746be8c662d3'}</td>
+      <td>[{'country': 'France', 'dataset_id': {'$oid': ...</td>
+      <td>IDF</td>
+      <td>50</td>
+      <td>Île de France</td>
+      <td>Sheep</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>{'$oid': '66544d67682777165324011b'}</td>
+      <td>[{'country': 'Spain', 'dataset_id': {'$oid': '...</td>
+      <td>AME</td>
+      <td>50</td>
+      <td>AustralianMerino</td>
+      <td>Sheep</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Ok first focus on <code class="docutils literal notranslate"><span class="pre">AustralianMerino</span></code> breed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sheep_api</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s2">&quot;AME&quot;</span><span class="p">)</span>
+<span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sheep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+<span class="n">sheep</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+      <th>sex</th>
+      <th>father_id</th>
+      <th>mother_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{'$oid': '66547865a8ef9ad0ab0bd77f'}</td>
+      <td>AustralianMerino</td>
+      <td>AME</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b5e'}</td>
+      <td>{'coordinates': [[-6.33333333333333, 39.166666...</td>
+      <td>{'location_source': 'Pedrosa et al. 2007, GSE ...</td>
+      <td>MER31</td>
+      <td>ESOA-AME-000001530</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{'$oid': '66547866a8ef9ad0ab0bd780'}</td>
+      <td>AustralianMerino</td>
+      <td>AME</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b5e'}</td>
+      <td>{'coordinates': [[-6.33333333333333, 39.166666...</td>
+      <td>{'location_source': 'Pedrosa et al. 2007, GSE ...</td>
+      <td>MER47</td>
+      <td>ESOA-AME-000001531</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{'$oid': '66547866a8ef9ad0ab0bd781'}</td>
+      <td>AustralianMerino</td>
+      <td>AME</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b5e'}</td>
+      <td>{'coordinates': [[-6.33333333333333, 39.166666...</td>
+      <td>{'location_source': 'Pedrosa et al. 2007, GSE ...</td>
+      <td>MER1</td>
+      <td>ESOA-AME-000001532</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{'$oid': '66547866a8ef9ad0ab0bd782'}</td>
+      <td>AustralianMerino</td>
+      <td>AME</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b5e'}</td>
+      <td>{'coordinates': [[-6.33333333333333, 39.166666...</td>
+      <td>{'location_source': 'Pedrosa et al. 2007, GSE ...</td>
+      <td>MER2</td>
+      <td>ESOA-AME-000001533</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{'$oid': '66547867a8ef9ad0ab0bd783'}</td>
+      <td>AustralianMerino</td>
+      <td>AME</td>
+      <td>IlluminaOvineSNP50</td>
+      <td>Spain</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b5e'}</td>
+      <td>{'coordinates': [[-6.33333333333333, 39.166666...</td>
+      <td>{'location_source': 'Pedrosa et al. 2007, GSE ...</td>
+      <td>MER7</td>
+      <td>ESOA-AME-000001534</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>These samples seem to come from <em>50K</em> chip:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span><span class="p">[</span><span class="s2">&quot;chip_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>chip_name
+IlluminaOvineSNP50    50
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Track those samples in a CSV file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span><span class="p">[[</span><span class="s2">&quot;breed_code&quot;</span><span class="p">,</span> <span class="s2">&quot;smarter_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;AME_50K.tsv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now on <code class="docutils literal notranslate"><span class="pre">Île</span> <span class="pre">de</span> <span class="pre">France</span></code> breed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sheep_api</span><span class="o">.</span><span class="n">get_samples</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s2">&quot;IDF&quot;</span><span class="p">)</span>
+<span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sheep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;items&quot;</span><span class="p">])</span>
+<span class="n">sheep</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>breed</th>
+      <th>breed_code</th>
+      <th>chip_name</th>
+      <th>country</th>
+      <th>dataset_id</th>
+      <th>locations</th>
+      <th>metadata</th>
+      <th>original_id</th>
+      <th>smarter_id</th>
+      <th>species</th>
+      <th>type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{'$oid': '6654662be91476d662a728e5'}</td>
+      <td>Île de France</td>
+      <td>IDF</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[2.42944299999999, 48.801148]...</td>
+      <td>{'link': 'http://en.france-genetique-elevage.o...</td>
+      <td>IDF1</td>
+      <td>FROA-IDF-000000600</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{'$oid': '6654662fe91476d662a728e6'}</td>
+      <td>Île de France</td>
+      <td>IDF</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[2.42944299999999, 48.801148]...</td>
+      <td>{'link': 'http://en.france-genetique-elevage.o...</td>
+      <td>IDF2</td>
+      <td>FROA-IDF-000000601</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{'$oid': '66546633e91476d662a728e7'}</td>
+      <td>Île de France</td>
+      <td>IDF</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[2.42944299999999, 48.801148]...</td>
+      <td>{'link': 'http://en.france-genetique-elevage.o...</td>
+      <td>IDF3</td>
+      <td>FROA-IDF-000000602</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{'$oid': '66546636e91476d662a728e8'}</td>
+      <td>Île de France</td>
+      <td>IDF</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[2.42944299999999, 48.801148]...</td>
+      <td>{'link': 'http://en.france-genetique-elevage.o...</td>
+      <td>IDF4</td>
+      <td>FROA-IDF-000000603</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{'$oid': '6654663ae91476d662a728e9'}</td>
+      <td>Île de France</td>
+      <td>IDF</td>
+      <td>IlluminaOvineHDSNP</td>
+      <td>France</td>
+      <td>{'$oid': '604f75a61a08c53cebd09b58'}</td>
+      <td>{'coordinates': [[2.42944299999999, 48.801148]...</td>
+      <td>{'link': 'http://en.france-genetique-elevage.o...</td>
+      <td>IDF5</td>
+      <td>FROA-IDF-000000604</td>
+      <td>Ovis aries</td>
+      <td>background</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>These samples seem to come from bot <em>50k</em> and <em>HD</em> chip:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span><span class="p">[</span><span class="s2">&quot;chip_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>chip_name
+IlluminaOvineSNP50    27
+IlluminaOvineHDSNP    23
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok take only <em>HD</em> samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span> <span class="o">=</span> <span class="n">sheep</span><span class="p">[</span><span class="n">sheep</span><span class="p">[</span><span class="s2">&quot;chip_name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;IlluminaOvineHDSNP&quot;</span><span class="p">]</span>
+<span class="n">sheep</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 23 entries, 0 to 22
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype 
+---  ------       --------------  ----- 
+ 0   _id          23 non-null     object
+ 1   breed        23 non-null     object
+ 2   breed_code   23 non-null     object
+ 3   chip_name    23 non-null     object
+ 4   country      23 non-null     object
+ 5   dataset_id   23 non-null     object
+ 6   locations    23 non-null     object
+ 7   metadata     23 non-null     object
+ 8   original_id  23 non-null     object
+ 9   smarter_id   23 non-null     object
+ 10  species      23 non-null     object
+ 11  type         23 non-null     object
+dtypes: object(12)
+memory usage: 2.3+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Track those samples in a CSV file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sheep</span><span class="p">[[</span><span class="s2">&quot;breed_code&quot;</span><span class="p">,</span> <span class="s2">&quot;smarter_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;IDF_HD.tsv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08-test_sample-vcf.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Inference from a test VCF file</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05-tstree-smarter.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reading data from chromosome 26</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infer-ancestry-using-est-sfs">Infer ancestry using EST-SFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-to-limit-sample-size">Attempt to limit sample size</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Paolo Cozzi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

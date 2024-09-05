@@ -1,0 +1,49 @@
+Traceback (most recent call last):
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/nbclient/client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/local/Miniconda3-py39_4.10.3-Linux-x86_64/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def get_chromosome_lengths(vcf):
+    results = {}
+    for seqname, seqlen in zip(vcf.seqnames, vcf.seqlens):
+        results[seqname] = seqlen
+
+    return results
+
+vcf_location = get_project_dir() / "tskit-pipeline/results/focal/test_dataset.focal.norm.vcf.gz"
+samples_location = get_data_dir() / "test_dataset.focal.norm.samples"
+
+vcf = cyvcf2.VCF(vcf_location)
+chromosome_lengths = get_chromosome_lengths(vcf)
+------------------
+
+----- stderr -----
+[E::hts_open_format] Failed to open file "/home/core/TSKITetude/tskit-pipeline/results/focal/test_dataset.focal.norm.vcf.gz" : No such file or directory
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mOSError[0m                                   Traceback (most recent call last)
+Cell [0;32mIn[2], line 11[0m
+[1;32m      8[0m vcf_location [38;5;241m=[39m get_project_dir() [38;5;241m/[39m [38;5;124m"[39m[38;5;124mtskit-pipeline/results/focal/test_dataset.focal.norm.vcf.gz[39m[38;5;124m"[39m
+[1;32m      9[0m samples_location [38;5;241m=[39m get_data_dir() [38;5;241m/[39m [38;5;124m"[39m[38;5;124mtest_dataset.focal.norm.samples[39m[38;5;124m"[39m
+[0;32m---> 11[0m vcf [38;5;241m=[39m [43mcyvcf2[49m[38;5;241;43m.[39;49m[43mVCF[49m[43m([49m[43mvcf_location[49m[43m)[49m
+[1;32m     12[0m chromosome_lengths [38;5;241m=[39m get_chromosome_lengths(vcf)
+
+File [0;32m~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/cyvcf2/cyvcf2.pyx:278[0m, in [0;36mcyvcf2.cyvcf2.VCF.__init__[0;34m()[0m
+
+File [0;32m~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.9/lib/python3.9/site-packages/cyvcf2/cyvcf2.pyx:208[0m, in [0;36mcyvcf2.cyvcf2.HTSFile._open_htsfile[0;34m()[0m
+
+[0;31mOSError[0m: Error opening /home/core/TSKITetude/tskit-pipeline/results/focal/test_dataset.focal.norm.vcf.gz
+

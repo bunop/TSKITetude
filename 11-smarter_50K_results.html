@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '11-smarter_50K_results';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Build the documentation" href="install/build-docs.html" />
+    <link rel="prev" title="SMARTER 50K" href="09-smarter_50k.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,8 +183,22 @@
 <li class="toctree-l1"><a class="reference internal" href="install/install.html">Setting up the project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install/build-docs.html">Build the documentation</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER dataset</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-test_sample-vcf.html">Inference from a test VCF file</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="03-smarter_database.html">SMARTER database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">50K simulations results</a></li>
 </ul>
 
@@ -689,7 +703,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7fe43c498b20&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f9d404dc9a0&gt;
 </pre></div>
 </div>
 <img alt="_images/591086c58e87a2cc6b68511c52994c6f6fb6a74c43f765abb5e9da1e62054c10.png" src="_images/591086c58e87a2cc6b68511c52994c6f6fb6a74c43f765abb5e9da1e62054c10.png" />
@@ -702,7 +716,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7fe3d978b160&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f9cdb82b400&gt;
 </pre></div>
 </div>
 <img alt="_images/b308392cd63e76795a2a969f0a64312de0169b6e51423128eb153e99c84f44dc.png" src="_images/b308392cd63e76795a2a969f0a64312de0169b6e51423128eb153e99c84f44dc.png" />
@@ -720,7 +734,7 @@ try to model the number of mutations relying on the numer or samples. Try to fit
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;samples&#39;, ylabel=&#39;mutations&#39;&gt;
 </pre></div>
 </div>
-<img alt="_images/bee905a7395638893d8b9fa37d1f9dd6b927e6a6fe96290819e8f5d8934e5fc1.png" src="_images/bee905a7395638893d8b9fa37d1f9dd6b927e6a6fe96290819e8f5d8934e5fc1.png" />
+<img alt="_images/6d818df0b95eb769fa4805961bca60b859f0c6112aa54a7808bf332d9350d063.png" src="_images/6d818df0b95eb769fa4805961bca60b859f0c6112aa54a7808bf332d9350d063.png" />
 </div>
 </div>
 <p>Try to fit a 2nd degree polynomial model using <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code>:</p>
@@ -804,12 +818,12 @@ try to model the number of mutations relying on the numer or samples. Try to fit
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="install/build-docs.html"
+       href="09-smarter_50k.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Build the documentation</p>
+        <p class="prev-next-title">SMARTER 50K</p>
       </div>
     </a>
 </div>
