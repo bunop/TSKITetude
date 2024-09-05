@@ -15,8 +15,14 @@ parts:
     - file: 01-getting_started
     - file: 02-tsinfer
     - file: 04-tsinfer_with_test_data
+    - file: 08-test_sample-vcf
 
   - caption: The SMARTER database
     chapters:
       - file: 03-smarter_database
+      - file: 05-tstree-smarter
+      - file: 06-nucleotide-diversity
+      - file: 07-about_tstree_space
+      - file: 10-ensembl-compara
+      - file: 09-smarter_50k
       - file: 11-smarter_50K_results
