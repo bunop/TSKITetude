@@ -42,5 +42,6 @@
         "tskitetude",
         "tstree",
         "Unphased"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

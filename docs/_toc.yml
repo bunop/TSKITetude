@@ -9,6 +9,14 @@ parts:
     - file: install/install
     - file: install/build-docs
 
-  - caption: The SMARTER dataset
+  - caption: Introducing TreeSequences
     chapters:
+    - file: 00-quickstart
+    - file: 01-getting_started
+    - file: 02-tsinfer
+    - file: 04-tsinfer_with_test_data
+
+  - caption: The SMARTER database
+    chapters:
+      - file: 03-smarter_database
       - file: 11-smarter_50K_results
