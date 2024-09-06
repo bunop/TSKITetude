@@ -43,3 +43,4 @@
 ## Comparing
 
 * [TileDB-VCF](https://docs.tiledb.com/main/integrations-and-extensions/genomics/population-genomics)
+* [GSC: efficient lossless compression of VCF files with fast query](https://doi.org/10.1093/gigascience/giae046)

@@ -4,20 +4,22 @@ This project is an attempt to analyze SMARTER data using [tskit](https://tskit.d
 Most of the analyses are done using [cnr-ibba/nf-treeseq](https://github.com/cnr-ibba/nf-treeseq)
 *nextflow* pipeline able which is able to transform SMARTER data in
 [tskit](https://tskit.dev/tskit/docs/stable/introduction.html) *TreeSequence*
-files. Whithin this project, there's the `tskitetude` python library which does
+files. Within this project, there's the `tskitetude` python library which does
 data conversion and is then used in the nextflow pipeline. There's also
 a `notebook` folder with some example code useful for analysis.
 Files and folders are structured as follow:
 
-```txt
-.
+```text
+TSKITetude/
 ├── config
 ├── data
-├── notebooks
+├── docs
+├── experiments
+├── Makefile
 ├── poetry.lock
 ├── pyproject.toml
 ├── README.md
-├── results
+├── results-*
 ├── scripts
 ├── tests
 ├── TODO.md
@@ -26,13 +28,16 @@ Files and folders are structured as follow:
 
 * `config`: configuration directory for analyses with nextflow
 * `data`: data folder (not tracked)
-* `notebooks`: folder with *IPython notebooks* files
+* `docs`: `jupyter-book` documentation folder
+  * `notebooks`: folder with *IPython notebooks* files
+* `experiments`: testing stuff folder. Not tracked
+* `Makefile`: automate some boring stuff
 * `poetry.lock`: managed by Poetry during installation. Don't touch
 * `pyproject.toml`: required to manage this project with poetry. Dependencies
   can be managed using poetry (see [Managing dependencies](https://python-poetry.org/docs/managing-dependencies/))
 * `README.md`: this file
-* `results`: a result folder not tracked with Git. Usually is the nextflow *results*
-  folder
+* `results-*`: results folders not tracked with Git. Usually is the nextflow *results* folder
+* `scripts`: scripts used to perform analyses
 * `test`: test code for `tskitetude` python module
 * `TODO.md`: TODO file
 * `tskitetude`: source code of this project
@@ -189,21 +194,21 @@ to extract *ancestor alleles* using `est-sfs`.
 Call the pipeline with `est-sfs` on background samples:
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-estsfs/background_samples" --with_estsfs
 ```
 
 Call the pipeline using reference alleles (the outgroup samples are not used):
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-reference/background_samples" --reference_ancestor
 ```
 
 Call the pipeline using the *compara* reference alleles (the outgroup samples are not used):
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-compara/background_samples" --compara_ancestor data/ancestors-OAR3-50K.csv
 ```
 ## Compare 50K samples with repetitions
