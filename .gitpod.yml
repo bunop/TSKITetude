@@ -2,10 +2,9 @@
 image: bunop/tskitetude:master
 
 tasks:
-  - name: install dependencies using poetry
+  - name: install dependencies and start jupyter using poetry
     init: poetry install
-  - name: start jupyter lab
-    command: poetry run jupyter lab --no-browser --port=8888
+    command: poetry run jupyter lab --no-browser --port=8888 --ip=*
 
 vscode:
   extensions:
