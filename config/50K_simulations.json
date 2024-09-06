@@ -1,0 +1,6 @@
+{
+    "plink_species": "--chr-set 26 no-xy no-mt --allow-no-sex --chr 1-26",
+    "plink_bfile": "data/SMARTER-OA-OAR3-forward-0.4.10-50K",
+    "genome": "data/Oar_v3.1_genome.fna.gz",
+    "max_memory": "48.GB"
+}

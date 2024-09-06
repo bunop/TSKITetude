@@ -80,7 +80,7 @@ def make_est_sfs_input(
     mapping_writer = csv.writer(mapping_handle, delimiter=",", lineterminator="\n")
 
     # since the mapping writer will be used by the pipeline, add header:
-    header = ["chrom", "pos", "ref", "alt", "major"]
+    header = ["chrom", "position", "ref", "alt", "major"]
     mapping_writer.writerow(header)
 
     # read focal samples
@@ -99,7 +99,7 @@ def make_est_sfs_input(
         # are at the left side of the VCF (I have imputed this data, if I'm skipping
         # a variant, maybe I have ancient allele and not focal, for example
         # when ancient is an HD variant and focal not).
-        # My focal samples have been inputed, so I will not expect an half missing
+        # My focal samples have been imputed, so I will not expect an half missing
         # or a missing samples in focal genotype
         if (-1, -1) in (
             (a1, a2) for a1, a2, _ in variant.genotypes[0:len(focal_samples)]):
@@ -309,12 +309,12 @@ def parse_est_sfs_output(
             # all the data after the header size
             pvalues_record = PvaluesRecord(*tmp2[:len(pvalues_header)])
 
-            logger.debug(f"processing {mapping_record.chrom}:{mapping_record.pos}: {pvalues_record}")
+            logger.debug(f"processing {mapping_record.chrom}:{mapping_record.position}: {pvalues_record}")
 
             # ok skip record if the falls in the confidence interval
             if not (float(pvalues_record.pmajor_ancestral) > upper_tail or
                     float(pvalues_record.pmajor_ancestral) < lower_tail):
-                logger.debug(f"Discarding {mapping_record.chrom}:{mapping_record.pos}")
+                logger.debug(f"Discarding {mapping_record.chrom}:{mapping_record.position}")
                 continue
 
             # determine if major allele is ALT  or REF

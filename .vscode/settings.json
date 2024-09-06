@@ -1,11 +1,15 @@
 {
     "cSpell.words": [
+        "aiohttp",
         "astype",
         "ATCG",
+        "bcftools",
         "bumpversion",
         "chrom",
+        "compara",
         "cyvcf",
         "dotenv",
+        "ensembl",
         "estsfs",
         "indv",
         "levelname",
@@ -26,6 +30,7 @@
         "pmajor",
         "pvalues",
         "pyproject",
+        "reheader",
         "Renviron",
         "seqlen",
         "seqlens",

@@ -1,104 +1,241 @@
 
-import os
-import json
+import logging
 import requests
-import datetime
+from requests.models import PreparedRequest
 
-from pathlib import Path
-from dotenv import load_dotenv
+import asyncio
+import aiohttp
+from urllib.parse import urljoin
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 # global variables
-session = requests.Session()
+SESSION = requests.Session()
+BASE_URL = "https://webserver.ibba.cnr.it"
+SIZE = 100
 
 
-# a class to deal with authentication
-class Auth():
-    url = "https://webserver.ibba.cnr.it/smarter-api/auth/login"
-    headers = {"Content-Type": "application/json"}
-    token = None
-    expires = None
+class Location():
+    _data = {}
+    name = None
+    chrom = None
+    position = None
 
-    def __init__(self, env_file=None) -> None:
-        """
-        Authenticate to the SMARTER API.
+    illumina_top = None
+    illumina_forward = None
 
-        Args:
-            env_file: (optional) Path to the environment file
-                (def. "~/.Renviron")
-        """
-        global session
+    def __init__(self, name: str = None, data = {}):
+        self.name = name
 
-        if env_file is None:
-            # use the same environment file as R does
-            env_file = Path.home() / ".Renviron"
+        if data:
+            self._data = data
+            self.read_data(data)
 
-        # load the environment file
-        load_dotenv(env_file)
+    def __str__(self):
+        return (
+            f"{self.name}: {self.chrom}:{self.position} [{self.illumina_top}]"
+        )
 
-        # check if the environment variables are set
-        if (os.getenv("SMARTER_API_USERNAME") is None) or (
-                os.getenv("SMARTER_API_PASSWORD") is None):
-            raise Exception(
-                "Environment variables SMARTER_API_USERNAME and "
-                "SMARTER_API_PASSWORD are not set"
-            )
+    def read_data(self, data):
+        # read some attributes for simplicity
+        self.chrom = data.get("chrom")
+        self.position = data.get("position")
+        self.illumina_forward = data.get("illumina_forward")
+        self.illumina_top = data.get("illumina_top")
 
-        data = {
-            "username": os.getenv("SMARTER_API_USERNAME"),
-            "password": os.getenv("SMARTER_API_PASSWORD")
-        }
+    def to_update_alleles(self):
+        old_code = self.illumina_top.split("/")
+        new_code = self.illumina_forward.split("/")
 
-        # authenticate to SMARTER API
-        response = session.post(
-            self.url, headers=self.headers, data=json.dumps(data))
-
-        if response.status_code == 200:
-            tmp = response.json()
-            self.token = tmp["token"]
-            self.expires = datetime.datetime.fromisoformat(tmp["expires"])
-
-        else:
-            raise Exception("Authentication failed: " + response.text)
-
-    def is_expired(self) -> bool:
-        """Check if the token is expired."""
-        return datetime.datetime.now() > self.expires
+        return [self.name, old_code[0], old_code[1], new_code[0], new_code[1]]
 
 
-class SheepEndpoint():
-    url = "https://webserver.ibba.cnr.it/smarter-api/samples/sheep"
+class EndPointMixin():
+    url = None
     headers = {}
 
-    def __init__(self, auth: Auth) -> None:
-        """Initialize the SamplesEndpoint class.
+    def _update_kwargs(self, kwargs):
+        # add page and size if not in kwargs
+        if "page" not in kwargs:
+            kwargs["page"] = 1
 
-        Args:
-            auth: An instance of the Auth class"""
+        if "size" not in kwargs:
+            kwargs["size"] = SIZE
 
-        # check if the token is expired
-        if auth.is_expired():
-            raise Exception("Token is expired")
+        return kwargs
 
-        # set the token
-        self.headers["Authorization"] = "Bearer " + auth.token
+    def get(self, **kwargs):
+        logger.debug(f"Getting data from {self.url}")
+        logger.debug(f"Params: {kwargs}")
 
-    def get_samples(
-            self,
-            type: str = None,
-            page: int = None,
-            size: int = 100) -> dict:
-        """Get the samples from the Sheep SMARTER API."""
-        response = session.get(
+        # check for page and size
+        kwargs = self._update_kwargs(kwargs)
+
+        response = SESSION.get(
             self.url,
             headers=self.headers,
-            params={
-                "size": size,
-                "page": page,
-                "type": type
-            }
+            params=kwargs
         )
 
         if response.status_code == 200:
             return response.json()
+
         else:
-            raise Exception("Failed to get sheep samples: " + response.text)
+            raise Exception(f"Failed to get data from {self.url}: {response.text}")
+
+
+class SheepEndpoint(EndPointMixin):
+    url = urljoin(BASE_URL, "smarter-api/samples/sheep")
+
+    def get_samples(
+            self,
+            _type: str = None,
+            breed: str = None,
+            code: str = None,
+            chip_name: str = None,
+            **kwargs) -> dict:
+        """Get the samples from the Sheep SMARTER API."""
+
+        return self.get(
+            type=_type,
+            breed=breed,
+            breed_code=code,
+            chip_name=chip_name,
+            **kwargs
+        )
+
+
+class BreedEndpoint(EndPointMixin):
+    url = urljoin(BASE_URL, "smarter-api/breeds")
+
+    def get_breeds(
+            self,
+            species: str = None,
+            **kwargs) -> dict:
+        """Get the breeds from the Sheep SMARTER API."""
+
+        return self.get(
+            species=species,
+            **kwargs
+        )
+
+
+class ChipEndpoint(EndPointMixin):
+    url = urljoin(BASE_URL, "smarter-api/supported-chips")
+
+    def get_chips(
+            self,
+            species: str = None,
+            manufacturer: str = None,
+            **kwargs) -> dict:
+        """Get the chips from the Sheep SMARTER API."""
+
+        return self.get(
+            species=species,
+            manufacturer=manufacturer,
+            **kwargs
+        )
+
+
+class VariantsEndpoint(EndPointMixin):
+    def __init__(self, species, assembly) -> None:
+        super().__init__()
+
+        self.url = urljoin(
+            BASE_URL,
+            f"smarter-api/variants/{species.lower()}/{assembly.upper()}"
+        )
+
+        logger.info(f"Initialized VariantsEndpoint with URL: {self.url}")
+
+    def get_variants(
+            self,
+            chip_name: str = None,
+            region: str = None,
+            **kwargs) -> dict:
+        """Get the variants from the Variant SMARTER API."""
+
+        response = self.get(
+            chip_name=chip_name,
+            region=region,
+            **kwargs
+        )
+
+        # un-nesting locations items: get first item
+        for item in response["items"]:
+            item["locations"] = item["locations"][0]
+
+        return response
+
+    async def get_async_variants(
+            self, session, retries=5, backoff_factor=5, **kwargs) -> dict:
+        """
+        Fetches async variants from the specified URL.
+
+        Args:
+            session (aiohttp.ClientSession): The aiohttp client session.
+            retries (int, optional): The number of retries in case of errors. Defaults to 5.
+            backoff_factor (int, optional): The backoff factor for retrying. Defaults to 5.
+            kwargs (dict): The query parameters to pass to
+
+        Returns:
+            dict: The fetched data as a dictionary.
+
+        Raises:
+            aiohttp.ClientError: If there is an error with the aiohttp client.
+            asyncio.exceptions.TimeoutError: If the request times out.
+            Exception: If the data cannot be fetched after the specified number of retries.
+        """
+
+        # test for page and size in kwargs
+        kwargs = self._update_kwargs(kwargs)
+
+        for attempt in range(retries):
+            try:
+                req = PreparedRequest()
+                req.prepare_url(self.url, kwargs)
+
+                logger.debug(f"Getting data from {req.url}")
+
+                async with session.get(self.url, params=kwargs) as response:
+                    response.raise_for_status()
+                    result = await response.json()
+                    logger.info(
+                        f"Successfully fetched data for page {kwargs['page']}")
+
+                    # un-nesting locations items: get first item
+                    for item in result["items"]:
+                        item["locations"] = item["locations"][0]
+
+                    return result
+
+            except (aiohttp.ClientError, asyncio.exceptions.TimeoutError) as exc:
+                if attempt < retries - 1:
+                    wait_time = backoff_factor * (2 ** attempt)
+                    logger.warning(f"Error {exc}, retrying in {wait_time} seconds...")
+                    await asyncio.sleep(wait_time)
+                else:
+                    logger.error(
+                        f"Failed to fetch data for page {kwargs['page']} "
+                        f"after {retries} attempts")
+                    raise exc
+
+
+async def variant_worker(
+        queue, session, variant_api, async_processing_func, size, **kwargs):
+    while True:
+        page = await queue.get()
+
+        try:
+            response = await variant_api.get_async_variants(
+                session, page=page, size=size, **kwargs)
+
+            # call my processing function
+            await async_processing_func(response)
+
+            logger.debug(
+                f"Got {len(response['items'])} results for page {page}")
+
+        finally:
+            queue.task_done()

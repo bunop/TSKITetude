@@ -1,6 +1,6 @@
 {
     "plink_species": "--chr-set 26 no-xy no-mt --allow-no-sex",
-    "plink_bfile": "data/SMARTER-OA-OAR3-forward-0.4.9",
+    "plink_bfile": "data/SMARTER-OA-OAR3-forward-0.4.10",
     "plink_keep": "data/sheep_dataset.tsv",
     "outgroup1": "data/european_mouflon.tsv",
     "outgroup2": "data/sardinian_mouflon.tsv",
