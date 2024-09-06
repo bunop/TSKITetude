@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -186,21 +186,22 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../00-quickstart.html">Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01-getting_started.html">Getting started with tskit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../02-tsinfer.html">TSINFER tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../08-test_sample-vcf.html">Inference from a test VCF file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/08-test_sample-vcf.html">Inference from a test VCF file</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../03-smarter_database.html">SMARTER database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../05-tstree-smarter.html">Reading data from chromosome 26</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../06-nucleotide-diversity.html">Nucleotide diversity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../07-about_tstree_space.html">About tstree space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../09-smarter_50k.html">SMARTER 50K</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../11-smarter_50K_results.html">50K simulations results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running/smarter-database.html">The SMARTER-database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/03-smarter_database.html">Infer ancestry using EST-SFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/09-smarter_50k.html">SMARTER 50K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/11-smarter_50K_results.html">50K simulations results</a></li>
 </ul>
 
     </div>
@@ -424,7 +425,6 @@ nextflow pipeline. Files and folders are structured as follow:</p>
 ├── data
 ├── docs
 ├── experiments
-├── notebooks
 ├── poetry.lock
 ├── pyproject.toml
 ├── README.md
@@ -440,12 +440,12 @@ nextflow pipeline. Files and folders are structured as follow:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">config</span></code>: configuration directory for analyses with nextflow</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: data folder (not tracked)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: documentation folder</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">notebooks</span></code>: folder with <em>IPython notebooks</em> files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experiments</span></code>: experiments folder (not tracked)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">poetry.lock</span></code>: managed by Poetry during installation. Don’t touch</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>: required to manage this project with poetry. Dependencies
 can be managed using poetry (see <a class="reference external" href="https://python-poetry.org/docs/managing-dependencies/">Managing dependencies</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">README.md</span></code>: a general description of the project</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">results-*</span></code>: result folders (not tracked). Usually is the nextflow <em>results</em>
+<li><p><code class="docutils literal notranslate"><span class="pre">results-*</span></code>: results folders (not tracked). Usually is the nextflow <em>results</em>
 folder</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">test</span></code>: test code for <code class="docutils literal notranslate"><span class="pre">tskitetude</span></code> python module</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TODO.md</span></code>: TODO file</p></li>

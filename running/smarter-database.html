@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Build the documentation &#8212; SheepTreeSeq</title>
+    <title>The SMARTER-database &#8212; SheepTreeSeq</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'install/build-docs';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'running/smarter-database';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quickstart" href="../notebooks/00-quickstart.html" />
-    <link rel="prev" title="Setting up the project" href="install.html" />
+    <link rel="next" title="Infer ancestry using EST-SFS" href="../notebooks/03-smarter_database.html" />
+    <link rel="prev" title="Inference from a test VCF file" href="../notebooks/08-test_sample-vcf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,9 +180,9 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="install.html">Setting up the project</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Build the documentation</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Setting up the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/build-docs.html">Build the documentation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
 <ul class="nav bd-sidenav">
@@ -193,8 +193,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/08-test_sample-vcf.html">Inference from a test VCF file</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../running/smarter-database.html">The SMARTER-database</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The SMARTER-database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/03-smarter_database.html">Infer ancestry using EST-SFS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/05-tstree-smarter.html">Reading data from chromosome 26</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/06-nucleotide-diversity.html">Nucleotide diversity</a></li>
@@ -273,7 +273,7 @@
       
       
       
-      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2Finstall/build-docs.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2Frunning/smarter-database.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -303,7 +303,7 @@
       
       
       
-      <li><a href="../_sources/install/build-docs.md" target="_blank"
+      <li><a href="../_sources/running/smarter-database.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -387,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Build the documentation</h1>
+    <h1>The SMARTER-database</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,9 +397,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-documentation-with-jupyter-book">Build the documentation with <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-the-documentation-build">Clean up the documentation build</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-the-documentation-on-gh-pages">Publish the documentation on GH pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collect-data-through-ftp">Collect data through FTP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-into-illumina-forward">Convert data into <em>Illumina forward</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-into-vcf">Convert data into <em>VCF</em></a></li>
 </ul>
             </nav>
         </div>
@@ -411,44 +411,78 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="build-the-documentation">
-<h1>Build the documentation<a class="headerlink" href="#build-the-documentation" title="Link to this heading">#</a></h1>
-<section id="build-the-documentation-with-jupyter-book">
-<h2>Build the documentation with <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code><a class="headerlink" href="#build-the-documentation-with-jupyter-book" title="Link to this heading">#</a></h2>
-<p>Inside a <em>poetry shell</em> or using the <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span></code> command, you can build the
-documentation with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>run<span class="w"> </span>jupyter-book<span class="w"> </span>build<span class="w"> </span>docs/
+  <section class="tex2jax_ignore mathjax_ignore" id="the-smarter-database">
+<h1>The SMARTER-database<a class="headerlink" href="#the-smarter-database" title="Link to this heading">#</a></h1>
+<p>The <a class="reference external" href="https://smarter-database.readthedocs.io/en/latest/">SMARTER-database</a>
+is a collection of tools and scripts to standardize genomic
+data and metadata mainly from SNP chips arrays on global small ruminant populations
+with a focus on reproducibility. It harmonizes genotype data for approximately
+12,000 sheep and 6,000 goats to a uniform coding and assembly version. The database
+is designed to be easily accessible and user-friendly, and it is intended to be
+used by researchers and breeders to facilitate the sharing of data and to enable
+comparative analyses across different populations.</p>
+<p>Genotype data can be collected through anonymous FTP, while metadata can be
+accessed through <a class="reference external" href="https://webserver.ibba.cnr.it/smarter-api/docs/">SMARTER-backend REST API</a>.</p>
+<section id="collect-data-through-ftp">
+<h2>Collect data through FTP<a class="headerlink" href="#collect-data-through-ftp" title="Link to this heading">#</a></h2>
+<p>We can collect genotype data from the SMARTER-database through anonymous FTP,
+for example by using <a class="reference external" href="https://lftp.yar.ru/">lftp</a>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cd data/
+$ lftp webserver.ibba.cnr.it
+lftp&gt; cd smarter/SHEEP/OAR3/
+lftp&gt; ls
+lftp&gt; mget SMARTER-OA-OAR3-top-0.4.10
+lftp&gt; exit
+md5sum -c SMARTER-OA-OAR3-top-0.4.10.md5
+unzip -d SMARTER-OA-OAR3-top-0.4.10.zip
+cd ..
+</pre></div>
+</div>
+<p>Or by using <code class="docutils literal notranslate"><span class="pre">wget</span></code> or <code class="docutils literal notranslate"><span class="pre">curl</span></code>, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>ftp://webserver.ibba.cnr.it/smarter/SHEEP/OAR3/SMARTER-OA-OAR3-top-0.4.10.zip
+wget<span class="w"> </span>ftp://webserver.ibba.cnr.it/smarter/SHEEP/OAR3/SMARTER-OA-OAR3-top-0.4.10.md5
+md5sum<span class="w"> </span>-c<span class="w"> </span>SMARTER-OA-OAR3-top-0.4.10.md5
+unzip<span class="w"> </span>-d<span class="w"> </span>SMARTER-OA-OAR3-top-0.4.10.zip
 </pre></div>
 </div>
 </section>
-<section id="clean-up-the-documentation-build">
-<h2>Clean up the documentation build<a class="headerlink" href="#clean-up-the-documentation-build" title="Link to this heading">#</a></h2>
-<p>To clean up <em>all</em> the documentation build, you can use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>run<span class="w"> </span>jupyter-book<span class="w"> </span>clean<span class="w"> </span>--all<span class="w"> </span>docs/
+<section id="convert-data-into-illumina-forward">
+<h2>Convert data into <em>Illumina forward</em><a class="headerlink" href="#convert-data-into-illumina-forward" title="Link to this heading">#</a></h2>
+<p>Data is stored in <em>Illumina TOP</em> format: to convert data into a valid <code class="docutils literal notranslate"><span class="pre">.vcf</span></code> file,
+you need to transform coordinates into <em>Illumina forward</em>: the easiest way to do
+it is by using <code class="docutils literal notranslate"><span class="pre">plink</span></code>, however we need to retrieve variant information from the
+REST API. We can do this easily using a Python script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/top2forward.py<span class="w"> </span>&gt;<span class="w"> </span>data/OAR3_top2forward.csv
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--all</span></code> will remove the <code class="docutils literal notranslate"><span class="pre">_build</span></code> directory and the <code class="docutils literal notranslate"><span class="pre">.jupyter_cache</span></code> directory.</p></li>
-</ul>
-<p>In alternative, you can remove the <code class="docutils literal notranslate"><span class="pre">html</span></code> or <code class="docutils literal notranslate"><span class="pre">latex</span></code> build directories with
-these options:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--html</span></code> will remove the <code class="docutils literal notranslate"><span class="pre">html</span></code> directory only.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--latex</span></code> will remove the <code class="docutils literal notranslate"><span class="pre">latex</span></code> directory only.</p></li>
-</ul>
+<p>The previous script will generate an input file that can be used to convert data with <code class="docutils literal notranslate"><span class="pre">plink</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>plink<span class="w"> </span>--chr-set<span class="w"> </span><span class="m">26</span><span class="w"> </span>no-xy<span class="w"> </span>no-mt<span class="w"> </span>--allow-no-sex<span class="w"> </span>--bfile<span class="w"> </span>data/SMARTER-OA-OAR3-top-0.4.10<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--update-alleles<span class="w"> </span>data/OAR3_top2forward.csv<span class="w"> </span>--make-bed<span class="w"> </span>--out<span class="w"> </span>data/SMARTER-OA-OAR3-forward-0.4.10
+</pre></div>
+</div>
 </section>
-<section id="publish-the-documentation-on-gh-pages">
-<h2>Publish the documentation on GH pages<a class="headerlink" href="#publish-the-documentation-on-gh-pages" title="Link to this heading">#</a></h2>
-<p>After a successful build, you can publish the documentation on GitHub pages
-using <code class="docutils literal notranslate"><span class="pre">ghp-import</span></code> and by selecting the <code class="docutils literal notranslate"><span class="pre">html</span></code> build directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>run<span class="w"> </span>ghp-import<span class="w"> </span>-n<span class="w"> </span>-p<span class="w"> </span>-f<span class="w"> </span>docs/_build/html
+<section id="convert-data-into-vcf">
+<h2>Convert data into <em>VCF</em><a class="headerlink" href="#convert-data-into-vcf" title="Link to this heading">#</a></h2>
+<p>To have a valid <code class="docutils literal notranslate"><span class="pre">.vcf</span></code> file, you can use <code class="docutils literal notranslate"><span class="pre">plink</span></code> to convert data into a <code class="docutils literal notranslate"><span class="pre">.vcf</span></code> file:
+you should strat from the <em>Illumina forward</em> data, however you will need to fix
+ALT/REF alleles, since <code class="docutils literal notranslate"><span class="pre">plink</span></code> does not provide this information. Ideally, we can
+use <a class="reference external" href="https://samtools.github.io/bcftools/bcftools.html#norm">bcftools norm</a> to
+fix alleles, and then adjust the chromosome sizes in the header with
+<a class="reference external" href="https://samtools.github.io/bcftools/bcftools.html#reheader">bcftools reheader</a>. First, convert
+PLINK data into a <code class="docutils literal notranslate"><span class="pre">.vcf</span></code> file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>plink<span class="w"> </span>--chr-set<span class="w"> </span><span class="m">26</span><span class="w"> </span>no-xy<span class="w"> </span>no-mt<span class="w"> </span>--allow-no-sex<span class="w"> </span>--bfile<span class="w"> </span>data/SMARTER-OA-OAR3-forward-0.4.10<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--recode<span class="w"> </span>bgz<span class="w"> </span>vcf-iid<span class="w"> </span>--out<span class="w"> </span>data/SMARTER-OA-OAR3-forward-0.4.10<span class="w"> </span>--threads<span class="w"> </span><span class="m">4</span><span class="w"> </span>--not-chr<span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-n</span></code> Include a <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> file in the branch.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code> Push the branch to origin/{branch} after committing.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-f</span></code> Force the push.</p></li>
-</ul>
+<p>I’s important that chromosome 0 is removed from the <code class="docutils literal notranslate"><span class="pre">.vcf</span></code> file, since it has no
+positions. Next, we can fix alleles and adjust the chromosome sizes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bcftools<span class="w"> </span>norm<span class="w"> </span>--fasta-ref<span class="w"> </span>Oar_v3.1_genome.fna.gz<span class="w"> </span>--output<span class="w"> </span>SMARTER-OA-OAR3-forward-0.4.10.norm.vcf.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--check-ref<span class="w"> </span>ws<span class="w"> </span>--do-not-normalize<span class="w"> </span>--rm-dup<span class="w"> </span>all<span class="w"> </span>--output-type<span class="w"> </span>z<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--threads<span class="w"> </span><span class="m">4</span><span class="w"> </span>SMARTER-OA-OAR3-forward-0.4.10.vcf.gz
+bcftools<span class="w"> </span>reheader<span class="w"> </span>--fai<span class="w"> </span>Oar_v3.1_genome.fna.gz.fai<span class="w"> </span>--threads<span class="w"> </span><span class="m">2</span><span class="w"> </span>SMARTER-OA-OAR3-forward-0.4.10.norm.vcf.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>bcftools<span class="w"> </span>view<span class="w"> </span>--output-type<span class="w"> </span>z<span class="w"> </span>--output<span class="w"> </span>SMARTER-OA-OAR3-forward-0.4.10.norm.reheader.vcf.gz
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -465,7 +499,7 @@ using <code class="docutils literal notranslate"><span class="pre">ghp-import</s
         },
         kernelOptions: {
             name: "python3",
-            path: "./install"
+            path: "./running"
         },
         predefinedOutput: true
     }
@@ -483,20 +517,20 @@ using <code class="docutils literal notranslate"><span class="pre">ghp-import</s
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="install.html"
+       href="../notebooks/08-test_sample-vcf.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Setting up the project</p>
+        <p class="prev-next-title">Inference from a test VCF file</p>
       </div>
     </a>
     <a class="right-next"
-       href="../notebooks/00-quickstart.html"
+       href="../notebooks/03-smarter_database.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Quickstart</p>
+        <p class="prev-next-title">Infer ancestry using EST-SFS</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -516,9 +550,9 @@ using <code class="docutils literal notranslate"><span class="pre">ghp-import</s
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-documentation-with-jupyter-book">Build the documentation with <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-up-the-documentation-build">Clean up the documentation build</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-the-documentation-on-gh-pages">Publish the documentation on GH pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collect-data-through-ftp">Collect data through FTP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-into-illumina-forward">Convert data into <em>Illumina forward</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-into-vcf">Convert data into <em>VCF</em></a></li>
 </ul>
   </nav></div>
 
