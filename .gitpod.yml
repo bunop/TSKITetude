@@ -4,3 +4,16 @@ image: bunop/tskitetude:master
 tasks:
   - name: install dependencies using poetry
     init: poetry install
+  - name: start jupyter lab
+    command: poetry run jupyter lab --no-browser --port=8888
+
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-toolsai.jupyter
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers
+
+ports:
+  - port: 8888
+  - port: 8080

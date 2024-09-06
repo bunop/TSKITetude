@@ -44,5 +44,6 @@
         "tskitetude",
         "tstree",
         "Unphased"
-    ]
+    ],
+    "makefile.configureOnOpen": false
 }
