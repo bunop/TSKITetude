@@ -57,6 +57,12 @@ RUN conda config --add channels bioconda && \
         mamba && \
     conda clean --all --force-pkgs-dirs --yes
 
+# Some environment variables for nextflow
+ENV \
+    NXF_OPTS="-Xms1g -Xmx4g"
+    NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf_singularity_cachedir"
+    NXF_EXECUTOR="local"
+
 # download and install nextflow
 RUN wget -qO- https://get.nextflow.io | bash && \
     mv nextflow /usr/local/bin/ && \
