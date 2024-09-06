@@ -26,6 +26,7 @@ TSKITetude/
 * `config`: configuration directory for analyses with nextflow
 * `data`: data folder (not tracked)
 * `docs`: documentation folder (using `jupyter-book`)
+  * `notebooks`: ipython notebooks folder
 * `experiments`: experiments folder (not tracked)
 * `poetry.lock`: managed by Poetry during installation. Don't touch
 * `pyproject.toml`: required to manage this project with poetry. Dependencies

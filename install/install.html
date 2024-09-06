@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -439,7 +439,11 @@ nextflow pipeline. Files and folders are structured as follow:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">config</span></code>: configuration directory for analyses with nextflow</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: data folder (not tracked)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: documentation folder</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: documentation folder (using <code class="docutils literal notranslate"><span class="pre">jupyter-book</span></code>)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">notebooks</span></code>: ipython notebooks folder</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">experiments</span></code>: experiments folder (not tracked)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">poetry.lock</span></code>: managed by Poetry during installation. Don’t touch</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>: required to manage this project with poetry. Dependencies
