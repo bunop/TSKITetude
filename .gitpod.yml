@@ -1,2 +1,6 @@
 
 image: bunop/tskitetude:master
+
+tasks:
+  - name: install dependencies using poetry
+    init: poetry install

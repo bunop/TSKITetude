@@ -1,37 +1,70 @@
 #
-# VERSION 0.1
-# DOCKER-VERSION  25.0.3
+# VERSION 0.4.0
+# DOCKER-VERSION  27.2.0
 # AUTHOR:         Paolo Cozzi <paolo.cozzi@ibba.cnr.it>
-# DESCRIPTION:    A multi-stage image with tskit dependencies
+# DESCRIPTION:    A gitpod base image with tskitetude installed
 # TO_BUILD:       docker build --rm -t bunop/tskitetude .
 # TO_RUN:         docker run --rm -ti bunop/tskitetude bash
-# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.1
+# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.4.0
 #
 
-###############################################################################
-# 1st build stage
+FROM gitpod/workspace-base:2024-08-20-00-26-31
 
-# inspired from https://bmaingret.github.io/blog/2021-11-15-Docker-and-Poetry
-# Those variables are defined before the FROM scope: to use them after, recall
-# ARG in build stages
-ARG APP_NAME=tskitetude
-ARG APP_PATH=/opt/$APP_NAME
-ARG PYTHON_VERSION=3.9
-ARG POETRY_VERSION=1.7.1
-
-FROM python:${PYTHON_VERSION} as python-build
-
-# MAINTAINER is deprecated. Use LABEL instead
 LABEL maintainer="paolo.cozzi@ibba.cnr.it"
 
-# Import ARGs which I need in this build stage
-# IMPORTANT!: without this redefinition, you can't use variables defined
-# before the first FROM statement
-ARG POETRY_VERSION
-ARG APP_NAME
-ARG APP_PATH
+# set user for installing stuff
+USER root
+
+# Install stuff
+# software-properties-common is needed for add-apt-repository
+RUN apt-get update && \
+    apt-get install -y \
+        tmux \
+        tree \
+        build-essential \
+        default-jre \
+        wget \
+        curl \
+        graphviz \
+        software-properties-common && \
+    apt-get clean && rm -rf /var/lib/apt/lists/
+
+# Taken from: https://github.com/nextflow-io/training/blob/master/.github/gitpod.Dockerfile
+# Install Apptainer (Singularity)
+RUN add-apt-repository -y ppa:apptainer/ppa && \
+    apt-get update --quiet && \
+    apt install -y apptainer && \
+    apt-get clean && rm -rf /var/lib/apt/lists/
+
+# set environment variables
+ENV CONDA_DIR="/opt/conda"
+
+# Install Conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_DIR} && \
+    rm Miniconda3-latest-Linux-x86_64.sh
+
+# Put conda in path so we can use conda activate
+ENV PATH=$CONDA_DIR/bin:$PATH
+
+# update base channel
+RUN conda config --add channels bioconda && \
+    conda config --add channels conda-forge && \
+    conda config --set channel_priority strict && \
+    conda config --add envs_dirs /workspace/.conda/envs && \
+    conda update --quiet --yes --all && \
+    conda install --quiet --yes --name base \
+        mamba && \
+    conda clean --all --force-pkgs-dirs --yes
+
+# download and install nextflow
+RUN wget -qO- https://get.nextflow.io | bash && \
+    mv nextflow /usr/local/bin/ && \
+    chmod +rx /usr/local/bin/nextflow
 
 # Set some useful variables
+ARG POETRY_VERSION=1.8.3
+
 ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -47,46 +80,11 @@ ENV \
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
-# CREATE APP_PATH
-RUN mkdir -p ${APP_PATH}
-WORKDIR ${APP_PATH}
+# ovverride bashrc
+COPY .github/gitpod.bashrc /home/gitpod/.bashrc
 
-# Need to copy all the files declared in pyproject.toml
-COPY poetry.lock pyproject.toml README.md ./
-COPY tskitetude/ ./tskitetude/
+# Fix user permissions
+RUN chown -R gitpod:gitpod /home/gitpod/
 
-# Install all dependencies (taking advantage of Docker layer caching)
-RUN poetry install --no-directory
-
-# install my package
-RUN poetry install --only-root
-
-# create data dir
-RUN mkdir data
-
-###############################################################################
-# 2nd build stage
-
-FROM python:${PYTHON_VERSION} as python-runtime
-
-# Import ARGs which I need in this build stage
-# IMPORTANT!: without this redefinition, you can't use variables defined
-# before the first FROM statement
-ARG APP_PATH
-ARG VIRTUAL_ENV=${APP_PATH}/.venv
-
-# Set some useful variables
-ENV \
-    PYTHONUNBUFFERED=1 \
-    PYTHONFAULTHANDLER=1
-# See https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
-ENV \
-    VIRTUAL_ENV=${VIRTUAL_ENV} \
-    PATH="${VIRTUAL_ENV}/bin:${PATH}"
-
-# copy the application from build stage
-COPY --from=python-build ${APP_PATH} ${APP_PATH}
-WORKDIR ${APP_PATH}
-
-# export data as a volume
-VOLUME [ "${APP_PATH}/data" ]
+# Change user to gitpod
+USER gitpod
