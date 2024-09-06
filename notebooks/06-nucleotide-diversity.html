@@ -683,11 +683,6 @@ vcftools<span class="w"> </span>--gzvcf<span class="w"> </span>SMARTER-OA-OAR3-f
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
-</pre></div>
-</div>
-</div>
 </div>
 <p>Calculate diversity using <em>branch</em>:</p>
 <div class="cell docutils container">
@@ -695,12 +690,6 @@ vcftools<span class="w"> </span>--gzvcf<span class="w"> </span>SMARTER-OA-OAR3-f
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the last index is a simply a 2 step starting from position 1</span>
 <span class="n">reference_diversity_branch</span> <span class="o">=</span> <span class="n">ts_reference</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;branch&#39;</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts_reference</span><span class="p">))[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">reference_diversity_branch</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([26.34394592, 60.60212185, 21.00527885, 19.92243044, 25.48782386,
-       17.64541918, 32.80104135, 16.381481  , 51.06145221, 89.23446712])
 </pre></div>
 </div>
 </div>
@@ -712,12 +701,6 @@ vcftools<span class="w"> </span>--gzvcf<span class="w"> </span>SMARTER-OA-OAR3-f
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fa8ca7c42e0&gt;
-</pre></div>
-</div>
-<img alt="../_images/9a081cfa2afdc5742a0c031acb9e49ee7c4166dc557deebaaf77671f3ae14ab8.png" src="../_images/9a081cfa2afdc5742a0c031acb9e49ee7c4166dc557deebaaf77671f3ae14ab8.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -725,12 +708,6 @@ vcftools<span class="w"> </span>--gzvcf<span class="w"> </span>SMARTER-OA-OAR3-f
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1000.0)
-</pre></div>
-</div>
-<img alt="../_images/f5e566b0fbf5955fcb44f88a2dbb14aacffa80c3bb7e807133ba85b46ce6f8f5.png" src="../_images/f5e566b0fbf5955fcb44f88a2dbb14aacffa80c3bb7e807133ba85b46ce6f8f5.png" />
 </div>
 </div>
 </section>
@@ -745,139 +722,6 @@ using the <code class="docutils literal notranslate"><span class="pre">est-sfs</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-            <div>
-              <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>549</td></tr>
-                      <tr><td>Sequence Length</td><td>44077779.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>11478</td></tr>
-                      <tr><td>Total Size</td><td>83.3 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
-                    <summary>dict</summary>
-                    
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                  <tr>
-                    <td>Edges</td>
-                      <td>1885493</td>
-                      <td>57.5 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>5739</td>
-                      <td>353.1 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>285079</td>
-                      <td>10.1 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>19321</td>
-                      <td>919.6 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>202</td>
-                      <td>4.7 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>4</td>
-                      <td>2.3 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>657</td>
-                      <td>33.3 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div></div>
 </div>
 <p>Same stuff as before</p>
 <div class="cell docutils container">
@@ -888,22 +732,11 @@ using the <code class="docutils literal notranslate"><span class="pre">est-sfs</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.42888107, 0.48993439, 0.49405594, 0.2701865 , 0.45915964,
-       0.24879865, 0.14893215, 0.39075449, 0.46029766, 0.48983504])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Are this values similar to the values calculated using VCFtools?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">estsfs_diversity</span><span class="p">,</span> <span class="n">vcftools_diversity</span><span class="p">[</span><span class="s2">&quot;PI&quot;</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -917,13 +750,6 @@ using the <code class="docutils literal notranslate"><span class="pre">est-sfs</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([624.52643271, 624.52643271, 624.52643271, 412.42594145,
-       412.09530421, 392.60494822, 381.37829267, 382.35883582,
-       554.71395337, 554.71395337])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Try to plot the tow different diversities with vcftools output:</p>
 <div class="cell docutils container">
@@ -932,12 +758,6 @@ using the <code class="docutils literal notranslate"><span class="pre">est-sfs</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fa8ebeb0a90&gt;
-</pre></div>
-</div>
-<img alt="../_images/9a081cfa2afdc5742a0c031acb9e49ee7c4166dc557deebaaf77671f3ae14ab8.png" src="../_images/9a081cfa2afdc5742a0c031acb9e49ee7c4166dc557deebaaf77671f3ae14ab8.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -945,12 +765,6 @@ using the <code class="docutils literal notranslate"><span class="pre">est-sfs</
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1000.0)
-</pre></div>
-</div>
-<img alt="../_images/f7edf3c1bf42abe54a0719195265ae99592b256d76785588c1280edc477d9d05.png" src="../_images/f7edf3c1bf42abe54a0719195265ae99592b256d76785588c1280edc477d9d05.png" />
 </div>
 </div>
 </section>
@@ -965,139 +779,6 @@ using the <code class="docutils literal notranslate"><span class="pre">compara</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-            <div>
-              <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>496</td></tr>
-                      <tr><td>Sequence Length</td><td>44077779.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>11478</td></tr>
-                      <tr><td>Total Size</td><td>89.6 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
-                    <summary>dict</summary>
-                    
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                  <tr>
-                    <td>Edges</td>
-                      <td>1832498</td>
-                      <td>55.9 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>5739</td>
-                      <td>353.1 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>522618</td>
-                      <td>18.4 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>18859</td>
-                      <td>884.6 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>202</td>
-                      <td>4.7 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>4</td>
-                      <td>2.3 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>657</td>
-                      <td>33.5 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div></div>
 </div>
 <p>Calculate nucleotide diversity as before:</p>
 <div class="cell docutils container">
@@ -1108,22 +789,11 @@ using the <code class="docutils literal notranslate"><span class="pre">compara</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.42888107, 0.48993439, 0.49405594, 0.2701865 , 0.45915964,
-       0.24879865, 0.14893215, 0.39075449, 0.46029766, 0.48983504])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Are this values similar to the values calculated using VCFtools?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">compara_diversity</span><span class="p">,</span> <span class="n">vcftools_diversity</span><span class="p">[</span><span class="s2">&quot;PI&quot;</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -1137,13 +807,6 @@ using the <code class="docutils literal notranslate"><span class="pre">compara</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([480.2888314 , 357.66219101, 359.66089727, 362.93811695,
-       380.69863508, 414.7738581 , 419.34958348, 419.14009411,
-       419.14009411, 419.14009411])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Try to plot the tow different diversities with vcftools output:</p>
 <div class="cell docutils container">
@@ -1152,12 +815,6 @@ using the <code class="docutils literal notranslate"><span class="pre">compara</
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fa8cadff2e0&gt;
-</pre></div>
-</div>
-<img alt="../_images/9a081cfa2afdc5742a0c031acb9e49ee7c4166dc557deebaaf77671f3ae14ab8.png" src="../_images/9a081cfa2afdc5742a0c031acb9e49ee7c4166dc557deebaaf77671f3ae14ab8.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1165,12 +822,6 @@ using the <code class="docutils literal notranslate"><span class="pre">compara</
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1000.0)
-</pre></div>
-</div>
-<img alt="../_images/599061c86421c08effc1da8359ea98dc072ebd326a15fe4900cab0fdb2040f76.png" src="../_images/599061c86421c08effc1da8359ea98dc072ebd326a15fe4900cab0fdb2040f76.png" />
 </div>
 </div>
 </section>
