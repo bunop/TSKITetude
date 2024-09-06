@@ -29,6 +29,15 @@ unzip -d SMARTER-OA-OAR3-top-0.4.10.zip
 cd ..
 ```
 
+Or by using `wget` or `curl`, for example:
+
+```bash
+wget ftp://webserver.ibba.cnr.it/smarter/SHEEP/OAR3/SMARTER-OA-OAR3-top-0.4.10.zip
+wget ftp://webserver.ibba.cnr.it/smarter/SHEEP/OAR3/SMARTER-OA-OAR3-top-0.4.10.md5
+md5sum -c SMARTER-OA-OAR3-top-0.4.10.md5
+unzip -d SMARTER-OA-OAR3-top-0.4.10.zip
+```
+
 ## Convert data into *Illumina forward*
 
 Data is stored in *Illumina TOP* format: to convert data into a valid `.vcf` file,

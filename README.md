@@ -15,6 +15,7 @@ TSKITetude/
 ├── data
 ├── docs
 ├── experiments
+├── Makefile
 ├── poetry.lock
 ├── pyproject.toml
 ├── README.md
@@ -27,7 +28,10 @@ TSKITetude/
 
 * `config`: configuration directory for analyses with nextflow
 * `data`: data folder (not tracked)
-* `notebooks`: folder with *IPython notebooks* files
+* `docs`: `jupyter-book` documentation folder
+  * `notebooks`: folder with *IPython notebooks* files
+* `experiments`: testing stuff folder. Not tracked
+* `Makefile`: automate some boring stuff
 * `poetry.lock`: managed by Poetry during installation. Don't touch
 * `pyproject.toml`: required to manage this project with poetry. Dependencies
   can be managed using poetry (see [Managing dependencies](https://python-poetry.org/docs/managing-dependencies/))
@@ -190,21 +194,21 @@ to extract *ancestor alleles* using `est-sfs`.
 Call the pipeline with `est-sfs` on background samples:
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-estsfs/background_samples" --with_estsfs
 ```
 
 Call the pipeline using reference alleles (the outgroup samples are not used):
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-reference/background_samples" --reference_ancestor
 ```
 
 Call the pipeline using the *compara* reference alleles (the outgroup samples are not used):
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r issue-6 -profile singularity -params-file config/smarter-sheeps.json -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-compara/background_samples" --compara_ancestor data/ancestors-OAR3-50K.csv
 ```
 ## Compare 50K samples with repetitions
