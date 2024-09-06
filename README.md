@@ -13,6 +13,7 @@ Files and folders are structured as follow:
 TSKITetude/
 ├── config
 ├── data
+├── Dockerfile
 ├── docs
 ├── experiments
 ├── Makefile
@@ -24,10 +25,12 @@ TSKITetude/
 ├── tests
 ├── TODO.md
 ├── tskitetude
+└── tskit-pipeline
 ```
 
 * `config`: configuration directory for analyses with nextflow
 * `data`: data folder (not tracked)
+* `Dockerfile`: create a docker image with all `TSKITetude` dependencies. Required
 * `docs`: `jupyter-book` documentation folder
   * `notebooks`: folder with *IPython notebooks* files
 * `experiments`: testing stuff folder. Not tracked
