@@ -30,6 +30,7 @@ pyensemblrest = "^0.2.3"
 aiohttp = {extras = ["speedups"], version = "^3.9.5"}
 jupyter-book = "^1.0.2"
 ghp-import = "^2.1.0"
+lets-plot = "^4.4.1"
 
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"
