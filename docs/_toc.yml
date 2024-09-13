@@ -17,6 +17,10 @@ parts:
     - file: notebooks/04-tsinfer_with_test_data
     - file: notebooks/08-test_sample-vcf
 
+  - caption: Simulating TreeSequences
+    chapters:
+    - file: notebooks/14-inspect_simulations
+
   - caption: The SMARTER database
     chapters:
       - file: running/smarter-database

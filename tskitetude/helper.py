@@ -410,6 +410,10 @@ def create_tstree(
     # save generated tree
     dated_ts.dump(output_trees)
 
+    # take note of the time
+    logger.info("Dated Tree Sequence saved to %s", output_trees)
+    logger.info("Done!")
+
 
 def create_windows(ts):
     """
