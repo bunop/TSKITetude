@@ -106,3 +106,28 @@ options to run the code and interact with this repository contents:
 2. `poetry run`: this command will run the code directly from the command line
     without activating the poetry environment. This is useful when you want to
     run a single command without activating the environment.
+
+## Update poetry dependencies
+
+There are two ways to update poetry dependencies: the first updates only the dependencies
+and the `poetry.lock` file, the second updates the dependencies with both `pyproject.toml`
+and `poetry.lock` file. The difference between the two is that the first command
+will not force the requirement of a specific version of a package, while the second
+will force the requirement of a specific version of a package.
+To update only the dependencies, type:
+
+```bash
+poetry update [package1 package2 ...]
+```
+
+This will update the dependencies and the `poetry.lock` file. To update the
+`pyproject.toml` file instead, type:
+
+```bash
+poetry add [package1 package2 ...]
+```
+
+or manually edit the `pyproject.toml` file and run `poetry lock [--no-update]`
+to update the `poetry.lock` file. This will force the requirement of a specific
+version of a package. Remember to call `poetry install` to ensure that the
+dependencies are installed in the poetry environment.
