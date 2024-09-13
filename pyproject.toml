@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tskitetude"
-version = "0.4.0"
+version = "0.4.1"
 description = ""
 authors = ["Paolo Cozzi <bunop@libero.it>"]
 readme = "README.md"
@@ -14,7 +14,7 @@ matplotlib = "^3.8.2"
 nbstripout = "^0.6.1"
 nbconvert = "^7.14.2"
 tsinfer = "^0.3.1"
-tsdate = "^0.1.7"
+tsdate = "^0.2.1"
 ipywidgets = "^8.1.1"
 pandas = "^2.2.0"
 pyarrow = "^15.0.0"
