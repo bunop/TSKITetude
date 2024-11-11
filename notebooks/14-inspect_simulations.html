@@ -1,0 +1,1430 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Analyze the simulated data &#8212; SheepTreeSeq</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/14-inspect_simulations';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The SMARTER-database" href="../running/smarter-database.html" />
+    <link rel="prev" title="Inference from a test VCF file" href="08-test_sample-vcf.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    SheepTreeSeq: Scalable analysis of sheep genome diversity using tree sequences
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Setting up the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/build-docs.html">Build the documentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-test_sample-vcf.html">Inference from a test VCF file</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulating TreeSequences</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyze the simulated data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../running/smarter-database.html">The SMARTER-database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-smarter_samples_list.html">Get SMARTER samples list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-smarter_database.html">Infer ancestry using EST-SFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2Fnotebooks/14-inspect_simulations.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/14-inspect_simulations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Analyze the simulated data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-on-2k-snps">Simulation on 2K SNPs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-on-25k-snps">Simulation on 25K SNPs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-on-entire-dataset">Simulation on entire dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-fst">Calculate FST</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analyze-the-simulated-data">
+<h1>Analyze the simulated data<a class="headerlink" href="#analyze-the-simulated-data" title="Link to this heading">#</a></h1>
+<section id="simulation-on-2k-snps">
+<h2>Simulation on 2K SNPs<a class="headerlink" href="#simulation-on-2k-snps" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">tskit</span>
+
+<span class="kn">from</span> <span class="nn">tskitetude</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Analyze the <code class="docutils literal notranslate"><span class="pre">data/sheepTSsimMilano/ts300I2k.vcf.gz</span></code> generated using msprime. Get a list of all sample names from VCF file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TSKIT_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
+<span class="nb">cd</span><span class="w"> </span>data/sheepTSsimMilano/
+bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> </span>ts300I2k.vcf.gz<span class="w"> </span>&gt;<span class="w"> </span>ts300I2k.sample_names.txt
+</pre></div>
+</div>
+<p>Now add population information to the sample names, and then write them into a file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano&quot;</span> <span class="o">/</span> <span class="s2">&quot;ts300I2k.sample_names.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">sample_names</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+<span class="n">pop_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MM&quot;</span><span class="p">,</span> <span class="s2">&quot;II&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">]</span>
+
+<span class="c1"># create a column for FID</span>
+<span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="n">pop_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="n">pop_name</span> <span class="k">for</span> <span class="n">pop_name</span> <span class="ow">in</span> <span class="n">pop_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">300</span><span class="p">)]</span>
+<span class="n">sample_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;FID&quot;</span><span class="p">:</span> <span class="n">fids</span><span class="p">,</span> <span class="s2">&quot;IID&quot;</span><span class="p">:</span> <span class="n">sample_names</span><span class="p">})</span>
+
+<span class="n">sample_names</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano&quot;</span> <span class="o">/</span> <span class="s2">&quot;ts300I2k.sample_names_fid.csv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">header</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Analyze the <code class="docutils literal notranslate"><span class="pre">data/sheepTSsimMilano/ts300I2k.vcf.gz</span></code> generated using msprime. Call the <code class="docutils literal notranslate"><span class="pre">create_tstree</span></code> with the following parameters:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>create_tstree<span class="w"> </span>--vcf<span class="w"> </span>ts300I2k.vcf.gz<span class="w"> </span>--focal<span class="w"> </span>ts300I2k.sample_names_fid.csv<span class="w"> </span>--ancestral_as_reference<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_samples<span class="w"> </span>ts300I2k.inferred.samples<span class="w"> </span>--output_trees<span class="w"> </span>ts300I2k.inferred.trees<span class="w"> </span>--num_threads<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mutation_rate<span class="w"> </span><span class="m">5</span>.87e-9<span class="w"> </span>--ne<span class="w"> </span><span class="m">34500</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">5.87-9</span></code> and <code class="docutils literal notranslate"><span class="pre">34500</span></code> are the mutation rate and effective population size respectively. The <code class="docutils literal notranslate"><span class="pre">--ancestral_as_reference</span></code> flag is used to treat the ancestral allele as the reference allele. The <code class="docutils literal notranslate"><span class="pre">--num_threads</span> <span class="pre">4</span></code> flag is used to specify the number of threads to use. The <code class="docutils literal notranslate"><span class="pre">--output_samples</span></code> flag is used to specify the output file for the inferred samples. The <code class="docutils literal notranslate"><span class="pre">--output_trees</span></code> flag is used to specify the output file for the inferred trees.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mutation_rate</span> <span class="o">=</span> <span class="mf">5.87e-9</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mutation rate: &quot;</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mutation rate:  5.87e-09
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts300I2k</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano/ts300I2k.inferred.trees&quot;</span><span class="p">)</span>
+<span class="n">ts300I2k</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>1995</td></tr>
+                      <tr><td>Sequence Length</td><td>100000000.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>4810</td></tr>
+                      <tr><td>Total Size</td><td>47.3 MiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">
+                <div>
+                  <span class="tskit-details-label"></span>
+                  <details open>
+                    <summary>dict</summary>
+                    
+                  </details>
+                </div>
+                </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>1185555</td>
+                      <td>36.2 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>2405</td>
+                      <td>123.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>2070</td>
+                      <td>74.8 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>26106</td>
+                      <td>1.7 MiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>9</td>
+                      <td>208 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>4</td>
+                      <td>2.4 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>2000</td>
+                      <td>99.6 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts300I2k</span><span class="o">.</span><span class="n">diversity</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.2924016481571095e-06
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts300I2k</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mutation_rate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.3950493519912347e-06
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simulation-on-25k-snps">
+<h2>Simulation on 25K SNPs<a class="headerlink" href="#simulation-on-25k-snps" title="Link to this heading">#</a></h2>
+<p>Get sample names (should be equal to previous run):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> </span>ts300I25k.vcf.gz<span class="w"> </span>&gt;<span class="w"> </span>ts300I25k.sample_names.txt
+</pre></div>
+</div>
+<p>Now add population information to the sample names, and then write them into a file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano&quot;</span> <span class="o">/</span> <span class="s2">&quot;ts300I25k.sample_names.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">sample_names</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+<span class="n">pop_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MM&quot;</span><span class="p">,</span> <span class="s2">&quot;II&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">]</span>
+
+<span class="c1"># create a column for FID</span>
+<span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="n">pop_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="n">pop_name</span> <span class="k">for</span> <span class="n">pop_name</span> <span class="ow">in</span> <span class="n">pop_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">300</span><span class="p">)]</span>
+<span class="n">sample_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;FID&quot;</span><span class="p">:</span> <span class="n">fids</span><span class="p">,</span> <span class="s2">&quot;IID&quot;</span><span class="p">:</span> <span class="n">sample_names</span><span class="p">})</span>
+
+<span class="n">sample_names</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano&quot;</span> <span class="o">/</span> <span class="s2">&quot;ts300I25k.sample_names_fid.csv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">header</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Generate tree:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>create_tstree<span class="w"> </span>--vcf<span class="w"> </span>ts300I25k.vcf.gz<span class="w"> </span>--focal<span class="w"> </span>ts300I25k.sample_names_fid.csv<span class="w"> </span>--ancestral_as_reference<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_samples<span class="w"> </span>ts300I25k.inferred.samples<span class="w"> </span>--output_trees<span class="w"> </span>ts300I25k.inferred.trees<span class="w"> </span>--num_threads<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mutation_rate<span class="w"> </span><span class="m">5</span>.87e-9<span class="w"> </span>--ne<span class="w"> </span><span class="m">34500</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts300I25k</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano/ts300I25k.inferred.trees&quot;</span><span class="p">)</span>
+<span class="n">ts300I25k</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>24685</td></tr>
+                      <tr><td>Sequence Length</td><td>100000000.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>4810</td></tr>
+                      <tr><td>Total Size</td><td>153.1 MiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">
+                <div>
+                  <span class="tskit-details-label"></span>
+                  <details open>
+                    <summary>dict</summary>
+                    
+                  </details>
+                </div>
+                </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>3617318</td>
+                      <td>110.4 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>2405</td>
+                      <td>123.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>29099</td>
+                      <td>1.0 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>172744</td>
+                      <td>12.8 MiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>9</td>
+                      <td>208 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>4</td>
+                      <td>2.4 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>25000</td>
+                      <td>1.2 MiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts300I25k</span><span class="o">.</span><span class="n">diversity</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.04781517762309e-05
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts300I25k</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mutation_rate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.753770863863539e-05
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simulation-on-entire-dataset">
+<h2>Simulation on entire dataset<a class="headerlink" href="#simulation-on-entire-dataset" title="Link to this heading">#</a></h2>
+<p>Get samples names (like we did before):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bbcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> </span>tsm100M300I.vcf.gz<span class="w"> </span>&gt;<span class="w"> </span>tsm100M300I.sample_names.txt
+</pre></div>
+</div>
+<p>Now add population information to the sample names, and then write them into a file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano&quot;</span> <span class="o">/</span> <span class="s2">&quot;tsm100M300I.sample_names.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">sample_names</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+<span class="n">pop_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MM&quot;</span><span class="p">,</span> <span class="s2">&quot;II&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">]</span>
+
+<span class="c1"># create a column for FID</span>
+<span class="n">fids</span> <span class="o">=</span> <span class="p">[</span><span class="n">pop_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="p">[</span><span class="n">pop_name</span> <span class="k">for</span> <span class="n">pop_name</span> <span class="ow">in</span> <span class="n">pop_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">300</span><span class="p">)]</span>
+<span class="n">sample_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;FID&quot;</span><span class="p">:</span> <span class="n">fids</span><span class="p">,</span> <span class="s2">&quot;IID&quot;</span><span class="p">:</span> <span class="n">sample_names</span><span class="p">})</span>
+
+<span class="n">sample_names</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+    <span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano&quot;</span> <span class="o">/</span> <span class="s2">&quot;tsm100M300I.sample_names_fid.csv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">header</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This step will require a lot of time: Submit the job to the cluster:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">TSKIT_DIR</span><span class="si">}</span>
+sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tsm100M300I</span> <span class="o">=</span> <span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;sheepTSsimMilano/tsm100M300I.inferred.trees&quot;</span><span class="p">)</span>
+<span class="n">tsm100M300I</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <div>
+              <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+              </style>
+              <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="padding:0;line-height:21px;">
+                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Trees</td><td>919607</td></tr>
+                      <tr><td>Sequence Length</td><td>100000000.0</td></tr>
+                      <tr><td>Time Units</td><td>generations</td></tr>
+                      <tr><td>Sample Nodes</td><td>4810</td></tr>
+                      <tr><td>Total Size</td><td>511.4 MiB</td></tr>
+                      <tr>
+                        <td>Metadata</td><td style="text-align: left;">
+                <div>
+                  <span class="tskit-details-label"></span>
+                  <details open>
+                    <summary>dict</summary>
+                    
+                  </details>
+                </div>
+                </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tskit-table-set-table">
+                  <table class="tskit-table">
+                    <thead>
+                      <tr>
+                        <th style="line-height:21px;">Table</th>
+                        <th>Rows</th>
+                        <th>Size</th>
+                        <th>Has Metadata</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    
+                  <tr>
+                    <td>Edges</td>
+                      <td>7300103</td>
+                      <td>222.8 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Individuals</td>
+                      <td>2405</td>
+                      <td>123.4 KiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Migrations</td>
+                      <td>0</td>
+                      <td>8 Bytes</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Mutations</td>
+                      <td>1756162</td>
+                      <td>62.0 MiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Nodes</td>
+                      <td>1141491</td>
+                      <td>85.5 MiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Populations</td>
+                      <td>9</td>
+                      <td>208 Bytes</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Provenances</td>
+                      <td>4</td>
+                      <td>2.4 KiB</td>
+                      <td style="text-align: center;">
+                        
+                      </td>
+                    </tr>
+                
+                  <tr>
+                    <td>Sites</td>
+                      <td>1712522</td>
+                      <td>85.2 MiB</td>
+                      <td style="text-align: center;">
+                        ✅
+                      </td>
+                    </tr>
+                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tsm100M300I</span><span class="o">.</span><span class="n">diversity</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0008102636799985429
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tsm100M300I</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mutation_rate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0007728152520235786
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-fst">
+<h2>Calculate FST<a class="headerlink" href="#calculate-fst" title="Link to this heading">#</a></h2>
+<p>define individuals list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indList</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">600</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="mi">600</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">Fst</span><span class="p">([</span><span class="n">indList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indList</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ts300I2k</span><span class="p">,</span> <span class="n">ts300I25k</span><span class="p">,</span> <span class="n">tsm100M300I</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0038342408825926544, 0.006317426248074964, 0.011025754267375176]
+</pre></div>
+</div>
+</div>
+</div>
+<p>And then with <code class="docutils literal notranslate"><span class="pre">site</span></code> mode:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">Fst</span><span class="p">([</span><span class="n">indList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indList</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;site&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ts300I2k</span><span class="p">,</span> <span class="n">ts300I25k</span><span class="p">,</span> <span class="n">tsm100M300I</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.009344736411834753, 0.011842725047691682, 0.01151736454415031]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;simulation&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ts300I2k&quot;</span><span class="p">,</span> <span class="s2">&quot;ts300I25k&quot;</span><span class="p">,</span> <span class="s2">&quot;tsm100M300I&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;diversity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">ts300I2k</span><span class="o">.</span><span class="n">diversity</span><span class="p">(),</span> <span class="n">ts300I25k</span><span class="o">.</span><span class="n">diversity</span><span class="p">(),</span> <span class="n">tsm100M300I</span><span class="o">.</span><span class="n">diversity</span><span class="p">()],</span>
+    <span class="s2">&quot;diversity_branch&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">ts300I2k</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mutation_rate</span><span class="p">,</span>
+        <span class="n">ts300I25k</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mutation_rate</span><span class="p">,</span>
+        <span class="n">tsm100M300I</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mutation_rate</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;FST_branch&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">Fst</span><span class="p">([</span><span class="n">indList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indList</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;branch&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ts300I2k</span><span class="p">,</span> <span class="n">ts300I25k</span><span class="p">,</span> <span class="n">tsm100M300I</span><span class="p">]],</span>
+    <span class="s2">&quot;FST_site&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">Fst</span><span class="p">([</span><span class="n">indList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indList</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;site&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ts300I2k</span><span class="p">,</span> <span class="n">ts300I25k</span><span class="p">,</span> <span class="n">tsm100M300I</span><span class="p">]]</span>
+<span class="p">}</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>simulation</th>
+      <th>diversity</th>
+      <th>diversity_branch</th>
+      <th>FST_branch</th>
+      <th>FST_site</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ts300I2k</td>
+      <td>0.000006</td>
+      <td>0.000002</td>
+      <td>0.003834</td>
+      <td>0.009345</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ts300I25k</td>
+      <td>0.000050</td>
+      <td>0.000038</td>
+      <td>0.006317</td>
+      <td>0.011843</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>tsm100M300I</td>
+      <td>0.000810</td>
+      <td>0.000773</td>
+      <td>0.011026</td>
+      <td>0.011517</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ts300I2k</span><span class="o">.</span><span class="n">at_index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">draw_svg</span><span class="p">(</span><span class="n">y_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c40d6aa16af7b7c033722884433662ded131ac54d25b63c4cb2c1d661845962c.svg" src="../_images/c40d6aa16af7b7c033722884433662ded131ac54d25b63c4cb2c1d661845962c.svg" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">root</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24161
+</pre></div>
+</div>
+</div>
+</div>
+<p>Print the age of the tree:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2419.970456028269
+</pre></div>
+</div>
+</div>
+</div>
+<p>Iterate over the trees and get time (throw away the 0 time nodes):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">u</span><span class="si">}</span><span class="s2">: time </span><span class="si">{</span><span class="n">tree</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 24161: time 2419.970456028269
+Node 6272: time 7.597600273671201
+Node 6291: time 26.31770313872415
+Node 6282: time 7.133026944497379
+Node 8130: time 30.808640727829616
+Node 9098: time 5.919143896103064
+Node 14896: time 5.058889371195002
+Node 14898: time 4.941485464703595
+Node 14899: time 5.0597982868446625
+Node 14900: time 5.0597982868446625
+Node 14901: time 4.781067506821409
+Node 14903: time 4.941485464703595
+Node 14907: time 5.044889539105368
+Node 21767: time 22.301401917063124
+Node 6623: time 17.079190882279274
+Node 23284: time 9.271694187439229
+Node 23513: time 34.319173533927874
+Node 23703: time 12.49411467088767
+Node 24097: time 732.5986509374583
+Node 7900: time 52.37935746803915
+Node 6280: time 7.70544055191454
+Node 7863: time 10.938434913398243
+Node 7865: time 10.377948118381997
+Node 7867: time 10.7159733312213
+Node 7869: time 10.922764701031726
+Node 7870: time 10.201473664860668
+Node 7871: time 10.471481082491223
+Node 7872: time 4.913621274239592
+Node 7881: time 6.507581109254086
+Node 7887: time 10.938434913398243
+Node 7889: time 4.985412683243106
+Node 7890: time 4.985412683243106
+Node 23806: time 567.8341022224624
+Node 6266: time 8.09234234334222
+Node 6618: time 6.365899388203136
+Node 23711: time 470.32845344040504
+Node 6285: time 8.22951099510846
+Node 23704: time 436.570075093764
+Node 23608: time 71.10532466042311
+Node 6278: time 8.051963777739727
+Node 15177: time 5.851058119293345
+Node 16615: time 5.7078035033826735
+Node 20033: time 41.36244451173267
+Node 15271: time 12.10915326963942
+Node 15249: time 5.158451810441059
+Node 15250: time 5.158451810441059
+Node 15255: time 5.158451810441059
+Node 15257: time 5.158451810441059
+Node 15258: time 5.158451810441059
+Node 15259: time 5.158451810441059
+Node 15270: time 9.75334676504974
+Node 19991: time 31.662800776805597
+Node 20114: time 6.252279220681495
+Node 20116: time 15.941727793215607
+Node 12078: time 9.169880202976987
+Node 12065: time 4.141779151742
+Node 12066: time 6.954051404186218
+Node 12067: time 4.141779151742
+Node 12068: time 4.141779151742
+Node 12069: time 4.428508035350258
+Node 12070: time 4.35028676776609
+Node 12071: time 4.391089760715462
+Node 12072: time 4.391089760715462
+Node 12073: time 4.428508035350258
+Node 12074: time 4.428508035350258
+Node 12075: time 4.428508035350258
+Node 12076: time 4.428508035350258
+Node 12077: time 4.428508035350258
+Node 15186: time 14.188899753297298
+Node 9139: time 14.188898753297298
+Node 9137: time 5.879673355591911
+Node 9138: time 5.114225579521359
+Node 14922: time 11.111452840400606
+Node 15146: time 11.58139586422101
+Node 15147: time 5.8476113268314505
+Node 15148: time 5.848102738658524
+Node 15169: time 5.3499387621535135
+Node 15185: time 11.181844206973278
+Node 15821: time 11.149021401549419
+Node 16626: time 13.612777082685067
+Node 16611: time 5.731300767874305
+Node 16612: time 5.731300767874305
+Node 16613: time 5.731300767874305
+Node 16614: time 7.454031799034329
+Node 16616: time 5.648849657411477
+Node 16617: time 5.648849657411477
+Node 16618: time 5.648849657411477
+Node 16619: time 5.648849657411477
+Node 16620: time 5.648849657411477
+Node 16621: time 5.648849657411477
+Node 16622: time 5.648849657411477
+Node 16623: time 5.648849657411477
+Node 16624: time 5.648849657411477
+Node 22848: time 71.10532366042311
+Node 16625: time 5.7078246317675045
+Node 20107: time 12.257383000323397
+Node 22764: time 57.13556728744678
+Node 16407: time 9.288827108873807
+Node 23709: time 14.317782160890165
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08-test_sample-vcf.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Inference from a test VCF file</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../running/smarter-database.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The SMARTER-database</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-on-2k-snps">Simulation on 2K SNPs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-on-25k-snps">Simulation on 25K SNPs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-on-entire-dataset">Simulation on entire dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-fst">Calculate FST</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Paolo Cozzi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
