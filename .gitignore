@@ -162,6 +162,7 @@ cython_debug/
 # data files
 *.trees
 data/
+*.csv
 
 # nextflow related stuff
 .nextflow*

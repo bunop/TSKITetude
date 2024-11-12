@@ -2453,6 +2453,44 @@ files = [
 ]
 
 [[package]]
+name = "lets-plot"
+version = "4.4.1"
+description = "An open source library for statistical plotting"
+optional = false
+python-versions = "*"
+files = [
+    {file = "lets_plot-4.4.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:eff261b7242f6ac07c15e64918671e3ad7edc421166b60fae1e5701e8bb346da"},
+    {file = "lets_plot-4.4.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9971ac6d949f710dd54b0d7bfe9e70ea7362420867c63919e1c2c194b94e6362"},
+    {file = "lets_plot-4.4.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:237e9508df023ab4fdbb275a92c3c0b5575d04e78769cf697402ecbbbc294327"},
+    {file = "lets_plot-4.4.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:af8d67476343cb3477f839ed1204e56bfbe50d475c1e74b4c5e35a9b87163adf"},
+    {file = "lets_plot-4.4.1-cp310-cp310-win_amd64.whl", hash = "sha256:d27cb8cd59485b7707e3b0a67c461702e24dd8dc220edbfc907dd43a50a2df92"},
+    {file = "lets_plot-4.4.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:b4b4488eb134aa794e0eb3678cf428a405b4af1d2a707264a59d2fe5a7fa924d"},
+    {file = "lets_plot-4.4.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:f90891aa372321fbdfdf2e108707fe01af4499a46681d8ffdccaa12bad0db259"},
+    {file = "lets_plot-4.4.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ed70b306766f60d2c67a019a9c5d6f9b495c409d269366baaa009dc796fd1eb4"},
+    {file = "lets_plot-4.4.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:539c62fbd3a08a1f987b12908f2ff7a64a3e60ad9fec5682e70f6be00ff6b042"},
+    {file = "lets_plot-4.4.1-cp311-cp311-win_amd64.whl", hash = "sha256:1aa860cdc4793593873cfd896a6e08c8e90b7d22bbad146dd818b0aaf78c1284"},
+    {file = "lets_plot-4.4.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:0186e3ed79f3f73295b2543a965576b7655fe96ed8a266551e54544c78e96784"},
+    {file = "lets_plot-4.4.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:dfc51600aaddecd3414d8a9aae825a5bd1b29a84dc0921022438f0e50fd855cf"},
+    {file = "lets_plot-4.4.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5db1f13268f2e1b88b308c3f0983951e55d72a8d6467a1dbb2536241bb4f878e"},
+    {file = "lets_plot-4.4.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5f9ac2cfeee73df8fb32bb341955267770a9d4858a2e2386c4597646d55af62e"},
+    {file = "lets_plot-4.4.1-cp312-cp312-win_amd64.whl", hash = "sha256:6fec5fbb3ebc568dc2bc96ba6cfb658c50503c273bb4a7bc61235767f8aa1cd4"},
+    {file = "lets_plot-4.4.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6303f405b4b826ff2ce1a49b7928c41fdb48ae736da03072d19ab4c5c8a3523c"},
+    {file = "lets_plot-4.4.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:32a4a89fddd242be97efa95c19388036d51d061b802adc1575d648fd9e5443a3"},
+    {file = "lets_plot-4.4.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:34079fba0d66dde25cb829991901d5b0510380efca49da00869ea4331c798755"},
+    {file = "lets_plot-4.4.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ba9d6b026bd0883a8b9b700e63d7d8ba73c77add7571d3d8ce98642fb35db1a6"},
+    {file = "lets_plot-4.4.1-cp38-cp38-win_amd64.whl", hash = "sha256:baab080012bb909e3d675c0360c661d88cd11cc6f33473ec9c835d13702093aa"},
+    {file = "lets_plot-4.4.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:6992c4778a05fc70fb3ac47641054c671e6690c03e736547ee8893f12744f197"},
+    {file = "lets_plot-4.4.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:c545d80f083f948a128ea1bad444fd016eb3c89e3787a9a962eb92daf64cf244"},
+    {file = "lets_plot-4.4.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b6e219b2484a7219440f5b5a9d4b88abc8662032f02816203e08dd6043bf5bf0"},
+    {file = "lets_plot-4.4.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:75346f99ebd69f576e0c445525425f5ea866864f12577db5b83c951abc48580a"},
+    {file = "lets_plot-4.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:6e6ad005ff6ac8bb4ff5ea2970826163fd72c6cd721f8710cf429a0e606616c6"},
+]
+
+[package.dependencies]
+palettable = "*"
+pypng = "*"
+
+[[package]]
 name = "linkify-it-py"
 version = "2.0.3"
 description = "Links recognition library with FULL unicode support."
@@ -3260,6 +3298,17 @@ files = [
 ]
 
 [[package]]
+name = "palettable"
+version = "3.3.3"
+description = "Color palettes for Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "palettable-3.3.3-py2.py3-none-any.whl", hash = "sha256:74e9e7d7fe5a9be065e02397558ed1777b2df0b793a6f4ce1a5ee74f74fb0caa"},
+    {file = "palettable-3.3.3.tar.gz", hash = "sha256:094dd7d9a5fc1cca4854773e5c1fc6a315b33bd5b3a8f47064928facaf0490a8"},
+]
+
+[[package]]
 name = "pandas"
 version = "2.2.3"
 description = "Powerful data structures for data analysis, time series, and statistics"
@@ -4027,6 +4076,17 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[[package]]
+name = "pypng"
+version = "0.20220715.0"
+description = "Pure Python library for saving and loading PNG images"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pypng-0.20220715.0-py3-none-any.whl", hash = "sha256:4a43e969b8f5aaafb2a415536c1a8ec7e341cd6a3f957fd5b5f32a4cfeed902c"},
+    {file = "pypng-0.20220715.0.tar.gz", hash = "sha256:739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1"},
+]
 
 [[package]]
 name = "pyreadline3"
@@ -5750,4 +5810,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4e04b32fe6187a1944414fa755182a74984d5a984122a1bd44033b0130059611"
+content-hash = "6a7093b5d04eb758dc5fa4c580e532158c958ec839a616522b3147b8cc79a0cf"

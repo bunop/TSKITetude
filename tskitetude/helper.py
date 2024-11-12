@@ -128,6 +128,26 @@ def get_chromosome_lengths(vcf: cyvcf2.VCF) -> Dict[str, int]:
     return results
 
 
+def get_major_allele(variant: cyvcf2.Variant) -> int:
+    """
+    Get the index of the major allele from a variant. Returns 0
+    (reference allele) in case of a tie.
+    """
+
+    alleles = [variant.REF] + variant.ALT
+    counts = [0] * len(alleles)
+
+    for g in variant.genotypes:
+        for a in g[0:2]:
+            counts[a] += 1
+
+    major_idx = counts.index(max(counts))
+
+    logger.debug(f"Got {alleles[major_idx]} as major allele")
+
+    return major_idx
+
+
 def add_diploid_sites(
     vcf: cyvcf2.VCF,
     samples: tsinfer.Sample,
@@ -139,8 +159,9 @@ def add_diploid_sites(
     Read the sites in the vcf and add them to the samples object.
     """
 
-    if ancestral_method == "reference":
-        logger.info("Using ancestral allele as reference allele")
+    # logging which method we are using
+    if ancestral_method in ["reference", "major"]:
+        logger.info(f"Using {ancestral_method} allele as ancestral allele")
 
     elif ancestral_method == "estsfs":
         logger.info("Using ancestral allele from est-sfs")
@@ -194,6 +215,10 @@ def add_diploid_sites(
         if ancestral_method == "reference":
             # set ancestral allele to the first allele
             ancestral_allele = 0
+
+        elif ancestral_method == "major":
+            # get the major allele index
+            ancestral_allele = get_major_allele(variant)
 
         elif ancestral_method == "estsfs":
             # get the ancestral allele from the dictionary (which is a number)
@@ -263,9 +288,15 @@ def add_diploid_sites(
 )
 @optgroup.option(
     "--ancestral_as_reference",
-    help="Use ancestral allele as reference allele",
+    help="Use reference allele as ancestral allele",
     is_flag=True,
     default=False,
+)
+@optgroup.option(
+    "--ancestral_as_major",
+    help="Use major allele as ancestral allele",
+    is_flag=True,
+    default=False
 )
 @click.option(
     "--output_samples",
@@ -308,6 +339,7 @@ def create_tstree(
     ancestral_estsfs: click.Path,
     ancestral_ensembl: click.Path,
     ancestral_as_reference: bool,
+    ancestral_as_major: bool,
     output_samples: click.Path,
     output_trees: click.Path,
     num_threads: int,
@@ -336,6 +368,9 @@ def create_tstree(
     # reset the vcf
     vcf = cyvcf2.VCF(vcf_file)
 
+    # this simply debug true/false relying on method selected
+    logging.debug("ancestral_as_reference: %s", ancestral_as_reference)
+    logging.debug("ancestral_as_major: %s", ancestral_as_major)
     logging.debug("ancestral_estsfs: %s", ancestral_estsfs)
     logging.debug("ancestral_ensembl: %s", ancestral_ensembl)
 
@@ -343,6 +378,10 @@ def create_tstree(
     if ancestral_as_reference:
         ancestors_alleles = {}
         ancestral_method = "reference"
+
+    elif ancestral_as_major:
+        ancestors_alleles = {}
+        ancestral_method = "major"
 
     elif ancestral_estsfs:
         ancestral_method = "estsfs"
@@ -405,6 +444,10 @@ def create_tstree(
 
     # save generated tree
     dated_ts.dump(output_trees)
+
+    # take note of the time
+    logger.info("Dated Tree Sequence saved to %s", output_trees)
+    logger.info("Done!")
 
 
 def create_windows(ts):
