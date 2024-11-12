@@ -1,4 +1,3 @@
-
 import io
 import csv
 import json
@@ -11,12 +10,11 @@ import cyvcf2
 import tsdate
 import tsinfer
 import numpy as np
-from click_option_group import (
-    optgroup, RequiredMutuallyExclusiveOptionGroup)
+from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from tskit import MISSING_DATA
 from tqdm import tqdm
 
-log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(level=logging.INFO, format=log_fmt)
 
 # Get an instance of a logger
@@ -29,12 +27,13 @@ tsinfer_log.setLevel(logging.INFO)
 
 class TqdmToLogger(io.StringIO):
     """
-        Output stream for TQDM which will output to logger module instead of
-        the StdOut.
+    Output stream for TQDM which will output to logger module instead of
+    the StdOut.
     """
+
     logger = None
     level = None
-    buf = ''
+    buf = ""
 
     def __init__(self, logger, level=None):
         super(TqdmToLogger, self).__init__()
@@ -42,7 +41,7 @@ class TqdmToLogger(io.StringIO):
         self.level = level or logging.INFO
 
     def write(self, buf):
-        self.buf = buf.strip('\r\n\t ')
+        self.buf = buf.strip("\r\n\t ")
 
     def flush(self):
         self.logger.log(self.level, self.buf)
@@ -73,15 +72,14 @@ def add_populations(csv_file: str, samples: tsinfer.SampleData) -> Dict[str, int
 
     for breed, _ in open_csv(csv_file):
         if breed not in pop_lookup:
-            pop_lookup[breed] = samples.add_population(
-                metadata = {"breed": breed})
+            pop_lookup[breed] = samples.add_population(metadata={"breed": breed})
 
     return pop_lookup
 
 
 def add_diploid_individuals(
-        csv_file: str, pop_lookup: Dict[str, int],
-        samples: tsinfer.SampleData) -> Dict[str, Tuple[int, List[int]]]:
+    csv_file: str, pop_lookup: Dict[str, int], samples: tsinfer.SampleData
+) -> Dict[str, Tuple[int, List[int]]]:
     """
     Try to add diploid samples
     """
@@ -92,18 +90,15 @@ def add_diploid_individuals(
     for breed, sample_id in open_csv(csv_file):
         population = pop_lookup[breed]
         indv_lookup[sample_id] = samples.add_individual(
-            ploidy = 2,
-            metadata={"sample_id": sample_id},
-            population=population
+            ploidy=2, metadata={"sample_id": sample_id}, population=population
         )
 
     return indv_lookup
 
 
 def get_ancestors_alleles(
-        csv_file: str,
-        ancestral_method: str = "estsfs"
-        ) -> Dict[Tuple[str, int], Union[int, str]]:
+    csv_file: str, ancestral_method: str = "estsfs"
+) -> Dict[Tuple[str, int], Union[int, str]]:
     """
     read tskit-pipeline ancestor file an returns a dictionary
     """
@@ -111,7 +106,7 @@ def get_ancestors_alleles(
     reader = open_csv(csv_file)
     header = next(reader)
 
-    ResultRecord = collections.namedtuple('ResultRecord', header)
+    ResultRecord = collections.namedtuple("ResultRecord", header)
 
     ancestors = {}
 
@@ -134,12 +129,12 @@ def get_chromosome_lengths(vcf: cyvcf2.VCF) -> Dict[str, int]:
 
 
 def add_diploid_sites(
-        vcf: cyvcf2.VCF,
-        samples: tsinfer.Sample,
-        ancestors_alleles: Dict[Tuple[str, int], int],
-        allele_chars = set("ATCG*"),
-        ancestral_method = "estsfs"
-        ):
+    vcf: cyvcf2.VCF,
+    samples: tsinfer.Sample,
+    ancestors_alleles: Dict[Tuple[str, int], int],
+    allele_chars=set("ATCG*"),
+    ancestral_method="estsfs",
+):
     """
     Read the sites in the vcf and add them to the samples object.
     """
@@ -167,8 +162,9 @@ def add_diploid_sites(
         total=samples.sequence_length,
         mininterval=1,
         desc="Read VCF",
-        unit='bp',
-        file=tqdm_out)
+        unit="bp",
+        file=tqdm_out,
+    )
 
     # check chromosome we are working on
     chrom = None
@@ -202,12 +198,14 @@ def add_diploid_sites(
         elif ancestral_method == "estsfs":
             # get the ancestral allele from the dictionary (which is a number)
             ancestral_allele = ancestors_alleles.get(
-                (variant.CHROM, variant.POS), MISSING_DATA)
+                (variant.CHROM, variant.POS), MISSING_DATA
+            )
 
         elif ancestral_method == "ensembl":
             # get the ancestral allele from the dictionary (which is a string)
             ancestral_allele = ancestors_alleles.get(
-                (variant.CHROM, variant.POS), MISSING_DATA)
+                (variant.CHROM, variant.POS), MISSING_DATA
+            )
 
             # find the index of the ancestral allele in the alleles list
             if ancestral_allele != MISSING_DATA and ancestral_allele in alleles:
@@ -218,7 +216,8 @@ def add_diploid_sites(
 
         else:
             raise NotImplementedError(
-                f"Ancestral method {ancestral_method} not implemented")
+                f"Ancestral method {ancestral_method} not implemented"
+            )
 
         logger.debug(
             f"Adding site at pos {pos} with alleles {alleles} "
@@ -242,19 +241,16 @@ def add_diploid_sites(
     "vcf_file",
     help="A VCF file with all samples (focal/ancient)",
     type=click.Path(exists=True),
-    required=True
+    required=True,
 )
 @click.option(
     "--focal",
     "focal_csv",
     help="focal samples CSV file",
     type=click.Path(exists=True),
-    required=True
+    required=True,
 )
-@optgroup.group(
-    "Ancestral allele parameters",
-    cls=RequiredMutuallyExclusiveOptionGroup
-)
+@optgroup.group("Ancestral allele parameters", cls=RequiredMutuallyExclusiveOptionGroup)
 @optgroup.option(
     "--ancestral_estsfs",
     help="processed est-sfs ancient allele file",
@@ -269,45 +265,56 @@ def add_diploid_sites(
     "--ancestral_as_reference",
     help="Use ancestral allele as reference allele",
     is_flag=True,
-    default=False
+    default=False,
 )
 @click.option(
     "--output_samples",
     help="tsinfer.SampleData output file",
     type=click.Path(exists=False),
-    required=True
+    required=True,
 )
 @click.option(
     "--output_trees",
     help="tstree output file",
     type=click.Path(exists=False),
-    required=True
+    required=True,
 )
 @click.option(
-    "--num_threads",
-    help="number of threads with tsinfer",
-    type=int,
-    default=1
+    "--num_threads", help="number of threads with tsinfer", type=int, default=1
 )
 @click.option(
-    "--mutation_rate",
-    help="tsdate mutation rate",
-    type=float,
-    default=1e-8
+    "--tsdate_method",
+    type=click.Choice(
+        ["inside_outside", "variational_gamma", "maximization"], case_sensitive=False
+    ),
+    default="inside_outside",
+    show_default=True,
+    help=(
+        "the continuous-time variational_gamma approach is the most accurate. "
+        "The discrete-time inside_outside approach is slightly less accurate, "
+        "especially for older times, but is slightly more numerically robust "
+        "and also allows each node to have an arbitrary (discretised) probability "
+        "distribution. The discrete-time maximization approach is always stable "
+        "but is the least accurate."
+    ),
 )
+@click.option("--mutation_rate", help="tsdate mutation rate", type=float, default=1e-8)
 @click.option(
-    "--ne",
-    "Ne",
-    help="tsdate effective population size",
-    type=float,
-    default=1e4
+    "--ne", "Ne", help="tsdate effective population size", type=float, default=1e4
 )
 def create_tstree(
-        vcf_file: click.Path, focal_csv: click.Path,
-        ancestral_estsfs: click.Path, ancestral_ensembl: click.Path,
-        ancestral_as_reference: bool,
-        output_samples: click.Path, output_trees: click.Path, num_threads: int,
-        mutation_rate: float, Ne: float):
+    vcf_file: click.Path,
+    focal_csv: click.Path,
+    ancestral_estsfs: click.Path,
+    ancestral_ensembl: click.Path,
+    ancestral_as_reference: bool,
+    output_samples: click.Path,
+    output_trees: click.Path,
+    num_threads: int,
+    tsdate_method: click.Choice,
+    mutation_rate: float,
+    Ne: float,
+):
     """
     Read data from phased VCF an try to create a tsinfer.Sample using ancestor
     alleles CSV file. One chromosome at a time.
@@ -323,7 +330,8 @@ def create_tstree(
 
     logging.info(
         f"Getting information for chromosome {chrom} "
-        f"with length {sequence_length} bp")
+        f"with length {sequence_length} bp"
+    )
 
     # reset the vcf
     vcf = cyvcf2.VCF(vcf_file)
@@ -338,28 +346,22 @@ def create_tstree(
 
     elif ancestral_estsfs:
         ancestral_method = "estsfs"
-        ancestors_alleles = get_ancestors_alleles(
-            ancestral_estsfs, ancestral_method)
+        ancestors_alleles = get_ancestors_alleles(ancestral_estsfs, ancestral_method)
 
     elif ancestral_ensembl:
         ancestral_method = "ensembl"
-        ancestors_alleles = get_ancestors_alleles(
-            ancestral_ensembl, ancestral_method)
+        ancestors_alleles = get_ancestors_alleles(ancestral_ensembl, ancestral_method)
 
     else:
         raise NotImplementedError("Ancestral method not implemented")
 
     with tsinfer.SampleData(
-        path=output_samples,
-        sequence_length=sequence_length) as samples:
-
+        path=output_samples, sequence_length=sequence_length
+    ) as samples:
         pop_lookup = add_populations(focal_csv, samples)
         add_diploid_individuals(focal_csv, pop_lookup, samples)
         add_diploid_sites(
-            vcf,
-            samples,
-            ancestors_alleles,
-            ancestral_method=ancestral_method
+            vcf, samples, ancestors_alleles, ancestral_method=ancestral_method
         )
 
     logger.info(
@@ -369,10 +371,7 @@ def create_tstree(
     )
 
     # Do the inference
-    sparrow_ts = tsinfer.infer(
-        samples,
-        num_threads=num_threads
-    )
+    sparrow_ts = tsinfer.infer(samples, num_threads=num_threads)
 
     # Simplify the tree sequence
     ts = sparrow_ts.simplify()
@@ -385,12 +384,10 @@ def create_tstree(
     # Check the metadata
     for sample_node_id in ts.samples():
         individual_id = ts.node(sample_node_id).individual
-        individual = json.loads(
-            ts.individual(individual_id).metadata)["sample_id"]
+        individual = json.loads(ts.individual(individual_id).metadata)["sample_id"]
 
         population_id = ts.node(sample_node_id).population
-        population = json.loads(
-            ts.population(population_id).metadata)["breed"]
+        population = json.loads(ts.population(population_id).metadata)["breed"]
 
         logger.debug(
             f"Node {sample_node_id} "
@@ -401,10 +398,9 @@ def create_tstree(
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
     inferred_ts = tsdate.preprocess_ts(ts, filter_sites=False)
 
+    # date a tstree object with the supplied method
     dated_ts = tsdate.date(
-        inferred_ts,
-        mutation_rate=mutation_rate,
-        Ne=Ne
+        inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
     )
 
     # save generated tree
