@@ -73,10 +73,27 @@ git clone https://github.com/bunop/TSKITetude.git
 
 ## Set-Up
 
-Recover (or install) this environment by entering in the cloned folder and type:
+This project can be installed as a simple package and with all the dependencies
+required to execute the ipython notebooks and to build the documentation. Please
+select the most appropriate type of installation
+
+### Install tskitetude binaries
+
+This will install only the executables required to create the Tree Sequences objects.
+Those executables are the same used inside the [cnr-ibba/nf-treeseq](https://github.com/cnr-ibba/nf-treeseq)
+nextflow pipeline. Enter in the cloned folder and simply type:
 
 ```bash
 poetry install
+```
+
+### Install the full project
+
+Recover (or install) this environment, with all the dependencies required to build
+the documentation and the ipython notebook by entering in the cloned folder and type:
+
+```bash
+poetry install --with docs
 ```
 
 This will install all poetry dependencies, including `nbstripout`.
@@ -89,14 +106,19 @@ In your `TSKITetude` folder, simply type:
 poetry shell
 ```
 
-to activate the poetry environment. Next, set up the git filter and attributes
+to activate the poetry environment.
+
+### Install  nbstripout
+
+If you are working with ipython notebooks and documentation in general, You have
+to set up the git filter and attributes
 provided by [nbstripout](https://github.com/kynan/nbstripout) with:
 
 ```bash
 nbstripout --install
 ```
 
-This will install nbstripout in your Poetry *bin* path.
+This will configure the filters in your local `.git/config` file.
 
 ## Get SMARTER-data
 
@@ -120,6 +142,7 @@ new allele codes. This could be done using this script:
 ```bash
 python scripts/top2forward.py > data/OAR3_top2forward.csv
 ```
+
 Next, you can convert the data with `plink`:
 
 ```bash
@@ -214,6 +237,7 @@ Call the pipeline using the *compara* reference alleles (the outgroup samples ar
 nextflow run cnr-ibba/nf-treeseq -r v0.2.1 -profile singularity -params-file config/smarter-sheeps.json -resume \
     --outdir "results-compara/background_samples" --compara_ancestor data/ancestors-OAR3-50K.csv
 ```
+
 ## Compare 50K samples with repetitions
 
 In order to do a fair simulation, we need to extract all `50K` SNPs from the
@@ -242,6 +266,7 @@ can be called called with:
 ```bash
 bash scripts/50K_simulations_reference.sh
 ```
+
 To call the pipeline using the *reference* approach. In order to call the pipeline
 with the *compara* approach, you can use the following script:
 
