@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -34,12 +36,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -57,9 +60,6 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script type="application/vnd.jupyter.widget-state+json">{"state": {"46360280ff5d46fab8d9d2834cfed826": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "81dff5349756457098ab28af5811f2de": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "abbb9d675aa84491bb9bb55586f4f15f": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_46360280ff5d46fab8d9d2834cfed826", "max": 44077779.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_81dff5349756457098ab28af5811f2de", "tabbable": null, "tooltip": null, "value": 23458533.0}}, "bfb2c4f2a03b416faf217c05b6cc64cb": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "e51888130491401eab2f5fe24e18d1fc": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "a0fbf7dbe41e42d682569c309b59e216": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_bfb2c4f2a03b416faf217c05b6cc64cb", "placeholder": "\u200b", "style": "IPY_MODEL_e51888130491401eab2f5fe24e18d1fc", "tabbable": null, "tooltip": null, "value": "Read VCF:  53%"}}, "979334a516d14561bedc2fb24f30035c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "85631a1f16f1410784e4e40e001e6743": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "a19a85793fa040bf98e876835025b106": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_979334a516d14561bedc2fb24f30035c", "placeholder": "\u200b", "style": "IPY_MODEL_85631a1f16f1410784e4e40e001e6743", "tabbable": null, "tooltip": null, "value": " 23458533/44077779.0 [00:00&lt;00:00, 234543054.92bp/s]"}}, "81c95374388d43108e581446895fbc0c": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c858f3791db34cd5888715b406a1cb0b": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_a0fbf7dbe41e42d682569c309b59e216", "IPY_MODEL_abbb9d675aa84491bb9bb55586f4f15f", "IPY_MODEL_a19a85793fa040bf98e876835025b106"], "layout": "IPY_MODEL_81c95374388d43108e581446895fbc0c", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04-tsinfer_with_test_data';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -67,6 +67,7 @@
     <link rel="prev" title="TSINFER tutorial" href="02-tsinfer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -82,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -102,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -110,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -157,21 +147,17 @@
     
     
     <img src="../_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="SheepTreeSeq - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -364,24 +350,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -526,7 +504,15 @@ wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/te
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "c858f3791db34cd5888715b406a1cb0b"}</script></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsinfer/formats.py:458: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
+  return zarr.LMDBStore(self.path, subdir=False, map_size=map_size)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6da06d51c42f48bc97656d6f3bbc309f"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsinfer/formats.py:428: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
+  store = zarr.LMDBStore(
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -564,85 +550,85 @@ wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/te
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample file created for 18 samples (9 individuals) with 680 variable sites.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,215 - tsinfer.inference - INFO - Starting addition of 680 sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,492 - tsinfer.inference - INFO - Starting addition of 680 sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,243 - tsinfer.inference - INFO - Finished adding sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,524 - tsinfer.inference - INFO - Finished adding sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,244 - tsinfer.inference - INFO - Starting build for 525 ancestors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,525 - tsinfer.inference - INFO - Starting build for 525 ancestors
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,352 - tsinfer.inference - INFO - Finished building ancestors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,640 - tsinfer.inference - INFO - Finished building ancestors
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,357 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,646 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,358 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,647 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,359 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,649 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,360 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,649 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,366 - tsinfer.inference - INFO - Starting ancestor matching for 18 epochs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,659 - tsinfer.inference - INFO - Starting ancestor matching for 18 epochs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,450 - tsinfer.inference - INFO - Built ancestors tree sequence: 591 nodes (64 pc ancestors); 2587 edges; 527 sites; 527 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,748 - tsinfer.inference - INFO - Built ancestors tree sequence: 591 nodes (64 pc ancestors); 2587 edges; 527 sites; 527 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,451 - tsinfer.inference - INFO - Finished ancestor matching
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,749 - tsinfer.inference - INFO - Finished ancestor matching
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,455 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,754 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,455 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,755 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,456 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,757 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,457 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,758 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,474 - tsinfer.inference - INFO - Loaded 18 samples 591 nodes; 2587 edges; 527 sites; 527 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,774 - tsinfer.inference - INFO - Loaded 18 samples 591 nodes; 2587 edges; 527 sites; 527 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,475 - tsinfer.inference - INFO - Started matching for 18 samples
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,775 - tsinfer.inference - INFO - Started matching for 18 samples
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,498 - tsinfer.inference - INFO - Inserting sample paths: 1163 edges in total
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,801 - tsinfer.inference - INFO - Inserting sample paths: 1163 edges in total
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,501 - tsinfer.inference - INFO - Finalising tree sequence
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,805 - tsinfer.inference - INFO - Finalising tree sequence
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,520 - tsinfer.inference - INFO - Built samples tree sequence: 617 nodes (72 pc); 3746 edges; 527 sites; 527 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,826 - tsinfer.inference - INFO - Built samples tree sequence: 617 nodes (72 pc); 3746 edges; 527 sites; 527 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,521 - tsinfer.inference - INFO - Mapping additional sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,828 - tsinfer.inference - INFO - Mapping additional sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,542 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,854 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,546 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,860 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,550 - tsinfer.inference - INFO - Splitting ultimate ancestor into 276 nodes
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,864 - tsinfer.inference - INFO - Splitting ultimate ancestor into 276 nodes
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,565 - tsinfer.inference - INFO - Erased flanks covering 0.5445215377117799% of the genome: 166516.0 units at the start and 73497.0 units at the end
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,881 - tsinfer.inference - INFO - Erased flanks covering 0.5445215377117799% of the genome: 166516.0 units at the start and 73497.0 units at the end
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,565 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 893 nodes and 5212 edges
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,882 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 893 nodes and 5212 edges
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,567 - tsinfer.inference - INFO - Finished simplify; now have 886 nodes and 3559 edges
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,884 - tsinfer.inference - INFO - Finished simplify; now have 886 nodes and 3559 edges
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inferred tree sequence `sparrow_ts`: 513 trees over 44.077779 Mb
@@ -680,150 +666,66 @@ Node 17 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-S
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,578 - tsdate.util - INFO - Beginning preprocessing
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,899 - tsdate.util - INFO - Beginning preprocessing
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,579 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,900 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,579 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,901 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:20:57,580 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,902 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
 </pre></div>
 </div>
-<div class="output text_html">
-            <div>
-              <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>512</td></tr>
-                      <tr><td>Sequence Length</td><td>44077779.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>18</td></tr>
-                      <tr><td>Total Size</td><td>294.7 KiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
-                    <summary>dict</summary>
-                    
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                  <tr>
-                    <td>Edges</td>
-                      <td>4216</td>
-                      <td>131.8 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>9</td>
-                      <td>591 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>954</td>
-                      <td>34.5 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>767</td>
-                      <td>58.2 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>9</td>
-                      <td>224 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>3</td>
-                      <td>1.9 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>680</td>
-                      <td>34.5 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Removes unary nodes (currently required in tsdate), keeps historical-only sites</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">inferred_ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">preprocess_ts</span><span class="p">(</span><span class="n">sparrow_ts</span><span class="p">,</span> <span class="n">filter_sites</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">dated_ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">inferred_ts</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">dated_ts</span>
+
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1751,</span> in <span class="ni">date</span><span class="nt">(tree_sequence, mutation_rate, recombination_rate, time_units, method, constr_iterations, return_posteriors, return_likelihood, progress, record_provenance, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1748</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">estimation_methods</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1749</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;method must be one of </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">estimation_methods</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1751</span> <span class="k">return</span> <span class="n">estimation_methods</span><span class="p">[</span><span class="n">method</span><span class="p">](</span>
+<span class="g g-Whitespace">   </span><span class="mi">1752</span>     <span class="n">tree_sequence</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1753</span>     <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1754</span>     <span class="n">recombination_rate</span><span class="o">=</span><span class="n">recombination_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1755</span>     <span class="n">time_units</span><span class="o">=</span><span class="n">time_units</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1756</span>     <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1757</span>     <span class="n">constr_iterations</span><span class="o">=</span><span class="n">constr_iterations</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1758</span>     <span class="n">return_posteriors</span><span class="o">=</span><span class="n">return_posteriors</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1759</span>     <span class="n">return_likelihood</span><span class="o">=</span><span class="n">return_likelihood</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1760</span>     <span class="n">record_provenance</span><span class="o">=</span><span class="n">record_provenance</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1761</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1762</span> <span class="p">)</span>
+
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1634,</span> in <span class="ni">variational_gamma</span><span class="nt">(tree_sequence, mutation_rate, eps, max_iterations, rescaling_intervals, rescaling_iterations, match_segregating_sites, max_shape, regularise_roots, singletons_phased, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1630</span> <span class="k">if</span> <span class="n">tree_sequence</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1631</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1632</span>         <span class="s2">&quot;No mutations present: these are required for the variational_gamma method&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1633</span>     <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1634</span> <span class="n">dating_method</span> <span class="o">=</span> <span class="n">VariationalGammaMethod</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1635</span>     <span class="n">tree_sequence</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1636</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1637</span> <span class="n">result</span> <span class="o">=</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1638</span>     <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1639</span>     <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1645</span>     <span class="n">singletons_phased</span><span class="o">=</span><span class="n">singletons_phased</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1646</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1647</span> <span class="k">return</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">]})</span>
+
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1218,</span> in <span class="ni">VariationalGammaMethod.__init__</span><span class="nt">(self, ts, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1218</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: EstimationMethod.__init__() got an unexpected keyword argument &#39;Ne&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 
@@ -925,8 +827,8 @@ By Paolo Cozzi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

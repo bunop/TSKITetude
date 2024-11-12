@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -34,12 +36,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -64,6 +67,7 @@
     <link rel="prev" title="Inference from a test VCF file" href="08-test_sample-vcf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -79,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -99,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -107,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -124,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -154,21 +147,17 @@
     
     
     <img src="../_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="SheepTreeSeq - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -361,24 +350,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -490,8 +471,8 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-              <style>
+        <div>
+            <style>
                 .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td {padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td:first-of-type {text-align: left;}
@@ -500,127 +481,508 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 .tskit-table-set-table {margin: 12px 0 0 12px;}
                 details {display: inline-block;}
                 summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
+            </style>
+            <div class="tskit-table-set">
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>1995</td></tr>
-                      <tr><td>Sequence Length</td><td>100000000.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>4810</td></tr>
-                      <tr><td>Total Size</td><td>47.3 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>1,995</td></tr>
+                            <tr><td>Sequence Length</td><td>100,000,000.0</td></tr>
+                            <tr><td>Time Units</td><td>generations</td></tr>
+                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Total Size</td><td>47.3 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">
+            <div>
+                <span class="tskit-details-label"></span>
+                <details open>
                     <summary>dict</summary>
                     
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
+                </details>
+            </div>
+            </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>1,185,555</td>
+                <td>36.2 MiB</td>
+                <td style="text-align: center;">
                     
-                  <tr>
-                    <td>Edges</td>
-                      <td>1185555</td>
-                      <td>36.2 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>2405</td>
-                      <td>123.4 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>2070</td>
-                      <td>74.8 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>26106</td>
-                      <td>1.7 MiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>9</td>
-                      <td>208 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>4</td>
-                      <td>2.4 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>2000</td>
-                      <td>99.6 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>2,405</td>
+                <td>123.4 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>2,070</td>
+                <td>74.8 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>26,506</td>
+                <td>1.8 MiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>9</td>
+                <td>208 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>4</td>
+                <td>2.4 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>2,000</td>
+                <td>99.6 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
-              </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>12 November, 2024 at 05:15:03 PM</td>
+                    <td>tsdate</td>
+                    <td>0.2.1</td>
+                    <td>inside_outside</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsdate<br/>version: 0.2.1<br/>
+                </details>
             </div>
-            </div></div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mutation_rate: 5.87e-09<br/>recombination_rate: None<br/>time_units: None<br/>progress: None<br/>population_size: 34500.0<br/>eps: 1e-06<br/>outside_standardize: True<br/>ignore_oldest_root: False<br/>probability_space: logarithmic<br/>num_threads: None<br/>cache_inside: False<br/>command: inside_outside<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.10.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.6.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>12 November, 2024 at 05:10:16 PM</td>
+                    <td>tsdate</td>
+                    <td>0.2.1</td>
+                    <td>preprocess_ts</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsdate<br/>version: 0.2.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    minimum_gap: 1000000<br/>remove_telomeres: True<br/>split_disjoint: True<br/>filter_populations: False<br/>filter_individuals: False<br/>filter_sites: False<br/>
+            <div>
+                <span class="tskit-details-label">delete_intervals:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0<br/> 8567.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     99989827.0<br/> 100000000.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>command: preprocess_ts<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.10.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.6.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>12 November, 2024 at 05:10:13 PM</td>
+                    <td>tskit</td>
+                    <td>0.6.0</td>
+                    <td>simplify</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tskit<br/>version: 0.6.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: simplify<br/>TODO: add simplify parameters<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.10.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>12 November, 2024 at 05:10:12 PM</td>
+                    <td>tsinfer</td>
+                    <td>0.3.3</td>
+                    <td>infer</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsinfer<br/>version: 0.3.3<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mismatch_ratio: None<br/>command: infer<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">zarr:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.18.3<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">numcodecs:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.13.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">lmdb:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.5.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.6.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>
+            <div>
+                <span class="tskit-details-label">version:</span>
+                <details >
+                    <summary>list</summary>
+                     3<br/> 10<br/> 15<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -641,7 +1003,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.3950493519912347e-06
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.614715528690436e-06
 </pre></div>
 </div>
 </div>
@@ -690,8 +1052,8 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-              <style>
+        <div>
+            <style>
                 .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td {padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td:first-of-type {text-align: left;}
@@ -700,127 +1062,508 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 .tskit-table-set-table {margin: 12px 0 0 12px;}
                 details {display: inline-block;}
                 summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
+            </style>
+            <div class="tskit-table-set">
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>24685</td></tr>
-                      <tr><td>Sequence Length</td><td>100000000.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>4810</td></tr>
-                      <tr><td>Total Size</td><td>153.1 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>24,685</td></tr>
+                            <tr><td>Sequence Length</td><td>100,000,000.0</td></tr>
+                            <tr><td>Time Units</td><td>generations</td></tr>
+                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Total Size</td><td>153.1 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">
+            <div>
+                <span class="tskit-details-label"></span>
+                <details open>
                     <summary>dict</summary>
                     
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
+                </details>
+            </div>
+            </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>3,617,318</td>
+                <td>110.4 MiB</td>
+                <td style="text-align: center;">
                     
-                  <tr>
-                    <td>Edges</td>
-                      <td>3617318</td>
-                      <td>110.4 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>2405</td>
-                      <td>123.4 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>29099</td>
-                      <td>1.0 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>172744</td>
-                      <td>12.8 MiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>9</td>
-                      <td>208 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>4</td>
-                      <td>2.4 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>25000</td>
-                      <td>1.2 MiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>2,405</td>
+                <td>123.4 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>29,099</td>
+                <td>1.0 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>172,744</td>
+                <td>12.8 MiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>9</td>
+                <td>208 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>4</td>
+                <td>2.4 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>25,000</td>
+                <td>1.2 MiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
-              </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>13 September, 2024 at 01:36:46 PM</td>
+                    <td>tsdate</td>
+                    <td>0.1.7</td>
+                    <td>inside_outside</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsdate<br/>version: 0.1.7<br/>
+                </details>
             </div>
-            </div></div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mutation_rate: 5.87e-09<br/>recombination_rate: None<br/>time_units: None<br/>progress: None<br/>population_size: 34500.0<br/>eps: 1e-06<br/>outside_standardize: True<br/>ignore_oldest_root: False<br/>probability_space: logarithmic<br/>num_threads: None<br/>cache_inside: False<br/>command: inside_outside<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.16<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>13 September, 2024 at 01:20:17 PM</td>
+                    <td>tsdate</td>
+                    <td>0.1.7</td>
+                    <td>preprocess_ts</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsdate<br/>version: 0.1.7<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    minimum_gap: 1000000<br/>remove_telomeres: True<br/>filter_populations: False<br/>filter_individuals: False<br/>filter_sites: False<br/>
+            <div>
+                <span class="tskit-details-label">delete_intervals:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0<br/> 6713.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     99995468.0<br/> 100000000.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>command: preprocess_ts<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.16<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>13 September, 2024 at 01:19:30 PM</td>
+                    <td>tskit</td>
+                    <td>0.5.8</td>
+                    <td>simplify</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tskit<br/>version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: simplify<br/>TODO: add simplify parameters<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.16<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>13 September, 2024 at 01:18:45 PM</td>
+                    <td>tsinfer</td>
+                    <td>0.3.3</td>
+                    <td>infer</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsinfer<br/>version: 0.3.3<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mismatch_ratio: None<br/>command: infer<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">zarr:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.16.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">numcodecs:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.12.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">lmdb:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.4.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>
+            <div>
+                <span class="tskit-details-label">version:</span>
+                <details >
+                    <summary>list</summary>
+                     3<br/> 9<br/> 16<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -889,8 +1632,8 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-              <style>
+        <div>
+            <style>
                 .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td {padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td:first-of-type {text-align: left;}
@@ -899,127 +1642,508 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
                 .tskit-table-set-table {margin: 12px 0 0 12px;}
                 details {display: inline-block;}
                 summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
+            </style>
+            <div class="tskit-table-set">
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>919607</td></tr>
-                      <tr><td>Sequence Length</td><td>100000000.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>4810</td></tr>
-                      <tr><td>Total Size</td><td>511.4 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>919,607</td></tr>
+                            <tr><td>Sequence Length</td><td>100,000,000.0</td></tr>
+                            <tr><td>Time Units</td><td>generations</td></tr>
+                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Total Size</td><td>511.4 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">
+            <div>
+                <span class="tskit-details-label"></span>
+                <details open>
                     <summary>dict</summary>
                     
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
+                </details>
+            </div>
+            </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>7,300,103</td>
+                <td>222.8 MiB</td>
+                <td style="text-align: center;">
                     
-                  <tr>
-                    <td>Edges</td>
-                      <td>7300103</td>
-                      <td>222.8 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>2405</td>
-                      <td>123.4 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>1756162</td>
-                      <td>62.0 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>1141491</td>
-                      <td>85.5 MiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>9</td>
-                      <td>208 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>4</td>
-                      <td>2.4 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>1712522</td>
-                      <td>85.2 MiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>2,405</td>
+                <td>123.4 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>1,756,162</td>
+                <td>62.0 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>1,141,491</td>
+                <td>85.5 MiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>9</td>
+                <td>208 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>4</td>
+                <td>2.4 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>1,712,522</td>
+                <td>85.2 MiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
-              </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>15 September, 2024 at 05:24:07 AM</td>
+                    <td>tsdate</td>
+                    <td>0.1.7</td>
+                    <td>inside_outside</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsdate<br/>version: 0.1.7<br/>
+                </details>
             </div>
-            </div></div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mutation_rate: 5.87e-09<br/>recombination_rate: None<br/>time_units: None<br/>progress: None<br/>population_size: 34500.0<br/>eps: 1e-06<br/>outside_standardize: True<br/>ignore_oldest_root: False<br/>probability_space: logarithmic<br/>num_threads: None<br/>cache_inside: False<br/>command: inside_outside<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.18<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>15 September, 2024 at 03:51:46 AM</td>
+                    <td>tsdate</td>
+                    <td>0.1.7</td>
+                    <td>preprocess_ts</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsdate<br/>version: 0.1.7<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    minimum_gap: 1000000<br/>remove_telomeres: True<br/>filter_populations: False<br/>filter_individuals: False<br/>filter_sites: False<br/>
+            <div>
+                <span class="tskit-details-label">delete_intervals:</span>
+                <details >
+                    <summary>list</summary>
+                    
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     0<br/> 88.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>list</summary>
+                     99999991.0<br/> 100000000.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>command: preprocess_ts<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.18<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>15 September, 2024 at 03:50:34 AM</td>
+                    <td>tskit</td>
+                    <td>0.5.8</td>
+                    <td>simplify</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tskit<br/>version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: simplify<br/>TODO: add simplify parameters<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.18<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>15 September, 2024 at 03:49:39 AM</td>
+                    <td>tsinfer</td>
+                    <td>0.3.3</td>
+                    <td>infer</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsinfer<br/>version: 0.3.3<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mismatch_ratio: None<br/>command: infer<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">zarr:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.16.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">numcodecs:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.12.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">lmdb:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.4.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.8<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>
+            <div>
+                <span class="tskit-details-label">version:</span>
+                <details >
+                    <summary>list</summary>
+                     3<br/> 9<br/> 18<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,7 +2187,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0038342408825926544, 0.006317426248074964, 0.011025754267375176]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00370087890248072, 0.006317426248074964, 0.011025754267375176]
 </pre></div>
 </div>
 </div>
@@ -1129,8 +2253,8 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
       <th>0</th>
       <td>ts300I2k</td>
       <td>0.000006</td>
-      <td>0.000002</td>
-      <td>0.003834</td>
+      <td>0.000003</td>
+      <td>0.003701</td>
       <td>0.009345</td>
     </tr>
     <tr>
@@ -1161,7 +2285,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c40d6aa16af7b7c033722884433662ded131ac54d25b63c4cb2c1d661845962c.svg" src="../_images/c40d6aa16af7b7c033722884433662ded131ac54d25b63c4cb2c1d661845962c.svg" />
+<img alt="../_images/37dda4106262619f58ca326e9845c26d71f6b4c5fcce497e73444e02ffe497a4.svg" src="../_images/37dda4106262619f58ca326e9845c26d71f6b4c5fcce497e73444e02ffe497a4.svg" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1184,7 +2308,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2419.970456028269
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2430.8792875386516
 </pre></div>
 </div>
 </div>
@@ -1199,105 +2323,105 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 24161: time 2419.970456028269
-Node 6272: time 7.597600273671201
-Node 6291: time 26.31770313872415
-Node 6282: time 7.133026944497379
-Node 8130: time 30.808640727829616
-Node 9098: time 5.919143896103064
-Node 14896: time 5.058889371195002
-Node 14898: time 4.941485464703595
-Node 14899: time 5.0597982868446625
-Node 14900: time 5.0597982868446625
-Node 14901: time 4.781067506821409
-Node 14903: time 4.941485464703595
-Node 14907: time 5.044889539105368
-Node 21767: time 22.301401917063124
-Node 6623: time 17.079190882279274
-Node 23284: time 9.271694187439229
-Node 23513: time 34.319173533927874
-Node 23703: time 12.49411467088767
-Node 24097: time 732.5986509374583
-Node 7900: time 52.37935746803915
-Node 6280: time 7.70544055191454
-Node 7863: time 10.938434913398243
-Node 7865: time 10.377948118381997
-Node 7867: time 10.7159733312213
-Node 7869: time 10.922764701031726
-Node 7870: time 10.201473664860668
-Node 7871: time 10.471481082491223
-Node 7872: time 4.913621274239592
-Node 7881: time 6.507581109254086
-Node 7887: time 10.938434913398243
-Node 7889: time 4.985412683243106
-Node 7890: time 4.985412683243106
-Node 23806: time 567.8341022224624
-Node 6266: time 8.09234234334222
-Node 6618: time 6.365899388203136
-Node 23711: time 470.32845344040504
-Node 6285: time 8.22951099510846
-Node 23704: time 436.570075093764
-Node 23608: time 71.10532466042311
-Node 6278: time 8.051963777739727
-Node 15177: time 5.851058119293345
-Node 16615: time 5.7078035033826735
-Node 20033: time 41.36244451173267
-Node 15271: time 12.10915326963942
-Node 15249: time 5.158451810441059
-Node 15250: time 5.158451810441059
-Node 15255: time 5.158451810441059
-Node 15257: time 5.158451810441059
-Node 15258: time 5.158451810441059
-Node 15259: time 5.158451810441059
-Node 15270: time 9.75334676504974
-Node 19991: time 31.662800776805597
-Node 20114: time 6.252279220681495
-Node 20116: time 15.941727793215607
-Node 12078: time 9.169880202976987
-Node 12065: time 4.141779151742
-Node 12066: time 6.954051404186218
-Node 12067: time 4.141779151742
-Node 12068: time 4.141779151742
-Node 12069: time 4.428508035350258
-Node 12070: time 4.35028676776609
-Node 12071: time 4.391089760715462
-Node 12072: time 4.391089760715462
-Node 12073: time 4.428508035350258
-Node 12074: time 4.428508035350258
-Node 12075: time 4.428508035350258
-Node 12076: time 4.428508035350258
-Node 12077: time 4.428508035350258
-Node 15186: time 14.188899753297298
-Node 9139: time 14.188898753297298
-Node 9137: time 5.879673355591911
-Node 9138: time 5.114225579521359
-Node 14922: time 11.111452840400606
-Node 15146: time 11.58139586422101
-Node 15147: time 5.8476113268314505
-Node 15148: time 5.848102738658524
-Node 15169: time 5.3499387621535135
-Node 15185: time 11.181844206973278
-Node 15821: time 11.149021401549419
-Node 16626: time 13.612777082685067
-Node 16611: time 5.731300767874305
-Node 16612: time 5.731300767874305
-Node 16613: time 5.731300767874305
-Node 16614: time 7.454031799034329
-Node 16616: time 5.648849657411477
-Node 16617: time 5.648849657411477
-Node 16618: time 5.648849657411477
-Node 16619: time 5.648849657411477
-Node 16620: time 5.648849657411477
-Node 16621: time 5.648849657411477
-Node 16622: time 5.648849657411477
-Node 16623: time 5.648849657411477
-Node 16624: time 5.648849657411477
-Node 22848: time 71.10532366042311
-Node 16625: time 5.7078246317675045
-Node 20107: time 12.257383000323397
-Node 22764: time 57.13556728744678
-Node 16407: time 9.288827108873807
-Node 23709: time 14.317782160890165
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 24161: time 2430.8792875386516
+Node 6272: time 7.619691980766003
+Node 6291: time 26.376662167111693
+Node 6282: time 7.143595300364274
+Node 8130: time 30.915940325002325
+Node 9098: time 5.957853731504345
+Node 14896: time 5.167725075161597
+Node 14898: time 5.022457845734771
+Node 14899: time 5.168560275213842
+Node 14900: time 5.168560275213842
+Node 14901: time 4.847874533847422
+Node 14903: time 5.022457845734771
+Node 14907: time 5.154053183979157
+Node 21767: time 22.588185552901244
+Node 6623: time 17.24368166188127
+Node 23284: time 10.123766821045256
+Node 23513: time 36.344711294872305
+Node 23703: time 12.590605837603482
+Node 24097: time 947.543508473814
+Node 7900: time 52.568073637854745
+Node 6280: time 7.7153065484842385
+Node 7863: time 10.962115017525782
+Node 7865: time 10.667851072391295
+Node 7867: time 10.727961232705905
+Node 7869: time 10.935470406672483
+Node 7870: time 10.254699868732281
+Node 7871: time 10.482780112909454
+Node 7872: time 4.98305864926916
+Node 7881: time 6.533647992284609
+Node 7887: time 10.962115017525782
+Node 7889: time 5.078256658477855
+Node 7890: time 5.078256658477855
+Node 23806: time 778.9366807076804
+Node 6266: time 8.102995445423927
+Node 6618: time 6.399794760626978
+Node 23711: time 696.672330059515
+Node 6285: time 8.239017427926548
+Node 23704: time 629.9118182857358
+Node 23608: time 146.5542089515065
+Node 6278: time 8.061254677922955
+Node 15177: time 5.889041914929482
+Node 16615: time 5.714899813303452
+Node 20033: time 41.62164969643499
+Node 15271: time 12.115667296475568
+Node 15249: time 5.161880995414778
+Node 15250: time 5.161880995414778
+Node 15255: time 5.161880995414778
+Node 15257: time 5.161880995414778
+Node 15258: time 5.161880995414778
+Node 15259: time 5.161880995414778
+Node 15270: time 9.764116326434312
+Node 19991: time 31.977927359129623
+Node 20114: time 6.282265581557425
+Node 20116: time 16.073437918947093
+Node 12078: time 9.188516772754937
+Node 12065: time 4.164285188779845
+Node 12066: time 6.970873059724707
+Node 12067: time 4.164285188779845
+Node 12068: time 4.164285188779845
+Node 12069: time 4.434561214214308
+Node 12070: time 4.355671500325949
+Node 12071: time 4.3968856407101535
+Node 12072: time 4.3968856407101535
+Node 12073: time 4.434561214214308
+Node 12074: time 4.434561214214308
+Node 12075: time 4.434561214214308
+Node 12076: time 4.434561214214308
+Node 12077: time 4.434561214214308
+Node 15186: time 14.335048007257546
+Node 9139: time 14.335047007257547
+Node 9137: time 5.915358116574074
+Node 9138: time 5.124591907953998
+Node 14922: time 11.467479646133912
+Node 15146: time 11.710343729411559
+Node 15147: time 5.891011967860523
+Node 15148: time 5.891212048375582
+Node 15169: time 5.420579053566719
+Node 15185: time 11.31599370087708
+Node 15821: time 11.211015671471689
+Node 16626: time 13.63483440262657
+Node 16611: time 5.737573507009795
+Node 16612: time 5.737573507009795
+Node 16613: time 5.737573507009795
+Node 16614: time 7.463216121697707
+Node 16616: time 5.654938749530182
+Node 16617: time 5.654938749530182
+Node 16618: time 5.654938749530182
+Node 16619: time 5.654938749530182
+Node 16620: time 5.654938749530182
+Node 16621: time 5.654938749530182
+Node 16622: time 5.654938749530182
+Node 16623: time 5.654938749530182
+Node 16624: time 5.654938749530182
+Node 22848: time 146.5542079515065
+Node 16625: time 5.714920465911085
+Node 20107: time 12.332963660012545
+Node 22764: time 119.47525912533794
+Node 16407: time 9.306745997641158
+Node 23709: time 14.398563896843093
 </pre></div>
 </div>
 </div>
@@ -1360,7 +2484,8 @@ Node 23709: time 14.317782160890165
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1421,8 +2546,8 @@ By Paolo Cozzi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

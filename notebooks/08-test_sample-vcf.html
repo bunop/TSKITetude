@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -34,12 +36,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -57,9 +60,6 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script type="application/vnd.jupyter.widget-state+json">{"state": {"921ad74f88124e08a67c99290551ebcc": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "082c2a3e4e4349eb81b370437ae2012f": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "4834cec17605484588432196ca6bb501": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "danger", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_921ad74f88124e08a67c99290551ebcc", "max": 1000000.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_082c2a3e4e4349eb81b370437ae2012f", "tabbable": null, "tooltip": null, "value": 999988.0}}, "1e7c4a119ce04c488fa38c32b2dc6d50": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b18fcacb0a6546069d9e85d271dec3bd": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "bb122c2695bf439885321122cc56536b": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_1e7c4a119ce04c488fa38c32b2dc6d50", "placeholder": "\u200b", "style": "IPY_MODEL_b18fcacb0a6546069d9e85d271dec3bd", "tabbable": null, "tooltip": null, "value": "Read VCF: 100%"}}, "3457649d21b7424a8055a39acf43bd0e": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4f49343cdd4c47ae8ab08fd2150e8038": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "07fdbd23423541e793e775f226b26cfa": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_3457649d21b7424a8055a39acf43bd0e", "placeholder": "\u200b", "style": "IPY_MODEL_4f49343cdd4c47ae8ab08fd2150e8038", "tabbable": null, "tooltip": null, "value": " 999988/1000000.0 [00:04&lt;00:00, 254194.57bp/s]"}}, "0058ccf4eca645ccaa17cb0d020a4760": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "a3b2b89ad35245e58daeb48eac48bf97": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_bb122c2695bf439885321122cc56536b", "IPY_MODEL_4834cec17605484588432196ca6bb501", "IPY_MODEL_07fdbd23423541e793e775f226b26cfa"], "layout": "IPY_MODEL_0058ccf4eca645ccaa17cb0d020a4760", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/08-test_sample-vcf';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -67,6 +67,7 @@
     <link rel="prev" title="TSINFER with SMARTER test data" href="04-tsinfer_with_test_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -82,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -102,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -110,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -127,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -157,21 +147,17 @@
     
     
     <img src="../_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="SheepTreeSeq - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -364,24 +350,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -502,10 +480,12 @@ sample VCF provided in <a class="reference external" href="https://github.com/Hi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:28,253 - tskitetude.helper - INFO - Using ancestral allele from est-sfs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsinfer/formats.py:458: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
+  return zarr.LMDBStore(self.path, subdir=False, map_size=map_size)
+2024-11-12 18:10:27,623 - tskitetude.helper - INFO - Using ancestral allele from est-sfs
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "a3b2b89ad35245e58daeb48eac48bf97"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 83850, ignoring all but the first
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "81e33215e2064ace9d396c5e781c817f"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 83850, ignoring all but the first
 Duplicate entries at position 119222, ignoring all but the first
 </pre></div>
 </div>
@@ -526,22 +506,24 @@ Duplicate entries at position 250950, ignoring all but the first
 Duplicate entries at position 368226, ignoring all but the first
 Duplicate entries at position 380744, ignoring all but the first
 Duplicate entries at position 389742, ignoring all but the first
-Duplicate entries at position 401443, ignoring all but the first
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 423892, ignoring all but the first
-Duplicate entries at position 463723, ignoring all but the first
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 401443, ignoring all but the first
+Duplicate entries at position 423892, ignoring all but the first
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 484903, ignoring all but the first
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 463723, ignoring all but the first
+Duplicate entries at position 484903, ignoring all but the first
 Duplicate entries at position 497351, ignoring all but the first
-Duplicate entries at position 530338, ignoring all but the first
-Duplicate entries at position 533058, ignoring all but the first
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 547183, ignoring all but the first
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 530338, ignoring all but the first
+Duplicate entries at position 533058, ignoring all but the first
+Duplicate entries at position 547183, ignoring all but the first
 Duplicate entries at position 559588, ignoring all but the first
-Duplicate entries at position 585695, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 585695, ignoring all but the first
 Duplicate entries at position 588075, ignoring all but the first
 </pre></div>
 </div>
@@ -569,10 +551,16 @@ Duplicate entries at position 869978, ignoring all but the first
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 901725, ignoring all but the first
 Duplicate entries at position 917886, ignoring all but the first
 Duplicate entries at position 925039, ignoring all but the first
-Duplicate entries at position 950803, ignoring all but the first
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate entries at position 950803, ignoring all but the first
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample file created for 210 samples (105 individuals) with 12844 variable sites.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsinfer/formats.py:428: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
+  store = zarr.LMDBStore(
 </pre></div>
 </div>
 </div>
@@ -596,76 +584,76 @@ Duplicate entries at position 950803, ignoring all but the first
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,213 - tsinfer.inference - INFO - Starting addition of 12844 sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,220 - tsinfer.inference - INFO - Starting addition of 12844 sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,523 - tsinfer.inference - INFO - Finished adding sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,546 - tsinfer.inference - INFO - Finished adding sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,526 - tsinfer.inference - WARNING - No sites used for inference
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,548 - tsinfer.inference - WARNING - No sites used for inference
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,537 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,561 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,538 - tsinfer.inference - INFO - Fewer than two inference sites: no recombination possible
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,562 - tsinfer.inference - INFO - Fewer than two inference sites: no recombination possible
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,538 - tsinfer.inference - INFO - No inference sites: no mismatch possible
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,563 - tsinfer.inference - INFO - No inference sites: no mismatch possible
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,539 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,563 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,541 - tsinfer.inference - INFO - Starting ancestor matching for 0 epochs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,569 - tsinfer.inference - INFO - Starting ancestor matching for 0 epochs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,546 - tsinfer.inference - INFO - Finished ancestor matching
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,575 - tsinfer.inference - INFO - Finished ancestor matching
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,547 - tsinfer.inference - WARNING - No sites used for inference
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,577 - tsinfer.inference - WARNING - No sites used for inference
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,558 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,590 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,559 - tsinfer.inference - INFO - Fewer than two inference sites: no recombination possible
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,591 - tsinfer.inference - INFO - Fewer than two inference sites: no recombination possible
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,560 - tsinfer.inference - INFO - No inference sites: no mismatch possible
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,592 - tsinfer.inference - INFO - No inference sites: no mismatch possible
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,560 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,593 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,574 - tsinfer.inference - INFO - Loaded 210 samples 0 nodes; 0 edges; 0 sites; 0 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,610 - tsinfer.inference - INFO - Loaded 210 samples 0 nodes; 0 edges; 0 sites; 0 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,575 - tsinfer.inference - INFO - Started matching for 210 samples
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,612 - tsinfer.inference - INFO - Started matching for 210 samples
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,575 - tsinfer.inference - INFO - Finalising tree sequence
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,612 - tsinfer.inference - INFO - Finalising tree sequence
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,594 - tsinfer.inference - INFO - Built samples tree sequence: 212 nodes (0 pc); 211 edges; 0 sites; 0 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,636 - tsinfer.inference - INFO - Built samples tree sequence: 212 nodes (0 pc); 211 edges; 0 sites; 0 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:32,595 - tsinfer.inference - INFO - Mapping additional sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:32,637 - tsinfer.inference - INFO - Mapping additional sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,533 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,778 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,569 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,821 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,607 - tsinfer.inference - INFO - Erased flanks covering 0.0119% of the genome: 108.0 units at the start and 11.0 units at the end
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,865 - tsinfer.inference - INFO - Erased flanks covering 0.0119% of the genome: 108.0 units at the start and 11.0 units at the end
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,607 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 212 nodes and 210 edges
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,866 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 212 nodes and 210 edges
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,621 - tsinfer.inference - INFO - Finished simplify; now have 211 nodes and 210 edges
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,882 - tsinfer.inference - INFO - Finished simplify; now have 211 nodes and 210 edges
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inferred tree sequence `ts`: 3 trees over 1.0 Mb
@@ -681,8 +669,8 @@ Duplicate entries at position 950803, ignoring all but the first
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-              <style>
+        <div>
+            <style>
                 .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td {padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td:first-of-type {text-align: left;}
@@ -691,127 +679,330 @@ Duplicate entries at position 950803, ignoring all but the first
                 .tskit-table-set-table {margin: 12px 0 0 12px;}
                 details {display: inline-block;}
                 summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
+            </style>
+            <div class="tskit-table-set">
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>3</td></tr>
-                      <tr><td>Sequence Length</td><td>1000000.0</td></tr>
-                      <tr><td>Time Units</td><td>uncalibrated</td></tr>
-                      <tr><td>Sample Nodes</td><td>210</td></tr>
-                      <tr><td>Total Size</td><td>7.3 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>3</td></tr>
+                            <tr><td>Sequence Length</td><td>1,000,000.0</td></tr>
+                            <tr><td>Time Units</td><td>uncalibrated</td></tr>
+                            <tr><td>Sample Nodes</td><td>210</td></tr>
+                            <tr><td>Total Size</td><td>7.3 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">
+            <div>
+                <span class="tskit-details-label"></span>
+                <details open>
                     <summary>dict</summary>
                     
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
+                </details>
+            </div>
+            </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>210</td>
+                <td>6.6 KiB</td>
+                <td style="text-align: center;">
                     
-                  <tr>
-                    <td>Edges</td>
-                      <td>210</td>
-                      <td>6.6 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>105</td>
-                      <td>4.7 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>187726</td>
-                      <td>6.6 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>211</td>
-                      <td>6.3 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>3</td>
-                      <td>88 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>2</td>
-                      <td>1.0 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>12844</td>
-                      <td>702.4 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>105</td>
+                <td>4.7 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>187,726</td>
+                <td>6.6 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>211</td>
+                <td>6.3 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>3</td>
+                <td>88 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>2</td>
+                <td>1.0 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>12,844</td>
+                <td>702.4 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
-              </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>12 November, 2024 at 06:10:34 PM</td>
+                    <td>tskit</td>
+                    <td>0.6.0</td>
+                    <td>simplify</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tskit<br/>version: 0.6.0<br/>
+                </details>
             </div>
-            </div></div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: simplify<br/>TODO: add simplify parameters<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.10.15<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>12 November, 2024 at 06:10:34 PM</td>
+                    <td>tsinfer</td>
+                    <td>0.3.3</td>
+                    <td>infer</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: tsinfer<br/>version: 0.3.3<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    mismatch_ratio: None<br/>command: infer<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">zarr:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.18.3<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">numcodecs:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.13.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">lmdb:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 1.5.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.6.0<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>
+            <div>
+                <span class="tskit-details-label">version:</span>
+                <details >
+                    <summary>list</summary>
+                     3<br/> 10<br/> 15<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -829,150 +1020,70 @@ Duplicate entries at position 950803, ignoring all but the first
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,714 - tsdate.util - INFO - Beginning preprocessing
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,993 - tsdate.util - INFO - Beginning preprocessing
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,715 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,994 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,717 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 107.0.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,998 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 107.0.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-11 13:22:34,718 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 999989.0 to end of sequence at 1000000.0.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:10:34,999 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 999989.0 to end of sequence at 1000000.0.
 </pre></div>
 </div>
-<div class="output text_html">
-            <div>
-              <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>3</td></tr>
-                      <tr><td>Sequence Length</td><td>1000000.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>210</td></tr>
-                      <tr><td>Total Size</td><td>7.3 MiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">
-                <div>
-                  <span class="tskit-details-label"></span>
-                  <details open>
-                    <summary>dict</summary>
-                    
-                  </details>
-                </div>
-                </td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                  <tr>
-                    <td>Edges</td>
-                      <td>210</td>
-                      <td>6.6 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>105</td>
-                      <td>4.7 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>187726</td>
-                      <td>6.6 MiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>211</td>
-                      <td>6.4 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>3</td>
-                      <td>88 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>4</td>
-                      <td>2.3 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>12844</td>
-                      <td>702.4 KiB</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Removes unary nodes (currently required in tsdate), keeps historical-only sites</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">preprocess_ts</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">filter_sites</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">date</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">ts</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">Ne</span><span class="o">=</span><span class="mf">1e4</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">ts</span>
+
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1751,</span> in <span class="ni">date</span><span class="nt">(tree_sequence, mutation_rate, recombination_rate, time_units, method, constr_iterations, return_posteriors, return_likelihood, progress, record_provenance, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1748</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">estimation_methods</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1749</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;method must be one of </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">estimation_methods</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1751</span> <span class="k">return</span> <span class="n">estimation_methods</span><span class="p">[</span><span class="n">method</span><span class="p">](</span>
+<span class="g g-Whitespace">   </span><span class="mi">1752</span>     <span class="n">tree_sequence</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1753</span>     <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1754</span>     <span class="n">recombination_rate</span><span class="o">=</span><span class="n">recombination_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1755</span>     <span class="n">time_units</span><span class="o">=</span><span class="n">time_units</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1756</span>     <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1757</span>     <span class="n">constr_iterations</span><span class="o">=</span><span class="n">constr_iterations</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1758</span>     <span class="n">return_posteriors</span><span class="o">=</span><span class="n">return_posteriors</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1759</span>     <span class="n">return_likelihood</span><span class="o">=</span><span class="n">return_likelihood</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1760</span>     <span class="n">record_provenance</span><span class="o">=</span><span class="n">record_provenance</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1761</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1762</span> <span class="p">)</span>
+
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1634,</span> in <span class="ni">variational_gamma</span><span class="nt">(tree_sequence, mutation_rate, eps, max_iterations, rescaling_intervals, rescaling_iterations, match_segregating_sites, max_shape, regularise_roots, singletons_phased, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1630</span> <span class="k">if</span> <span class="n">tree_sequence</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1631</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1632</span>         <span class="s2">&quot;No mutations present: these are required for the variational_gamma method&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1633</span>     <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1634</span> <span class="n">dating_method</span> <span class="o">=</span> <span class="n">VariationalGammaMethod</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1635</span>     <span class="n">tree_sequence</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1636</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1637</span> <span class="n">result</span> <span class="o">=</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1638</span>     <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1639</span>     <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1645</span>     <span class="n">singletons_phased</span><span class="o">=</span><span class="n">singletons_phased</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1646</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1647</span> <span class="k">return</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">]})</span>
+
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1218,</span> in <span class="ni">VariationalGammaMethod.__init__</span><span class="nt">(self, ts, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1217</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1218</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: EstimationMethod.__init__() got an unexpected keyword argument &#39;Ne&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>dump the <em>treesequence</em> file:</p>
 <div class="cell docutils container">
@@ -992,44 +1103,6 @@ Duplicate entries at position 950803, ignoring all but the first
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-            <div>
-              <style>
-                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
-                .tskit-table tbody tr td:first-of-type {text-align: left;}
-                .tskit-details-label {vertical-align: top; padding-right:5px;}
-                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
-                .tskit-table-set-table {margin: 12px 0 0 12px;}
-                details {display: inline-block;}
-                summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
-                <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-tree-class"> Tree </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Index</td><td>1</td></tr>
-                      <tr><td>Interval</td><td>108-999989 (999881)</td></tr>
-                      <tr><td>Roots</td><td>1</td></tr>
-                      <tr><td>Nodes</td><td>211</td></tr>
-                      <tr><td>Sites</td><td>12844</td></tr>
-                      <tr><td>Mutations</td><td>187726</td></tr>
-                      <tr><td>Total Branch Length</td><td>17122624</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            </div></div>
 </div>
 <p>Now get the intervals of this tree. Then try to filter out edges between those positions:</p>
 <div class="cell docutils container">
@@ -1044,46 +1117,10 @@ Duplicate entries at position 950803, ignoring all but the first
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-        <div>
-            <style scoped="">
-                .tskit-table tbody tr th:only-of-type {vertical-align: middle;}
-                .tskit-table tbody tr th {vertical-align: top;}
-                .tskit-table tbody td {text-align: right;padding: 0.5em 0.5em;}
-                .tskit-table tbody th {padding: 0.5em 0.5em;}
-            </style>
-            <table border="1" class="tskit-table">
-                <thead>
-                    <tr>
-                        <th>id</th><th>left</th><th>right</th><th>parent</th><th>child</th><th>metadata</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>0</td><td>108</td><td>999989</td><td>210</td><td>0</td><td></td></tr>
-<tr><td>1</td><td>108</td><td>999989</td><td>210</td><td>1</td><td></td></tr>
-<tr><td>2</td><td>108</td><td>999989</td><td>210</td><td>2</td><td></td></tr>
-<tr><td>3</td><td>108</td><td>999989</td><td>210</td><td>3</td><td></td></tr>
-<tr><td>4</td><td>108</td><td>999989</td><td>210</td><td>4</td><td></td></tr>
-<tr><td>5</td><td>108</td><td>999989</td><td>210</td><td>5</td><td></td></tr>
-<tr><td>6</td><td>108</td><td>999989</td><td>210</td><td>6</td><td></td></tr>
-<tr><td>7</td><td>108</td><td>999989</td><td>210</td><td>7</td><td></td></tr>
-<tr><td>8</td><td>108</td><td>999989</td><td>210</td><td>8</td><td></td></tr>
-<tr><td>9</td><td>108</td><td>999989</td><td>210</td><td>9</td><td></td></tr>
-
-                </tbody>
-            </table>
-        </div>
-    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">filtered_edges</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>210
 </pre></div>
 </div>
 </div>
@@ -1101,11 +1138,6 @@ position like in the edge table. However, from the edge table I can derive which
 
 <span class="n">node_ids</span> <span class="o">=</span> <span class="n">parents</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">childs</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">node_ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> distinct nodes&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Got 211 distinct nodes
 </pre></div>
 </div>
 </div>
@@ -1134,12 +1166,6 @@ odd positions:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.18086124, 0.01895648, 0.00952381, 0.00952381, 0.04670768,
-       0.06475279, 0.06475279, 0.00952381, 0.01895648, 0.04670768])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Now let’s compare the nucleotide diversity calculated using vcftools: here’s the
 command line to calculate nucleotide diversity <em>per site</em>:</p>
@@ -1155,75 +1181,11 @@ vcftools<span class="w"> </span>--gzvcf<span class="w"> </span>test1M.out.inf.vc
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>CHROM</th>
-      <th>POS</th>
-      <th>PI</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>108</td>
-      <td>0.180861</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>120</td>
-      <td>0.018957</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1</td>
-      <td>307</td>
-      <td>0.009524</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>355</td>
-      <td>0.009524</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>372</td>
-      <td>0.046708</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ts_diversity is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_diversity</span><span class="p">)</span><span class="si">}</span><span class="s2"> in size&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vcftools_diversity is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vcftools_diversity</span><span class="p">)</span><span class="si">}</span><span class="s2"> in size&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ts_diversity is 12844 in size
-vcftools_diversity is 12885 in size
 </pre></div>
 </div>
 </div>
@@ -1245,11 +1207,6 @@ the diveristy I can misure in those points will be different:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
-</pre></div>
-</div>
-</div>
 </div>
 <p>Calculate diversity using <em>branch</em>:</p>
 <div class="cell docutils container">
@@ -1262,29 +1219,11 @@ the diveristy I can misure in those points will be different:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[163072.61104365 163072.61104365 163072.61104365 163072.61104365
- 163072.61104365 163072.61104365 163072.61104365 163072.61104365
- 163072.61104365 163072.61104365]
-ts_diversity_branch is 25579 in size
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">diversity</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;branch&#39;</span><span class="p">,</span> <span class="n">windows</span><span class="o">=</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts</span><span class="p">))[:</span><span class="mi">10</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">create_windows</span><span class="p">(</span><span class="n">ts</span><span class="p">)[:</span><span class="mi">10</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[     0.         163072.61104365 163072.61104365 163072.61104365
- 163072.61104365 163072.61104365 163072.61104365 163072.61104365
- 163072.61104365 163072.61104365]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  0. 108. 109. 120. 121. 307. 308. 355. 356. 372.]
 </pre></div>
 </div>
 </div>
@@ -1295,12 +1234,6 @@ ts_diversity_branch is 25579 in size
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ts_diversity</span><span class="p">,</span> <span class="n">vcftools_diversity</span><span class="p">[</span><span class="s2">&quot;PI&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f8cc07a4610&gt;
-</pre></div>
-</div>
-<img alt="../_images/4eaefbf2fc4526b3e7b6aee6655ff2f445dbb336cc45c14bf9f4a3673e24e8e2.png" src="../_images/4eaefbf2fc4526b3e7b6aee6655ff2f445dbb336cc45c14bf9f4a3673e24e8e2.png" />
 </div>
 </div>
 <p>The <em>branch</em> nuclueotide diversity need to be fixed: it doesn’t have <code class="docutils literal notranslate"><span class="pre">0</span></code> in positions between windows:</p>
@@ -1370,7 +1303,8 @@ ts_diversity_branch is 25579 in size
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1428,8 +1362,8 @@ By Paolo Cozzi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
