@@ -282,28 +282,21 @@ def add_diploid_sites(
 @click.option(
     "--num_threads", help="number of threads with tsinfer", type=int, default=1
 )
-@optgroup.group("tsdate parameters")
-@optgroup.option(
-    "--inside_outside",
+@click.option(
+    "--tsdate_method",
+    type=click.Choice(
+        ["inside_outside", "variational_gamma", "maximization"], case_sensitive=False
+    ),
+    default="inside_outside",
+    show_default=True,
     help=(
+        "the continuous-time variational_gamma approach is the most accurate. "
         "The discrete-time inside_outside approach is slightly less accurate, "
         "especially for older times, but is slightly more numerically robust "
-        "and also allows each node to have an arbitrary (discretised) probability"
-        " distribution"
+        "and also allows each node to have an arbitrary (discretised) probability "
+        "distribution. The discrete-time maximization approach is always stable "
+        "but is the least accurate."
     ),
-    is_flag=True,
-    default=True,
-)
-@optgroup.option(
-    "--variational_gamma", help="Most accurate continuous time approach", is_flag=True
-)
-@optgroup.option(
-    "--maximization",
-    help=(
-        "The discrete-time maximization approach is always stable but is "
-        "the least accurate"
-    ),
-    is_flag=True,
 )
 @click.option("--mutation_rate", help="tsdate mutation rate", type=float, default=1e-8)
 @click.option(
@@ -318,9 +311,7 @@ def create_tstree(
     output_samples: click.Path,
     output_trees: click.Path,
     num_threads: int,
-    inside_outside: bool,
-    variational_gamma: bool,
-    maximization: bool,
+    tsdate_method: click.Choice,
     mutation_rate: float,
     Ne: float,
 ):
@@ -407,19 +398,7 @@ def create_tstree(
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
     inferred_ts = tsdate.preprocess_ts(ts, filter_sites=False)
 
-    # determine method
-    if inside_outside:
-        tsdate_method = "inside_outside"
-
-    elif variational_gamma:
-        tsdate_method = "variational_gamma"
-
-    elif maximization:
-        tsdate_method = "maximization"
-
-    else:
-        raise NotImplementedError("tsdate method not yet implemented")
-
+    # date a tstree object with the supplied method
     dated_ts = tsdate.date(
         inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
     )
