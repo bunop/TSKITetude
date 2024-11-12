@@ -65,26 +65,59 @@ Simply clone this project with
 git clone https://github.com/bunop/TSKITetude.git
 ```
 
-## Install python dependencies
+## Set-Up
 
-Install (or update) python dependencies by entering in the cloned folder and type:
+This project can be installed either as a minimal package or with all dependencies
+required to execute Jupyter notebooks and build documentation. Please choose the
+installation type that best suits your needs.
+
+### Install TSKITetude Binaries
+
+This option installs only the executables required to create Tree Sequence objects.
+These executables are the same as those used in the
+[cnr-ibba/nf-treeseq](https://github.com/cnr-ibba/nf-treeseq) Nextflow pipeline.
+To install, navigate to the cloned repository folder and run:
 
 ```bash
 poetry install
 ```
 
-This will install all poetry dependencies, including `nbstripout`.
+### Install the Full Project
 
-## Install nbstripout filters
+To set up a complete environment with all dependencies required for documentation
+and Jupyter notebooks, navigate to the cloned repository folder and run:
 
-This project uses `nbstripout` to strip out notebook outputs before committing
-to git. To install the filters, type:
+```bash
+poetry install --with docs
+```
+
+This command installs all dependencies specified in Poetry, including `nbstripout`.
+
+## Activate Poetry Environment
+
+To activate the Poetry environment, navigate to your `TSKITetude` folder and run:
+
+```bash
+poetry shell
+```
+
+### Install nbstripout
+
+If you plan to work with Jupyter notebooks and documentation, you should configure
+Git to use the `nbstripout` tool to remove notebook output before committing.
+This can be done by running:
+
+```bash
+nbstripout --install
+```
+
+from within a Poetry shell, or:
 
 ```bash
 poetry run nbstripout --install
 ```
 
-This will install the filters in your local `.git/config` file.
+This will configure the filters in your local `.git/config` file.
 
 ## Install nextflow
 
