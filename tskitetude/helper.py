@@ -446,9 +446,13 @@ def create_tstree(
         dated_ts = tsdate.date(
             inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
         )
-    else tsdate_method == "maximization":
+    elif tsdate_method == "maximization":
         dated_ts = tsdate.date(
             inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
+        )
+    else:
+        raise NotImplementedError(
+            f"Dating method {tsdate_method} not implemented"
         )
 
     # save generated tree
