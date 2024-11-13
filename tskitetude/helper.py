@@ -437,10 +437,19 @@ def create_tstree(
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
     inferred_ts = tsdate.preprocess_ts(ts, filter_sites=False)
 
-    # date a tstree object with the supplied method
-    dated_ts = tsdate.date(
-        inferred_ts, method=tsdate_method, mutation_rate=mutation_rate #, Ne=Ne
-    )
+    
+    if tsdate_method == "inside_outside":
+        dated_ts = tsdate.date(
+            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
+        )
+    elif tsdate_method == "variational_gamma":
+        dated_ts = tsdate.date(
+            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
+        )
+    else tsdate_method == "maximization":
+        dated_ts = tsdate.date(
+            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
+        )
 
     # save generated tree
     dated_ts.dump(output_trees)
