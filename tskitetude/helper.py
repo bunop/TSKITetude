@@ -439,7 +439,7 @@ def create_tstree(
 
     # date a tstree object with the supplied method
     dated_ts = tsdate.date(
-        inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
+        inferred_ts, method=tsdate_method, mutation_rate=mutation_rate #, Ne=Ne
     )
 
     # save generated tree
