@@ -24,6 +24,9 @@ logger = logging.getLogger(__name__)
 tsinfer_log = logging.getLogger("tsinfer")
 tsinfer_log.setLevel(logging.INFO)
 
+# some constants
+TSDATE_DEFAULT_NE = 1e4
+
 
 class TqdmToLogger(io.StringIO):
     """
@@ -275,7 +278,10 @@ def add_diploid_sites(
     type=click.Path(exists=True),
     required=True,
 )
-@optgroup.group("Ancestral allele parameters", cls=RequiredMutuallyExclusiveOptionGroup)
+@optgroup.group(
+    "Ancestral allele parameters",
+    cls=RequiredMutuallyExclusiveOptionGroup,
+)
 @optgroup.option(
     "--ancestral_estsfs",
     help="processed est-sfs ancient allele file",
@@ -296,7 +302,7 @@ def add_diploid_sites(
     "--ancestral_as_major",
     help="Use major allele as ancestral allele",
     is_flag=True,
-    default=False
+    default=False,
 )
 @click.option(
     "--output_samples",
@@ -311,14 +317,18 @@ def add_diploid_sites(
     required=True,
 )
 @click.option(
-    "--num_threads", help="number of threads with tsinfer", type=int, default=1
+    "--num_threads",
+    help="number of threads with tsinfer",
+    type=int,
+    default=1,
+    show_default=True,
 )
 @click.option(
     "--tsdate_method",
     type=click.Choice(
         ["inside_outside", "variational_gamma", "maximization"], case_sensitive=False
     ),
-    default="inside_outside",
+    default="variational_gamma",
     show_default=True,
     help=(
         "the continuous-time variational_gamma approach is the most accurate. "
@@ -329,9 +339,23 @@ def add_diploid_sites(
         "but is the least accurate."
     ),
 )
-@click.option("--mutation_rate", help="tsdate mutation rate", type=float, default=1e-8)
 @click.option(
-    "--ne", "Ne", help="tsdate effective population size", type=float, default=1e4
+    "--mutation_rate",
+    help="tsdate mutation rate",
+    type=float,
+    default=1e-8,
+    show_default=True,
+)
+@click.option(
+    "--ne",
+    "Ne",
+    help=(
+        "tsdate effective population size: affect only 'inside_outside' and "
+        "'maximization' tsdate_method parameter"
+    ),
+    type=float,
+    default=TSDATE_DEFAULT_NE,
+    show_default=True,
 )
 def create_tstree(
     vcf_file: click.Path,
@@ -437,8 +461,17 @@ def create_tstree(
     # Removes unary nodes (currently required in tsdate), keeps historical-only sites
     inferred_ts = tsdate.preprocess_ts(ts, filter_sites=False)
 
-    
-    if tsdate_method == "inside_outside":
+    logger.info(f"Inferring dates using {tsdate_method} method")
+
+    # warn if a user has specified a value for Ne
+    if Ne != TSDATE_DEFAULT_NE and tsdate_method == "variational_gamma":
+        logger.warning(
+            "You have specified a custom value for Ne, "
+            "but it will ignored by the 'variational_gamma' method."
+        )
+
+    # date the tree using the appropriate method
+    if tsdate_method in ("inside_outside", "maximization"):
         dated_ts = tsdate.date(
             inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
         )
@@ -446,14 +479,8 @@ def create_tstree(
         dated_ts = tsdate.date(
             inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
         )
-    elif tsdate_method == "maximization":
-        dated_ts = tsdate.date(
-            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
-        )
     else:
-        raise NotImplementedError(
-            f"Dating method {tsdate_method} not implemented"
-        )
+        raise NotImplementedError(f"Dating method '{tsdate_method}' not implemented")
 
     # save generated tree
     dated_ts.dump(output_trees)
