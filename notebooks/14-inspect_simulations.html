@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/14-inspect_simulations';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The SMARTER-database" href="../running/smarter-database.html" />
+    <link rel="next" title="Test TreeSequences with different mutation rates" href="16-different-mutation-rates.html" />
     <link rel="prev" title="Inference from a test VCF file" href="08-test_sample-vcf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,6 +184,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulating TreeSequences</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyze the simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -494,11 +495,11 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>1,995</td></tr>
+                            <tr><td>Trees</td><td>1,994</td></tr>
                             <tr><td>Sequence Length</td><td>100,000,000.0</td></tr>
                             <tr><td>Time Units</td><td>generations</td></tr>
                             <tr><td>Sample Nodes</td><td>4,810</td></tr>
-                            <tr><td>Total Size</td><td>47.3 MiB</td></tr>
+                            <tr><td>Total Size</td><td>51.2 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">
             <div>
@@ -527,8 +528,8 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                             
             <tr>
                 <td>Edges</td>
-                <td>1,185,555</td>
-                <td>36.2 MiB</td>
+                <td>1,288,678</td>
+                <td>39.3 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -554,17 +555,17 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
         
             <tr>
                 <td>Mutations</td>
-                <td>2,070</td>
-                <td>74.8 KiB</td>
+                <td>2,069</td>
+                <td>171.5 KiB</td>
                 <td style="text-align: center;">
-                    
+                    ✅
                 </td>
             </tr>
         
             <tr>
                 <td>Nodes</td>
-                <td>26,506</td>
-                <td>1.8 MiB</td>
+                <td>24,964</td>
+                <td>1.7 MiB</td>
                 <td style="text-align: center;">
                     ✅
                 </td>
@@ -614,10 +615,10 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                         <tbody>
                             
                 <tr>
-                    <td>12 November, 2024 at 05:15:03 PM</td>
+                    <td>14 November, 2024 at 10:43:04 AM</td>
                     <td>tsdate</td>
                     <td>0.2.1</td>
-                    <td>inside_outside</td>
+                    <td>variational_gamma</td>
                     <td>
                         <details>
                             <summary>Details</summary>
@@ -639,7 +640,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">parameters:</span>
                 <details >
                     <summary>dict</summary>
-                    mutation_rate: 5.87e-09<br/>recombination_rate: None<br/>time_units: None<br/>progress: None<br/>population_size: 34500.0<br/>eps: 1e-06<br/>outside_standardize: True<br/>ignore_oldest_root: False<br/>probability_space: logarithmic<br/>num_threads: None<br/>cache_inside: False<br/>command: inside_outside<br/>
+                    mutation_rate: 5.87e-09<br/>recombination_rate: None<br/>time_units: None<br/>progress: None<br/>population_size: None<br/>eps: 1e-06<br/>max_iterations: 10<br/>max_shape: 1000<br/>rescaling_intervals: 1000<br/>rescaling_iterations: 5<br/>match_segregating_sites: False<br/>regularise_roots: True<br/>singletons_phased: True<br/>command: variational_gamma<br/>
                 </details>
             </div>
             <br/>
@@ -652,7 +653,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: bullseye-laptop<br/>release: 5.10.0-28-amd64<br/>version: #1 SMP Debian 5.10.209-2<br/>(2024-01-31)<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -691,7 +692,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 </tr>
             
                 <tr>
-                    <td>12 November, 2024 at 05:10:16 PM</td>
+                    <td>14 November, 2024 at 10:42:42 AM</td>
                     <td>tsdate</td>
                     <td>0.2.1</td>
                     <td>preprocess_ts</td>
@@ -753,7 +754,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: bullseye-laptop<br/>release: 5.10.0-28-amd64<br/>version: #1 SMP Debian 5.10.209-2<br/>(2024-01-31)<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -792,7 +793,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 </tr>
             
                 <tr>
-                    <td>12 November, 2024 at 05:10:13 PM</td>
+                    <td>14 November, 2024 at 10:42:38 AM</td>
                     <td>tskit</td>
                     <td>0.6.0</td>
                     <td>simplify</td>
@@ -830,7 +831,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: bullseye-laptop<br/>release: 5.10.0-28-amd64<br/>version: #1 SMP Debian 5.10.209-2<br/>(2024-01-31)<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -869,7 +870,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 </tr>
             
                 <tr>
-                    <td>12 November, 2024 at 05:10:12 PM</td>
+                    <td>14 November, 2024 at 10:42:37 AM</td>
                     <td>tsinfer</td>
                     <td>0.3.3</td>
                     <td>infer</td>
@@ -947,7 +948,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: bullseye-laptop<br/>release: 5.10.0-28-amd64<br/>version: #1 SMP Debian 5.10.209-2<br/>(2024-01-31)<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1003,7 +1004,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.614715528690436e-06
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.094446757337434e-06
 </pre></div>
 </div>
 </div>
@@ -1233,7 +1234,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20<br/>13:23:26 UTC 2022<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1334,7 +1335,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20<br/>13:23:26 UTC 2022<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1411,7 +1412,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20<br/>13:23:26 UTC 2022<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1528,7 +1529,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20&lt;br/&gt;13:23:26 UTC 2022<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: core<br/>release: 5.15.0-50-generic<br/>version: #56-Ubuntu SMP Tue Sep 20<br/>13:23:26 UTC 2022<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1813,7 +1814,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1914,7 +1915,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1991,7 +1992,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -2108,7 +2109,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -2187,7 +2188,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00370087890248072, 0.006317426248074964, 0.011025754267375176]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.004369149530414562, 0.006317426248074964, 0.011025754267375176]
 </pre></div>
 </div>
 </div>
@@ -2253,8 +2254,8 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
       <th>0</th>
       <td>ts300I2k</td>
       <td>0.000006</td>
-      <td>0.000003</td>
-      <td>0.003701</td>
+      <td>0.000007</td>
+      <td>0.004369</td>
       <td>0.009345</td>
     </tr>
     <tr>
@@ -2285,7 +2286,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/37dda4106262619f58ca326e9845c26d71f6b4c5fcce497e73444e02ffe497a4.svg" src="../_images/37dda4106262619f58ca326e9845c26d71f6b4c5fcce497e73444e02ffe497a4.svg" />
+<img alt="../_images/1b63435a6b0aa933fb9801a6692672f65fb2c1b05e6d4087caf38ffc8a9eb81e.svg" src="../_images/1b63435a6b0aa933fb9801a6692672f65fb2c1b05e6d4087caf38ffc8a9eb81e.svg" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2295,7 +2296,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24161
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22777
 </pre></div>
 </div>
 </div>
@@ -2308,7 +2309,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2430.8792875386516
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2052.6908381336916
 </pre></div>
 </div>
 </div>
@@ -2323,105 +2324,243 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 24161: time 2430.8792875386516
-Node 6272: time 7.619691980766003
-Node 6291: time 26.376662167111693
-Node 6282: time 7.143595300364274
-Node 8130: time 30.915940325002325
-Node 9098: time 5.957853731504345
-Node 14896: time 5.167725075161597
-Node 14898: time 5.022457845734771
-Node 14899: time 5.168560275213842
-Node 14900: time 5.168560275213842
-Node 14901: time 4.847874533847422
-Node 14903: time 5.022457845734771
-Node 14907: time 5.154053183979157
-Node 21767: time 22.588185552901244
-Node 6623: time 17.24368166188127
-Node 23284: time 10.123766821045256
-Node 23513: time 36.344711294872305
-Node 23703: time 12.590605837603482
-Node 24097: time 947.543508473814
-Node 7900: time 52.568073637854745
-Node 6280: time 7.7153065484842385
-Node 7863: time 10.962115017525782
-Node 7865: time 10.667851072391295
-Node 7867: time 10.727961232705905
-Node 7869: time 10.935470406672483
-Node 7870: time 10.254699868732281
-Node 7871: time 10.482780112909454
-Node 7872: time 4.98305864926916
-Node 7881: time 6.533647992284609
-Node 7887: time 10.962115017525782
-Node 7889: time 5.078256658477855
-Node 7890: time 5.078256658477855
-Node 23806: time 778.9366807076804
-Node 6266: time 8.102995445423927
-Node 6618: time 6.399794760626978
-Node 23711: time 696.672330059515
-Node 6285: time 8.239017427926548
-Node 23704: time 629.9118182857358
-Node 23608: time 146.5542089515065
-Node 6278: time 8.061254677922955
-Node 15177: time 5.889041914929482
-Node 16615: time 5.714899813303452
-Node 20033: time 41.62164969643499
-Node 15271: time 12.115667296475568
-Node 15249: time 5.161880995414778
-Node 15250: time 5.161880995414778
-Node 15255: time 5.161880995414778
-Node 15257: time 5.161880995414778
-Node 15258: time 5.161880995414778
-Node 15259: time 5.161880995414778
-Node 15270: time 9.764116326434312
-Node 19991: time 31.977927359129623
-Node 20114: time 6.282265581557425
-Node 20116: time 16.073437918947093
-Node 12078: time 9.188516772754937
-Node 12065: time 4.164285188779845
-Node 12066: time 6.970873059724707
-Node 12067: time 4.164285188779845
-Node 12068: time 4.164285188779845
-Node 12069: time 4.434561214214308
-Node 12070: time 4.355671500325949
-Node 12071: time 4.3968856407101535
-Node 12072: time 4.3968856407101535
-Node 12073: time 4.434561214214308
-Node 12074: time 4.434561214214308
-Node 12075: time 4.434561214214308
-Node 12076: time 4.434561214214308
-Node 12077: time 4.434561214214308
-Node 15186: time 14.335048007257546
-Node 9139: time 14.335047007257547
-Node 9137: time 5.915358116574074
-Node 9138: time 5.124591907953998
-Node 14922: time 11.467479646133912
-Node 15146: time 11.710343729411559
-Node 15147: time 5.891011967860523
-Node 15148: time 5.891212048375582
-Node 15169: time 5.420579053566719
-Node 15185: time 11.31599370087708
-Node 15821: time 11.211015671471689
-Node 16626: time 13.63483440262657
-Node 16611: time 5.737573507009795
-Node 16612: time 5.737573507009795
-Node 16613: time 5.737573507009795
-Node 16614: time 7.463216121697707
-Node 16616: time 5.654938749530182
-Node 16617: time 5.654938749530182
-Node 16618: time 5.654938749530182
-Node 16619: time 5.654938749530182
-Node 16620: time 5.654938749530182
-Node 16621: time 5.654938749530182
-Node 16622: time 5.654938749530182
-Node 16623: time 5.654938749530182
-Node 16624: time 5.654938749530182
-Node 22848: time 146.5542079515065
-Node 16625: time 5.714920465911085
-Node 20107: time 12.332963660012545
-Node 22764: time 119.47525912533794
-Node 16407: time 9.306745997641158
-Node 23709: time 14.398563896843093
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 22777: time 2052.6908381336916
+Node 8903: time 434.81231081649946
+Node 6135: time 106.1892007443155
+Node 6129: time 0.8934057337059567
+Node 6483: time 176.72200836278202
+Node 7592: time 276.96057201724227
+Node 6128: time 0.8614562465737404
+Node 7561: time 3.9791894052606973
+Node 7563: time 3.999468241567902
+Node 7564: time 1.188705735207388
+Node 7567: time 3.7890351855486446
+Node 7569: time 3.975476618490097
+Node 7571: time 3.5365565646228947
+Node 7572: time 3.6637566443635015
+Node 7573: time 3.9929000439321367
+Node 7575: time 4.007783930029902
+Node 7580: time 4.009007303951234
+Node 7581: time 3.521605046679083
+Node 7583: time 3.777739324531501
+Node 7584: time 4.01605093483796
+Node 7589: time 3.947350924477
+Node 7590: time 3.9944752918363142
+Node 7898: time 229.68181326164057
+Node 8881: time 4.09889737639492
+Node 8887: time 12.679095449793016
+Node 8890: time 12.268408112978774
+Node 8899: time 8.139099194175857
+Node 8901: time 12.836428736500473
+Node 13050: time 4.98963690114448
+Node 14931: time 500.932483963765
+Node 8898: time 12.68715298661742
+Node 10157: time 9.591154540000376
+Node 14889: time 18.813183740173912
+Node 15797: time 535.2832203029757
+Node 6122: time 0.9520054312116241
+Node 8896: time 10.189682764936192
+Node 14797: time 477.87902741955713
+Node 7587: time 3.929325566221141
+Node 14793: time 15.732672612986047
+Node 14794: time 16.315067071567345
+Node 14796: time 4.164545942735638
+Node 16675: time 4.957739848486072
+Node 16678: time 2.809875076501315
+Node 16687: time 3.7692387771415583
+Node 16688: time 5.583649433556701
+Node 16689: time 5.583801240284319
+Node 16690: time 5.584009654135528
+Node 16691: time 5.584274853681661
+Node 16692: time 5.584597013379693
+Node 16693: time 5.584976303373147
+Node 16694: time 5.585412889753534
+Node 16695: time 5.585906934250183
+Node 16696: time 5.586458594273948
+Node 16698: time 5.5900115477039085
+Node 17304: time 7.986705680529684
+Node 17325: time 0.7956004478275346
+Node 17329: time 3.986749947975637
+Node 18326: time 488.76108704192944
+Node 18316: time 11.139555447856276
+Node 18317: time 13.13115725549762
+Node 18318: time 13.131023460322574
+Node 18319: time 13.130885546524349
+Node 18320: time 13.130743505803055
+Node 18321: time 13.130597329888149
+Node 18322: time 13.13044701046754
+Node 18323: time 13.130292539212606
+Node 18324: time 13.130133907712228
+Node 18325: time 13.129971107576223
+Node 21650: time 649.7474454048082
+Node 13148: time 231.73473746953783
+Node 8718: time 0.7454985191610484
+Node 13116: time 2.623990817698713
+Node 13117: time 2.531713631028989
+Node 13118: time 1.3551410734424203
+Node 13119: time 2.6873250473496437
+Node 13120: time 2.569436240983686
+Node 13121: time 2.4120832376890604
+Node 13122: time 1.1557660370163834
+Node 13123: time 2.5800379597015506
+Node 13124: time 2.648095118090795
+Node 13125: time 2.714712959046146
+Node 13126: time 2.716490449581194
+Node 13127: time 2.1499409866387693
+Node 13128: time 2.152356956687588
+Node 13129: time 2.5766507150077995
+Node 13130: time 2.1558634010722812
+Node 13131: time 2.6052120619285066
+Node 13132: time 2.609168281260556
+Node 13133: time 2.6131255767696953
+Node 13134: time 2.754943559465906
+Node 13135: time 2.6183771913530878
+Node 13136: time 2.622337017377116
+Node 13137: time 2.690591300147364
+Node 13138: time 2.694602569472846
+Node 13139: time 2.6342863324229726
+Node 13140: time 2.6382501116410633
+Node 13141: time 2.6422148297032817
+Node 13142: time 2.6461804681038137
+Node 13143: time 2.8006679821051215
+Node 13144: time 1.1939634220982231
+Node 13145: time 2.808125366929877
+Node 13146: time 2.703482411964289
+Node 13147: time 2.7574448285619275
+Node 16630: time 614.3845527455742
+Node 9062: time 292.27758837331703
+Node 9027: time 3.8730096696583987
+Node 9050: time 4.069306052061603
+Node 9051: time 3.9423270145585443
+Node 16297: time 556.123436267885
+Node 9764: time 0.5650181627266119
+Node 16265: time 4.672341823585986
+Node 16266: time 14.000220960409084
+Node 16267: time 9.022100881263809
+Node 16268: time 9.022231448427245
+Node 16269: time 9.022362034952206
+Node 16270: time 9.022492640966325
+Node 16271: time 9.02262326654373
+Node 16272: time 1.7234690786780857
+Node 16273: time 9.026434308163136
+Node 16274: time 9.02296033847764
+Node 16275: time 9.023091015132989
+Node 16276: time 9.023221711766737
+Node 16277: time 9.023352428408334
+Node 16278: time 9.023483165106466
+Node 16279: time 9.02361392184959
+Node 16280: time 9.023744698685741
+Node 16281: time 9.023875495564969
+Node 16282: time 9.024006312540884
+Node 16283: time 9.024137149544119
+Node 16284: time 9.024268006560899
+Node 16285: time 9.024398883585167
+Node 16286: time 9.02452978055363
+Node 16287: time 9.024660697428127
+Node 16288: time 9.024791634180168
+Node 16289: time 9.02492259072031
+Node 16290: time 9.025053567000027
+Node 16606: time 27.512453248013465
+Node 16607: time 8.42303725054012
+Node 16608: time 36.68937910269257
+Node 16609: time 7.140429749708737
+Node 16610: time 36.17715260581313
+Node 16611: time 17.012553415780133
+Node 16612: time 17.013050631465557
+Node 16613: time 17.013547994203154
+Node 16614: time 17.014045494894695
+Node 16615: time 17.014543124499404
+Node 16616: time 17.015040873952053
+Node 16617: time 17.015538734188567
+Node 16618: time 17.01603669611724
+Node 16619: time 17.01653475069084
+Node 16620: time 17.017032888813965
+Node 16622: time 35.87791186724872
+Node 16623: time 35.88013333743743
+Node 16624: time 9.070737216529594
+Node 16625: time 17.01917357736364
+Node 16626: time 17.019671698700122
+Node 16627: time 17.020169875846566
+Node 16628: time 17.020668099752054
+Node 16629: time 17.280056148810356
+Node 21647: time 27.709908194173906
+Node 22612: time 753.3502981415722
+Node 22169: time 748.8815811461643
+Node 21605: time 711.0370655397833
+Node 19424: time 662.9737077126814
+Node 16722: time 379.85699826349526
+Node 10082: time 0.5704704116237834
+Node 10083: time 0.5704739496820593
+Node 10084: time 0.5704774919224926
+Node 16666: time 9.6923057976201
+Node 16667: time 9.692649144056533
+Node 16669: time 1.3493225562948932
+Node 16676: time 7.76886116693954
+Node 16677: time 2.1530548268768497
+Node 16680: time 9.798813510484685
+Node 16681: time 9.799254393468106
+Node 16682: time 9.799695740947872
+Node 16685: time 9.801267368028737
+Node 16686: time 9.80171008380704
+Node 16701: time 9.808802575299746
+Node 16702: time 9.809247123949865
+Node 16703: time 9.809692126208374
+Node 16705: time 8.510792741216186
+Node 16706: time 8.94898724352245
+Node 16707: time 9.439849752874638
+Node 16708: time 8.992486515082533
+Node 16709: time 8.951038008433635
+Node 16710: time 9.814261931001605
+Node 16711: time 8.952158352760092
+Node 16712: time 9.443076846292904
+Node 16713: time 9.443788707890702
+Node 16717: time 9.818684811768044
+Node 16718: time 3.184228998791497
+Node 17070: time 616.8394386148441
+Node 13082: time 470.3342255704131
+Node 13037: time 15.647804223839623
+Node 13042: time 8.907497532813101
+Node 13043: time 9.79379075235168
+Node 13044: time 9.986664669809631
+Node 13045: time 9.794229495845668
+Node 13046: time 9.98710589082205
+Node 13047: time 9.987327897175815
+Node 13048: time 9.794889385481657
+Node 13049: time 13.17740489499901
+Node 13051: time 9.988350590020532
+Node 13052: time 9.988572833859081
+Node 13053: time 15.798890992963667
+Node 13054: time 9.796306231810231
+Node 13055: time 9.989195737050016
+Node 13056: time 9.796745813886153
+Node 13057: time 9.796964328525766
+Node 13058: time 9.797182848934815
+Node 13059: time 9.797401372148396
+Node 13060: time 9.990296983618506
+Node 13061: time 9.79784101274007
+Node 13062: time 9.990739067955863
+Node 13063: time 9.990961410602296
+Node 13064: time 9.798501745947796
+Node 13065: time 9.798720246814476
+Node 13066: time 9.798938742968822
+Node 13067: time 9.479501595893415
+Node 13068: time 13.18741621709565
+Node 13069: time 13.18778069900522
+Node 13070: time 13.188145678723716
+Node 13071: time 9.799952372505052
+Node 13072: time 9.99286190919817
+Node 13073: time 9.993084151879186
+Node 13074: time 9.993306378347857
+Node 13075: time 9.993528588373545
+Node 13076: time 9.993750781854825
+Node 13077: time 9.80127561934983
+Node 13078: time 9.482135132261984
+Node 13079: time 13.193051295305875
+Node 13080: time 1.100209047220454
+Node 16292: time 9.226951417896258
+Node 17068: time 33.58071222417884
+Node 17069: time 17.216947926385018
+Node 21644: time 26.52957870869525
 </pre></div>
 </div>
 </div>
@@ -2469,11 +2608,11 @@ Node 23709: time 14.398563896843093
       </div>
     </a>
     <a class="right-next"
-       href="../running/smarter-database.html"
+       href="16-different-mutation-rates.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The SMARTER-database</p>
+        <p class="prev-next-title">Test TreeSequences with different mutation rates</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

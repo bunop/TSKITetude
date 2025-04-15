@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -184,6 +184,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulating TreeSequences</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -508,7 +509,7 @@ wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/te
   return zarr.LMDBStore(self.path, subdir=False, map_size=map_size)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "6da06d51c42f48bc97656d6f3bbc309f"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsinfer/formats.py:428: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "0e3e64b656ed42ca95d75dd0655c03bb"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsinfer/formats.py:428: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
   store = zarr.LMDBStore(
 </pre></div>
 </div>
@@ -550,85 +551,85 @@ wget<span class="w"> </span>https://github.com/cnr-ibba/nf-treeseq/raw/master/te
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample file created for 18 samples (9 individuals) with 680 variable sites.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,492 - tsinfer.inference - INFO - Starting addition of 680 sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,488 - tsinfer.inference - INFO - Starting addition of 680 sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,524 - tsinfer.inference - INFO - Finished adding sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,518 - tsinfer.inference - INFO - Finished adding sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,525 - tsinfer.inference - INFO - Starting build for 525 ancestors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,518 - tsinfer.inference - INFO - Starting build for 525 ancestors
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,640 - tsinfer.inference - INFO - Finished building ancestors
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,618 - tsinfer.inference - INFO - Finished building ancestors
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,646 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,624 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,647 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,625 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,649 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,625 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,649 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,626 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,659 - tsinfer.inference - INFO - Starting ancestor matching for 18 epochs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,632 - tsinfer.inference - INFO - Starting ancestor matching for 18 epochs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,748 - tsinfer.inference - INFO - Built ancestors tree sequence: 591 nodes (64 pc ancestors); 2587 edges; 527 sites; 527 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,714 - tsinfer.inference - INFO - Built ancestors tree sequence: 591 nodes (64 pc ancestors); 2587 edges; 527 sites; 527 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,749 - tsinfer.inference - INFO - Finished ancestor matching
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,715 - tsinfer.inference - INFO - Finished ancestor matching
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,754 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,719 - tsinfer.inference - INFO - Mismatch prevented by setting constant high recombination and low mismatch probabilities
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,755 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,719 - tsinfer.inference - INFO - Summary of recombination probabilities between sites: min=0.01; max=0.01; median=0.01; mean=0.01
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,757 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,720 - tsinfer.inference - INFO - Summary of mismatch probabilities over sites: min=1e-20; max=1e-20; median=1e-20; mean=1e-20
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,758 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,721 - tsinfer.inference - INFO - Matching using 13 digits of precision in likelihood calcs
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,774 - tsinfer.inference - INFO - Loaded 18 samples 591 nodes; 2587 edges; 527 sites; 527 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,736 - tsinfer.inference - INFO - Loaded 18 samples 591 nodes; 2587 edges; 527 sites; 527 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,775 - tsinfer.inference - INFO - Started matching for 18 samples
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,737 - tsinfer.inference - INFO - Started matching for 18 samples
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,801 - tsinfer.inference - INFO - Inserting sample paths: 1163 edges in total
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,760 - tsinfer.inference - INFO - Inserting sample paths: 1163 edges in total
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,805 - tsinfer.inference - INFO - Finalising tree sequence
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,762 - tsinfer.inference - INFO - Finalising tree sequence
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,826 - tsinfer.inference - INFO - Built samples tree sequence: 617 nodes (72 pc); 3746 edges; 527 sites; 527 mutations
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,782 - tsinfer.inference - INFO - Built samples tree sequence: 617 nodes (72 pc); 3746 edges; 527 sites; 527 mutations
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,828 - tsinfer.inference - INFO - Mapping additional sites
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,783 - tsinfer.inference - INFO - Mapping additional sites
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,854 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,803 - tsinfer.inference - INFO - Removing the oldest edge to detach the virtual-root-like ancestor
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,860 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,807 - tsinfer.inference - INFO - Located the all zeros ultimate ancestor
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,864 - tsinfer.inference - INFO - Splitting ultimate ancestor into 276 nodes
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,811 - tsinfer.inference - INFO - Splitting ultimate ancestor into 276 nodes
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,881 - tsinfer.inference - INFO - Erased flanks covering 0.5445215377117799% of the genome: 166516.0 units at the start and 73497.0 units at the end
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,826 - tsinfer.inference - INFO - Erased flanks covering 0.5445215377117799% of the genome: 166516.0 units at the start and 73497.0 units at the end
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,882 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 893 nodes and 5212 edges
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,826 - tsinfer.inference - INFO - Simplifying with filter_sites=False, filter_populations=False, filter_individuals=False, and keep_unary=True on 893 nodes and 5212 edges
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,884 - tsinfer.inference - INFO - Finished simplify; now have 886 nodes and 3559 edges
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,828 - tsinfer.inference - INFO - Finished simplify; now have 886 nodes and 3559 edges
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inferred tree sequence `sparrow_ts`: 513 trees over 44.077779 Mb
@@ -666,16 +667,16 @@ Node 17 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-S
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,899 - tsdate.util - INFO - Beginning preprocessing
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,838 - tsdate.util - INFO - Beginning preprocessing
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,900 - tsdate.util - INFO - Minimum_gap: None and remove_telomeres: None
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,839 - tsdate.util - INFO - Minimum_gap: None and erase_flanks: None
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,901 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,839 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-11-12 18:07:28,902 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-15 17:07:28,840 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
 </pre></div>
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
@@ -686,41 +687,43 @@ Node 17 labels a chr26 sampled from individual {&#39;sample_id&#39;: &#39;ITOA-S
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">dated_ts</span> <span class="o">=</span> <span class="n">tsdate</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">inferred_ts</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">dated_ts</span>
 
-<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1751,</span> in <span class="ni">date</span><span class="nt">(tree_sequence, mutation_rate, recombination_rate, time_units, method, constr_iterations, return_posteriors, return_likelihood, progress, record_provenance, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1748</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">estimation_methods</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1749</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;method must be one of </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">estimation_methods</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1751</span> <span class="k">return</span> <span class="n">estimation_methods</span><span class="p">[</span><span class="n">method</span><span class="p">](</span>
-<span class="g g-Whitespace">   </span><span class="mi">1752</span>     <span class="n">tree_sequence</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1753</span>     <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1754</span>     <span class="n">recombination_rate</span><span class="o">=</span><span class="n">recombination_rate</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1755</span>     <span class="n">time_units</span><span class="o">=</span><span class="n">time_units</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1756</span>     <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1757</span>     <span class="n">constr_iterations</span><span class="o">=</span><span class="n">constr_iterations</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1758</span>     <span class="n">return_posteriors</span><span class="o">=</span><span class="n">return_posteriors</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1759</span>     <span class="n">return_likelihood</span><span class="o">=</span><span class="n">return_likelihood</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1760</span>     <span class="n">record_provenance</span><span class="o">=</span><span class="n">record_provenance</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1761</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1762</span> <span class="p">)</span>
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:977,</span> in <span class="ni">date</span><span class="nt">(tree_sequence, mutation_rate, recombination_rate, time_units, method, constr_iterations, set_metadata, return_fit, return_likelihood, allow_unary, progress, record_provenance, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">974</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">estimation_methods</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">975</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;method must be one of </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">estimation_methods</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">977</span> <span class="k">return</span> <span class="n">estimation_methods</span><span class="p">[</span><span class="n">method</span><span class="p">](</span>
+<span class="g g-Whitespace">    </span><span class="mi">978</span>     <span class="n">tree_sequence</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">979</span>     <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">980</span>     <span class="n">recombination_rate</span><span class="o">=</span><span class="n">recombination_rate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">981</span>     <span class="n">time_units</span><span class="o">=</span><span class="n">time_units</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">982</span>     <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">983</span>     <span class="n">constr_iterations</span><span class="o">=</span><span class="n">constr_iterations</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">984</span>     <span class="n">return_fit</span><span class="o">=</span><span class="n">return_fit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">985</span>     <span class="n">return_likelihood</span><span class="o">=</span><span class="n">return_likelihood</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">986</span>     <span class="n">allow_unary</span><span class="o">=</span><span class="n">allow_unary</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="n">set_metadata</span><span class="o">=</span><span class="n">set_metadata</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="n">record_provenance</span><span class="o">=</span><span class="n">record_provenance</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">989</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">990</span> <span class="p">)</span>
 
-<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1634,</span> in <span class="ni">variational_gamma</span><span class="nt">(tree_sequence, mutation_rate, eps, max_iterations, rescaling_intervals, rescaling_iterations, match_segregating_sites, max_shape, regularise_roots, singletons_phased, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1630</span> <span class="k">if</span> <span class="n">tree_sequence</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1631</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1632</span>         <span class="s2">&quot;No mutations present: these are required for the variational_gamma method&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1633</span>     <span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1634</span> <span class="n">dating_method</span> <span class="o">=</span> <span class="n">VariationalGammaMethod</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1635</span>     <span class="n">tree_sequence</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<span class="g g-Whitespace">   </span><span class="mi">1636</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1637</span> <span class="n">result</span> <span class="o">=</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1638</span>     <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1639</span>     <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">,</span>
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:852,</span> in <span class="ni">variational_gamma</span><span class="nt">(tree_sequence, mutation_rate, eps, max_iterations, rescaling_intervals, rescaling_iterations, match_segregating_sites, max_shape, regularise_roots, singletons_phased, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">848</span> <span class="k">if</span> <span class="n">tree_sequence</span><span class="o">.</span><span class="n">num_mutations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">849</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">850</span>         <span class="s2">&quot;No mutations present: these are required for the variational_gamma method&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">851</span>     <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">852</span> <span class="n">dating_method</span> <span class="o">=</span> <span class="n">VariationalGammaMethod</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">853</span>     <span class="n">tree_sequence</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">854</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">855</span> <span class="n">result</span> <span class="o">=</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">856</span>     <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">857</span>     <span class="n">max_iterations</span><span class="o">=</span><span class="n">max_iterations</span><span class="p">,</span>
    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1645</span>     <span class="n">singletons_phased</span><span class="o">=</span><span class="n">singletons_phased</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1646</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1647</span> <span class="k">return</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">]})</span>
+<span class="g g-Whitespace">    </span><span class="mi">863</span>     <span class="n">singletons_phased</span><span class="o">=</span><span class="n">singletons_phased</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span> <span class="k">return</span> <span class="n">dating_method</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
 
-<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:1218,</span> in <span class="ni">VariationalGammaMethod.__init__</span><span class="nt">(self, ts, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1217</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1218</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="nn">File ~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.10/lib/python3.10/site-packages/tsdate/core.py:446,</span> in <span class="ni">VariationalGammaMethod.__init__</span><span class="nt">(self, ts, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">446</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <span class="ne">TypeError</span>: EstimationMethod.__init__() got an unexpected keyword argument &#39;Ne&#39;
 </pre></div>

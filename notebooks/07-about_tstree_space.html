@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -184,6 +184,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulating TreeSequences</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="current nav bd-sidenav">
@@ -593,7 +594,7 @@ and inspect how much data is stored here</p>
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -694,7 +695,7 @@ and inspect how much data is stored here</p>
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -771,7 +772,7 @@ and inspect how much data is stored here</p>
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -888,7 +889,7 @@ and inspect how much data is stored here</p>
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5&lt;br/&gt;11:43:13 UTC 2023<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node1<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -966,9 +967,7 @@ NodeTableRow(flags=0,
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Edges are 2266939
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;child&#39;: array([    8,    18,    22, ..., 19751, 20181, 20418], dtype=int32),
+{&#39;child&#39;: array([    8,    18,    22, ..., 19751, 20181, 20418], dtype=int32),
  &#39;left&#39;: array([11093140., 11093140., 15399236., ..., 44004281., 44004281.,
        44004281.]),
  &#39;metadata&#39;: array([], dtype=int8),
@@ -977,7 +976,9 @@ NodeTableRow(flags=0,
  &#39;parent&#39;: array([11688, 11688, 11688, ..., 21090, 21090, 21090], dtype=int32),
  &#39;right&#39;: array([21463416., 21463416., 15810520., ..., 44004282., 44004282.,
        44004282.])}
-EdgeTableRow(left=44004281.0,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EdgeTableRow(left=44004281.0,
              right=44004282.0,
              parent=21090,
              child=20418,
@@ -1121,7 +1122,7 @@ position like in the edge table. However, from the edge table I can derive which
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4fbef3ebaf5076d19925c55a70129290fd5c60f3c2f2825e99b5c8b433a67e79.svg" src="../_images/4fbef3ebaf5076d19925c55a70129290fd5c60f3c2f2825e99b5c8b433a67e79.svg" />
+<img alt="../_images/281ed227611ca71667ddd7b49c890492b0eed71662d8ac2d4ae37112aa0c38e7.svg" src="../_images/281ed227611ca71667ddd7b49c890492b0eed71662d8ac2d4ae37112aa0c38e7.svg" />
 </div>
 </div>
 </section>

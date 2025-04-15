@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -183,6 +183,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulating TreeSequences</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="current nav bd-sidenav">
@@ -690,7 +691,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f1f685535b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7fcde770e380&gt;
 </pre></div>
 </div>
 <img alt="../_images/8dbac69ab0cfe6a8616fad650739c8e74e50e2d0c323fd6343ac8be919a7f7b0.png" src="../_images/8dbac69ab0cfe6a8616fad650739c8e74e50e2d0c323fd6343ac8be919a7f7b0.png" />
@@ -703,7 +704,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f1f21264cd0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7fcde0653d30&gt;
 </pre></div>
 </div>
 <img alt="../_images/0c0cc00f8d3a9f67ed753cf0b39339568e5aeaf4bb749d8d0c6ef9a48baaaaf1.png" src="../_images/0c0cc00f8d3a9f67ed753cf0b39339568e5aeaf4bb749d8d0c6ef9a48baaaaf1.png" />
@@ -721,7 +722,7 @@ try to model the number of mutations relying on the numer or samples. Try to fit
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;samples&#39;, ylabel=&#39;mutations&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/4779163199e69a4a662de5f82b2186b4ffad407936918439ff8d438af633e39d.png" src="../_images/4779163199e69a4a662de5f82b2186b4ffad407936918439ff8d438af633e39d.png" />
+<img alt="../_images/5bd01a0b29414308c104275fcc5a9c337f5c75d4c7902deb6caa05ae75b72cc2.png" src="../_images/5bd01a0b29414308c104275fcc5a9c337f5c75d4c7902deb6caa05ae75b72cc2.png" />
 </div>
 </div>
 <p>Try to fit a 2nd degree polynomial model using <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code>:</p>
