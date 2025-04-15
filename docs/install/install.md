@@ -65,26 +65,59 @@ Simply clone this project with
 git clone https://github.com/bunop/TSKITetude.git
 ```
 
-## Install python dependencies
+## Set-Up
 
-Install (or update) python dependencies by entering in the cloned folder and type:
+This project can be installed either as a minimal package or with all dependencies
+required to execute Jupyter notebooks and build documentation. Please choose the
+installation type that best suits your needs.
+
+### Install TSKITetude Binaries
+
+This option installs only the executables required to create Tree Sequence objects.
+These executables are the same as those used in the
+[cnr-ibba/nf-treeseq](https://github.com/cnr-ibba/nf-treeseq) Nextflow pipeline.
+To install, navigate to the cloned repository folder and run:
 
 ```bash
 poetry install
 ```
 
-This will install all poetry dependencies, including `nbstripout`.
+### Install the Full Project
 
-## Install nbstripout filters
+To set up a complete environment with all dependencies required for documentation
+and Jupyter notebooks, navigate to the cloned repository folder and run:
 
-This project uses `nbstripout` to strip out notebook outputs before committing
-to git. To install the filters, type:
+```bash
+poetry install --with docs
+```
+
+This command installs all dependencies specified in Poetry, including `nbstripout`.
+
+## Activate Poetry Environment
+
+To activate the Poetry environment, navigate to your `TSKITetude` folder and run:
+
+```bash
+poetry shell
+```
+
+### Install nbstripout
+
+If you plan to work with Jupyter notebooks and documentation, you should configure
+Git to use the `nbstripout` tool to remove notebook output before committing.
+This can be done by running:
+
+```bash
+nbstripout --install
+```
+
+from within a Poetry shell, or:
 
 ```bash
 poetry run nbstripout --install
 ```
 
-This will install the filters in your local `.git/config` file.
+This will configure the filters in your local `.git/config` file.
 
 ## Install nextflow
 
@@ -106,3 +139,28 @@ options to run the code and interact with this repository contents:
 2. `poetry run`: this command will run the code directly from the command line
     without activating the poetry environment. This is useful when you want to
     run a single command without activating the environment.
+
+## Update poetry dependencies
+
+There are two ways to update poetry dependencies: the first updates only the dependencies
+and the `poetry.lock` file, the second updates the dependencies with both `pyproject.toml`
+and `poetry.lock` file. The difference between the two is that the first command
+will not force the requirement of a specific version of a package, while the second
+will force the requirement of a specific version of a package.
+To update only the dependencies, type:
+
+```bash
+poetry update [package1 package2 ...]
+```
+
+This will update the dependencies and the `poetry.lock` file. To update the
+`pyproject.toml` file instead, type:
+
+```bash
+poetry add [package1 package2 ...]
+```
+
+or manually edit the `pyproject.toml` file and run `poetry lock [--no-update]`
+to update the `poetry.lock` file. This will force the requirement of a specific
+version of a package. Remember to call `poetry install` to ensure that the
+dependencies are installed in the poetry environment.

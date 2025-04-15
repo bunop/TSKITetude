@@ -12,4 +12,4 @@ publish: docs
 	poetry run ghp-import -n -p -f docs/_build/html
 
 install:
-	poetry install
+	poetry install --with docs

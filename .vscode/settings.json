@@ -12,6 +12,7 @@
         "ensembl",
         "estsfs",
         "indv",
+        "ipython",
         "levelname",
         "mininterval",
         "msprime",
