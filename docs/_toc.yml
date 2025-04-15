@@ -20,6 +20,7 @@ parts:
   - caption: Simulating TreeSequences
     chapters:
     - file: notebooks/14-inspect_simulations
+    - file: notebooks/16-different-mutation-rates
 
   - caption: The SMARTER database
     chapters:
