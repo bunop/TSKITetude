@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -197,6 +197,8 @@
 <li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-population-statistics.html">Population statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-population-statistic_plots.html">Population statistics plots</a></li>
 </ul>
 
     </div>
@@ -429,8 +431,8 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div>
-              <style>
+        <div>
+            <style>
                 .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td {padding: 0.5em 0.5em;}
                 .tskit-table tbody tr td:first-of-type {text-align: left;}
@@ -439,119 +441,330 @@
                 .tskit-table-set-table {margin: 12px 0 0 12px;}
                 details {display: inline-block;}
                 summary {cursor: pointer; outline: 0; display: list-item;}
-              </style>
-              <div class="tskit-table-set">
+            </style>
+            <div class="tskit-table-set">
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="padding:0;line-height:21px;">
-                          <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
-                          <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr><td>Trees</td><td>4</td></tr>
-                      <tr><td>Sequence Length</td><td>10000.0</td></tr>
-                      <tr><td>Time Units</td><td>generations</td></tr>
-                      <tr><td>Sample Nodes</td><td>6</td></tr>
-                      <tr><td>Total Size</td><td>3.5 KiB</td></tr>
-                      <tr>
-                        <td>Metadata</td><td style="text-align: left;">No Metadata</td></tr>
-                    </tbody>
-                  </table>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>4</td></tr>
+                            <tr><td>Sequence Length</td><td>10,000.0</td></tr>
+                            <tr><td>Time Units</td><td>generations</td></tr>
+                            <tr><td>Sample Nodes</td><td>6</td></tr>
+                            <tr><td>Total Size</td><td>3.5 KiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">No Metadata</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="tskit-table-set-table">
-                  <table class="tskit-table">
-                    <thead>
-                      <tr>
-                        <th style="line-height:21px;">Table</th>
-                        <th>Rows</th>
-                        <th>Size</th>
-                        <th>Has Metadata</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>20</td>
+                <td>648 Bytes</td>
+                <td style="text-align: center;">
                     
-                  <tr>
-                    <td>Edges</td>
-                      <td>20</td>
-                      <td>648 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Individuals</td>
-                      <td>3</td>
-                      <td>108 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Migrations</td>
-                      <td>0</td>
-                      <td>8 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Mutations</td>
-                      <td>5</td>
-                      <td>201 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Nodes</td>
-                      <td>14</td>
-                      <td>400 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Populations</td>
-                      <td>1</td>
-                      <td>224 Bytes</td>
-                      <td style="text-align: center;">
-                        ✅
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Provenances</td>
-                      <td>2</td>
-                      <td>1.7 KiB</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                  <tr>
-                    <td>Sites</td>
-                      <td>5</td>
-                      <td>141 Bytes</td>
-                      <td style="text-align: center;">
-                        
-                      </td>
-                    </tr>
-                
-                    </tbody>
-                  </table>
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>3</td>
+                <td>108 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>5</td>
+                <td>201 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>14</td>
+                <td>400 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>1</td>
+                <td>224 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>2</td>
+                <td>1.7 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>5</td>
+                <td>141 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
-              </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>14 July, 2022 at 09:51:11 PM</td>
+                    <td>msprime</td>
+                    <td>1.2.0</td>
+                    <td>sim_mutations</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: msprime<br/>version: 1.2.0<br/>
+                </details>
             </div>
-            </div></div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: sim_mutations<br/>
+            <div>
+                <span class="tskit-details-label">tree_sequence:</span>
+                <details >
+                    <summary>dict</summary>
+                    __constant__: __current_ts__<br/>
+                </details>
+            </div>
+            <br/>rate: 2e-07<br/>model: None<br/>start_time: None<br/>end_time: None<br/>discrete_genome: None<br/>keep: None<br/>random_seed: 123<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Darwin<br/>node: Yans-New-Air<br/>release: 20.6.0<br/>version: Darwin Kernel Version 20.6.0:<br/>Tue Feb 22 21:10:41 PST 2022; <br/>root:xnu-<br/>7195.141.26~1/RELEASE_X86_64<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.10<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">gsl:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.7<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>14 July, 2022 at 09:51:11 PM</td>
+                    <td>msprime</td>
+                    <td>1.2.0</td>
+                    <td>sim_ancestry</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    schema_version: 1.0.0<br/>
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: msprime<br/>version: 1.2.0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    command: sim_ancestry<br/>samples: 3<br/>demography: None<br/>sequence_length: 10000.0<br/>discrete_genome: None<br/>recombination_rate: 1e-07<br/>gene_conversion_rate: None<br/>gene_conversion_tract_length: None<br/>population_size: 1000<br/>ploidy: None<br/>model: dtwf<br/>initial_state: None<br/>start_time: None<br/>end_time: None<br/>record_migrations: None<br/>record_full_arg: None<br/>num_labels: None<br/>random_seed: 665<br/>replicate_index: 0<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">environment:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">os:</span>
+                <details >
+                    <summary>dict</summary>
+                    system: Darwin<br/>node: Yans-New-Air<br/>release: 20.6.0<br/>version: Darwin Kernel Version 20.6.0:<br/>Tue Feb 22 21:10:41 PST 2022; <br/>root:xnu-<br/>7195.141.26~1/RELEASE_X86_64<br/>machine: x86_64<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">python:</span>
+                <details >
+                    <summary>dict</summary>
+                    implementation: CPython<br/>version: 3.9.10<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">libraries:</span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">kastore:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.1.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">tskit:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 0.5.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">gsl:</span>
+                <details >
+                    <summary>dict</summary>
+                    version: 2.7<br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            <br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div></div>
 </div>
 <p>Get and print first tree in sequence:</p>
 <div class="cell docutils container">
@@ -568,7 +781,7 @@
 The first of 4 trees is plotted below
 </pre></div>
 </div>
-<img alt="../_images/b6243fa7ba31e68c961c30bb3a4a9879aa67770520c5beaaf29b411609199768.svg" src="../_images/b6243fa7ba31e68c961c30bb3a4a9879aa67770520c5beaaf29b411609199768.svg" />
+<img alt="../_images/9dcc4fcff54a8285ab462b4616dbc32537bba93f7a0a774af8888eaa20a9c9d9.svg" src="../_images/9dcc4fcff54a8285ab462b4616dbc32537bba93f7a0a774af8888eaa20a9c9d9.svg" />
 </div>
 </div>
 <p>Printing trees with mutation sites:</p>
@@ -594,7 +807,7 @@ The first of 4 trees is plotted below
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a5b6a52e980784a218d9b4e9a138756ffff589b8060644d4f58cd947060f448a.svg" src="../_images/a5b6a52e980784a218d9b4e9a138756ffff589b8060644d4f58cd947060f448a.svg" />
+<img alt="../_images/82fe0c1ecbfb0c0555cae368a17687ee3f6b84c5c874f0fa87d09aa39bb1575d.svg" src="../_images/82fe0c1ecbfb0c0555cae368a17687ee3f6b84c5c874f0fa87d09aa39bb1575d.svg" />
 </div>
 </div>
 <section id="extract-genetic-data">
@@ -647,7 +860,7 @@ Variable site 4 at genome position 8268.0 : [&#39;C&#39;, &#39;C&#39;, &#39;C&#3
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f2f01cac671c36096e50646c11674665a5826995646519379094449e958c658f.svg" src="../_images/f2f01cac671c36096e50646c11674665a5826995646519379094449e958c658f.svg" />
+<img alt="../_images/56d324205d957d91b8ad4e5f43dec634f532265fe47c486cf6e1f1a16642590a.svg" src="../_images/56d324205d957d91b8ad4e5f43dec634f532265fe47c486cf6e1f1a16642590a.svg" />
 </div>
 </div>
 </section>
@@ -687,7 +900,7 @@ Av. genealogical dist. between pairs of tips is 1645.8752266666668 generations
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0f194d00c31c72a29bebac7a83b0284291048f8c87c1efde515fd12d6637d44f.svg" src="../_images/0f194d00c31c72a29bebac7a83b0284291048f8c87c1efde515fd12d6637d44f.svg" />
+<img alt="../_images/e8d12ac20a1472806cd985a8a18a467ca977f9e895773ca41ecc5e90fafd6c1e.svg" src="../_images/e8d12ac20a1472806cd985a8a18a467ca977f9e895773ca41ecc5e90fafd6c1e.svg" />
 </div>
 </div>
 </section>
@@ -719,10 +932,10 @@ can be viewed, and copies of the tables can be edited to create a new tree seque
                 </thead>
                 <tbody>
                     <tr><td>0</td><td>536</td><td>A</td><td></td></tr>
-<tr><td>1</td><td>2447</td><td>G</td><td></td></tr>
-<tr><td>2</td><td>6947</td><td>C</td><td></td></tr>
-<tr><td>3</td><td>7868</td><td>C</td><td></td></tr>
-<tr><td>4</td><td>8268</td><td>C</td><td></td></tr>
+<tr><td>1</td><td>2,447</td><td>G</td><td></td></tr>
+<tr><td>2</td><td>6,947</td><td>C</td><td></td></tr>
+<tr><td>3</td><td>7,868</td><td>C</td><td></td></tr>
+<tr><td>4</td><td>8,268</td><td>C</td><td></td></tr>
 
                 </tbody>
             </table>
@@ -825,7 +1038,7 @@ By Paolo Cozzi
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2024-2025.
       <br/>
     
   </p>

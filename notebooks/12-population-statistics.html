@@ -34,9 +34,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -63,6 +63,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/12-population-statistics';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Population statistics plots" href="13-population-statistic_plots.html" />
+    <link rel="prev" title="50K simulations results" href="11-smarter_50K_results.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -113,8 +115,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -187,7 +187,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../running/smarter-database.html">The SMARTER-database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-smarter_samples_list.html">Get SMARTER samples list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03-smarter_database.html">Infer ancestry using EST-SFS</a></li>
@@ -197,6 +197,8 @@
 <li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Population statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-population-statistic_plots.html">Population statistics plots</a></li>
 </ul>
 
     </div>
@@ -406,7 +408,7 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-            <div id="DLtfjM"></div>
+            <div id="JUTSDs"></div>
             <script type="text/javascript" data-lets-plot-script="library">
                 if(!window.letsPlotCallQueue) {
                     window.letsPlotCallQueue = [];
@@ -430,9 +432,9 @@
                         var div = document.createElement("div");
                         div.style.color = 'darkred';
                         div.textContent = 'Error loading Lets-Plot JS';
-                        document.getElementById("DLtfjM").appendChild(div);
+                        document.getElementById("JUTSDs").appendChild(div);
                     };
-                    var e = document.getElementById("DLtfjM");
+                    var e = document.getElementById("JUTSDs");
                     e.appendChild(script);
                 })()
             </script>
@@ -626,7 +628,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;SWA&#39;, &#39;CHR&#39;, &#39;ALT&#39;, &#39;IAW&#39;, &#39;SAA&#39;, &#39;LLW&#39;, &#39;SUM&#39;, &#39;LAT&#39;, &#39;IDF&#39;, &#39;MAS&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;SAA&#39;, &#39;IAW&#39;, &#39;LAT&#39;, &#39;ALT&#39;, &#39;LLW&#39;, &#39;CHR&#39;, &#39;IDF&#39;, &#39;SWA&#39;, &#39;SUM&#39;, &#39;MAS&#39;]
 </pre></div>
 </div>
 </div>
@@ -663,6 +665,24 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="11-smarter_50K_results.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">50K simulations results</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="13-population-statistic_plots.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Population statistics plots</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -689,7 +709,7 @@ By Paolo Cozzi
 
   <p class="copyright">
     
-      © Copyright 2024.
+      © Copyright 2024-2025.
       <br/>
     
   </p>
