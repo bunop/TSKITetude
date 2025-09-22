@@ -171,3 +171,6 @@ results*/
 
 # test directory for reference allele as ancestral]
 experiments/
+
+# let's plot images
+lets-plot-images/
