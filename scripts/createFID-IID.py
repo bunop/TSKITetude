@@ -53,13 +53,13 @@ if __name__ == "__main__":
     vcf_files = [f for f in os.listdir(args.directory) if f.endswith(".vcf.gz")]
 
     logging.info(
-        f"Trovati {len(vcf_files)} file VCF nella directory '{args.directory}': {vcf_files}"
+        f"Found {len(vcf_files)} VCF files in directory '{args.directory}': {vcf_files}"
     )
 
     for vcf_file in vcf_files:
         vcf_path = args.directory / vcf_file
 
-        logging.info(f"Processo il file VCF: {vcf_path}")
+        logging.info(f"Processing VCF file: {vcf_path}")
 
         vcf = cyvcf2.VCF(str(vcf_path))
         vcf_indivs = set(vcf.samples)
@@ -68,12 +68,17 @@ if __name__ == "__main__":
             ".vcf.gz", ".sample_names.txt"
         )
 
-        logging.info(f"File di output: {outfile}")
+        logging.info(f"Output file: {outfile}")
 
         with open(outfile, "w") as f:
             writer = csv.writer(f, delimiter="\t", lineterminator="\n")
             for iid in vcf_indivs:
-                fid = indivs[iid]
-                writer.writerow([fid, iid])
+                if iid in indivs:
+                    fid = indivs[iid]
+                    writer.writerow([fid, iid])
+                else:
+                    raise Exception(
+                        f"Individual ID '{iid}' found in VCF but not in '{args.indiv_list}'"
+                    )
 
-        logging.info(f"Scritti {len(vcf_indivs)} individui in {outfile}")
+        logging.info(f"Written {len(vcf_indivs)} individuals to {outfile}")

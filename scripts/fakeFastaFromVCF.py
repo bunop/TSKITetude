@@ -18,8 +18,10 @@ import Bio.SeqIO
 import Bio.SeqRecord
 
 
-def compute_maxpos(vcf: cyvcf2.VCF) -> OrderedDict:
+def compute_maxpos(vcf_file: argparse.FileType) -> OrderedDict:
     maxpos = OrderedDict()
+
+    vcf = cyvcf2.VCF(vcf_file.name)
 
     for rec in vcf:
         chrom = rec.CHROM
@@ -63,7 +65,7 @@ if __name__ == "__main__":
     vcf = cyvcf2.VCF(vcf_file.name)
 
     # compute the chromosome lengths from max positions in VCF
-    chr_lengths = compute_maxpos(vcf)
+    chr_lengths = compute_maxpos(vcf_file)
 
     seq_records = []
 
