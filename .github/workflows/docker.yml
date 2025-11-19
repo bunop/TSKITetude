@@ -14,11 +14,13 @@ on:
   push:
     branches:
       - 'master'
+      - 'devel'
     tags:
       - 'v*'
   pull_request:
     branches:
       - 'master'
+      - 'devel'
 
 
 jobs:
@@ -53,7 +55,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          file: .github/gitpod.Dockerfile
+          file: .github/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
