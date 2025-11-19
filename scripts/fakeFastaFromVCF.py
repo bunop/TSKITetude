@@ -10,6 +10,7 @@ import argparse
 from collections import OrderedDict
 
 import os
+import math
 import cyvcf2
 import Bio.Seq
 import Bio.bgzf
@@ -67,7 +68,9 @@ if __name__ == "__main__":
     seq_records = []
 
     for chrom, length in chr_lengths.items():
-        seq = Bio.Seq.MutableSeq("N" * length)
+        # round up to nearest million
+        rounded_length = int(math.ceil(length / 1_000_000) * 1_000_000)
+        seq = Bio.Seq.MutableSeq("N" * rounded_length)
 
         # fill in REF alleles from VCF
         for snp in vcf(chrom):
