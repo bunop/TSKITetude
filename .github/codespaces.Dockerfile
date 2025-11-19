@@ -1,14 +1,14 @@
 #
-# VERSION 0.4.0
+# VERSION 0.5.0
 # DOCKER-VERSION  27.2.0
 # AUTHOR:         Paolo Cozzi <paolo.cozzi@ibba.cnr.it>
-# DESCRIPTION:    A gitpod base image with tskitetude installed
+# DESCRIPTION:    A codespaces base image with tskitetude installed
 # TO_BUILD:       docker build --rm -t bunop/tskitetude .
 # TO_RUN:         docker run --rm -ti bunop/tskitetude bash
-# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.4.0
+# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.5.0
 #
 
-FROM gitpod/workspace-base:2024-08-20-00-26-31
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 LABEL maintainer="paolo.cozzi@ibba.cnr.it"
 
@@ -69,7 +69,7 @@ RUN wget -qO- https://get.nextflow.io | bash && \
     chmod +rx /usr/local/bin/nextflow
 
 # Set some useful variables
-ARG POETRY_VERSION=1.8.3
+ARG POETRY_VERSION=2.2.1
 
 ENV \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -87,10 +87,10 @@ RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
 # ovverride bashrc
-COPY .github/gitpod.bashrc /home/gitpod/.bashrc
+COPY .github/codespaces.bashrc /home/vscode/.bashrc
 
 # Fix user permissions
-RUN chown -R gitpod:gitpod /home/gitpod/
+RUN chown -R vscode:vscode /home/vscode/
 
-# Change user to gitpod
-USER gitpod
+# Change user to vscode
+USER vscode
