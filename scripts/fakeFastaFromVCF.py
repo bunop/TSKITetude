@@ -29,6 +29,7 @@ def compute_maxpos(vcf_file: argparse.FileType) -> OrderedDict:
         if chrom not in maxpos or pos > maxpos[chrom]:
             maxpos[chrom] = pos
 
+    vcf.close()
     return maxpos
 
 
@@ -92,3 +93,7 @@ if __name__ == "__main__":
     # write to output FASTA file
     with Bio.bgzf.open(args.output, "wb") as output_handle:
         Bio.SeqIO.write(seq_records, output_handle, "fasta")
+
+    # close file handles
+    vcf.close()
+    vcf_file.close()

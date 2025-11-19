@@ -64,7 +64,7 @@ if __name__ == "__main__":
         vcf = cyvcf2.VCF(str(vcf_path))
         vcf_indivs = set(vcf.samples)
 
-        outfile = args.directory / pathlib.Path(vcf_file).name.replace(
+        outfile = args.directory / vcf_file.replace(
             ".vcf.gz", ".sample_names.txt"
         )
 

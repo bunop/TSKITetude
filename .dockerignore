@@ -1,4 +1,4 @@
-# Version control metadata (non necessario nell'immagine)
+# Version control metadata (not necessary in the image)
 .git
 .gitignore
 
@@ -19,14 +19,14 @@ __pycache__/
 # Jupyter Book build
 docs/_build/
 
-# Large / ephemeral runtime dirs (rimuovi se ti servono in immagine)
+# Large / ephemeral runtime dirs (remove if needed in image)
 work/
 results/
 
-# Raw data (rimuovi se vuoi includerla nell'immagine)
+# Raw data (remove if you want to include it in the image)
 data/
 
-# Test artifacts (mantieni tests/ se vuoi eseguire test dentro container)
+# Test artifacts (keep tests/ if you want to run tests inside container)
 # tests/__pycache__/
 
 # Docker specific
@@ -38,6 +38,6 @@ Dockerfile
 .mypy_cache/
 .pytest_cache/
 
-# VS Code & editor settings (non servono nell'immagine)
+# VS Code & editor settings (not needed in the image)
 .vscode/
 .idea/
