@@ -41,7 +41,8 @@ RUN wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/lat
     rm Miniforge3.sh && \
     conda clean -afy
 
-# update base channel
+# Configure conda for bash and set envs_dirs to /workspaces for Codespaces persistence
+# (Codespaces mounts the repo at /workspaces/<repo-name>, not in $HOME)
 RUN conda init bash && \
     conda config --add envs_dirs /workspaces/.conda/envs
 
@@ -76,13 +77,15 @@ ENV \
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
-# Copy project files
+# Copy project files and pre-install dependencies in /workspaces/tskitetude
+# Codespaces will mount the actual repo at /workspaces/TSKITetude, reusing the .venv
 WORKDIR /workspaces/tskitetude
 COPY pyproject.toml poetry.lock ./
 COPY tskitetude/ ./tskitetude/
 COPY README.md ./
 
-# Install the project with docs dependencies, then clean Poetry/Pip caches
+# Install the project with docs dependencies, then clean Poetry/Pip caches to reduce image size
+# Cache cleanup saves hundreds of MB by removing downloaded wheels and metadata
 RUN mkdir -p "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR" && \
     poetry install --with docs && \
     pip cache purge || true && \
@@ -92,10 +95,12 @@ RUN mkdir -p "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR" && \
 # ovverride bashrc
 COPY .github/bashrc /home/vscode/.bashrc
 
-# Fix user permissions
+# Fix user permissions for vscode user
+# Ensures /workspaces and $HOME are writable when Codespaces mounts the repo
 RUN chown -R vscode:vscode /home/vscode/ /workspaces
 
-# Change user to vscode
+# Switch to vscode user (Codespaces default user)
 USER vscode
 
+# Set working directory to /workspaces (Codespaces will mount repo here)
 WORKDIR /workspaces
