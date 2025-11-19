@@ -77,26 +77,12 @@ ENV \
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
-# Prepare /workspaces directory and cache directories with vscode ownership before switching user
-RUN mkdir -p /workspaces/tskitetude "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR" && \
-    chown -R vscode:vscode /workspaces "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR"
+# Prepare /workspaces directory with vscode ownership
+RUN mkdir -p /workspaces && \
+    chown -R vscode:vscode /workspaces
 
-# Switch to vscode user early (before COPY/install to avoid chown later)
+# Switch to vscode user
 USER vscode
-
-# Copy project files and pre-install dependencies in /workspaces/tskitetude
-# Codespaces will mount the actual repo at /workspaces/TSKITetude, reusing the .venv
-WORKDIR /workspaces/tskitetude
-COPY pyproject.toml poetry.lock ./
-COPY tskitetude/ ./tskitetude/
-COPY README.md ./
-
-# Install the project with docs dependencies, then clean Poetry/Pip caches to reduce image size
-# Cache cleanup saves hundreds of MB by removing downloaded wheels and metadata
-RUN poetry install --with docs && \
-    pip cache purge || true && \
-    [ -x ./.venv/bin/pip ] && ./.venv/bin/pip cache purge || true && \
-    rm -rf "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR" ~/.cache/pip
 
 # Override bashrc for vscode user
 COPY .github/bashrc /home/vscode/.bashrc

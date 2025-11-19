@@ -15,6 +15,12 @@
     }
   },
   "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": {
+      "label": "Jupyter Lab",
+      "onAutoForward": "openBrowser"
+    }
+  },
   "postCreateCommand": "poetry install --with docs && poetry run nbstripout --install",
-  "postStartCommand": "poetry run jupyter lab --no-browser --port=8888 --ip=0.0.0.0"
+  "postStartCommand": "poetry run jupyter lab --no-browser --port=8888 --ip=0.0.0.0 --IdentityProvider.token=''"
 }
