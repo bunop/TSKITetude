@@ -51,7 +51,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 RUN conda config --add channels bioconda && \
     conda config --add channels conda-forge && \
     conda config --set channel_priority strict && \
-    conda config --add envs_dirs /workspace/.conda/envs && \
+    conda config --add envs_dirs /workspaces/.conda/envs && \
     conda update --quiet --yes --all && \
     conda install --quiet --yes --name base \
         mamba && \
@@ -86,11 +86,22 @@ ENV \
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
+# Copy project files
+WORKDIR /workspaces/tskitetude
+COPY pyproject.toml poetry.lock ./
+COPY tskitetude/ ./tskitetude/
+COPY README.md ./
+
+# Install the project with docs dependencies
+RUN poetry install --with docs
+
 # ovverride bashrc
 COPY .github/codespaces.bashrc /home/vscode/.bashrc
 
 # Fix user permissions
-RUN chown -R vscode:vscode /home/vscode/
+RUN chown -R vscode:vscode /home/vscode/ /workspaces
 
 # Change user to vscode
 USER vscode
+
+WORKDIR /workspaces
