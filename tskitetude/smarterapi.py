@@ -1,4 +1,3 @@
-
 import logging
 import requests
 from requests.models import PreparedRequest
@@ -16,7 +15,7 @@ BASE_URL = "https://webserver.ibba.cnr.it"
 SIZE = 100
 
 
-class Location():
+class Location:
     _data = {}
     name = None
     chrom = None
@@ -25,7 +24,7 @@ class Location():
     illumina_top = None
     illumina_forward = None
 
-    def __init__(self, name: str = None, data = {}):
+    def __init__(self, name: str = None, data={}):
         self.name = name
 
         if data:
@@ -33,9 +32,7 @@ class Location():
             self.read_data(data)
 
     def __str__(self):
-        return (
-            f"{self.name}: {self.chrom}:{self.position} [{self.illumina_top}]"
-        )
+        return f"{self.name}: {self.chrom}:{self.position} [{self.illumina_top}]"
 
     def read_data(self, data):
         # read some attributes for simplicity
@@ -46,12 +43,16 @@ class Location():
 
     def to_update_alleles(self):
         old_code = self.illumina_top.split("/")
+
+        if self.illumina_forward is None:
+            raise AttributeError(f"No illumina_forward allele for variant {self.name}")
+
         new_code = self.illumina_forward.split("/")
 
         return [self.name, old_code[0], old_code[1], new_code[0], new_code[1]]
 
 
-class EndPointMixin():
+class EndPointMixin:
     url = None
     headers = {}
 
@@ -72,11 +73,7 @@ class EndPointMixin():
         # check for page and size
         kwargs = self._update_kwargs(kwargs)
 
-        response = SESSION.get(
-            self.url,
-            headers=self.headers,
-            params=kwargs
-        )
+        response = SESSION.get(self.url, headers=self.headers, params=kwargs)
 
         if response.status_code == 200:
             return response.json()
@@ -89,53 +86,38 @@ class SheepEndpoint(EndPointMixin):
     url = urljoin(BASE_URL, "smarter-api/samples/sheep")
 
     def get_samples(
-            self,
-            _type: str = None,
-            breed: str = None,
-            code: str = None,
-            chip_name: str = None,
-            **kwargs) -> dict:
+        self,
+        _type: str = None,
+        breed: str = None,
+        code: str = None,
+        chip_name: str = None,
+        **kwargs,
+    ) -> dict:
         """Get the samples from the Sheep SMARTER API."""
 
         return self.get(
-            type=_type,
-            breed=breed,
-            breed_code=code,
-            chip_name=chip_name,
-            **kwargs
+            type=_type, breed=breed, breed_code=code, chip_name=chip_name, **kwargs
         )
 
 
 class BreedEndpoint(EndPointMixin):
     url = urljoin(BASE_URL, "smarter-api/breeds")
 
-    def get_breeds(
-            self,
-            species: str = None,
-            **kwargs) -> dict:
+    def get_breeds(self, species: str = None, **kwargs) -> dict:
         """Get the breeds from the Sheep SMARTER API."""
 
-        return self.get(
-            species=species,
-            **kwargs
-        )
+        return self.get(species=species, **kwargs)
 
 
 class ChipEndpoint(EndPointMixin):
     url = urljoin(BASE_URL, "smarter-api/supported-chips")
 
     def get_chips(
-            self,
-            species: str = None,
-            manufacturer: str = None,
-            **kwargs) -> dict:
+        self, species: str = None, manufacturer: str = None, **kwargs
+    ) -> dict:
         """Get the chips from the Sheep SMARTER API."""
 
-        return self.get(
-            species=species,
-            manufacturer=manufacturer,
-            **kwargs
-        )
+        return self.get(species=species, manufacturer=manufacturer, **kwargs)
 
 
 class VariantsEndpoint(EndPointMixin):
@@ -143,24 +125,15 @@ class VariantsEndpoint(EndPointMixin):
         super().__init__()
 
         self.url = urljoin(
-            BASE_URL,
-            f"smarter-api/variants/{species.lower()}/{assembly.upper()}"
+            BASE_URL, f"smarter-api/variants/{species.lower()}/{assembly.upper()}"
         )
 
         logger.info(f"Initialized VariantsEndpoint with URL: {self.url}")
 
-    def get_variants(
-            self,
-            chip_name: str = None,
-            region: str = None,
-            **kwargs) -> dict:
+    def get_variants(self, chip_name: str = None, region: str = None, **kwargs) -> dict:
         """Get the variants from the Variant SMARTER API."""
 
-        response = self.get(
-            chip_name=chip_name,
-            region=region,
-            **kwargs
-        )
+        response = self.get(chip_name=chip_name, region=region, **kwargs)
 
         # un-nesting locations items: get first item
         for item in response["items"]:
@@ -169,7 +142,8 @@ class VariantsEndpoint(EndPointMixin):
         return response
 
     async def get_async_variants(
-            self, session, retries=5, backoff_factor=5, **kwargs) -> dict:
+        self, session, retries=5, backoff_factor=5, **kwargs
+    ) -> dict:
         """
         Fetches async variants from the specified URL.
 
@@ -201,8 +175,7 @@ class VariantsEndpoint(EndPointMixin):
                 async with session.get(self.url, params=kwargs) as response:
                     response.raise_for_status()
                     result = await response.json()
-                    logger.info(
-                        f"Successfully fetched data for page {kwargs['page']}")
+                    logger.info(f"Successfully fetched data for page {kwargs['page']}")
 
                     # un-nesting locations items: get first item
                     for item in result["items"]:
@@ -212,30 +185,32 @@ class VariantsEndpoint(EndPointMixin):
 
             except (aiohttp.ClientError, asyncio.exceptions.TimeoutError) as exc:
                 if attempt < retries - 1:
-                    wait_time = backoff_factor * (2 ** attempt)
+                    wait_time = backoff_factor * (2**attempt)
                     logger.warning(f"Error {exc}, retrying in {wait_time} seconds...")
                     await asyncio.sleep(wait_time)
                 else:
                     logger.error(
                         f"Failed to fetch data for page {kwargs['page']} "
-                        f"after {retries} attempts")
+                        f"after {retries} attempts"
+                    )
                     raise exc
 
 
 async def variant_worker(
-        queue, session, variant_api, async_processing_func, size, **kwargs):
+    queue, session, variant_api, async_processing_func, size, **kwargs
+):
     while True:
         page = await queue.get()
 
         try:
             response = await variant_api.get_async_variants(
-                session, page=page, size=size, **kwargs)
+                session, page=page, size=size, **kwargs
+            )
 
             # call my processing function
             await async_processing_func(response)
 
-            logger.debug(
-                f"Got {len(response['items'])} results for page {page}")
+            logger.debug(f"Got {len(response['items'])} results for page {page}")
 
         finally:
             queue.task_done()

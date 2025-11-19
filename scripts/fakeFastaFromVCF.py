@@ -29,6 +29,8 @@ def compute_maxpos(vcf_file: argparse.FileType) -> OrderedDict:
         if chrom not in maxpos or pos > maxpos[chrom]:
             maxpos[chrom] = pos
 
+    vcf.close()
+
     return maxpos
 
 
@@ -84,7 +86,7 @@ if __name__ == "__main__":
             id=chrom,
             name=chrom,
             seq=seq,
-            description=f"Fake sequence for {chrom} of length {length}",
+            description=f"Fake sequence for chrom {chrom} of length {rounded_length}",
         )
 
         seq_records.append(seq_record)
@@ -92,3 +94,7 @@ if __name__ == "__main__":
     # write to output FASTA file
     with Bio.bgzf.open(args.output, "wb") as output_handle:
         Bio.SeqIO.write(seq_records, output_handle, "fasta")
+
+    # close file handles
+    vcf.close()
+    vcf_file.close()
