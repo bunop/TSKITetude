@@ -7,9 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-tskit = "^0.6.0"
-tsinfer = "0.3.3"
-tsdate = "^0.2.1"
+tskit = "^0.6"
+tsinfer = "^0.5"
+tsdate = "^0.2"
 click = "^8.1.7"
 cyvcf2 = "^0.31.1"
 click-option-group = "^0.5.6"
