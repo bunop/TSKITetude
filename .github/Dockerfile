@@ -1,14 +1,14 @@
 #
-# VERSION 0.5.0
+# VERSION 0.5.1
 # DOCKER-VERSION  27.2.0
 # AUTHOR:         Paolo Cozzi <paolo.cozzi@ibba.cnr.it>
 # DESCRIPTION:    A codespaces base image with tskitetude installed
 # TO_BUILD:       docker build --rm -t bunop/tskitetude .
 # TO_RUN:         docker run --rm -ti bunop/tskitetude bash
-# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.5.0
+# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.5.1
 #
 
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 LABEL maintainer="paolo.cozzi@ibba.cnr.it"
 
@@ -26,36 +26,23 @@ RUN apt-get update && \
         wget \
         curl \
         graphviz \
-        software-properties-common && \
-    apt-get clean && rm -rf /var/lib/apt/lists/
-
-# Taken from: https://github.com/nextflow-io/training/blob/master/.github/gitpod.Dockerfile
-# Install Apptainer (Singularity)
-RUN add-apt-repository -y ppa:apptainer/ppa && \
-    apt-get update --quiet && \
-    apt install -y apptainer && \
+        singularity-container && \
     apt-get clean && rm -rf /var/lib/apt/lists/
 
 # set environment variables
-ENV CONDA_DIR="/opt/conda"
+ENV CONDA_BASE="/opt/miniconda"
 
 # Install Conda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_DIR} && \
-    rm Miniconda3-latest-Linux-x86_64.sh
+RUN wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" && \
+    bash Miniforge3.sh -b -p "$CONDA_BASE" && \
+    rm Miniforge3.sh
 
 # Put conda in path so we can use conda activate
-ENV PATH=$CONDA_DIR/bin:$PATH
+ENV PATH=$CONDA_BASE/bin:$PATH
 
 # update base channel
-RUN conda config --add channels bioconda && \
-    conda config --add channels conda-forge && \
-    conda config --set channel_priority strict && \
-    conda config --add envs_dirs /workspaces/.conda/envs && \
-    conda update --quiet --yes --all && \
-    conda install --quiet --yes --name base \
-        mamba && \
-    conda clean --all --force-pkgs-dirs --yes
+RUN conda init bash && \
+    conda config --add envs_dirs /workspaces/.conda/envs
 
 # Some environment variables for nextflow
 ENV \
@@ -96,7 +83,7 @@ COPY README.md ./
 RUN poetry install --with docs
 
 # ovverride bashrc
-COPY .github/codespaces.bashrc /home/vscode/.bashrc
+COPY .github/bashrc /home/vscode/.bashrc
 
 # Fix user permissions
 RUN chown -R vscode:vscode /home/vscode/ /workspaces
