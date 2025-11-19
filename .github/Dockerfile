@@ -16,13 +16,13 @@ LABEL maintainer="paolo.cozzi@ibba.cnr.it"
 USER root
 
 # Install stuff
-# software-properties-common is needed for add-apt-repository
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
         tmux \
         tree \
         build-essential \
-        default-jre \
+        openjdk-17-jre-headless \
         wget \
         curl \
         graphviz \
@@ -32,13 +32,14 @@ RUN apt-get update && \
 # set environment variables
 ENV CONDA_BASE="/opt/miniconda"
 
+# Put conda in path so we can use conda activate
+ENV PATH=$CONDA_BASE/bin:$PATH
+
 # Install Conda
 RUN wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" && \
     bash Miniforge3.sh -b -p "$CONDA_BASE" && \
-    rm Miniforge3.sh
-
-# Put conda in path so we can use conda activate
-ENV PATH=$CONDA_BASE/bin:$PATH
+    rm Miniforge3.sh && \
+    conda clean -afy
 
 # update base channel
 RUN conda init bash && \
@@ -67,7 +68,9 @@ ENV \
     POETRY_HOME="/opt/poetry" \
     POETRY_VIRTUALENVS_CREATE=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1
+    POETRY_NO_INTERACTION=1 \
+    POETRY_CACHE_DIR="/tmp/poetry-cache" \
+    PIP_CACHE_DIR="/tmp/pip-cache"
 
 # Install Poetry - require $POETRY_VERSION & $POETRY_HOME environment variables
 RUN curl -sSL https://install.python-poetry.org | python -
@@ -79,8 +82,12 @@ COPY pyproject.toml poetry.lock ./
 COPY tskitetude/ ./tskitetude/
 COPY README.md ./
 
-# Install the project with docs dependencies
-RUN poetry install --with docs
+# Install the project with docs dependencies, then clean Poetry/Pip caches
+RUN mkdir -p "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR" && \
+    poetry install --with docs && \
+    pip cache purge || true && \
+    [ -x ./.venv/bin/pip ] && ./.venv/bin/pip cache purge || true && \
+    rm -rf "$POETRY_CACHE_DIR" "$PIP_CACHE_DIR" /root/.cache/pip
 
 # ovverride bashrc
 COPY .github/bashrc /home/vscode/.bashrc
