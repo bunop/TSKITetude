@@ -30,6 +30,7 @@ def compute_maxpos(vcf_file: argparse.FileType) -> OrderedDict:
             maxpos[chrom] = pos
 
     vcf.close()
+
     return maxpos
 
 
@@ -85,7 +86,7 @@ if __name__ == "__main__":
             id=chrom,
             name=chrom,
             seq=seq,
-            description=f"Fake sequence for {chrom} of length {length}",
+            description=f"Fake sequence for chrom {chrom} of length {rounded_length}",
         )
 
         seq_records.append(seq_record)

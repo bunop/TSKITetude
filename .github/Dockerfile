@@ -46,12 +46,6 @@ RUN wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/lat
 RUN conda init bash && \
     conda config --add envs_dirs /workspaces/.conda/envs
 
-# Some environment variables for nextflow
-ENV \
-    NXF_OPTS="-Xms1g -Xmx4g" \
-    NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf_singularity_cachedir" \
-    NXF_EXECUTOR="local"
-
 # download and install nextflow
 RUN wget -qO- https://get.nextflow.io | bash && \
     mv nextflow /usr/local/bin/ && \
@@ -83,6 +77,12 @@ RUN mkdir -p /workspaces && \
 
 # Switch to vscode user
 USER vscode
+
+# Some environment variables for nextflow
+ENV HOME="/home/vscode"
+ENV NXF_OPTS="-Xms1g -Xmx4g" \
+    NXF_SINGULARITY_CACHEDIR="${HOME}/.nxf_singularity_cachedir" \
+    NXF_EXECUTOR="local"
 
 # Override bashrc for vscode user
 COPY .github/bashrc /home/vscode/.bashrc
