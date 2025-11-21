@@ -196,6 +196,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/14-inspect_simulations.html">Analyze the simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/17-simulated_dataset.html">Dataset for TS inference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -456,16 +457,18 @@ Nextflow pipeline. The main files and folders are organized as follows:</p>
 <section id="notebook-output-management">
 <h2>Notebook Output Management<a class="headerlink" href="#notebook-output-management" title="Link to this heading">#</a></h2>
 <p>This project uses Git for version control. To avoid committing outputs from
-Jupyter notebooks, it is recommended to install [nbstripout](<a class="github reference external" href="https://github.com/kynan/">kynan/</a>
-nbstripout). This tool automatically strips notebook outputs when you run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>
+Jupyter notebooks, it is recommended to install
+<a class="reference external" href="https://github.com/kynan/nbstripout">nbstripout</a>.
+This tool automatically strips notebook outputs when you run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>
 or <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code>, without affecting your local files.</p>
 </section>
 <section id="poetry-installation">
 <h2>Poetry Installation<a class="headerlink" href="#poetry-installation" title="Link to this heading">#</a></h2>
 <p>Poetry is required to manage dependencies and environments for this project.
 Install Poetry by following the official instructions: <a class="reference external" href="https://python-poetry.org/docs/#installing-with-the-official-installer">https://python-poetry.org/docs/#installing-with-the-official-installer</a>.</p>
-<p>Optionally, you can install the [poetry-bumpversion](<a class="reference external" href="https://pypi.org/project/">https://pypi.org/project/</a>
-poetry-bumpversion/) plugin globally:</p>
+<p>Optionally, you can install the
+<a class="reference external" href="https://pypi.org/project/poetry-bumpversion/">poetry-bumpversion</a>
+plugin globally:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry<span class="w"> </span>self<span class="w"> </span>add<span class="w"> </span>poetry-bumpversion
 </pre></div>
 </div>
@@ -533,8 +536,9 @@ notebook outputs before committing:</p>
 <section id="nextflow-installation">
 <h2>Nextflow Installation<a class="headerlink" href="#nextflow-installation" title="Link to this heading">#</a></h2>
 <p>Nextflow is required to run the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code> pipeline, but it is not
-a Python package. Install Nextflow by following the [Getting Started](https://
-<a class="reference external" href="http://www.nextflow.io/#GetStarted">www.nextflow.io/#GetStarted</a>) guide or the full <a class="reference external" href="https://www.nextflow.io/docs/latest/install.html">Installation documentation</a>.</p>
+a Python package. Install Nextflow by following the
+<a class="reference external" href="https://www.nextflow.io/#GetStarted">Getting Started</a> guide or the full
+<a class="reference external" href="https://www.nextflow.io/docs/latest/install.html">Installation documentation</a>.</p>
 </section>
 <section id="running-code-poetry-shell-vs-poetry-run">
 <h2>Running Code: poetry shell vs poetry run<a class="headerlink" href="#running-code-poetry-shell-vs-poetry-run" title="Link to this heading">#</a></h2>
