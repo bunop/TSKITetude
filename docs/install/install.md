@@ -29,8 +29,9 @@ TSKITetude/
 ## Notebook Output Management
 
 This project uses Git for version control. To avoid committing outputs from
-Jupyter notebooks, it is recommended to install [nbstripout](https://github.com/kynan/
-nbstripout). This tool automatically strips notebook outputs when you run `git add`
+Jupyter notebooks, it is recommended to install
+[nbstripout](https://github.com/kynan/nbstripout).
+This tool automatically strips notebook outputs when you run `git add`
 or `git status`, without affecting your local files.
 
 ## Poetry Installation
@@ -38,8 +39,9 @@ or `git status`, without affecting your local files.
 Poetry is required to manage dependencies and environments for this project.
 Install Poetry by following the official instructions: <https://python-poetry.org/docs/#installing-with-the-official-installer>.
 
-Optionally, you can install the [poetry-bumpversion](https://pypi.org/project/
-poetry-bumpversion/) plugin globally:
+Optionally, you can install the
+[poetry-bumpversion](https://pypi.org/project/poetry-bumpversion/)
+plugin globally:
 
 ```bash
 poetry self add poetry-bumpversion
@@ -119,9 +121,9 @@ This sets up the necessary filters in your local `.git/config` file.
 ## Nextflow Installation
 
 Nextflow is required to run the `cnr-ibba/nf-treeseq` pipeline, but it is not
-a Python package. Install Nextflow by following the [Getting Started](https://
-www.nextflow.io/#GetStarted) guide or the full [Installation documentation](
-https://www.nextflow.io/docs/latest/install.html).
+a Python package. Install Nextflow by following the
+[Getting Started](https://www.nextflow.io/#GetStarted) guide or the full
+[Installation documentation](https://www.nextflow.io/docs/latest/install.html).
 
 ## Running Code: poetry shell vs poetry run
 
