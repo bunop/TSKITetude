@@ -91,7 +91,7 @@ poetry install --with docs
 ```
 
 This will also install `nbstripout`, which needs to be configured separately
-(see [See Configuring nbstripout](#configuring-nbstripout)).
+(see [Configuring nbstripout](#configuring-nbstripout)).
 
 ## Activating the Poetry Environment
 
