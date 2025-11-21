@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -196,6 +196,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-simulated_dataset.html">Dataset for TS inference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="current nav bd-sidenav">
@@ -713,10 +714,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f11c5c07e50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f917c0c0bc0&gt;
 </pre></div>
 </div>
-<img alt="../_images/85a560f3be81c956da123849a93bd6b28b38e96c7f890d13c296c4acf05ff528.png" src="../_images/85a560f3be81c956da123849a93bd6b28b38e96c7f890d13c296c4acf05ff528.png" />
+<img alt="../_images/66ae604ee67d08e80901836a17a3f7a34d345d5af0eecf61d16689f022ff462f.png" src="../_images/66ae604ee67d08e80901836a17a3f7a34d345d5af0eecf61d16689f022ff462f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -726,10 +727,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f1181251000&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f9113f9db80&gt;
 </pre></div>
 </div>
-<img alt="../_images/6c91c0cdfac2bebcfde4c05c81e7a4705ec796529b184e1774577bfca8d908ef.png" src="../_images/6c91c0cdfac2bebcfde4c05c81e7a4705ec796529b184e1774577bfca8d908ef.png" />
+<img alt="../_images/dc815eac733d75ba10c7867ceaa21e410813615a2b0405fc4a4b5737482e460f.png" src="../_images/dc815eac733d75ba10c7867ceaa21e410813615a2b0405fc4a4b5737482e460f.png" />
 </div>
 </div>
 <p>It seems that the number of mutation is higher using the <em>compara</em> approach instead of the <em>reference</em> approach. Let’s
@@ -744,7 +745,7 @@ try to model the number of mutations relying on the numer or samples. Try to fit
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;samples&#39;, ylabel=&#39;mutations&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/13a767e1ef38a4b0e48ec5981d9683242477b477c5f4951a30845a9c26fe859f.png" src="../_images/13a767e1ef38a4b0e48ec5981d9683242477b477c5f4951a30845a9c26fe859f.png" />
+<img alt="../_images/dea99966dd8fcc7fe2910dc81abde77abee2c9255741c2c9d800b24419d24a31.png" src="../_images/dea99966dd8fcc7fe2910dc81abde77abee2c9255741c2c9d800b24419d24a31.png" />
 </div>
 </div>
 <p>Try to fit a 2nd degree polynomial model using <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code>:</p>
@@ -792,7 +793,7 @@ try to model the number of mutations relying on the numer or samples. Try to fit
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/eaad616543639d7955650bfd4a9ad70461c116317a119a8162d0298bbd6c6d80.png" src="../_images/eaad616543639d7955650bfd4a9ad70461c116317a119a8162d0298bbd6c6d80.png" />
+<img alt="../_images/f968e350b12c6f06863ac23a2e498ae1f91ce2b8165564d8d6b5b09887527816.png" src="../_images/f968e350b12c6f06863ac23a2e498ae1f91ce2b8165564d8d6b5b09887527816.png" />
 </div>
 </div>
 </section>

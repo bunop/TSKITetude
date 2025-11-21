@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -196,6 +196,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-simulated_dataset.html">Dataset for TS inference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="current nav bd-sidenav">
@@ -426,8 +427,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/lets_plot/plot/theme_.py:675: SyntaxWarning: invalid escape sequence &#39;\*&#39;
+  - Emphasis (\*, \*\*, \*\*\*, _, __, ___)
+</pre></div>
+</div>
 <div class="output text_html">
-            <div id="Oeqc1k"></div>
+            <div id="jYW5fM"></div>
             <script type="text/javascript" data-lets-plot-script="library">
                 if(!window.letsPlotCallQueue) {
                     window.letsPlotCallQueue = [];
@@ -438,7 +443,7 @@ document.write(`
                 (function() {
                     var script = document.createElement("script");
                     script.type = "text/javascript";
-                    script.src = "https://cdn.jsdelivr.net/gh/JetBrains/lets-plot@v4.7.3/js-package/distr/lets-plot.min.js";
+                    script.src = "https://cdn.jsdelivr.net/gh/JetBrains/lets-plot@v4.8.0/js-package/distr/lets-plot.min.js";
                     script.onload = function() {
                         window.letsPlotCall = function(f) {f();};
                         window.letsPlotCallQueue.forEach(function(f) {f();});
@@ -451,9 +456,9 @@ document.write(`
                         var div = document.createElement("div");
                         div.style.color = 'darkred';
                         div.textContent = 'Error loading Lets-Plot JS';
-                        document.getElementById("Oeqc1k").appendChild(div);
+                        document.getElementById("jYW5fM").appendChild(div);
                     };
-                    var e = document.getElementById("Oeqc1k");
+                    var e = document.getElementById("jYW5fM");
                     e.appendChild(script);
                 })()
             </script>
@@ -647,7 +652,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;LAT&#39;, &#39;SWA&#39;, &#39;SAA&#39;, &#39;ALT&#39;, &#39;LLW&#39;, &#39;MAS&#39;, &#39;IDF&#39;, &#39;SUM&#39;, &#39;CHR&#39;, &#39;IAW&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;IDF&#39;, &#39;SWA&#39;, &#39;SAA&#39;, &#39;IAW&#39;, &#39;LAT&#39;, &#39;LLW&#39;, &#39;CHR&#39;, &#39;ALT&#39;, &#39;SUM&#39;, &#39;MAS&#39;]
 </pre></div>
 </div>
 </div>
