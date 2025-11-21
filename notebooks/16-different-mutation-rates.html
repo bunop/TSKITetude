@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
@@ -67,7 +64,6 @@
     <link rel="prev" title="Analyze the simulated data" href="14-inspect_simulations.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -83,8 +79,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -92,6 +99,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -99,8 +107,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -116,8 +124,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -147,17 +154,21 @@
     
     
     <img src="../_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
-    <img src="../_static/logo.png" class="logo__image only-dark pst-js-only" alt="SheepTreeSeq - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -170,7 +181,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Setting up the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Project Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install/build-docs.html">Build the documentation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
@@ -353,16 +364,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 
 </div></div>
       
@@ -393,11 +412,11 @@
 <p>Load a tree sequence object and try to change the mutation rate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">msprime</span>
-<span class="kn">import</span> <span class="nn">tskit</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">msprime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tskit</span>
 
-<span class="kn">from</span> <span class="nn">tskitetude</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tskitetude</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_data_dir</span>
 </pre></div>
 </div>
 </div>
@@ -435,10 +454,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>2,695,768</td></tr>
-                            <tr><td>Sequence Length</td><td>100,000,000.0</td></tr>
+                            <tr><td>Trees</td><td>2 695 768</td></tr>
+                            <tr><td>Sequence Length</td><td>1e+08</td></tr>
                             <tr><td>Time Units</td><td>generations</td></tr>
-                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Sample Nodes</td><td>4 810</td></tr>
                             <tr><td>Total Size</td><td>536.2 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">No Metadata</td>
@@ -460,7 +479,7 @@
                             
             <tr>
                 <td>Edges</td>
-                <td>10,271,864</td>
+                <td>10 271 864</td>
                 <td>313.5 MiB</td>
                 <td style="text-align: center;">
                     
@@ -469,7 +488,7 @@
         
             <tr>
                 <td>Individuals</td>
-                <td>2,405</td>
+                <td>2 405</td>
                 <td>65.8 KiB</td>
                 <td style="text-align: center;">
                     
@@ -487,7 +506,7 @@
         
             <tr>
                 <td>Mutations</td>
-                <td>1,727,679</td>
+                <td>1 727 679</td>
                 <td>61.0 MiB</td>
                 <td style="text-align: center;">
                     
@@ -496,7 +515,7 @@
         
             <tr>
                 <td>Nodes</td>
-                <td>1,590,538</td>
+                <td>1 590 538</td>
                 <td>42.5 MiB</td>
                 <td style="text-align: center;">
                     
@@ -523,7 +542,7 @@
         
             <tr>
                 <td>Sites</td>
-                <td>1,712,620</td>
+                <td>1 712 620</td>
                 <td>40.8 MiB</td>
                 <td style="text-align: center;">
                     
@@ -1406,10 +1425,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>27,108</td></tr>
-                            <tr><td>Sequence Length</td><td>1,000,000.0</td></tr>
+                            <tr><td>Trees</td><td>27 108</td></tr>
+                            <tr><td>Sequence Length</td><td>1 000 000</td></tr>
                             <tr><td>Time Units</td><td>generations</td></tr>
-                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Sample Nodes</td><td>4 810</td></tr>
                             <tr><td>Total Size</td><td>6.1 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">No Metadata</td>
@@ -1431,7 +1450,7 @@
                             
             <tr>
                 <td>Edges</td>
-                <td>112,392</td>
+                <td>112 392</td>
                 <td>3.4 MiB</td>
                 <td style="text-align: center;">
                     
@@ -1440,7 +1459,7 @@
         
             <tr>
                 <td>Individuals</td>
-                <td>2,405</td>
+                <td>2 405</td>
                 <td>65.8 KiB</td>
                 <td style="text-align: center;">
                     
@@ -1458,7 +1477,7 @@
         
             <tr>
                 <td>Mutations</td>
-                <td>17,099</td>
+                <td>17 099</td>
                 <td>617.9 KiB</td>
                 <td style="text-align: center;">
                     
@@ -1467,7 +1486,7 @@
         
             <tr>
                 <td>Nodes</td>
-                <td>26,740</td>
+                <td>26 740</td>
                 <td>731.2 KiB</td>
                 <td style="text-align: center;">
                     
@@ -1494,7 +1513,7 @@
         
             <tr>
                 <td>Sites</td>
-                <td>16,954</td>
+                <td>16 954</td>
                 <td>413.9 KiB</td>
                 <td style="text-align: center;">
                     
@@ -1518,9 +1537,9 @@
                         <tbody>
                             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>tskit</td>
-                    <td>0.6.2</td>
+                    <td>0.6.4</td>
                     <td>rtrim</td>
                     <td>
                         <details>
@@ -1535,7 +1554,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: tskit<br/>version: 0.6.2<br/>
+                    name: tskit<br/>version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -1556,7 +1575,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -1595,9 +1614,9 @@
                 </tr>
             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>tskit</td>
-                    <td>0.6.2</td>
+                    <td>0.6.4</td>
                     <td>keep_intervals</td>
                     <td>
                         <details>
@@ -1612,7 +1631,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: tskit<br/>version: 0.6.2<br/>
+                    name: tskit<br/>version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -1633,7 +1652,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -2544,10 +2563,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>27,108</td></tr>
-                            <tr><td>Sequence Length</td><td>1,000,000.0</td></tr>
+                            <tr><td>Trees</td><td>27 108</td></tr>
+                            <tr><td>Sequence Length</td><td>1 000 000</td></tr>
                             <tr><td>Time Units</td><td>generations</td></tr>
-                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Sample Nodes</td><td>4 810</td></tr>
                             <tr><td>Total Size</td><td>5.5 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">No Metadata</td>
@@ -2569,7 +2588,7 @@
                             
             <tr>
                 <td>Edges</td>
-                <td>112,392</td>
+                <td>112 392</td>
                 <td>3.4 MiB</td>
                 <td style="text-align: center;">
                     
@@ -2578,7 +2597,7 @@
         
             <tr>
                 <td>Individuals</td>
-                <td>2,405</td>
+                <td>2 405</td>
                 <td>65.8 KiB</td>
                 <td style="text-align: center;">
                     
@@ -2605,7 +2624,7 @@
         
             <tr>
                 <td>Nodes</td>
-                <td>26,740</td>
+                <td>26 740</td>
                 <td>731.2 KiB</td>
                 <td style="text-align: center;">
                     
@@ -2632,7 +2651,7 @@
         
             <tr>
                 <td>Sites</td>
-                <td>16,954</td>
+                <td>16 954</td>
                 <td>413.9 KiB</td>
                 <td style="text-align: center;">
                     
@@ -2656,9 +2675,9 @@
                         <tbody>
                             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>tskit</td>
-                    <td>0.6.2</td>
+                    <td>0.6.4</td>
                     <td>rtrim</td>
                     <td>
                         <details>
@@ -2673,7 +2692,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: tskit<br/>version: 0.6.2<br/>
+                    name: tskit<br/>version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -2694,7 +2713,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -2733,9 +2752,9 @@
                 </tr>
             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>tskit</td>
-                    <td>0.6.2</td>
+                    <td>0.6.4</td>
                     <td>keep_intervals</td>
                     <td>
                         <details>
@@ -2750,7 +2769,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: tskit<br/>version: 0.6.2<br/>
+                    name: tskit<br/>version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -2771,7 +2790,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -3641,7 +3660,7 @@
 <span class="n">mutations</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
 <span class="n">mutation_rates</span> <span class="o">=</span> <span class="p">[</span><span class="n">mutation</span> <span class="o">*</span> <span class="n">mu</span> <span class="k">for</span> <span class="n">mutation</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">simulate_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="p">):</span>
     <span class="k">return</span><span class="p">(</span><span class="n">msprime</span><span class="o">.</span><span class="n">sim_mutations</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">mutation_rate</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
 
 <span class="n">simulated_trees</span> <span class="o">=</span> <span class="p">[</span><span class="n">simulate_mutations</span><span class="p">(</span><span class="n">tsm1M300I_no_mutations</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="p">)</span> <span class="k">for</span> <span class="n">mutation_rate</span> <span class="ow">in</span> <span class="n">mutation_rates</span><span class="p">]</span>
@@ -3681,10 +3700,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>27,108</td></tr>
-                            <tr><td>Sequence Length</td><td>1,000,000.0</td></tr>
+                            <tr><td>Trees</td><td>27 108</td></tr>
+                            <tr><td>Sequence Length</td><td>1 000 000</td></tr>
                             <tr><td>Time Units</td><td>generations</td></tr>
-                            <tr><td>Sample Nodes</td><td>4,810</td></tr>
+                            <tr><td>Sample Nodes</td><td>4 810</td></tr>
                             <tr><td>Total Size</td><td>5.6 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">No Metadata</td>
@@ -3706,7 +3725,7 @@
                             
             <tr>
                 <td>Edges</td>
-                <td>112,392</td>
+                <td>112 392</td>
                 <td>3.4 MiB</td>
                 <td style="text-align: center;">
                     
@@ -3715,7 +3734,7 @@
         
             <tr>
                 <td>Individuals</td>
-                <td>2,405</td>
+                <td>2 405</td>
                 <td>65.8 KiB</td>
                 <td style="text-align: center;">
                     
@@ -3733,7 +3752,7 @@
         
             <tr>
                 <td>Mutations</td>
-                <td>1,737</td>
+                <td>1 737</td>
                 <td>62.8 KiB</td>
                 <td style="text-align: center;">
                     
@@ -3742,7 +3761,7 @@
         
             <tr>
                 <td>Nodes</td>
-                <td>26,740</td>
+                <td>26 740</td>
                 <td>731.2 KiB</td>
                 <td style="text-align: center;">
                     
@@ -3769,7 +3788,7 @@
         
             <tr>
                 <td>Sites</td>
-                <td>18,659</td>
+                <td>18 659</td>
                 <td>455.6 KiB</td>
                 <td style="text-align: center;">
                     
@@ -3793,9 +3812,9 @@
                         <tbody>
                             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>msprime</td>
-                    <td>1.3.3</td>
+                    <td>1.3.4</td>
                     <td>sim_mutations</td>
                     <td>
                         <details>
@@ -3810,7 +3829,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: msprime<br/>version: 1.3.3<br/>
+                    name: msprime<br/>version: 1.3.4<br/>
                 </details>
             </div>
             <br/>
@@ -3839,7 +3858,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -3868,7 +3887,7 @@
                 <span class="tskit-details-label">tskit:</span>
                 <details >
                     <summary>dict</summary>
-                    version: 0.6.2<br/>
+                    version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -3894,9 +3913,9 @@
                 </tr>
             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>tskit</td>
-                    <td>0.6.2</td>
+                    <td>0.6.4</td>
                     <td>rtrim</td>
                     <td>
                         <details>
@@ -3911,7 +3930,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: tskit<br/>version: 0.6.2<br/>
+                    name: tskit<br/>version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -3932,7 +3951,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -3971,9 +3990,9 @@
                 </tr>
             
                 <tr>
-                    <td>15 April, 2025 at 09:33:33 PM</td>
+                    <td>22 September, 2025 at 05:41:03 PM</td>
                     <td>tskit</td>
-                    <td>0.6.2</td>
+                    <td>0.6.4</td>
                     <td>keep_intervals</td>
                     <td>
                         <details>
@@ -3988,7 +4007,7 @@
                 <span class="tskit-details-label">software:</span>
                 <details >
                     <summary>dict</summary>
-                    name: tskit<br/>version: 0.6.2<br/>
+                    name: tskit<br/>version: 0.6.4<br/>
                 </details>
             </div>
             <br/>
@@ -4009,7 +4028,7 @@
                 <span class="tskit-details-label">os:</span>
                 <details >
                     <summary>dict</summary>
-                    system: Linux<br/>node: core<br/>release: 5.15.0-130-generic<br/>version: #140-Ubuntu SMP Wed Dec 18<br/>17:59:53 UTC 2024<br/>machine: x86_64<br/>
+                    system: Linux<br/>node: node2<br/>release: 5.15.0-58-generic<br/>version: #64-Ubuntu SMP Thu Jan 5<br/>11:43:13 UTC 2023<br/>machine: x86_64<br/>
                 </details>
             </div>
             <br/>
@@ -4885,9 +4904,7 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dumped /home/core/TSKITetude/data/sheepTSsimMilano/tsm1M300I_0.1mu.trees
 Dumped /home/core/TSKITetude/data/sheepTSsimMilano/tsm1M300I_0.5mu.trees
 Dumped /home/core/TSKITetude/data/sheepTSsimMilano/tsm1M300I_2mu.trees
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dumped /home/core/TSKITetude/data/sheepTSsimMilano/tsm1M300I_10mu.trees
+Dumped /home/core/TSKITetude/data/sheepTSsimMilano/tsm1M300I_10mu.trees
 </pre></div>
 </div>
 </div>
@@ -4992,8 +5009,8 @@ By Paolo Cozzi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
