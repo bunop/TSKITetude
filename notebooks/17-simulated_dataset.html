@@ -506,7 +506,7 @@ Nextflow pipeline). This can be done again with an utility script in this folder
 <p>You can create two nextflow configuration files for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
 pipeline: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.json</span></code> to
 see how to set it up. Then you can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>issue-8<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer.json
 </pre></div>
