@@ -21,6 +21,7 @@ parts:
     chapters:
     - file: notebooks/14-inspect_simulations
     - file: notebooks/16-different-mutation-rates
+    - file: notebooks/17-simulated_dataset
 
   - caption: The SMARTER database
     chapters:
