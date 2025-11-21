@@ -6991,7 +6991,7 @@ version = "0.2.6"
 description = "Compression utilities for tree sequences"
 optional = false
 python-versions = ">=3.10"
-groups = ["docs"]
+groups = ["main", "docs"]
 files = [
     {file = "tszip-0.2.6-py3-none-any.whl", hash = "sha256:1f2a3568f87b28e7435ec881c49e7e3b9d98d1283b8cec9ca38537ab27ed70bb"},
     {file = "tszip-0.2.6.tar.gz", hash = "sha256:0a619e60a157914cdf622485c24b98b7d07627e9d092bdda98f671cbc88d2835"},
@@ -7563,4 +7563,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "46e1fded930298cf36b6dc02f53e341f9ab4aa288e937f66ff8f6f4b23b5d769"
+content-hash = "e442e4b7f2ae87ba1ecc108da6590e23a3b7f0fc5a267a0acef52228054883bb"
