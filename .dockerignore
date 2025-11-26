@@ -1,0 +1,43 @@
+# Version control metadata (not necessary in the image)
+.git
+.gitignore
+
+# Python cache & build artifacts
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.dist-info/
+.eggs/
+
+# Poetry virtualenv (se creato in-project)
+/.venv/
+
+# Notebook/Jupyter build outputs
+.ipynb_checkpoints/
+
+# Jupyter Book build
+docs/_build/
+
+# Large / ephemeral runtime dirs (remove if needed in image)
+work/
+results/
+
+# Raw data (remove if you want to include it in the image)
+data/
+
+# Test artifacts (keep tests/ if you want to run tests inside container)
+# tests/__pycache__/
+
+# Docker specific
+Dockerfile
+**/*.Dockerfile
+
+# Misc caches
+.cache/
+.mypy_cache/
+.pytest_cache/
+
+# VS Code & editor settings (not needed in the image)
+.vscode/
+.idea/

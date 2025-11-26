@@ -6,6 +6,7 @@
 import csv
 import sys
 import logging
+import argparse
 from functools import partial
 
 import asyncio
@@ -15,8 +16,7 @@ from tskitetude.smarterapi import Location, VariantsEndpoint, variant_worker
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -29,14 +29,12 @@ async def process_response(response, all_locations):
         all_locations.append(location)
 
 
-
-async def fetch_all_locations(size=25):
+async def fetch_all_locations(size=25, species="Sheep", assembly="OAR3"):
     async with aiohttp.ClientSession() as session:
-        variant_api = VariantsEndpoint(species="Sheep", assembly="OAR3")
+        variant_api = VariantsEndpoint(species=species, assembly=assembly)
 
         # collect the total number of pages
-        response = await variant_api.get_async_variants(
-            session, page=1, size=size)
+        response = await variant_api.get_async_variants(session, page=1, size=size)
 
         total_items = response["total"]
         total_pages = response["pages"]
@@ -59,7 +57,9 @@ async def fetch_all_locations(size=25):
         queue = asyncio.Queue()
 
         # Create the partial function with lock and all_locations
-        process_response_with_lock = partial(process_response, all_locations=all_locations)
+        process_response_with_lock = partial(
+            process_response, all_locations=all_locations
+        )
 
         # Define the number of workers
         num_workers = 5
@@ -68,8 +68,10 @@ async def fetch_all_locations(size=25):
         # create workers
         for i in range(num_workers):
             task = asyncio.create_task(
-                variant_worker(queue, session, variant_api, process_response_with_lock, size),
-                name=f"worker-{i}"
+                variant_worker(
+                    queue, session, variant_api, process_response_with_lock, size
+                ),
+                name=f"worker-{i}",
             )
             tasks.append(task)
 
@@ -94,12 +96,34 @@ async def fetch_all_locations(size=25):
 
 
 async def main():
-    all_locations = await fetch_all_locations(size=50)
+    parser = argparse.ArgumentParser(
+        description="Convert SMARTER API variants from TOP to FORWARD using plink --update-alleles format."
+    )
+    parser.add_argument(
+        "--species", type=str, default="Sheep", help="Species to query (default: Sheep)"
+    )
+    parser.add_argument(
+        "--assembly",
+        type=str,
+        default="OAR3",
+        help="Reference assembly (default: OAR3)",
+    )
+    parser.add_argument(
+        "--size", type=int, default=50, help="Number of variants per page (default: 50)"
+    )
+    args = parser.parse_args()
+
+    all_locations = await fetch_all_locations(
+        size=args.size, species=args.species, assembly=args.assembly
+    )
 
     writer = csv.writer(sys.stdout, delimiter="\t", lineterminator="\n")
 
     for location in all_locations:
-        writer.writerow(location.to_update_alleles())
+        try:
+            writer.writerow(location.to_update_alleles())
+        except AttributeError as e:
+            logger.warning(f"{e}: Skipping variant.")
 
 
 # call the main function

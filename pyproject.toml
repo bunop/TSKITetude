@@ -1,18 +1,19 @@
 [tool.poetry]
 name = "tskitetude"
-version = "0.5.0"
+version = "0.5.1"
 description = "A toolkit for working with tree sequence data, including utilities for simulation, analysis, and visualization."
 authors = ["Paolo Cozzi <bunop@libero.it>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-tskit = "^0.6.0"
-tsinfer = "0.3.3"
-tsdate = "^0.2.1"
+tskit = "^0.6"
+tsinfer = "^0.5"
+tsdate = "^0.2"
 click = "^8.1.7"
 cyvcf2 = "^0.31.1"
 click-option-group = "^0.5.6"
+tszip = "^0.2.6"
 
 [tool.poetry.group.docs]
 optional = true
@@ -36,6 +37,9 @@ jupyter-book = "^1.0.2"
 ghp-import = "^2.1.0"
 tsbrowse = {git = "https://github.com/tskit-dev/tsbrowse.git"}
 lets-plot = "^4.4.1"
+cairosvg = "^2.7.1"
+threads-arg = "^0.2.1"
+biopython = "^1.86"
 
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"

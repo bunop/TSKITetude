@@ -20,6 +20,7 @@ parts:
   - caption: Simulating TreeSequences
     chapters:
     - file: notebooks/14-inspect_simulations
+    - file: notebooks/16-different-mutation-rates
 
   - caption: The SMARTER database
     chapters:
@@ -32,3 +33,5 @@ parts:
       - file: notebooks/10-ensembl-compara
       - file: notebooks/09-smarter_50k
       - file: notebooks/11-smarter_50K_results
+      - file: notebooks/12-population-statistics
+      - file: notebooks/13-population-statistic_plots

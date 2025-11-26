@@ -1,0 +1,26 @@
+{
+  "name": "TSKITetude Development Container",
+  "image": "bunop/tskitetude:devel",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.vscode-jupyter-slideshow",
+        "ms-toolsai.vscode-jupyter-cell-tags"
+      ]
+    }
+  },
+  "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": {
+      "label": "Jupyter Lab",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "poetry install --with docs && poetry run nbstripout --install",
+  "postStartCommand": "poetry run jupyter lab --no-browser --port=8888 --ip=0.0.0.0 --IdentityProvider.token=''"
+}
