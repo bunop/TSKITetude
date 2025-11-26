@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-tskit = "^0.6"
+tskit = {git = "https://github.com/tskit-dev/tskit.git", tag = "1.0.0b3", subdirectory = "python"}
 tsinfer = "^0.5"
 tsdate = "^0.2"
 click = "^8.1.7"
@@ -26,7 +26,7 @@ nbstripout = "^0.6.1"
 nbconvert = "^7.14.2"
 ipywidgets = "^8.1.1"
 pandas = "^2.2.0"
-pyarrow = "^15.0.0"
+pyarrow = "^18.0.0"
 plinkio = {git = "https://github.com/bunop/libplinkio.git", rev = "bc1c13507cf5c2d60ffe20e12a1997021f37ceb4"}
 pickleshare = "^0.7.5"
 dask = {extras = ["dataframe"], version = "^2024.4.2"}
