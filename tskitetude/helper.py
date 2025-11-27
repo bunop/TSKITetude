@@ -3,6 +3,7 @@ import csv
 import json
 import logging
 import collections
+from functools import partial
 from typing import Dict, Tuple, List, Union
 
 import click
@@ -347,6 +348,13 @@ def add_diploid_sites(
     show_default=True,
 )
 @click.option(
+    "--recombination_rate",
+    help="tsinfer/tsdate recombination rate",
+    type=float,
+    default=None,
+    show_default=True,
+)
+@click.option(
     "--ne",
     "Ne",
     help=(
@@ -369,6 +377,7 @@ def create_tstree(
     num_threads: int,
     tsdate_method: click.Choice,
     mutation_rate: float,
+    recombination_rate: float,
     Ne: float,
 ):
     """
@@ -385,8 +394,7 @@ def create_tstree(
     sequence_length = chromosome_lengths[chrom]
 
     logging.info(
-        f"Getting information for chromosome {chrom} "
-        f"with length {sequence_length} bp"
+        f"Getting information for chromosome {chrom} with length {sequence_length} bp"
     )
 
     # reset the vcf
@@ -434,7 +442,9 @@ def create_tstree(
     )
 
     # Do the inference
-    sparrow_ts = tsinfer.infer(samples, num_threads=num_threads)
+    sparrow_ts = tsinfer.infer(
+        samples, num_threads=num_threads, recombination_rate=recombination_rate
+    )
 
     # Simplify the tree sequence
     ts = sparrow_ts.simplify()
@@ -470,15 +480,20 @@ def create_tstree(
             "but it will ignored by the 'variational_gamma' method."
         )
 
-    # date the tree using the appropriate method
+    # Prepare the base tsdate call with common parameters
+    date_partial = partial(
+        tsdate.date,
+        inferred_ts,
+        method=tsdate_method,
+        mutation_rate=mutation_rate,
+        recombination_rate=recombination_rate
+    )
+
+    # Add Ne parameter only for methods that support it
     if tsdate_method in ("inside_outside", "maximization"):
-        dated_ts = tsdate.date(
-            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
-        )
+        dated_ts = date_partial(Ne=Ne)
     elif tsdate_method == "variational_gamma":
-        dated_ts = tsdate.date(
-            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
-        )
+        dated_ts = date_partial()
     else:
         raise NotImplementedError(f"Dating method '{tsdate_method}' not implemented")
 
