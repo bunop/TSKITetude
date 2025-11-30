@@ -666,7 +666,7 @@ def annotate_tree(
     individual_to_id = {}
 
     for sample_id, _ in sample_info:
-        if "sample_id" not in individual_to_id:
+        if sample_id not in individual_to_id:
             metadata = {"sample_id": sample_id}
             ind_id = tables.individuals.add_row(metadata=metadata)
             individual_to_id[sample_id] = ind_id
