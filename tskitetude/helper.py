@@ -2,6 +2,7 @@ import io
 import csv
 import json
 import logging
+import datetime
 import collections
 from functools import partial
 from typing import Dict, Tuple, List, Union
@@ -10,10 +11,13 @@ import click
 import cyvcf2
 import tsdate
 import tsinfer
+import tszip
 import numpy as np
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from tskit import MISSING_DATA
 from tqdm import tqdm
+
+from tskitetude import POPULATION_METADATA_SCHEMA, INDIVIDUAL_METADATA_SCHEMA
 
 log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(level=logging.INFO, format=log_fmt)
@@ -560,3 +564,132 @@ def create_windows(ts):
     windows = np.unique(windows)
 
     return windows
+
+
+@click.command()
+@click.option(
+    "--input_tsz",
+    help="Input tree sequence file",
+    type=click.Path(exists=True),
+    required=True,
+)
+@click.option(
+    "--sample_file",
+    help="File with sample ID and breed information",
+    type=click.Path(exists=True),
+    required=True,
+)
+@click.option(
+    "--output_tsz",
+    help="Output annotated tree sequence file",
+    type=click.Path(exists=False),
+    required=True,
+)
+@click.option(
+    "--software_name",
+    help="Software name for provenance record",
+    type=str,
+    required=True,
+)
+@click.option(
+    "--software_version",
+    help="Software version for provenance record",
+    type=str,
+    required=True,
+)
+def annotate_tree(
+    input_tsz: click.Path,
+    sample_file: click.Path,
+    output_tsz: click.Path,
+    software_name: str,
+    software_version: str,
+):
+    """
+    Annotate tree sequence with sample metadata.
+    """
+
+    # Read sample metadata from the provided file
+    sample_info = []
+    with open(sample_file, "r") as f:
+        sample_info = []
+
+        for line in f:
+            if line.strip():
+                breed, sample_id = line.strip().split()
+                sample_info.append((sample_id, breed))
+
+    logger.info(f"Loaded metadata for {len(sample_info)} samples.")
+
+    # Load the input tree sequence
+    input_tsz = tszip.load(input_tsz)
+
+    # create a copy of the table that can be modified
+    tables = input_tsz.dump_tables()
+
+    # now I need to determine how many distinct populations (breeds) there are
+    breeds = set(breed for _, breed in sample_info)
+
+    # apply population metadata
+    tables.populations.metadata_schema = POPULATION_METADATA_SCHEMA
+
+    breed_to_id = {}
+
+    for breed in breeds:
+        metadata = {"breed": breed}
+        pop_id = tables.populations.add_row(metadata=metadata)
+        breed_to_id[breed] = pop_id
+
+    # apply individual metadata and set population
+    tables.individuals.metadata_schema = INDIVIDUAL_METADATA_SCHEMA
+
+    individual_to_id = {}
+
+    for sample_id, _ in sample_info:
+        if "sample_id" not in individual_to_id:
+            metadata = {"sample_id": sample_id}
+            ind_id = tables.individuals.add_row(metadata=metadata)
+            individual_to_id[sample_id] = ind_id
+
+    # now set the population for each individual
+    # we are talking about diploid individuals here
+    for i, (sample_id, breed) in enumerate(sample_info):
+        pop_id = breed_to_id[breed]
+        ind_id = individual_to_id[sample_id]
+
+        # update both nodes for the diploid individual
+        for j in range(2):
+            node_id = i * 2 + j
+            node = tables.nodes[node_id]
+
+            # Replace the node with an updated one
+            tables.nodes[node_id] = node.replace(population=pop_id, individual=ind_id)
+
+    # Create provenance record
+    provenance_record = {
+        "software": {"name": software_name, "version": software_version},
+        "parameters": {
+            "input_file": str(input_tsz),
+            "metadata_added": True,
+            "populations_added": len(breed_to_id),
+            "individuals_added": len(individual_to_id),
+        },
+        "timestamp": datetime.datetime.now().isoformat(),
+        "description": "TreeSequence generated with threads and metadata added for populations and individuals",
+    }
+
+    # Add provenance to tables
+    tables.provenances.add_row(
+        timestamp=provenance_record["timestamp"], record=json.dumps(provenance_record)
+    )
+
+    # write a tsz file as output
+    annotated_ts = tables.tree_sequence()
+
+    logger.info(f"Num of populations: {annotated_ts.num_populations}")
+    logger.info(f"Num of individuals: {annotated_ts.num_individuals}")
+    logger.info(f"Num of nodes: {annotated_ts.num_nodes}")
+
+    tszip.compress(annotated_ts, output_tsz)
+
+    logger.info(f"Annotated tree sequence saved to {output_tsz}")
+    logger.info("Done!")
