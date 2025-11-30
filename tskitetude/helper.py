@@ -574,6 +574,12 @@ def create_windows(ts):
     required=True,
 )
 @click.option(
+    "--input_vcf",
+    help="Input VCF file with sample metadata",
+    type=click.Path(exists=True),
+    required=True,
+)
+@click.option(
     "--sample_file",
     help="File with sample ID and breed information",
     type=click.Path(exists=True),
@@ -599,6 +605,7 @@ def create_windows(ts):
 )
 def annotate_tree(
     input_tsz: click.Path,
+    input_vcf: click.Path,
     sample_file: click.Path,
     output_tsz: click.Path,
     software_name: str,
@@ -609,7 +616,6 @@ def annotate_tree(
     """
 
     # Read sample metadata from the provided file
-    sample_info = []
     with open(sample_file, "r") as f:
         sample_info = []
 
@@ -619,6 +625,21 @@ def annotate_tree(
                 sample_info.append((sample_id, breed))
 
     logger.info(f"Loaded metadata for {len(sample_info)} samples.")
+
+    # open vcf and get sample names
+    vcf = cyvcf2.VCF(input_vcf)
+    vcf_sample_order = vcf.samples
+
+    # now order sample_info according to VCF sample order
+    try:
+        sample_info = sorted(sample_info, key=lambda x: vcf_sample_order.index(x[0]))
+
+    except ValueError:
+        logger.critical(
+            "Sample information doesn't match samples used in tree sequence. "
+            f"Please check that all samples in {sample_file} are present in {input_vcf}"
+        )
+        raise
 
     # Load the input tree sequence
     input_tsz = tszip.load(input_tsz)
@@ -668,7 +689,7 @@ def annotate_tree(
     provenance_record = {
         "software": {"name": software_name, "version": software_version},
         "parameters": {
-            "input_file": str(input_tsz),
+            "input_file": str(input_vcf),
             "metadata_added": True,
             "populations_added": len(breed_to_id),
             "individuals_added": len(individual_to_id),
