@@ -85,7 +85,8 @@ def add_diploid_individuals(
     csv_file: str, pop_lookup: Dict[str, int], samples: tsinfer.SampleData
 ) -> Dict[str, Tuple[int, List[int]]]:
     """
-    Try to add diploid samples
+    Try to add diploid samples. Returns a dictionary mapping sample_id to
+    (individual_id, [sample_indices]).
     """
 
     # track added individuals
@@ -156,6 +157,7 @@ def add_diploid_sites(
     vcf: cyvcf2.VCF,
     samples: tsinfer.Sample,
     ancestors_alleles: Dict[Tuple[str, int], int],
+    indv_lookup: Dict[str, int],
     allele_chars=set("ATCG*"),
     ancestral_method="estsfs",
 ):
@@ -259,8 +261,37 @@ def add_diploid_sites(
                 print(f"Ignoring site at pos {pos}: allele {a} not in {allele_chars}")
                 continue
 
-        # Map original allele indexes to their indexes in the new alleles list.
-        genotypes = [g for row in variant.genotypes for g in row[0:2]]
+        # Get genotypes from VCF and reorder them to match the order of individuals in samples
+        # VCF.samples gives us the order of samples in the VCF file
+        # We need to reorder genotypes to match the order individuals were added to samples
+        vcf_genotypes = [g for row in variant.genotypes for g in row[0:2]]
+
+        # Create a mapping from VCF sample order to the individual order in samples
+        # vcf.samples gives the VCF order, indv_lookup maps sample_id to individual_id
+        # We need to create an index mapping: vcf_index -> samples_index
+        vcf_sample_order = vcf.samples
+
+        # Create reordered genotypes array
+        # For each individual in the order they were added to samples,
+        # find their position in the VCF and extract their genotypes
+        genotypes = []
+        sample_id_to_vcf_idx = {
+            sample_id: idx for idx, sample_id in enumerate(vcf_sample_order)
+        }
+
+        # Sort individuals by their individual_id to get them in insertion order
+        sorted_samples = sorted(indv_lookup.items(), key=lambda x: x[1])
+
+        for sample_id, _ in sorted_samples:
+            if sample_id not in sample_id_to_vcf_idx:
+                raise ValueError(
+                    f"Sample {sample_id} found in CSV but not in VCF. "
+                    f"VCF samples: {vcf_sample_order}"
+                )
+            vcf_idx = sample_id_to_vcf_idx[sample_id]
+            # Each individual is diploid, so genotypes are at positions [vcf_idx*2, vcf_idx*2+1]
+            genotypes.extend(vcf_genotypes[vcf_idx * 2 : vcf_idx * 2 + 2])
+
         samples.add_site(pos, genotypes, alleles, ancestral_allele=ancestral_allele)
 
 
@@ -430,9 +461,13 @@ def create_tstree(
         path=output_samples, sequence_length=sequence_length
     ) as samples:
         pop_lookup = add_populations(focal_csv, samples)
-        add_diploid_individuals(focal_csv, pop_lookup, samples)
+        indv_lookup = add_diploid_individuals(focal_csv, pop_lookup, samples)
         add_diploid_sites(
-            vcf, samples, ancestors_alleles, ancestral_method=ancestral_method
+            vcf,
+            samples,
+            ancestors_alleles,
+            indv_lookup,
+            ancestral_method=ancestral_method,
         )
 
     logger.info(
@@ -486,7 +521,7 @@ def create_tstree(
         inferred_ts,
         method=tsdate_method,
         mutation_rate=mutation_rate,
-        recombination_rate=recombination_rate
+        recombination_rate=recombination_rate,
     )
 
     # Add Ne parameter only for methods that support it

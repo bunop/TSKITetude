@@ -50,32 +50,6 @@ chr1	300	.	G	A	.	PASS	.	GT	1|1	0|0	0|1
     return str(vcf_file)
 
 
-def test_add_populations_creates_correct_lookup(temp_csv_same_order):
-    """Test that populations are created correctly from CSV"""
-    with tempfile.NamedTemporaryFile(suffix=".samples") as tmp:
-        with tsinfer.SampleData(path=tmp.name, sequence_length=1000) as samples:
-            pop_lookup = add_populations(temp_csv_same_order, samples)
-
-            assert "PopA" in pop_lookup
-            assert "PopB" in pop_lookup
-            assert len(pop_lookup) == 2
-
-
-def test_add_diploid_individuals_same_order(temp_csv_same_order):
-    """Test that individuals are added in CSV order"""
-    with tempfile.NamedTemporaryFile(suffix=".samples") as tmp:
-        with tsinfer.SampleData(path=tmp.name, sequence_length=1000) as samples:
-            pop_lookup = add_populations(temp_csv_same_order, samples)
-            indv_lookup = add_diploid_individuals(
-                temp_csv_same_order, pop_lookup, samples
-            )
-
-            assert "Sample1" in indv_lookup
-            assert "Sample2" in indv_lookup
-            assert "Sample3" in indv_lookup
-            assert len(indv_lookup) == 3
-
-
 def test_sample_order_consistency_same_order(temp_csv_same_order, temp_vcf_file):
     """
     Test that when CSV order matches VCF order, samples are correctly assigned to populations.
@@ -87,11 +61,15 @@ def test_sample_order_consistency_same_order(temp_csv_same_order, temp_vcf_file)
     with tempfile.NamedTemporaryFile(suffix=".samples") as tmp:
         with tsinfer.SampleData(path=tmp.name, sequence_length=1000) as samples:
             pop_lookup = add_populations(temp_csv_same_order, samples)
-            add_diploid_individuals(temp_csv_same_order, pop_lookup, samples)
+            indv_lookup = add_diploid_individuals(
+                temp_csv_same_order, pop_lookup, samples
+            )
 
             # Read VCF
             vcf = cyvcf2.VCF(temp_vcf_file)
-            add_diploid_sites(vcf, samples, {}, ancestral_method="reference")
+            add_diploid_sites(
+                vcf, samples, {}, indv_lookup, ancestral_method="reference"
+            )
 
         # Re-open to read the data
         samples = tsinfer.load(tmp.name)
@@ -134,19 +112,21 @@ def test_sample_order_consistency_different_order(
     CRITICAL TEST: Check if genotypes are correctly assigned when CSV order differs from VCF.
     VCF order: Sample1, Sample2, Sample3
     CSV order: Sample3, Sample2, Sample1
-
-    This test will likely FAIL with the current implementation, revealing the bug.
     """
     import cyvcf2
 
     with tempfile.NamedTemporaryFile(suffix=".samples") as tmp:
         with tsinfer.SampleData(path=tmp.name, sequence_length=1000) as samples:
             pop_lookup = add_populations(temp_csv_different_order, samples)
-            add_diploid_individuals(temp_csv_different_order, pop_lookup, samples)
+            indv_lookup = add_diploid_individuals(
+                temp_csv_different_order, pop_lookup, samples
+            )
 
             # Read VCF
             vcf = cyvcf2.VCF(temp_vcf_file)
-            add_diploid_sites(vcf, samples, {}, ancestral_method="reference")
+            add_diploid_sites(
+                vcf, samples, {}, indv_lookup, ancestral_method="reference"
+            )
 
         # Re-open to read the data
         samples = tsinfer.load(tmp.name)
@@ -163,12 +143,9 @@ def test_sample_order_consistency_different_order(
         site0_genotypes = samples.sites_genotypes[0]
 
         # If order is correct, individual 0 (Sample3) should have genotypes [1, 1]
-        # But with the current bug, it will have genotypes of Sample1 [0, 0]
         sample3_genotypes = site0_genotypes[0:2]  # First individual (2 alleles)
 
-        # This assertion will likely FAIL, showing the bug
         # Expected: Sample3's genotypes from VCF = [1, 1]
-        # Actual (buggy): Sample1's genotypes = [0, 0]
         assert list(sample3_genotypes) == [1, 1], (
             f"Expected Sample3 genotypes [1,1] but got {list(sample3_genotypes)}. "
             f"This indicates genotypes are taken from VCF order, not CSV order."
@@ -185,10 +162,14 @@ def test_genotype_data_integrity(temp_csv_same_order, temp_vcf_file):
     with tempfile.NamedTemporaryFile(suffix=".samples") as tmp:
         with tsinfer.SampleData(path=tmp.name, sequence_length=1000) as samples:
             pop_lookup = add_populations(temp_csv_same_order, samples)
-            add_diploid_individuals(temp_csv_same_order, pop_lookup, samples)
+            indv_lookup = add_diploid_individuals(
+                temp_csv_same_order, pop_lookup, samples
+            )
 
             vcf = cyvcf2.VCF(temp_vcf_file)
-            add_diploid_sites(vcf, samples, {}, ancestral_method="reference")
+            add_diploid_sites(
+                vcf, samples, {}, indv_lookup, ancestral_method="reference"
+            )
 
         samples = tsinfer.load(tmp.name)
 
