@@ -3,7 +3,8 @@
     "genome": "data/toInfer/tsm100M300I.fa.gz",
     "outdir": "results-reference/toInfer",
     "ancestor_method": "reference",
-    "tsdate_mutation_rate": 5.87e-9,
+    "mutation_rate": 5.87e-9,
+    "recombination_rate": 1e-8,
     "tsdate_ne": 34500,
     "sample2fid": "data/toInfer/tsm100M300I.sample_names.txt"
 }

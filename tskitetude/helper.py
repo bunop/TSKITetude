@@ -384,7 +384,7 @@ def add_diploid_sites(
 )
 @click.option(
     "--recombination_rate",
-    help="tsinfer/tsdate recombination rate",
+    help="tsinfer recombination rate",
     type=float,
     default=None,
     show_default=True,
@@ -521,11 +521,7 @@ def create_tstree(
 
     # Prepare the base tsdate call with common parameters
     date_partial = partial(
-        tsdate.date,
-        inferred_ts,
-        method=tsdate_method,
-        mutation_rate=mutation_rate,
-        recombination_rate=recombination_rate,
+        tsdate.date, inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
     )
 
     # Add Ne parameter only for methods that support it
@@ -631,7 +627,7 @@ def annotate_tree(
                     "Each line must contain at least two fields."
                 )
                 raise ValueError("Malformed line in sample file")
-            
+
             breed, sample_id = row[:2]
             sample_info.append((sample_id, breed))
 
