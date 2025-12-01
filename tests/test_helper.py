@@ -67,9 +67,12 @@ def test_sample_order_consistency_same_order(temp_csv_same_order, temp_vcf_file)
 
             # Read VCF
             vcf = cyvcf2.VCF(temp_vcf_file)
-            add_diploid_sites(
-                vcf, samples, {}, indv_lookup, ancestral_method="reference"
-            )
+            try:
+                add_diploid_sites(
+                    vcf, samples, {}, indv_lookup, ancestral_method="reference"
+                )
+            finally:
+                vcf.close()
 
         # Re-open to read the data
         samples = tsinfer.load(tmp.name)
@@ -124,9 +127,12 @@ def test_sample_order_consistency_different_order(
 
             # Read VCF
             vcf = cyvcf2.VCF(temp_vcf_file)
-            add_diploid_sites(
-                vcf, samples, {}, indv_lookup, ancestral_method="reference"
-            )
+            try:
+                add_diploid_sites(
+                    vcf, samples, {}, indv_lookup, ancestral_method="reference"
+                )
+            finally:
+                vcf.close()
 
         # Re-open to read the data
         samples = tsinfer.load(tmp.name)
@@ -167,9 +173,12 @@ def test_genotype_data_integrity(temp_csv_same_order, temp_vcf_file):
             )
 
             vcf = cyvcf2.VCF(temp_vcf_file)
-            add_diploid_sites(
-                vcf, samples, {}, indv_lookup, ancestral_method="reference"
-            )
+            try:
+                add_diploid_sites(
+                    vcf, samples, {}, indv_lookup, ancestral_method="reference"
+                )
+            finally:
+                vcf.close()
 
         samples = tsinfer.load(tmp.name)
 

@@ -621,14 +621,21 @@ def annotate_tree(
 
         for line in f:
             if line.strip():
-                breed, sample_id = line.strip().split()
+                try:
+                    breed, sample_id = line.strip().split(None, 1)
+                except ValueError:
+                    logger.error(
+                        f"Malformed line in sample file: '{line.strip()}'. "
+                        "Each line must contain at least two fields separated by whitespace."
+                    )
+                    raise
                 sample_info.append((sample_id, breed))
 
     logger.info(f"Loaded metadata for {len(sample_info)} samples.")
 
     # open vcf and get sample names
-    vcf = cyvcf2.VCF(input_vcf)
-    vcf_sample_order = vcf.samples
+    with cyvcf2.VCF(input_vcf) as vcf:
+        vcf_sample_order = vcf.samples
 
     # now order sample_info according to VCF sample order
     try:
@@ -636,16 +643,16 @@ def annotate_tree(
 
     except ValueError:
         logger.critical(
-            "Sample information doesn't match samples used in tree sequence. "
+            "Sample information doesn't match VCF samples. "
             f"Please check that all samples in {sample_file} are present in {input_vcf}"
         )
         raise
 
     # Load the input tree sequence
-    input_tsz = tszip.load(input_tsz)
+    ts = tszip.load(input_tsz)
 
     # create a copy of the table that can be modified
-    tables = input_tsz.dump_tables()
+    tables = ts.dump_tables()
 
     # now I need to determine how many distinct populations (breeds) there are
     breeds = set(breed for _, breed in sample_info)
@@ -694,8 +701,8 @@ def annotate_tree(
             "populations_added": len(breed_to_id),
             "individuals_added": len(individual_to_id),
         },
-        "timestamp": datetime.datetime.now().isoformat(),
-        "description": "TreeSequence generated with threads and metadata added for populations and individuals",
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "description": "Tree sequence annotated with population and individual metadata",
     }
 
     # Add provenance to tables
