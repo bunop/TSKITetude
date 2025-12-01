@@ -623,13 +623,12 @@ def annotate_tree(
             if line.strip():
                 parts = line.strip().split()
                 if len(parts) != 2:
-                    logger.error(
+                    error_msg = (
                         f"Malformed line in sample file: '{line.strip()}'. "
                         "Each line must contain exactly two fields separated by whitespace."
                     )
-                    raise ValueError(
-                        f"Malformed line in sample file: '{line.strip()}'"
-                    )
+                    logger.error(error_msg)
+                    raise ValueError(error_msg)
                 breed, sample_id = parts
                 sample_info.append((sample_id, breed))
 
