@@ -617,20 +617,23 @@ def annotate_tree(
 
     # Read sample metadata from the provided file
     with open(sample_file, "r") as f:
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(f.read(1024))
+        f.seek(0)
+
+        reader = csv.reader(f, dialect)
         sample_info = []
 
-        for line in f:
-            if line.strip():
-                parts = line.strip().split()
-                if len(parts) != 2:
-                    error_msg = (
-                        f"Malformed line in sample file: '{line.strip()}'. "
-                        "Each line must contain exactly two fields separated by whitespace."
-                    )
-                    logger.error(error_msg)
-                    raise ValueError(error_msg)
-                breed, sample_id = parts
-                sample_info.append((sample_id, breed))
+        for row in reader:
+            if len(row) < 2:
+                logger.error(
+                    f"Malformed line in sample file: '{row}'. "
+                    "Each line must contain at least two fields."
+                )
+                raise ValueError("Malformed line in sample file")
+            
+            breed, sample_id = row[:2]
+            sample_info.append((sample_id, breed))
 
     logger.info(f"Loaded metadata for {len(sample_info)} samples.")
 
