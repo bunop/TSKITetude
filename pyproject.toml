@@ -41,11 +41,15 @@ cairosvg = "^2.7.1"
 threads-arg = "^0.2.1"
 biopython = "^1.86"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.1"
+
 [tool.poetry.scripts]
 make_est_sfs_input = "tskitetude.estsfs:make_est_sfs_input"
 parse_est_sfs_output = "tskitetude.estsfs:parse_est_sfs_output"
 create_tstree = "tskitetude.helper:create_tstree"
 collect_compara_ancestors = "tskitetude.ensembl:collect_compara_ancestors"
+annotate_tree = "tskitetude.helper:annotate_tree"
 
 [build-system]
 requires = ["poetry-core"]
