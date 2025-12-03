@@ -22,7 +22,7 @@ parts:
     - file: notebooks/14-inspect_simulations
     - file: notebooks/16-different-mutation-rates
     - file: notebooks/17-simulated_dataset
-    - file: notebooks/18-add_metadata_to_threads_ts
+    - file: notebooks/18-explore-metadata
 
   - caption: The SMARTER database
     chapters:
