@@ -197,6 +197,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyze the simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-simulated_dataset.html">Dataset for TS inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-explore-metadata.html">Explore threads metadata</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -1004,6 +1005,9 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                     </table>
                 </div>
             </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
         </div>
     </div></div>
 </div>
@@ -1014,7 +1018,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.2924016481571095e-06
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(6.2924016481571095e-06)
 </pre></div>
 </div>
 </div>
@@ -1026,7 +1030,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.094446757337434e-06
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(7.094446757337434e-06)
 </pre></div>
 </div>
 </div>
@@ -1585,6 +1589,9 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
                     </table>
                 </div>
             </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
         </div>
     </div></div>
 </div>
@@ -1595,7 +1602,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.04781517762309e-05
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(5.04781517762309e-05)
 </pre></div>
 </div>
 </div>
@@ -1607,7 +1614,7 @@ bcftools<span class="w"> </span>query<span class="w"> </span>-l<span class="w"> 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.753770863863539e-05
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(3.753770863863539e-05)
 </pre></div>
 </div>
 </div>
@@ -2165,6 +2172,9 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
                     </table>
                 </div>
             </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
         </div>
     </div></div>
 </div>
@@ -2175,7 +2185,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0008102636799985429
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.0008102636799985429)
 </pre></div>
 </div>
 </div>
@@ -2187,7 +2197,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0007728152520235786
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.0007728152520235786)
 </pre></div>
 </div>
 </div>
@@ -2210,7 +2220,9 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.004369149530414562, 0.006317426248074964, 0.011025754267375176]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[np.float64(0.004369149530414562),
+ np.float64(0.006317426248074964),
+ np.float64(0.011025754267375176)]
 </pre></div>
 </div>
 </div>
@@ -2223,7 +2235,9 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.009344736411834753, 0.011842725047691682, 0.01151736454415031]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[np.float64(0.009344736411834753),
+ np.float64(0.011842725047691682),
+ np.float64(0.01151736454415031)]
 </pre></div>
 </div>
 </div>
@@ -2308,7 +2322,7 @@ sbatch<span class="w"> </span>scripts/simulation-tsm100M300I.sh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1b63435a6b0aa933fb9801a6692672f65fb2c1b05e6d4087caf38ffc8a9eb81e.svg" src="../_images/1b63435a6b0aa933fb9801a6692672f65fb2c1b05e6d4087caf38ffc8a9eb81e.svg" />
+<img alt="../_images/7754b106d62116185214367f9e968ad84dcba18ff49ed713db007c5b22c3e2de.svg" src="../_images/7754b106d62116185214367f9e968ad84dcba18ff49ed713db007c5b22c3e2de.svg" />
 </div>
 </div>
 <div class="cell docutils container">

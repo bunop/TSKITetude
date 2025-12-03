@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/17-simulated_dataset';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The SMARTER-database" href="../running/smarter-database.html" />
+    <link rel="next" title="Explore threads metadata" href="18-explore-metadata.html" />
     <link rel="prev" title="Test TreeSequences with different mutation rates" href="16-different-mutation-rates.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -197,6 +197,7 @@
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Dataset for TS inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-explore-metadata.html">Explore threads metadata</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -312,7 +313,7 @@
       
       
       
-      <li><a href="../_sources/notebooks/17-simulated_dataset.ipynb" target="_blank"
+      <li><a href="../_sources/notebooks/17-simulated_dataset.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -322,7 +323,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -407,9 +408,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-file-names">Fix file names</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-tsv-file-sample-information">Create a TSV file sample information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-tsv-file-with-sample-information">Create a TSV file with sample information</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-fake-fasta-file">Create a fake FASTA file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline">Call nextflow pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-tskit-reference-approach">Call nextflow pipeline (tskit reference approach)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-threads-approach">Call nextflow pipeline (threads approach)</a></li>
 </ul>
             </nav>
         </div>
@@ -460,7 +462,7 @@ document.write(`
 </ul>
 <section id="fix-file-names">
 <h2>Fix file names<a class="headerlink" href="#fix-file-names" title="Link to this heading">#</a></h2>
-<p>Files has beed downloaded and extracted in <code class="docutils literal notranslate"><span class="pre">data/toInfer/</span></code> folder: there’s a
+<p>Files have been downloaded and extracted in <code class="docutils literal notranslate"><span class="pre">data/toInfer/</span></code> folder: there’s a
 repetition of “vcf” in the file names. You can fix this by creating a simple script
 like this in the <code class="docutils literal notranslate"><span class="pre">data/toInfer/</span></code> folder:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -477,8 +479,8 @@ like this in the <code class="docutils literal notranslate"><span class="pre">da
 <p>Make the script executable with <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">fix_filenames.sh</span></code> and run it with
 <code class="docutils literal notranslate"><span class="pre">./fix_filenames.sh</span></code>.</p>
 </section>
-<section id="create-a-tsv-file-sample-information">
-<h2>Create a TSV file sample information<a class="headerlink" href="#create-a-tsv-file-sample-information" title="Link to this heading">#</a></h2>
+<section id="create-a-tsv-file-with-sample-information">
+<h2>Create a TSV file with sample information<a class="headerlink" href="#create-a-tsv-file-with-sample-information" title="Link to this heading">#</a></h2>
 <p>Those files are a simulation of 1600 individuals from the original 2405 individuals
 in the msprime simulation. We need to create a TSV file with sample information
 using <code class="docutils literal notranslate"><span class="pre">FID</span></code> and <code class="docutils literal notranslate"><span class="pre">IID</span></code> columns: you can create it with an utility script in this
@@ -491,7 +493,7 @@ folder:</p>
 </section>
 <section id="create-a-fake-fasta-file">
 <h2>Create a fake FASTA file<a class="headerlink" href="#create-a-fake-fasta-file" title="Link to this heading">#</a></h2>
-<p>We need to create a fake FASTA in order to explot <code class="docutils literal notranslate"><span class="pre">bcftools</span> <span class="pre">reheader</span></code> to add
+<p>We need to create a fake FASTA in order to exploit <code class="docutils literal notranslate"><span class="pre">bcftools</span> <span class="pre">reheader</span></code> to add
 contig length information to the VCF files: this is required by <code class="docutils literal notranslate"><span class="pre">create_tstree</span></code>
 script installed in this project (and to be used by the <a class="github reference external" href="https://github.com/cnr-ibba/nf-treeseq">cnr-ibba/nf-treeseq</a>
 Nextflow pipeline). This can be done again with an utility script in this folder:</p>
@@ -501,14 +503,28 @@ Nextflow pipeline). This can be done again with an utility script in this folder
 </pre></div>
 </div>
 </section>
-<section id="call-nextflow-pipeline">
-<h2>Call nextflow pipeline<a class="headerlink" href="#call-nextflow-pipeline" title="Link to this heading">#</a></h2>
+<section id="call-nextflow-pipeline-tskit-reference-approach">
+<h2>Call nextflow pipeline (tskit reference approach)<a class="headerlink" href="#call-nextflow-pipeline-tskit-reference-approach" title="Link to this heading">#</a></h2>
 <p>You can create two nextflow configuration files for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
-pipeline: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.json</span></code> to
+pipeline: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-reference.json</span></code> to
 see how to set it up. Then you can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>issue-26<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer.json
+<span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-reference.json
+</pre></div>
+</div>
+</section>
+<section id="call-nextflow-pipeline-threads-approach">
+<h2>Call nextflow pipeline (threads approach)<a class="headerlink" href="#call-nextflow-pipeline-threads-approach" title="Link to this heading">#</a></h2>
+<p>You need also two configuration files for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
+pipeline, the <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> file is the same as before, but you
+need to create a new JSON configuration file: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads.json</span></code> to
+see how to set it up. You need also a demography file with two columns, one for
+generation and one for population size: for simplicity will will use a value for
+all generations (see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.demo</span></code>). You can call the pipeline with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>issue-26<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-threads.json
 </pre></div>
 </div>
 </section>
@@ -554,11 +570,11 @@ see how to set it up. Then you can call the pipeline with:</p>
       </div>
     </a>
     <a class="right-next"
-       href="../running/smarter-database.html"
+       href="18-explore-metadata.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The SMARTER-database</p>
+        <p class="prev-next-title">Explore threads metadata</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -579,9 +595,10 @@ see how to set it up. Then you can call the pipeline with:</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fix-file-names">Fix file names</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-tsv-file-sample-information">Create a TSV file sample information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-tsv-file-with-sample-information">Create a TSV file with sample information</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-fake-fasta-file">Create a fake FASTA file</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline">Call nextflow pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-tskit-reference-approach">Call nextflow pipeline (tskit reference approach)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-threads-approach">Call nextflow pipeline (threads approach)</a></li>
 </ul>
   </nav></div>
 

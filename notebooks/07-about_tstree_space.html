@@ -197,6 +197,7 @@
 <li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-simulated_dataset.html">Dataset for TS inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-explore-metadata.html">Explore threads metadata</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="current nav bd-sidenav">
@@ -945,6 +946,9 @@ and inspect how much data is stored here</p>
                     </table>
                 </div>
             </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
         </div>
     </div></div>
 </div>
@@ -959,16 +963,17 @@ and inspect how much data is stored here</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nodes are 21091
-{&#39;flags&#39;: array([1, 1, 1, ..., 0, 0, 0], dtype=uint32),
- &#39;individual&#39;: array([ 0,  0,  1, ..., -1, -1, -1], dtype=int32),
- &#39;metadata&#39;: array([123, 125, 123, ...,  53,  55, 125], dtype=int8),
- &#39;metadata_offset&#39;: array([     0,      2,      4, ..., 524807, 524857, 524909], dtype=uint64),
+{&#39;flags&#39;: array([1, 1, 1, ..., 0, 0, 0], shape=(21091,), dtype=uint32),
+ &#39;individual&#39;: array([ 0,  0,  1, ..., -1, -1, -1], shape=(21091,), dtype=int32),
+ &#39;metadata&#39;: array([123, 125, 123, ...,  53,  55, 125], shape=(524909,), dtype=int8),
+ &#39;metadata_offset&#39;: array([     0,      2,      4, ..., 524807, 524857, 524909],
+      shape=(21092,), dtype=uint64),
  &#39;metadata_schema&#39;: &#39;{&quot;codec&quot;:&quot;json&quot;,&quot;properties&quot;:{&quot;ancestor_data_id&quot;:{&quot;description&quot;:&quot;The &#39;
                     &#39;ID of the tsinfer ancestor data node from which this node &#39;
                     &#39;is derived.&quot;,&quot;type&quot;:&quot;number&quot;}}}&#39;,
- &#39;population&#39;: array([ 0,  0,  0, ..., -1, -1, -1], dtype=int32),
+ &#39;population&#39;: array([ 0,  0,  0, ..., -1, -1, -1], shape=(21091,), dtype=int32),
  &#39;time&#39;: array([0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-       6.21120927e+01, 1.54211541e+01, 3.54785163e+04])}
+       6.21120927e+01, 1.54211541e+01, 3.54785163e+04], shape=(21091,))}
 NodeTableRow(flags=0,
              time=35478.516262884325,
              population=-1,
@@ -989,17 +994,17 @@ NodeTableRow(flags=0,
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Edges are 2266939
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;child&#39;: array([    8,    18,    22, ..., 19751, 20181, 20418], dtype=int32),
+{&#39;child&#39;: array([    8,    18,    22, ..., 19751, 20181, 20418],
+      shape=(2266939,), dtype=int32),
  &#39;left&#39;: array([11093140., 11093140., 15399236., ..., 44004281., 44004281.,
-       44004281.]),
+       44004281.], shape=(2266939,)),
  &#39;metadata&#39;: array([], dtype=int8),
- &#39;metadata_offset&#39;: array([0, 0, 0, ..., 0, 0, 0], dtype=uint64),
+ &#39;metadata_offset&#39;: array([0, 0, 0, ..., 0, 0, 0], shape=(2266940,), dtype=uint64),
  &#39;metadata_schema&#39;: &#39;&#39;,
- &#39;parent&#39;: array([11688, 11688, 11688, ..., 21090, 21090, 21090], dtype=int32),
+ &#39;parent&#39;: array([11688, 11688, 11688, ..., 21090, 21090, 21090],
+      shape=(2266939,), dtype=int32),
  &#39;right&#39;: array([21463416., 21463416., 15810520., ..., 44004282., 44004282.,
-       44004282.])}
+       44004282.], shape=(2266939,))}
 EdgeTableRow(left=44004281.0,
              right=44004282.0,
              parent=21090,
@@ -1144,7 +1149,7 @@ position like in the edge table. However, from the edge table I can derive which
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/281ed227611ca71667ddd7b49c890492b0eed71662d8ac2d4ae37112aa0c38e7.svg" src="../_images/281ed227611ca71667ddd7b49c890492b0eed71662d8ac2d4ae37112aa0c38e7.svg" />
+<img alt="../_images/7d9245ffeeea0e4e807bfcbe50e89df6789611c8baabf152c4e73fc6a52bd568.svg" src="../_images/7d9245ffeeea0e4e807bfcbe50e89df6789611c8baabf152c4e73fc6a52bd568.svg" />
 </div>
 </div>
 </section>

@@ -1,0 +1,1299 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Explore threads metadata &#8212; SheepTreeSeq</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/18-explore-metadata';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The SMARTER-database" href="../running/smarter-database.html" />
+    <link rel="prev" title="Dataset for TS inference" href="17-simulated_dataset.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="SheepTreeSeq - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="SheepTreeSeq - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    SheepTreeSeq: Scalable analysis of sheep genome diversity using tree sequences
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting up the environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../install/install.html">Project Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install/build-docs.html">Build the documentation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Introducing TreeSequences</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-getting_started.html">Getting started with tskit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-tsinfer.html">TSINFER tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-tsinfer_with_test_data.html">TSINFER with SMARTER test data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-test_sample-vcf.html">Inference from a test VCF file</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulating TreeSequences</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="14-inspect_simulations.html">Analyze the simulated data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-simulated_dataset.html">Dataset for TS inference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Explore threads metadata</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../running/smarter-database.html">The SMARTER-database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-smarter_samples_list.html">Get SMARTER samples list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-smarter_database.html">Infer ancestry using EST-SFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-tstree-smarter.html">Reading data from chromosome 26</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-nucleotide-diversity.html">Nucleotide diversity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-about_tstree_space.html">About tstree space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-ensembl-compara.html">Get ancient information from ensemble compara</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-smarter_50k.html">SMARTER 50K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-smarter_50K_results.html">50K simulations results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-population-statistics.html">Population statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-population-statistic_plots.html">Population statistics plots</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/bunop/TSKITetude/issues/new?title=Issue%20on%20page%20%2Fnotebooks/18-explore-metadata.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/18-explore-metadata.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Explore threads metadata</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-treesequences-genotypes">Extract TreeSequences Genotypes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-vcf-genotypes">Extract VCF genotypes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-genotype-matrices">Compare genotype matrices</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="explore-threads-metadata">
+<h1>Explore threads metadata<a class="headerlink" href="#explore-threads-metadata" title="Link to this heading">#</a></h1>
+<p>Threads metadata has been added to the threads TreeSequence with the <code class="docutils literal notranslate"><span class="pre">annotate_tree</span></code>
+script. Let’s explore data and check if everything is fine.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cyvcf2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tszip</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tskitetude</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_data_dir</span><span class="p">,</span> <span class="n">get_project_dir</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>let’s load information on sample names:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="n">get_data_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;toInfer/tsm100M300I.sample_names.txt&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;population&quot;</span><span class="p">,</span> <span class="s2">&quot;individual&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">sample_info</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>population</th>
+      <th>individual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td>tsk_486</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>II</td>
+      <td>tsk_276</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A</td>
+      <td>tsk_506</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>II</td>
+      <td>tsk_115</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>D</td>
+      <td>tsk_1388</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now open the threads object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
+<span class="n">ts_threads</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+        <div>
+            <style>
+                .tskit-table thead tr th {text-align: left;padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td {padding: 0.5em 0.5em;}
+                .tskit-table tbody tr td:first-of-type {text-align: left;}
+                .tskit-details-label {vertical-align: top; padding-right:5px;}
+                .tskit-table-set {display: inline-flex;flex-wrap: wrap;margin: -12px 0 0 -12px;width: calc(100% + 12px);}
+                .tskit-table-set-table {margin: 12px 0 0 12px;}
+                details {display: inline-block;}
+                summary {cursor: pointer; outline: 0; display: list-item;}
+            </style>
+            <div class="tskit-table-set">
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="padding:0;line-height:21px;">
+                                    <img style="height: 32px;display: inline-block;padding: 3px 5px 3px 0;" src="https://raw.githubusercontent.com/tskit-dev/administrative/main/tskit_logo.svg"/>
+                                    <a target="_blank" href="https://tskit.dev/tskit/docs/latest/python-api.html#the-treesequence-class"> Tree Sequence </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Trees</td><td>1 999</td></tr>
+                            <tr><td>Sequence Length</td><td>99 981 261</td></tr>
+                            <tr><td>Time Units</td><td>unknown</td></tr>
+                            <tr><td>Sample Nodes</td><td>3 200</td></tr>
+                            <tr><td>Total Size</td><td>85.3 MiB</td></tr>
+                            <tr>
+                                <td>Metadata</td><td style="text-align: left;">
+            <div>
+                <span class="tskit-details-label"></span>
+                <details open>
+                    <summary>dict</summary>
+                    chromosome: 1<br/>offset: 8568<br/>
+                </details>
+            </div>
+            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th style="line-height:21px;">Table</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                                <th>Has Metadata</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+            <tr>
+                <td>Edges</td>
+                <td>1 979 642</td>
+                <td>60.4 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Individuals</td>
+                <td>1 600</td>
+                <td>80.8 KiB</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Migrations</td>
+                <td>0</td>
+                <td>8 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Mutations</td>
+                <td>1 998</td>
+                <td>72.2 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Nodes</td>
+                <td>358 846</td>
+                <td>9.6 MiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Populations</td>
+                <td>8</td>
+                <td>271 Bytes</td>
+                <td style="text-align: center;">
+                    ✅
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Provenances</td>
+                <td>1</td>
+                <td>384 Bytes</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+            <tr>
+                <td>Sites</td>
+                <td>1 998</td>
+                <td>48.8 KiB</td>
+                <td style="text-align: center;">
+                    
+                </td>
+            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tskit-table-set-table">
+                    <table class="tskit-table">
+                        <thead>
+                            <tr>
+                                <th>Provenance Timestamp</th>
+                                <th>Software Name</th>
+                                <th>Version</th>
+                                <th>Command</th>
+                                <th>Full record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                <tr>
+                    <td>03 December, 2025 at 08:52:49 AM</td>
+                    <td>threads</td>
+                    <td>0.2.1</td>
+                    <td>Unknown</td>
+                    <td>
+                        <details>
+                            <summary>Details</summary>
+                            
+            <div>
+                <span class="tskit-details-label"></span>
+                <details >
+                    <summary>dict</summary>
+                    
+            <div>
+                <span class="tskit-details-label">software:</span>
+                <details >
+                    <summary>dict</summary>
+                    name: threads<br/>version: 0.2.1<br/>
+                </details>
+            </div>
+            <br/>
+            <div>
+                <span class="tskit-details-label">parameters:</span>
+                <details >
+                    <summary>dict</summary>
+                    input_file: ts300I2k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
+                </details>
+            </div>
+            <br/>timestamp: 2025-12-<br/>03T08:52:49.697363+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
+                </details>
+            </div>
+            
+                        </details>
+                    </td>
+                </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-top: 1em; font-size: 0.8em; text-align: center;">
+                To cite this software, please consult the citation manual: <a href="https://tskit.dev/citation/" target="_blank">https://tskit.dev/citation/</a>
+            </div>
+        </div>
+    </div></div>
+</div>
+<p>Explore the metadata of the first 10 nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">nodes</span><span class="p">(),</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: population=</span><span class="si">{</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="si">}</span><span class="s2">, individual=</span><span class="si">{</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">individual</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">individual</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
+Node 1: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
+Node 2: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
+Node 3: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
+Node 4: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=2, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([4, 5], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_107&#39;})
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok, seems that metadata follow the sample order in vcf file. Let’s prove it by checking
+the sample names in <code class="docutils literal notranslate"><span class="pre">ts_threads.individuals()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Num. samples: </span><span class="si">{</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Num. individuals: </span><span class="si">{</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">num_individuals</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">sample2nodes</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">individual</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">individuals</span><span class="p">()):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Individual </span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: sample=&#39;</span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, nodes=</span><span class="si">{</span><span class="n">individual</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">sample2nodes</span><span class="p">[</span><span class="n">individual</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">individual</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Num. samples: 3200
+Num. individuals: 1600
+Individual 0: sample=&#39;tsk_105&#39;, nodes=[0, 1]
+Individual 1: sample=&#39;tsk_106&#39;, nodes=[2, 3]
+Individual 2: sample=&#39;tsk_107&#39;, nodes=[4, 5]
+Individual 3: sample=&#39;tsk_108&#39;, nodes=[6, 7]
+Individual 4: sample=&#39;tsk_109&#39;, nodes=[8, 9]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s discover individual breeds using their node informations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample2breed</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">sample_id</span><span class="p">,</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">sample2nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">sample2breed</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
+            <span class="n">sample_id</span><span class="p">,</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">population</span><span class="p">(</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="o">.</span><span class="n">population</span><span class="p">)</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;breed&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Test that sample and breed mapping is correct:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test that sample and breed mapping is correct:</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span>
+    <span class="n">sample_info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sample_info</span><span class="p">[</span><span class="s2">&quot;individual&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sample_id</span><span class="p">,</span> <span class="s2">&quot;population&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">breed_set</span>
+    <span class="k">for</span> <span class="n">sample_id</span><span class="p">,</span> <span class="n">breed_set</span> <span class="ow">in</span> <span class="n">sample2breed</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="p">),</span> <span class="s2">&quot;Sample to breed mapping is incorrect!&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now test that the genotypes are consistent with sample names: using VCF as a reference,
+read the <code class="docutils literal notranslate"><span class="pre">focal</span></code> sample generated through the pipeline:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcf_file</span> <span class="o">=</span> <span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/focal/ts300I2k.1.vcf.gz&quot;</span>
+<span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">vcf_reader</span><span class="o">.</span><span class="n">samples</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># show first 5 sample names in VCF</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;tsk_105&#39;, &#39;tsk_106&#39;, &#39;tsk_107&#39;, &#39;tsk_108&#39;, &#39;tsk_109&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check that the number of variant is the same:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># count number of variants in VCF file</span>
+<span class="n">num_variants</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N. of variants in VCF: </span><span class="si">{</span><span class="n">num_variants</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># count number of variants in TS file</span>
+<span class="n">num_ts_variants</span> <span class="o">=</span> <span class="n">ts_threads</span><span class="o">.</span><span class="n">num_sites</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;N. of variants TreeSequence: </span><span class="si">{</span><span class="n">num_ts_variants</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># check variant size</span>
+<span class="k">if</span> <span class="n">num_variants</span> <span class="o">==</span> <span class="n">num_ts_variants</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ N. of variants matches (between TS and VCF)!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Warning: VCF has </span><span class="si">{</span><span class="n">num_variants</span><span class="si">}</span><span class="s2"> variants, TreeSequence has </span><span class="si">{</span><span class="n">num_ts_variants</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>N. of variants in VCF: 2000
+N. of variants TreeSequence: 1998
+✗ Warning: VCF has 2000 variants, TreeSequence has 1998
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ok, positions are not the same: for what I saw, first position in <code class="docutils literal notranslate"><span class="pre">ts_threads</span></code> is 0,
+so let’s read first position on vcf file and determine the offset of <em>TS</em> object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
+    <span class="n">variant</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">vcf_reader</span><span class="p">)</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span>
+
+<span class="c1"># translate the TS positions</span>
+<span class="n">ts_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">site</span><span class="o">.</span><span class="n">position</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">ts_threads</span><span class="o">.</span><span class="n">sites</span><span class="p">()],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_positions</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># show first 10 positions</span>
+
+<span class="c1"># read positions from VCF</span>
+<span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
+    <span class="n">vcf_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">variant</span><span class="o">.</span><span class="n">POS</span> <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">vcf_reader</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vcf_positions</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># show first 10 positions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  8568  11982  54502  99207  99302 110491 132927 136059 144274 177369]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  8568  11982  54502  99207  99302 110491 132927 136059 144274 177369]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find which variants are missing from the TreeSequence</span>
+<span class="c1"># Get positions from both VCF and TreeSequence</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TreeSequence positions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ts_positions</span><span class="p">)</span><span class="si">}</span><span class="s2"> variants&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VCF positions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">vcf_positions</span><span class="p">)</span><span class="si">}</span><span class="s2"> variants&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Extracting variant positions from VCF...&quot;</span><span class="p">)</span>
+
+<span class="c1"># collect information on variants</span>
+<span class="n">vcf_variants_info</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">vcf_reader</span><span class="p">:</span>
+        <span class="n">vcf_variants_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;chrom&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">CHROM</span><span class="p">,</span>
+            <span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span><span class="p">,</span>
+            <span class="s1">&#39;ref&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">REF</span><span class="p">,</span>
+            <span class="s1">&#39;alt&#39;</span><span class="p">:</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">variant</span><span class="o">.</span><span class="n">ALT</span><span class="p">)</span> <span class="k">if</span> <span class="n">variant</span><span class="o">.</span><span class="n">ALT</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;qual&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">QUAL</span><span class="p">,</span>
+            <span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">FILTER</span> <span class="k">if</span> <span class="n">variant</span><span class="o">.</span><span class="n">FILTER</span> <span class="k">else</span> <span class="s1">&#39;PASS&#39;</span><span class="p">,</span>
+        <span class="p">})</span>
+
+<span class="c1"># create a dataframe from variant information</span>
+<span class="n">vcf_variants_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">vcf_variants_info</span><span class="p">)</span>
+
+<span class="c1"># Find missing positions (in VCF but not in TreeSequence)</span>
+<span class="n">missing_in_ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">vcf_positions</span><span class="p">,</span> <span class="n">ts_positions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Variants in VCF but missing in TreeSequence: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_in_ts</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_in_ts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># filter out missing variants</span>
+    <span class="n">missing_variants_df</span> <span class="o">=</span> <span class="n">vcf_variants_df</span><span class="p">[</span><span class="n">vcf_variants_df</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">missing_in_ts</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">genotype_stats</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">vcf_reader</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span> <span class="ow">in</span> <span class="n">missing_in_ts</span><span class="p">:</span>
+                <span class="n">gts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gt</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">gt</span> <span class="ow">in</span> <span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span><span class="p">])</span>
+                <span class="n">unique_alleles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gts</span><span class="p">[</span><span class="n">gts</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Escludere missing (-1)</span>
+
+                <span class="n">genotype_stats</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span><span class="p">,</span>
+                    <span class="s1">&#39;unique_alleles&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_alleles</span><span class="p">),</span>
+                    <span class="s1">&#39;is_monomorphic&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_alleles</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;missing_gts&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gts</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="s1">&#39;total_gts&#39;</span><span class="p">:</span> <span class="n">gts</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                    <span class="s1">&#39;allele_counts&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gts</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+                <span class="p">})</span>
+
+    <span class="n">genotype_stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">genotype_stats</span><span class="p">)</span>
+
+    <span class="c1"># join information</span>
+    <span class="n">missing_variants_full</span> <span class="o">=</span> <span class="n">missing_variants_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">genotype_stats_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+
+    <span class="c1"># uncomment to save data</span>
+    <span class="c1"># missing_variants_full.to_csv(&#39;missing_variants.csv&#39;, index=False)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ All VCF variants are present in TreeSequence&quot;</span><span class="p">)</span>
+
+<span class="c1"># Also check if TreeSequence has any variants not in VCF (unlikely but possible)</span>
+<span class="n">extra_in_ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">setdiff1d</span><span class="p">(</span><span class="n">ts_positions</span><span class="p">,</span> <span class="n">vcf_positions</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extra_in_ts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">extra_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">extra_in_ts</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TreeSequence positions: 1998 variants
+VCF positions: 2000 variants
+
+Extracting variant positions from VCF...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variants in VCF but missing in TreeSequence: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_variants_full</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>chrom</th>
+      <th>pos</th>
+      <th>ref</th>
+      <th>alt</th>
+      <th>qual</th>
+      <th>filter</th>
+      <th>unique_alleles</th>
+      <th>is_monomorphic</th>
+      <th>missing_gts</th>
+      <th>total_gts</th>
+      <th>allele_counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>45384357</td>
+      <td>C</td>
+      <td>T</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>63257441</td>
+      <td>C</td>
+      <td>T,G</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>3</td>
+      <td>False</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3145, 1: 7, 2: 48}</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>So the missing variants are one monomorphic SNP (no alternates) in position <code class="docutils literal notranslate"><span class="pre">45384357</span></code> and
+one biallelic SNP in position <code class="docutils literal notranslate"><span class="pre">63257441</span></code> (filtered out by the <code class="docutils literal notranslate"><span class="pre">BCFTOOLS_BIALLELIC</span></code> step).
+Let’s track the position to skip:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skip_positions</span> <span class="o">=</span> <span class="n">missing_variants_full</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="extract-treesequences-genotypes">
+<h2>Extract TreeSequences Genotypes<a class="headerlink" href="#extract-treesequences-genotypes" title="Link to this heading">#</a></h2>
+<p>Collect the full genotype matrix from TS object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># collect a matrix of (num_sites, num_samples)</span>
+<span class="n">ts_genotype_matrix</span> <span class="o">=</span> <span class="n">ts_threads</span><span class="o">.</span><span class="n">genotype_matrix</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Genotype matrix from TS: </span><span class="si">{</span><span class="n">ts_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sites: </span><span class="si">{</span><span class="n">ts_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of samples: </span><span class="si">{</span><span class="n">ts_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Subsetting first 5 objects in both dimensions&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ts_genotype_matrix</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genotype matrix from TS: (1998, 3200)
+Number of sites: 1998
+Number of samples: 3200
+
+Subsetting first 5 objects in both dimensions
+[[0 0 0 0 0]
+ [0 0 0 0 1]
+ [0 0 0 1 1]
+ [0 0 0 1 0]
+ [0 0 0 1 0]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="extract-vcf-genotypes">
+<h2>Extract VCF genotypes<a class="headerlink" href="#extract-vcf-genotypes" title="Link to this heading">#</a></h2>
+<p>Collect the full genotype matrix from VCF (remember to skip filtered variants):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Extracting genotypes from VCF...&quot;</span><span class="p">)</span>
+
+    <span class="n">genotype_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">variant</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vcf_reader</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span> <span class="ow">in</span> <span class="n">skip_positions</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># those variants are missing in TS</span>
+
+        <span class="c1"># Extract alleles as a numpy array directly</span>
+        <span class="c1"># variant.genotypes is a list, we take only the first 2 elements (alleles)</span>
+        <span class="c1"># Unnest genotypes: create a (num_samples * 2,) flat array for this variant</span>
+        <span class="n">genotypes_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gt</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">gt</span> <span class="ow">in</span> <span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+        <span class="n">genotype_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">genotypes_array</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Processed </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> variants...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Convert to a 3D numpy array: dimensions (num_variants, num_samples, 2)</span>
+    <span class="n">vcf_genotype_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">genotype_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">VCF genotype matrix created:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Shape: </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Dtype: </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of variants: </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of samples: </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Example - first 5 genotypes of the first sample:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">vcf_genotype_matrix</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting genotypes from VCF...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VCF genotype matrix created:
+  Shape: (1998, 3200)
+  Dtype: int8
+  Number of variants: 1998
+  Number of samples: 3200
+
+Example - first 5 genotypes of the first sample:
+[[0 0 0 0 0]
+ [0 0 0 0 1]
+ [0 0 0 1 1]
+ [0 0 0 1 0]
+ [0 0 0 1 0]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-genotype-matrices">
+<h2>Compare genotype matrices<a class="headerlink" href="#compare-genotype-matrices" title="Link to this heading">#</a></h2>
+<p>Compare the two genotype matrices:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check matching between VCF and TreeSequence genotype matrices: test for shape and values</span>
+<span class="k">if</span> <span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">ts_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Matrices have the same shape: </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Both matrices have shape (num_sites, num_samples * 2 intended as haploid individuals)</span>
+    <span class="c1"># test for site-wise matches</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">vcf_genotype_matrix</span> <span class="o">==</span> <span class="n">ts_genotype_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">num_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+    <span class="n">num_total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Global result:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Sites with matching genotypes: </span><span class="si">{</span><span class="n">num_matches</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_total</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="n">num_matches</span><span class="o">/</span><span class="n">num_total</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_matches</span> <span class="o">!=</span> <span class="n">num_total</span><span class="p">:</span>
+        <span class="c1"># Find sites with mismatches</span>
+        <span class="n">mismatches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Number of sites with mismatches: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mismatches</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  First 5 sites with mismatches: </span><span class="si">{</span><span class="n">mismatches</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Analyze an example of mismatch</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mismatches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">site_idx</span> <span class="o">=</span> <span class="n">mismatches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Example - Site </span><span class="si">{</span><span class="n">site_idx</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Find which samples have mismatches</span>
+            <span class="n">site_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">vcf_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">ts_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">discordant_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">site_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Samples with mismatches: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">discordant_samples</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">discordant_samples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sample_idx</span> <span class="o">=</span> <span class="n">discordant_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Sample </span><span class="si">{</span><span class="n">sample_idx</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      VCF:          </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">,</span><span class="w"> </span><span class="n">sample_idx</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      TreeSequence: </span><span class="si">{</span><span class="n">ts_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">,</span><span class="w"> </span><span class="n">sample_idx</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ All matrices match perfectly!&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Statistics per sample</span>
+    <span class="c1"># Per-sample match stats (all sites must match for a sample to be &quot;perfect&quot;)</span>
+    <span class="n">sample_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">vcf_genotype_matrix</span> <span class="o">==</span> <span class="n">ts_genotype_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">num_perfect_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sample_matches</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Samples with all matching genotypes: </span><span class="si">{</span><span class="n">num_perfect_samples</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">num_samples</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_perfect_samples</span> <span class="o">!=</span> <span class="n">ts_threads</span><span class="o">.</span><span class="n">num_samples</span><span class="p">:</span>
+        <span class="n">mismatched_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">sample_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of samples with mismatches: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mismatched_samples</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  First 10 samples with mismatches: </span><span class="si">{</span><span class="n">mismatched_samples</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Matrices have different shapes!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  VCF:          </span><span class="si">{</span><span class="n">vcf_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  TreeSequence: </span><span class="si">{</span><span class="n">ts_genotype_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Matrices have the same shape: (1998, 3200)
+
+Global result:
+  Sites with matching genotypes: 1998/1998 (100.00%)
+
+✓ All matrices match perfectly!
+
+Samples with all matching genotypes: 3200/3200
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="17-simulated_dataset.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Dataset for TS inference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../running/smarter-database.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The SMARTER-database</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-treesequences-genotypes">Extract TreeSequences Genotypes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-vcf-genotypes">Extract VCF genotypes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-genotype-matrices">Compare genotype matrices</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Paolo Cozzi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024-2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

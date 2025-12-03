@@ -1,0 +1,100 @@
+Traceback (most recent call last):
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cozzip/.conda/envs/python3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# reset the VCF file
+vcf = cyvcf2.VCF(vcf_file)
+
+with tsinfer.SampleData(
+        path = str(get_project_dir() / "experiments/test1M/test1M.out.inf.samples"),
+        sequence_length = sequence_length) as samples:
+
+    # add population information (optional)
+    samples.add_population(metadata={"name": "Mouflon"})
+    samples.add_population(metadata={"name": "Iranian"})
+    samples.add_population(metadata={"name": "Border"})
+
+    # add individuals (optional)
+
+    # create a population lookup list to iterate over
+    popID = np.repeat([0,1,2], [5, 50, 50]).tolist()
+
+    for i in range(105):
+        samples.add_individual(ploidy=2, population=popID[i], metadata={"name": f"tsk_{i}"})
+
+    add_diploid_sites(vcf, samples, {}, allele_chars=set("01"))
+
+print(
+    f"Sample file created for {samples.num_samples} samples "
+    f"({samples.num_individuals} individuals) "
+    f"with {samples.num_sites} variable sites."
+)
+------------------
+
+----- stderr -----
+/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/tsinfer/formats.py:530: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
+  return zarr.LMDBStore(self.path, subdir=False, map_size=map_size)
+/tmp/ipykernel_994636/3685298114.py:4: DeprecationWarning: SampleData is deprecated
+  with tsinfer.SampleData(
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mTypeError[39m                                 Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[4][39m[32m, line 21[39m
+[32m     19[39m         samples.add_individual(ploidy=[32m2[39m, population=popID[i], metadata={[33m"[39m[33mname[39m[33m"[39m: [33mf[39m[33m"[39m[33mtsk_[39m[38;5;132;01m{[39;00mi[38;5;132;01m}[39;00m[33m"[39m})
+[32m---> [39m[32m21[39m     [43madd_diploid_sites[49m[43m([49m[43mvcf[49m[43m,[49m[43m [49m[43msamples[49m[43m,[49m[43m [49m[43m{[49m[43m}[49m[43m,[49m[43m [49m[43mallele_chars[49m[43m=[49m[38;5;28;43mset[39;49m[43m([49m[33;43m"[39;49m[33;43m01[39;49m[33;43m"[39;49m[43m)[49m[43m)[49m
+[32m     23[39m [38;5;28mprint[39m(
+[32m     24[39m     [33mf[39m[33m"[39m[33mSample file created for [39m[38;5;132;01m{[39;00msamples.num_samples[38;5;132;01m}[39;00m[33m samples [39m[33m"[39m
+[32m     25[39m     [33mf[39m[33m"[39m[33m([39m[38;5;132;01m{[39;00msamples.num_individuals[38;5;132;01m}[39;00m[33m individuals) [39m[33m"[39m
+[32m     26[39m     [33mf[39m[33m"[39m[33mwith [39m[38;5;132;01m{[39;00msamples.num_sites[38;5;132;01m}[39;00m[33m variable sites.[39m[33m"[39m
+[32m     27[39m )
+
+[31mTypeError[39m: add_diploid_sites() missing 1 required positional argument: 'indv_lookup'
+
+During handling of the above exception, another exception occurred:
+
+[31mValueError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[4][39m[32m, line 4[39m
+[32m      1[39m [38;5;66;03m# reset the VCF file[39;00m
+[32m      2[39m vcf = cyvcf2.VCF(vcf_file)
+[32m----> [39m[32m4[39m [38;5;28;01mwith[39;00m tsinfer.SampleData(
+[32m      5[39m         path = [38;5;28mstr[39m(get_project_dir() / [33m"[39m[33mexperiments/test1M/test1M.out.inf.samples[39m[33m"[39m),
+[32m      6[39m         sequence_length = sequence_length) [38;5;28;01mas[39;00m samples:
+[32m      7[39m 
+[32m      8[39m     [38;5;66;03m# add population information (optional)[39;00m
+[32m      9[39m     samples.add_population(metadata={[33m"[39m[33mname[39m[33m"[39m: [33m"[39m[33mMouflon[39m[33m"[39m})
+[32m     10[39m     samples.add_population(metadata={[33m"[39m[33mname[39m[33m"[39m: [33m"[39m[33mIranian[39m[33m"[39m})
+
+[36mFile [39m[32m~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/tsinfer/formats.py:503[39m, in [36mDataContainer.__exit__[39m[34m(self, *args)[39m
+[32m    501[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34m__exit__[39m([38;5;28mself[39m, *args):
+[32m    502[39m     [38;5;28;01mif[39;00m [38;5;28mself[39m._mode != [38;5;28mself[39m.READ_MODE:
+[32m--> [39m[32m503[39m         [38;5;28;43mself[39;49m[43m.[49m[43mfinalise[49m[43m([49m[43m)[49m
+[32m    504[39m     [38;5;28;01melif[39;00m [38;5;28mself[39m.path [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[32m    505[39m         [38;5;28mself[39m.close()
+
+[36mFile [39m[32m~/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/tsinfer/formats.py:2021[39m, in [36mSampleData.finalise[39m[34m(self)[39m
+[32m   2019[39m     [38;5;28mself[39m._sites_writer.flush()
+[32m   2020[39m [38;5;28;01mif[39;00m [38;5;28mself[39m.num_sites == [32m0[39m:
+[32m-> [39m[32m2021[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([33m"[39m[33mMust add at least one site[39m[33m"[39m)
+[32m   2022[39m [38;5;28mself[39m._build_state = -[32m1[39m
+[32m   2023[39m [38;5;28;01mif[39;00m [38;5;28mself[39m.sequence_length == [32m0[39m:
+[32m   2024[39m     [38;5;66;03m# Need to be careful that sequence_length is JSON serialisable here.[39;00m
+
+[31mValueError[39m: Must add at least one site
+
