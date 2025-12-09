@@ -92,7 +92,7 @@ You need also two configuration files for running the `cnr-ibba/nf-treeseq`
 pipeline, the `config/samples_toInfer.csv` file is the same as before, but you
 need to create a new JSON configuration file: see `config/samples_toInfer-threads.json` to
 see how to set it up. You need also a demography file with two columns, one for
-generation and one for population size: for simplicity will will use a value for
+generation and one for population size: for simplicity we will use a value for
 all generations (see `config/samples_toInfer.demo`). You can call the pipeline with:
 
 ```bash
