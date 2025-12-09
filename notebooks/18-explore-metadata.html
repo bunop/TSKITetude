@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/18-explore-metadata';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The SMARTER-database" href="../running/smarter-database.html" />
+    <link rel="next" title="Threads fitting data" href="19-threads_fit-data.html" />
     <link rel="prev" title="Dataset for TS inference" href="17-simulated_dataset.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -198,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-simulated_dataset.html">Dataset for TS inference</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Explore threads metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-threads_fit-data.html">Threads fitting data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -506,9 +507,13 @@ script. Let’s explore data and check if everything is fine.</p>
 </div></div></div>
 </div>
 <p>Now open the threads object:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>where are opening the fitted version of the trees, since they contain variant infomation</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer-fit/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
 <span class="n">ts_threads</span>
 </pre></div>
 </div>
@@ -658,7 +663,7 @@ script. Let’s explore data and check if everything is fine.</p>
                         <tbody>
                             
                 <tr>
-                    <td>03 December, 2025 at 08:52:49 AM</td>
+                    <td>09 December, 2025 at 12:13:23 PM</td>
                     <td>threads</td>
                     <td>0.2.1</td>
                     <td>Unknown</td>
@@ -686,7 +691,7 @@ script. Let’s explore data and check if everything is fine.</p>
                     input_file: ts300I2k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
                 </details>
             </div>
-            <br/>timestamp: 2025-12-<br/>03T08:52:49.697363+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
+            <br/>timestamp: 2025-12-<br/>09T12:13:23.094293+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
                 </details>
             </div>
             
@@ -713,11 +718,11 @@ script. Let’s explore data and check if everything is fine.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
-Node 1: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
-Node 2: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
-Node 3: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
-Node 4: population=Population(id=5, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=2, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([4, 5], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_107&#39;})
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
+Node 1: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
+Node 2: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
+Node 3: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
+Node 4: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=2, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([4, 5], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_107&#39;})
 </pre></div>
 </div>
 </div>
@@ -1215,11 +1220,11 @@ Samples with all matching genotypes: 3200/3200
       </div>
     </a>
     <a class="right-next"
-       href="../running/smarter-database.html"
+       href="19-threads_fit-data.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The SMARTER-database</p>
+        <p class="prev-next-title">Threads fitting data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

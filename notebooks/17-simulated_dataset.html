@@ -198,6 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="16-different-mutation-rates.html">Test TreeSequences with different mutation rates</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Dataset for TS inference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="18-explore-metadata.html">Explore threads metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-threads_fit-data.html">Threads fitting data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">The SMARTER database</span></p>
 <ul class="nav bd-sidenav">
@@ -412,6 +413,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-fake-fasta-file">Create a fake FASTA file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-tskit-reference-approach">Call nextflow pipeline (tskit reference approach)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-threads-approach">Call nextflow pipeline (threads approach)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-threads-with-fit-to-data">Call nextflow pipeline (threads with fit to data)</a></li>
 </ul>
             </nav>
         </div>
@@ -508,7 +510,7 @@ Nextflow pipeline). This can be done again with an utility script in this folder
 <p>You can create two nextflow configuration files for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
 pipeline: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-reference.json</span></code> to
 see how to set it up. Then you can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>issue-26<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-reference.json
 </pre></div>
@@ -522,9 +524,21 @@ need to create a new JSON configuration file: see <code class="docutils literal 
 see how to set it up. You need also a demography file with two columns, one for
 generation and one for population size: for simplicity will will use a value for
 all generations (see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.demo</span></code>). You can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>issue-26<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-threads.json
+</pre></div>
+</div>
+</section>
+<section id="call-nextflow-pipeline-threads-with-fit-to-data">
+<h2>Call nextflow pipeline (threads with fit to data)<a class="headerlink" href="#call-nextflow-pipeline-threads-with-fit-to-data" title="Link to this heading">#</a></h2>
+<p>You need to create another JSON configuration file for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
+pipeline with threads and fit to data option enabled:
+see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads-fit.json</span></code> to
+see how to set it up. You can call the pipeline with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span>-c<span class="w"> </span>config/custom.config<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-threads-fit.json
 </pre></div>
 </div>
 </section>
@@ -599,6 +613,7 @@ all generations (see <code class="docutils literal notranslate"><span class="pre
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-fake-fasta-file">Create a fake FASTA file</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-tskit-reference-approach">Call nextflow pipeline (tskit reference approach)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-threads-approach">Call nextflow pipeline (threads approach)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#call-nextflow-pipeline-threads-with-fit-to-data">Call nextflow pipeline (threads with fit to data)</a></li>
 </ul>
   </nav></div>
 

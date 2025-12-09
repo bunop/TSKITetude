@@ -50,7 +50,7 @@ print(
 ----- stderr -----
 /home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/tsinfer/formats.py:530: FutureWarning: The LMDBStore is deprecated and will be removed in a Zarr-Python version 3, see https://github.com/zarr-developers/zarr-python/issues/1274 for more information.
   return zarr.LMDBStore(self.path, subdir=False, map_size=map_size)
-/tmp/ipykernel_994636/3685298114.py:4: DeprecationWarning: SampleData is deprecated
+/tmp/ipykernel_3954175/3685298114.py:4: DeprecationWarning: SampleData is deprecated
   with tsinfer.SampleData(
 ------------------
 

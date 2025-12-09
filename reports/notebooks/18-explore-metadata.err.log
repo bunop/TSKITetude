@@ -1,0 +1,73 @@
+Traceback (most recent call last):
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cozzip/.conda/envs/python3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/cozzip/.cache/pypoetry/virtualenvs/tskitetude-hh-GIRXc-py3.12/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+with cyvcf2.VCF(vcf_file) as vcf_reader:
+    print("\nExtracting genotypes from VCF...")
+
+    genotype_list = []
+
+    for i, variant in enumerate(vcf_reader):
+        if variant.POS in skip_positions:
+            continue  # those variants are missing in TS
+
+        # Extract alleles as a numpy array directly
+        # variant.genotypes is a list, we take only the first 2 elements (alleles)
+        # Unnest genotypes: create a (num_samples * 2,) flat array for this variant
+        genotypes_array = np.array([gt[:2] for gt in variant.genotypes], dtype=np.int8)
+        genotype_list.append(genotypes_array.flatten())
+
+        if (i + 1) % 10000 == 0:
+            print(f"  Processed {i + 1} variants...")
+
+    # Convert to a 3D numpy array: dimensions (num_variants, num_samples, 2)
+    vcf_genotype_matrix = np.array(genotype_list, dtype=np.int8)
+
+    print(f"\nVCF genotype matrix created:")
+    print(f"  Shape: {vcf_genotype_matrix.shape}")
+    print(f"  Dtype: {vcf_genotype_matrix.dtype}")
+    print(f"  Number of variants: {vcf_genotype_matrix.shape[0]}")
+    print(f"  Number of samples: {vcf_genotype_matrix.shape[1]}")
+
+    print(f"\nExample - first 5 genotypes of the first sample:")
+    print(vcf_genotype_matrix[:5, :5])
+------------------
+
+----- stdout -----
+
+Extracting genotypes from VCF...
+----- stdout -----
+
+VCF genotype matrix created:
+  Shape: (0,)
+  Dtype: int8
+  Number of variants: 0
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mIndexError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[15][39m[32m, line 26[39m
+[32m     24[39m [38;5;28mprint[39m([33mf[39m[33m"[39m[33m  Dtype: [39m[38;5;132;01m{[39;00mvcf_genotype_matrix.dtype[38;5;132;01m}[39;00m[33m"[39m)
+[32m     25[39m [38;5;28mprint[39m([33mf[39m[33m"[39m[33m  Number of variants: [39m[38;5;132;01m{[39;00mvcf_genotype_matrix.shape[[32m0[39m][38;5;132;01m}[39;00m[33m"[39m)
+[32m---> [39m[32m26[39m [38;5;28mprint[39m([33mf[39m[33m"[39m[33m  Number of samples: [39m[38;5;132;01m{[39;00m[43mvcf_genotype_matrix[49m[43m.[49m[43mshape[49m[43m[[49m[32;43m1[39;49m[43m][49m[38;5;132;01m}[39;00m[33m"[39m)
+[32m     28[39m [38;5;28mprint[39m([33mf[39m[33m"[39m[38;5;130;01m\n[39;00m[33mExample - first 5 genotypes of the first sample:[39m[33m"[39m)
+[32m     29[39m [38;5;28mprint[39m(vcf_genotype_matrix[:[32m5[39m, :[32m5[39m])
+
+[31mIndexError[39m: tuple index out of range
+

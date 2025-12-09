@@ -26,13 +26,13 @@ dated_ts
 ------------------
 
 ----- stderr -----
-2025-12-03 22:13:08,594 - tsdate.util - INFO - Beginning preprocessing
+2025-12-09 15:54:14,215 - tsdate.util - INFO - Beginning preprocessing
 ----- stderr -----
-2025-12-03 22:13:08,595 - tsdate.util - INFO - Minimum_gap: None and erase_flanks: None
+2025-12-09 15:54:14,216 - tsdate.util - INFO - Minimum_gap: None and erase_flanks: None
 ----- stderr -----
-2025-12-03 22:13:08,596 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
+2025-12-09 15:54:14,216 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 0 to first site at 166515.0.
 ----- stderr -----
-2025-12-03 22:13:08,597 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
+2025-12-09 15:54:14,217 - tsdate.util - INFO - REMOVING TELOMERE: Snip topology from 44004282.0 to end of sequence at 44077779.0.
 ------------------
 
 [31m---------------------------------------------------------------------------[39m
