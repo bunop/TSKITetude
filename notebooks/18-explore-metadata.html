@@ -440,7 +440,7 @@ script. Let’s explore data and check if everything is fine.</p>
 </div>
 </div>
 </div>
-<p>let’s load information on sample names:</p>
+<p>Let’s load information on sample names:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
@@ -709,7 +709,7 @@ script. Let’s explore data and check if everything is fine.</p>
         </div>
     </div></div>
 </div>
-<p>Explore the metadata of the first 10 nodes:</p>
+<p>Explore the metadata of the first 5 nodes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">ts_threads</span><span class="o">.</span><span class="n">nodes</span><span class="p">(),</span> <span class="mi">5</span><span class="p">):</span>
@@ -756,7 +756,7 @@ Individual 4: sample=&#39;tsk_109&#39;, nodes=[8, 9]
 </div>
 </div>
 </div>
-<p>Let’s discover individual breeds using their node informations:</p>
+<p>Let’s discover individual breeds using their node information:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample2breed</span> <span class="o">=</span> <span class="p">{}</span>
@@ -893,7 +893,7 @@ so let’s read first position on vcf file and determine the offset of <em>TS</e
         <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">vcf_reader</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span> <span class="ow">in</span> <span class="n">missing_in_ts</span><span class="p">:</span>
                 <span class="n">gts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gt</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">gt</span> <span class="ow">in</span> <span class="n">variant</span><span class="o">.</span><span class="n">genotypes</span><span class="p">])</span>
-                <span class="n">unique_alleles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gts</span><span class="p">[</span><span class="n">gts</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Escludere missing (-1)</span>
+                <span class="n">unique_alleles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gts</span><span class="p">[</span><span class="n">gts</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Exclude missing (-1)</span>
 
                 <span class="n">genotype_stats</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                     <span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="o">.</span><span class="n">POS</span><span class="p">,</span>
@@ -1069,7 +1069,7 @@ Subsetting first 5 objects in both dimensions
         <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Processed </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> variants...&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Convert to a 3D numpy array: dimensions (num_variants, num_samples, 2)</span>
+    <span class="c1"># Convert to a 2D numpy array: dimensions (num_variants, num_samples * 2)</span>
     <span class="n">vcf_genotype_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">genotype_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">VCF genotype matrix created:&quot;</span><span class="p">)</span>
@@ -1134,7 +1134,7 @@ Example - first 5 genotypes of the first sample:
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Example - Site </span><span class="si">{</span><span class="n">site_idx</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
 
             <span class="c1"># Find which samples have mismatches</span>
-            <span class="n">site_matches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">vcf_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">ts_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">site_matches</span> <span class="o">=</span> <span class="n">vcf_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">ts_genotype_matrix</span><span class="p">[</span><span class="n">site_idx</span><span class="p">]</span>
             <span class="n">discordant_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">site_matches</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    Samples with mismatches: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">discordant_samples</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

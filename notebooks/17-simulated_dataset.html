@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -522,7 +522,7 @@ see how to set it up. Then you can call the pipeline with:</p>
 pipeline, the <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> file is the same as before, but you
 need to create a new JSON configuration file: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads.json</span></code> to
 see how to set it up. You need also a demography file with two columns, one for
-generation and one for population size: for simplicity will will use a value for
+generation and one for population size: for simplicity we will use a value for
 all generations (see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.demo</span></code>). You can call the pipeline with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -385,7 +385,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -401,6 +403,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-threads-tree-sequences">Load threads tree sequences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-threads-tree-sequences">Simplify threads tree sequences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-tree-sequence-stats">Plot tree sequence stats</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -427,8 +439,6 @@ Another consideration is that when converting the ARG to a tree sequence, I can�
 use the <code class="docutils literal notranslate"><span class="pre">--add_mutations</span></code> if <code class="docutils literal notranslate"><span class="pre">--fit_to_data</span></code> is not used: this is why the
 <a class="reference external" href="https://github.com/cnr-ibba/nf-treeseq">nf-treeseq</a> pipeline currently models
 the two distinct options with <code class="docutils literal notranslate"><span class="pre">--threads_fit_to_data</span></code> parameter.</p>
-<p>Let’s open the simplest results I have, with and without fitting the data, and
-try to understand the differences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tszip</span>
@@ -442,6 +452,10 @@ try to understand the differences.</p>
 </div>
 </div>
 </div>
+<section id="load-threads-tree-sequences">
+<h2>Load threads tree sequences<a class="headerlink" href="#load-threads-tree-sequences" title="Link to this heading">#</a></h2>
+<p>Let’s open the simplest results I have, with and without fitting the data, and
+try to understand the differences:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
@@ -845,7 +859,7 @@ try to understand the differences.</p>
         </div>
     </div></div>
 </div>
-<p>The <em>fitted</em> version seems to see <em>bigger</em> than the normal one. Let’s open also
+<p>The <em>fitted</em> version seems <em>bigger</em> than the normal one. Let’s open also
 the <code class="docutils literal notranslate"><span class="pre">tsinfer</span></code> version of treeseq:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1396,11 +1410,14 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
         </div>
     </div></div>
 </div>
+</section>
+<section id="simplify-threads-tree-sequences">
+<h2>Simplify threads tree sequences<a class="headerlink" href="#simplify-threads-tree-sequences" title="Link to this heading">#</a></h2>
 <p>Are <em>threads</em> file simplified? try to simplify them:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads_simplyfied</span> <span class="o">=</span> <span class="n">ts_threads</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
-<span class="n">ts_threads_fit_simplyfied</span> <span class="o">=</span> <span class="n">ts_threads_fit</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads_simplified</span> <span class="o">=</span> <span class="n">ts_threads</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
+<span class="n">ts_threads_fit_simplified</span> <span class="o">=</span> <span class="n">ts_threads_fit</span><span class="o">.</span><span class="n">simplify</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1408,7 +1425,13 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
 <p>let’s collect those information in a DataFrame for easier comparison:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ts_threads</span><span class="p">,</span> <span class="n">ts_threads_simplyfied</span><span class="p">,</span> <span class="n">ts_threads_fit</span><span class="p">,</span> <span class="n">ts_threads_fit_simplyfied</span><span class="p">,</span> <span class="n">ts_infer</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ts_threads</span><span class="p">,</span>
+    <span class="n">ts_threads_simplified</span><span class="p">,</span>
+    <span class="n">ts_threads_fit</span><span class="p">,</span>
+    <span class="n">ts_threads_fit_simplified</span><span class="p">,</span>
+    <span class="n">ts_infer</span>
+<span class="p">]</span>
 
 <span class="n">comparison_data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;num_trees&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="s1">&#39;num_trees&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">ts_list</span><span class="p">],</span>
@@ -1419,7 +1442,11 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
 <span class="p">}</span>
 
 <span class="n">df_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">comparison_data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span>
-    <span class="s1">&#39;threads&#39;</span><span class="p">,</span> <span class="s1">&#39;threads-simplified&#39;</span><span class="p">,</span> <span class="s1">&#39;threads-fit&#39;</span><span class="p">,</span> <span class="s1">&#39;threads-fit-simplified&#39;</span><span class="p">,</span> <span class="s1">&#39;infer&#39;</span><span class="p">])</span>
+    <span class="s1">&#39;threads&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;threads-simplified&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;threads-fit&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;threads-fit-simplified&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tsinfer&#39;</span><span class="p">])</span>
 <span class="n">df_comparison</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1447,7 +1474,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
       <th>threads-simplified</th>
       <th>threads-fit</th>
       <th>threads-fit-simplified</th>
-      <th>infer</th>
+      <th>tsinfer</th>
     </tr>
   </thead>
   <tbody>
@@ -1495,6 +1522,9 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
 </table>
 </div></div></div>
 </div>
+</section>
+<section id="plot-tree-sequence-stats">
+<h2>Plot tree sequence stats<a class="headerlink" href="#plot-tree-sequence-stats" title="Link to this heading">#</a></h2>
 <p>Let’s plot this dataframe:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1528,17 +1558,18 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cb9789ffa5ccd19eb172905f8e122d5716038239e646ee80fc12fc8909c0cfa2.png" src="../_images/cb9789ffa5ccd19eb172905f8e122d5716038239e646ee80fc12fc8909c0cfa2.png" />
+<img alt="../_images/d1134da680cdbfc0153f72fc2df31379ee990bf8601728478ce443432941200e.png" src="../_images/d1134da680cdbfc0153f72fc2df31379ee990bf8601728478ce443432941200e.png" />
 </div>
 </div>
-<p>The number of threes are similar, between the two approaches (simplified or not).
-Number of edges differ: The <em>unfitted</em> version has less edges and <em>simplified</em> version
+<p>The number of trees are similar, between the two approaches (simplified or not).
+Number of edges differs: The <em>unfitted</em> version has less edges and <em>simplified</em> version
 has a number of edges similar to the <em>tsinfer</em> version. The <em>fitted</em> version and
 the <em>fitted-simplified</em> version have four and two times more edges than the <em>tsinfer</em>
 version. The number of mutations and sites are missed in the <em>unfitted</em> version, while
 the <em>fitted</em> version has more than half the mutations of the <em>tsinfer</em> version and
 the number of sites is similar. Lastly, the number of nodes is significantly higher
-in the <em>unfitted</em> version and more higer in the <em>fitted</em> version compared to the <em>tsinfer</em> one.</p>
+in the <em>unfitted</em> version and more higher in the <em>fitted</em> version compared to the <em>tsinfer</em> one.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1595,6 +1626,23 @@ in the <em>unfitted</em> version and more higer in the <em>fitted</em> version c
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-threads-tree-sequences">Load threads tree sequences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-threads-tree-sequences">Simplify threads tree sequences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-tree-sequence-stats">Plot tree sequence stats</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
