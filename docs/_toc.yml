@@ -23,6 +23,7 @@ parts:
     - file: notebooks/16-different-mutation-rates
     - file: notebooks/17-simulated_dataset
     - file: notebooks/18-explore-metadata
+    - file: notebooks/19-threads_fit-data
 
   - caption: The SMARTER database
     chapters:
