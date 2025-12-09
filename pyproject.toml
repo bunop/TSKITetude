@@ -40,6 +40,7 @@ lets-plot = "^4.4.1"
 cairosvg = "^2.7.1"
 threads-arg = "^0.2.1"
 biopython = "^1.86"
+tscompare = "^0.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.1"
