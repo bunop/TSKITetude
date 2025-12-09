@@ -1,11 +1,11 @@
 {
-    "input": "config/samples_toInfer.csv",
+    "input": "config/samples_toInfer-fit.csv",
     "genome": "data/toInfer/tsm100M300I.fa.gz",
-    "outdir": "results-threads/toInfer",
+    "outdir": "results-threads/toInfer-fit",
     "ancestor_method": "threads",
     "mutation_rate": 5.87e-9,
     "recombination_rate": 1e-8,
     "threads_demography_file": "config/samples_toInfer.demo",
-    "threads_fit_to_data": false,
+    "threads_fit_to_data": true,
     "sample2fid": "data/toInfer/tsm100M300I.sample_names.txt"
 }
