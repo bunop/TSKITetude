@@ -17,8 +17,6 @@ from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from tskit import MISSING_DATA
 from tqdm import tqdm
 
-from tskitetude import POPULATION_METADATA_SCHEMA, INDIVIDUAL_METADATA_SCHEMA
-
 log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(level=logging.INFO, format=log_fmt)
 
@@ -657,25 +655,21 @@ def annotate_tree(
     # now I need to determine how many distinct populations (breeds) there are
     breeds = set(breed for _, breed in sample_info)
 
-    # apply population metadata
-    tables.populations.metadata_schema = POPULATION_METADATA_SCHEMA
-
     breed_to_id = {}
 
     for breed in breeds:
         metadata = {"breed": breed}
-        pop_id = tables.populations.add_row(metadata=metadata)
+        metadata_bytes = json.dumps(metadata).encode()
+        pop_id = tables.populations.add_row(metadata=metadata_bytes)
         breed_to_id[breed] = pop_id
-
-    # apply individual metadata and set population
-    tables.individuals.metadata_schema = INDIVIDUAL_METADATA_SCHEMA
 
     individual_to_id = {}
 
     for sample_id, _ in sample_info:
         if sample_id not in individual_to_id:
             metadata = {"sample_id": sample_id}
-            ind_id = tables.individuals.add_row(metadata=metadata)
+            metadata_bytes = json.dumps(metadata).encode()
+            ind_id = tables.individuals.add_row(metadata=metadata_bytes)
             individual_to_id[sample_id] = ind_id
 
     # now set the population for each individual

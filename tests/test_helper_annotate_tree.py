@@ -119,15 +119,17 @@ def test_annotate_tree_success(tmp_files):
     # Check individuals were added
     assert ts.num_individuals == 2
 
-    # Check metadata schemas are set
-    assert ts.tables.populations.metadata_schema is not None
-    assert ts.tables.individuals.metadata_schema is not None
+    # Check metadata schemas
+    assert isinstance(ts.tables.populations.metadata_schema, tskit.MetadataSchema)
+    assert isinstance(ts.tables.individuals.metadata_schema, tskit.MetadataSchema)
 
     # Verify population metadata
     pop_breeds = set()
     for pop in ts.populations():
         if pop.metadata:
-            pop_breeds.add(pop.metadata.get("breed"))
+            # read binary metadata and decode
+            metadata = json.loads(pop.metadata.decode())
+            pop_breeds.add(metadata.get("breed"))
     assert "breed1" in pop_breeds
     assert "breed2" in pop_breeds
 
@@ -135,7 +137,9 @@ def test_annotate_tree_success(tmp_files):
     sample_ids = set()
     for ind in ts.individuals():
         if ind.metadata:
-            sample_ids.add(ind.metadata.get("sample_id"))
+            # read binary metadata and decode
+            metadata = json.loads(ind.metadata.decode())
+            sample_ids.add(metadata.get("sample_id"))
     assert "sample1" in sample_ids
     assert "sample2" in sample_ids
 
