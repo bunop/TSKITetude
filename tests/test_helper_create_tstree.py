@@ -5,14 +5,22 @@ Unit tests for helper.py functions, especially testing sample order consistency
 between CSV metadata and VCF genotypes.
 """
 
+import json
 import tempfile
+import traceback
+
 import pytest
+import tskit
 import tsinfer
+import tszip
+
+from click.testing import CliRunner
 
 from tskitetude.helper import (
     add_populations,
     add_diploid_individuals,
     add_diploid_sites,
+    create_tstree,
 )
 
 
@@ -45,6 +53,31 @@ def temp_vcf_file(tmp_path):
 chr1	100	.	A	T	.	PASS	.	GT	0|0	0|1	1|1
 chr1	200	.	C	G	.	PASS	.	GT	0|1	1|1	0|0
 chr1	300	.	G	A	.	PASS	.	GT	1|1	0|0	0|1
+"""
+    vcf_file.write_text(vcf_content)
+    return str(vcf_file)
+
+
+@pytest.fixture
+def temp_vcf_file_extended(tmp_path):
+    """
+    Create a VCF file with more SNPs for full pipeline testing (to avoid tsdate errors)
+    """
+    vcf_file = tmp_path / "test_extended.vcf"
+    vcf_content = """##fileformat=VCFv4.2
+##contig=<ID=chr1,length=10000>
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Sample1	Sample2	Sample3
+chr1	100	.	A	T	.	PASS	.	GT	0|0	0|1	1|1
+chr1	500	.	C	G	.	PASS	.	GT	0|1	1|1	0|0
+chr1	1000	.	G	A	.	PASS	.	GT	1|1	0|0	0|1
+chr1	1500	.	T	C	.	PASS	.	GT	0|0	1|1	0|1
+chr1	2000	.	A	G	.	PASS	.	GT	1|0	0|1	1|1
+chr1	2500	.	C	T	.	PASS	.	GT	1|1	0|0	1|0
+chr1	3000	.	G	C	.	PASS	.	GT	0|1	1|0	0|0
+chr1	3500	.	T	A	.	PASS	.	GT	1|1	1|1	0|1
+chr1	4000	.	A	C	.	PASS	.	GT	0|0	0|1	1|1
+chr1	4500	.	C	A	.	PASS	.	GT	1|0	1|1	0|0
 """
     vcf_file.write_text(vcf_content)
     return str(vcf_file)
@@ -193,3 +226,94 @@ def test_genotype_data_integrity(temp_csv_same_order, temp_vcf_file):
         # Site 2 (pos 300): Sample1=1|1, Sample2=0|0, Sample3=0|1
         site2_genotypes = list(samples.sites_genotypes[2])
         assert site2_genotypes == [1, 1, 0, 0, 0, 1]
+
+
+def test_create_tstree_no_errors(temp_csv_same_order, temp_vcf_file_extended, tmp_path):
+    """
+    Test tree creation with create_tstree script
+    """
+
+    # Define output paths in temporary directory
+    output_samples = tmp_path / "output.samples"
+    output_trees = tmp_path / "output.trees"
+
+    runner = CliRunner()
+
+    result = runner.invoke(
+        create_tstree,
+        [
+            "--vcf",
+            temp_vcf_file_extended,
+            "--focal",
+            temp_csv_same_order,
+            "--ancestral_as_reference",
+            "--output_samples",
+            str(output_samples),
+            "--output_trees",
+            str(output_trees),
+            "--tsdate_method",
+            "inside_outside",  # required to avoid tsdate errors with few variants
+        ],
+    )
+
+    # Check that command succeeded
+    if result.exit_code != 0:
+        # Capture and display stdout/stderr for debugging
+        print("\n=== STDOUT ===")
+        print(result.output)
+        print("\n=== STDERR ===")
+        print(result.stderr if hasattr(result, "stderr") else "No stderr available")
+        print("\n=== Exception ===")
+        if result.exception:
+            print(
+                "".join(
+                    traceback.format_exception(
+                        type(result.exception),
+                        result.exception,
+                        result.exception.__traceback__,
+                    )
+                )
+            )
+
+    assert result.exit_code == 0, (
+        f"Command failed with exit code {result.exit_code}. Output: {result.output}"
+    )
+
+    # Verify output files were created
+    assert output_samples.exists(), "Output samples file was not created"
+    assert output_trees.exists(), "Output trees file was not created"
+
+    # Load the resulting tree sequence
+    ts = tszip.load(str(output_trees))
+
+    # Basic checks on the tree sequence
+    assert ts.num_individuals == 3, "Unexpected number of individuals in tree sequence"
+
+    # test that populations and individuals have correct metadata schemas
+    assert isinstance(ts.tables.populations.metadata_schema, tskit.MetadataSchema)
+    assert isinstance(ts.tables.individuals.metadata_schema, tskit.MetadataSchema)
+
+    # Verify population metadata
+    pop_breeds = set()
+    for pop in ts.populations():
+        if pop.metadata:
+            # currently metadata is stored as bytes, decode it
+            # TODO: support custom POPULATION_METADATA_SCHEMA
+            metadata = json.loads(pop.metadata.decode())
+            pop_breeds.add(metadata.get("name"))
+
+    assert "PopA" in pop_breeds
+    assert "PopB" in pop_breeds
+
+    # Verify individual metadata
+    sample_ids = set()
+    for ind in ts.individuals():
+        if ind.metadata:
+            # currently metadata is stored as bytes, decode it
+            # TODO: support custom INDIVIDUAL_METADATA_SCHEMA
+            metadata = json.loads(ind.metadata.decode())
+            sample_ids.add(metadata.get("name"))
+
+    assert "Sample1" in sample_ids
+    assert "Sample2" in sample_ids
+    assert "Sample3" in sample_ids
