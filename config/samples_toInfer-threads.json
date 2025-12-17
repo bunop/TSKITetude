@@ -5,7 +5,7 @@
     "ancestor_method": "threads",
     "mutation_rate": 5.87e-9,
     "recombination_rate": 1e-8,
-    "threads_demography_file": "config/samples_toInfer.demo",
+    "threads_ne": 68663,
     "threads_fit_to_data": false,
     "sample2fid": "data/toInfer/tsm100M300I.sample_names.txt"
 }
