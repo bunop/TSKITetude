@@ -663,7 +663,7 @@ def annotate_tree(
     breed_to_id = {}
 
     for breed in breeds:
-        metadata = {"breed": breed}
+        metadata = {"name": breed}
         pop_id = tables.populations.add_row(metadata=metadata)
         breed_to_id[breed] = pop_id
 
@@ -674,7 +674,7 @@ def annotate_tree(
 
     for sample_id, _ in sample_info:
         if sample_id not in individual_to_id:
-            metadata = {"sample_id": sample_id}
+            metadata = {"name": sample_id}
             ind_id = tables.individuals.add_row(metadata=metadata)
             individual_to_id[sample_id] = ind_id
 
