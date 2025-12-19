@@ -118,25 +118,25 @@ def test_sample_order_consistency_same_order(temp_csv_same_order, temp_vcf_file)
         # Verify that each individual has the correct population assignment
         # Individual 0 should be Sample1 (PopA)
         ind0_meta = samples.individual(0).metadata
-        assert ind0_meta["sample_id"] == "Sample1"
+        assert ind0_meta["name"] == "Sample1"
         assert (
-            samples.population(samples.individual(0).population).metadata["breed"]
+            samples.population(samples.individual(0).population).metadata["name"]
             == "PopA"
         )
 
         # Individual 1 should be Sample2 (PopB)
         ind1_meta = samples.individual(1).metadata
-        assert ind1_meta["sample_id"] == "Sample2"
+        assert ind1_meta["name"] == "Sample2"
         assert (
-            samples.population(samples.individual(1).population).metadata["breed"]
+            samples.population(samples.individual(1).population).metadata["name"]
             == "PopB"
         )
 
         # Individual 2 should be Sample3 (PopA)
         ind2_meta = samples.individual(2).metadata
-        assert ind2_meta["sample_id"] == "Sample3"
+        assert ind2_meta["name"] == "Sample3"
         assert (
-            samples.population(samples.individual(2).population).metadata["breed"]
+            samples.population(samples.individual(2).population).metadata["name"]
             == "PopA"
         )
 
@@ -175,7 +175,7 @@ def test_sample_order_consistency_different_order(
 
         # Individual 0 in samples should be Sample3 (from CSV)
         ind0_meta = samples.individual(0).metadata
-        assert ind0_meta["sample_id"] == "Sample3"
+        assert ind0_meta["name"] == "Sample3"
 
         # Get the genotypes for site 0 (position 100)
         # VCF has: Sample1=0|0, Sample2=0|1, Sample3=1|1
