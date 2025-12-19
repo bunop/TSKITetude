@@ -81,35 +81,44 @@ pipeline: see `config/samples_toInfer.csv` and `config/samples_toInfer-reference
 see how to set it up. Then you can call the pipeline with:
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r dev \
-    -profile ibba,core -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.3.0 \
+    -config config/custom.config -profile ibba,core -resume \
     -params-file config/samples_toInfer-reference.json
 ```
 
 ## Call nextflow pipeline (threads approach)
 
 You need also two configuration files for running the `cnr-ibba/nf-treeseq`
-pipeline, the `config/samples_toInfer.csv` file is the same as before, but you
-need to create a new JSON configuration file: see `config/samples_toInfer-threads.json` to
-see how to set it up. You need also a demography file with two columns, one for
-generation and one for population size: for simplicity we will use a value for
-all generations (see `config/samples_toInfer.demo`). You can call the pipeline with:
+pipeline using `threads` approach, the `config/samples_toInfer.csv` file is the
+same as before, but you need to create a new JSON configuration file: see
+`config/samples_toInfer-threads.json` to see how to set it up. You can call the
+pipeline with:
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r dev \
-    -profile ibba,core -resume \
+nextflow run cnr-ibba/nf-treeseq -r v0.3.0 \
+    -config config/custom.config -profile ibba,core -resume \
     -params-file config/samples_toInfer-threads.json
 ```
 
 ## Call nextflow pipeline (threads with fit to data)
 
 You need to create another JSON configuration file for running the `cnr-ibba/nf-treeseq`
-pipeline with threads and fit to data option enabled:
-see `config/samples_toInfer-threads-fit.json` to
-see how to set it up. You can call the pipeline with:
+pipeline with threads and *fit to data* option enabled:
+see `config/samples_toInfer-threads-fit.json` to see how to set it up.
+You can call the pipeline with:
 
 ```bash
-nextflow run cnr-ibba/nf-treeseq -r dev \
-    -profile ibba,core -resume -c config/custom.config \
+nextflow run cnr-ibba/nf-treeseq -r v0.3.0 \
+    -config config/custom.config -profile ibba,core -resume \
     -params-file config/samples_toInfer-threads-fit.json
+```
+
+```{warning}
+The `threads_fit_to_data` option requires more resources (RAM and time) than the other
+pipelines, so make sure you have enough resources allocated.
+```
+
+```{error}
+It was not possible to run the *fit to data* option on the smallest datasets (`ts300I2k`)
+using the current parameter set.
 ```
