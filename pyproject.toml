@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tskitetude"
-version = "0.5.2"
+version = "0.5.3"
 description = "A toolkit for working with tree sequence data, including utilities for simulation, analysis, and visualization."
 authors = ["Paolo Cozzi <bunop@libero.it>"]
 readme = "README.md"

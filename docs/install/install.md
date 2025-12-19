@@ -162,3 +162,14 @@ There are two ways to update dependencies:
 There are packages that can't be updated due to compatibility issues. Always check the
 output of `poetry update` for any conflicts or errors.
 ```
+
+## Poetry bumpversion
+
+If you have the `poetry-bumpversion` plugin installed, you can easily bump
+the project version. For example, to bump the patch version:
+
+```bash
+poetry version patch [--dry-run]
+```
+
+This updates the version in `pyproject.toml` and `tskitetude/__init__.py`.
