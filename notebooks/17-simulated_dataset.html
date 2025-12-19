@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -510,8 +510,8 @@ Nextflow pipeline). This can be done again with an utility script in this folder
 <p>You can create two nextflow configuration files for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
 pipeline: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-reference.json</span></code> to
 see how to set it up. Then you can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>v0.3.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-config<span class="w"> </span>config/custom.config<span class="w"> </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-reference.json
 </pre></div>
 </div>
@@ -519,13 +519,12 @@ see how to set it up. Then you can call the pipeline with:</p>
 <section id="call-nextflow-pipeline-threads-approach">
 <h2>Call nextflow pipeline (threads approach)<a class="headerlink" href="#call-nextflow-pipeline-threads-approach" title="Link to this heading">#</a></h2>
 <p>You need also two configuration files for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
-pipeline, the <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> file is the same as before, but you
-need to create a new JSON configuration file: see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads.json</span></code> to
-see how to set it up. You need also a demography file with two columns, one for
-generation and one for population size: for simplicity we will use a value for
-all generations (see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.demo</span></code>). You can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
+pipeline using <code class="docutils literal notranslate"><span class="pre">threads</span></code> approach, the <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer.csv</span></code> file is the
+same as before, but you need to create a new JSON configuration file: see
+<code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads.json</span></code> to see how to set it up. You can call the
+pipeline with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>v0.3.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-config<span class="w"> </span>config/custom.config<span class="w"> </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-threads.json
 </pre></div>
 </div>
@@ -533,13 +532,23 @@ all generations (see <code class="docutils literal notranslate"><span class="pre
 <section id="call-nextflow-pipeline-threads-with-fit-to-data">
 <h2>Call nextflow pipeline (threads with fit to data)<a class="headerlink" href="#call-nextflow-pipeline-threads-with-fit-to-data" title="Link to this heading">#</a></h2>
 <p>You need to create another JSON configuration file for running the <code class="docutils literal notranslate"><span class="pre">cnr-ibba/nf-treeseq</span></code>
-pipeline with threads and fit to data option enabled:
-see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads-fit.json</span></code> to
-see how to set it up. You can call the pipeline with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span>-c<span class="w"> </span>config/custom.config<span class="w"> </span><span class="se">\</span>
+pipeline with threads and <em>fit to data</em> option enabled:
+see <code class="docutils literal notranslate"><span class="pre">config/samples_toInfer-threads-fit.json</span></code> to see how to set it up.
+You can call the pipeline with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>cnr-ibba/nf-treeseq<span class="w"> </span>-r<span class="w"> </span>v0.3.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-config<span class="w"> </span>config/custom.config<span class="w"> </span>-profile<span class="w"> </span>ibba,core<span class="w"> </span>-resume<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-params-file<span class="w"> </span>config/samples_toInfer-threads-fit.json
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threads_fit_to_data</span></code> option requires more resources (RAM and time) than the other
+pipelines, so make sure you have enough resources allocated.</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>It was not possible to run the <em>fit to data</em> option on the smallest datasets (<code class="docutils literal notranslate"><span class="pre">ts300I2k</span></code>)
+using the current parameter set.</p>
 </div>
 </section>
 </section>

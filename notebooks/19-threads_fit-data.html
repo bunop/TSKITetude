@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -458,8 +458,8 @@ the two distinct options with <code class="docutils literal notranslate"><span c
 try to understand the differences:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
-<span class="n">ts_threads_fit</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer-fit/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/threads/ts300I25k.1.trees.tsz&quot;</span><span class="p">)</span>
+<span class="n">ts_threads_fit</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer-fit/threads/ts300I25k.1.trees.tsz&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -496,18 +496,18 @@ try to understand the differences:</p>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>1 949</td></tr>
-                            <tr><td>Sequence Length</td><td>99 981 261</td></tr>
+                            <tr><td>Trees</td><td>22 554</td></tr>
+                            <tr><td>Sequence Length</td><td>99 988 756</td></tr>
                             <tr><td>Time Units</td><td>unknown</td></tr>
                             <tr><td>Sample Nodes</td><td>3 200</td></tr>
-                            <tr><td>Total Size</td><td>32.8 MiB</td></tr>
+                            <tr><td>Total Size</td><td>145.5 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">
             <div>
                 <span class="tskit-details-label"></span>
                 <details open>
                     <summary>dict</summary>
-                    chromosome: 1<br/>offset: 8568<br/>
+                    chromosome: 1<br/>offset: 6714<br/>
                 </details>
             </div>
             </td>
@@ -529,8 +529,8 @@ try to understand the differences:</p>
                             
             <tr>
                 <td>Edges</td>
-                <td>761 436</td>
-                <td>23.2 MiB</td>
+                <td>3 446 739</td>
+                <td>105.2 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -565,8 +565,8 @@ try to understand the differences:</p>
         
             <tr>
                 <td>Nodes</td>
-                <td>136 628</td>
-                <td>3.6 MiB</td>
+                <td>520 417</td>
+                <td>13.9 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -584,7 +584,7 @@ try to understand the differences:</p>
             <tr>
                 <td>Provenances</td>
                 <td>1</td>
-                <td>384 Bytes</td>
+                <td>385 Bytes</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -616,7 +616,7 @@ try to understand the differences:</p>
                         <tbody>
                             
                 <tr>
-                    <td>04 December, 2025 at 08:25:54 PM</td>
+                    <td>15 December, 2025 at 02:21:32 PM</td>
                     <td>threads</td>
                     <td>0.2.1</td>
                     <td>Unknown</td>
@@ -641,10 +641,10 @@ try to understand the differences:</p>
                 <span class="tskit-details-label">parameters:</span>
                 <details >
                     <summary>dict</summary>
-                    input_file: ts300I2k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
+                    input_file: ts300I25k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
                 </details>
             </div>
-            <br/>timestamp: 2025-12-<br/>04T20:25:54.243057+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
+            <br/>timestamp: 2025-12-<br/>15T14:21:32.293625+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
                 </details>
             </div>
             
@@ -693,18 +693,18 @@ try to understand the differences:</p>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>1 999</td></tr>
-                            <tr><td>Sequence Length</td><td>99 981 261</td></tr>
+                            <tr><td>Trees</td><td>24 857</td></tr>
+                            <tr><td>Sequence Length</td><td>99 988 756</td></tr>
                             <tr><td>Time Units</td><td>unknown</td></tr>
                             <tr><td>Sample Nodes</td><td>3 200</td></tr>
-                            <tr><td>Total Size</td><td>85.3 MiB</td></tr>
+                            <tr><td>Total Size</td><td>354.1 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">
             <div>
                 <span class="tskit-details-label"></span>
                 <details open>
                     <summary>dict</summary>
-                    chromosome: 1<br/>offset: 8568<br/>
+                    chromosome: 1<br/>offset: 6714<br/>
                 </details>
             </div>
             </td>
@@ -726,8 +726,8 @@ try to understand the differences:</p>
                             
             <tr>
                 <td>Edges</td>
-                <td>1 979 642</td>
-                <td>60.4 MiB</td>
+                <td>8 329 337</td>
+                <td>254.2 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -753,8 +753,8 @@ try to understand the differences:</p>
         
             <tr>
                 <td>Mutations</td>
-                <td>1 998</td>
-                <td>72.2 KiB</td>
+                <td>24 924</td>
+                <td>900.6 KiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -762,8 +762,8 @@ try to understand the differences:</p>
         
             <tr>
                 <td>Nodes</td>
-                <td>358 846</td>
-                <td>9.6 MiB</td>
+                <td>1 304 983</td>
+                <td>34.8 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -781,7 +781,7 @@ try to understand the differences:</p>
             <tr>
                 <td>Provenances</td>
                 <td>1</td>
-                <td>384 Bytes</td>
+                <td>385 Bytes</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -789,8 +789,8 @@ try to understand the differences:</p>
         
             <tr>
                 <td>Sites</td>
-                <td>1 998</td>
-                <td>48.8 KiB</td>
+                <td>24 924</td>
+                <td>608.5 KiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -813,7 +813,7 @@ try to understand the differences:</p>
                         <tbody>
                             
                 <tr>
-                    <td>09 December, 2025 at 12:13:23 PM</td>
+                    <td>17 December, 2025 at 08:29:37 PM</td>
                     <td>threads</td>
                     <td>0.2.1</td>
                     <td>Unknown</td>
@@ -838,10 +838,10 @@ try to understand the differences:</p>
                 <span class="tskit-details-label">parameters:</span>
                 <details >
                     <summary>dict</summary>
-                    input_file: ts300I2k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
+                    input_file: ts300I25k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
                 </details>
             </div>
-            <br/>timestamp: 2025-12-<br/>09T12:13:23.094293+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
+            <br/>timestamp: 2025-12-<br/>17T20:29:37.025492+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
                 </details>
             </div>
             
@@ -863,7 +863,7 @@ try to understand the differences:</p>
 the <code class="docutils literal notranslate"><span class="pre">tsinfer</span></code> version of treeseq:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_infer</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-reference/toInfer/tsinfer/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_infer</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-reference/toInfer/tsinfer/ts300I25k.1.trees.tsz&quot;</span><span class="p">)</span>
 <span class="n">ts_infer</span>
 </pre></div>
 </div>
@@ -893,11 +893,11 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>1 905</td></tr>
+                            <tr><td>Trees</td><td>22 569</td></tr>
                             <tr><td>Sequence Length</td><td>1e+08</td></tr>
                             <tr><td>Time Units</td><td>generations</td></tr>
                             <tr><td>Sample Nodes</td><td>3 200</td></tr>
-                            <tr><td>Total Size</td><td>40.5 MiB</td></tr>
+                            <tr><td>Total Size</td><td>123.5 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">
             <div>
@@ -926,8 +926,8 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                             
             <tr>
                 <td>Edges</td>
-                <td>434 206</td>
-                <td>13.3 MiB</td>
+                <td>1 224 660</td>
+                <td>37.4 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -953,8 +953,8 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
         
             <tr>
                 <td>Mutations</td>
-                <td>280 890</td>
-                <td>22.7 MiB</td>
+                <td>851 484</td>
+                <td>68.8 MiB</td>
                 <td style="text-align: center;">
                     ✅
                 </td>
@@ -962,8 +962,8 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
         
             <tr>
                 <td>Nodes</td>
-                <td>15 647</td>
-                <td>1.1 MiB</td>
+                <td>80 645</td>
+                <td>6.7 MiB</td>
                 <td style="text-align: center;">
                     ✅
                 </td>
@@ -981,7 +981,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
             <tr>
                 <td>Provenances</td>
                 <td>4</td>
-                <td>2.9 KiB</td>
+                <td>2.8 KiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -989,8 +989,8 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
         
             <tr>
                 <td>Sites</td>
-                <td>1 999</td>
-                <td>99.6 KiB</td>
+                <td>24 947</td>
+                <td>1.2 MiB</td>
                 <td style="text-align: center;">
                     ✅
                 </td>
@@ -1013,7 +1013,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                         <tbody>
                             
                 <tr>
-                    <td>05 December, 2025 at 09:37:15 AM</td>
+                    <td>05 December, 2025 at 09:41:56 AM</td>
                     <td>tsdate</td>
                     <td>0.2.4</td>
                     <td>variational_gamma</td>
@@ -1086,7 +1086,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 <span class="tskit-details-label">resources:</span>
                 <details >
                     <summary>dict</summary>
-                    elapsed_time: 35.565372467041016<br/>user_time: 130.3<br/>sys_time: 4.77<br/>max_memory: 950992896<br/>
+                    elapsed_time: 108.51660299301147<br/>user_time: 571.01<br/>sys_time: 14.32<br/>max_memory: 1730285568<br/>
                 </details>
             </div>
             <br/>
@@ -1098,7 +1098,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 </tr>
             
                 <tr>
-                    <td>05 December, 2025 at 09:36:40 AM</td>
+                    <td>05 December, 2025 at 09:40:07 AM</td>
                     <td>tsdate</td>
                     <td>0.2.4</td>
                     <td>preprocess_ts</td>
@@ -1133,7 +1133,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 <span class="tskit-details-label"></span>
                 <details >
                     <summary>list</summary>
-                     0<br/> 8567.0<br/>
+                     0<br/> 6713.0<br/>
                 </details>
             </div>
             <br/>
@@ -1141,7 +1141,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 <span class="tskit-details-label"></span>
                 <details >
                     <summary>list</summary>
-                     99989827.0<br/> 100000000.0<br/>
+                     99995468.0<br/> 100000000.0<br/>
                 </details>
             </div>
             <br/>
@@ -1195,7 +1195,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 <span class="tskit-details-label">resources:</span>
                 <details >
                     <summary>dict</summary>
-                    elapsed_time: 1.0034401416778564<br/>user_time: 95.56<br/>sys_time: 4.57<br/>max_memory: 894976000<br/>
+                    elapsed_time: 6.797327280044556<br/>user_time: 462.99<br/>sys_time: 13.57<br/>max_memory: 1596768256<br/>
                 </details>
             </div>
             <br/>
@@ -1207,7 +1207,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 </tr>
             
                 <tr>
-                    <td>05 December, 2025 at 09:36:38 AM</td>
+                    <td>05 December, 2025 at 09:40:00 AM</td>
                     <td>tskit</td>
                     <td>1.0.0b3</td>
                     <td>simplify</td>
@@ -1284,7 +1284,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 </tr>
             
                 <tr>
-                    <td>05 December, 2025 at 09:36:38 AM</td>
+                    <td>05 December, 2025 at 09:39:55 AM</td>
                     <td>tsinfer</td>
                     <td>0.5.0</td>
                     <td>infer</td>
@@ -1389,7 +1389,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
                 <span class="tskit-details-label">resources:</span>
                 <details >
                     <summary>dict</summary>
-                    elapsed_time: 13.291892565786839<br/>user_time: 19.00999999999999<br/>sys_time: 1.5599999999999996<br/>max_memory: 890318848<br/>
+                    elapsed_time: 143.15887202322483<br/>user_time: 303.99<br/>sys_time: 10.53<br/>max_memory: 1596768256<br/>
                 </details>
             </div>
             <br/>
@@ -1480,43 +1480,43 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
   <tbody>
     <tr>
       <th>num_trees</th>
-      <td>1949</td>
-      <td>1949</td>
-      <td>1999</td>
-      <td>1999</td>
-      <td>1905</td>
+      <td>22554</td>
+      <td>22554</td>
+      <td>24857</td>
+      <td>24857</td>
+      <td>22569</td>
     </tr>
     <tr>
       <th>num_edges</th>
-      <td>761436</td>
-      <td>428977</td>
-      <td>1979642</td>
-      <td>1117870</td>
-      <td>434206</td>
+      <td>3446739</td>
+      <td>1780159</td>
+      <td>8329337</td>
+      <td>4239485</td>
+      <td>1224660</td>
     </tr>
     <tr>
       <th>num_mutations</th>
       <td>0</td>
       <td>0</td>
-      <td>1998</td>
-      <td>1998</td>
-      <td>280890</td>
+      <td>24924</td>
+      <td>24924</td>
+      <td>851484</td>
     </tr>
     <tr>
       <th>num_nodes</th>
-      <td>136628</td>
-      <td>136628</td>
-      <td>358846</td>
-      <td>358846</td>
-      <td>15647</td>
+      <td>520417</td>
+      <td>520417</td>
+      <td>1304983</td>
+      <td>1304983</td>
+      <td>80645</td>
     </tr>
     <tr>
       <th>num_sites</th>
       <td>0</td>
       <td>0</td>
-      <td>1998</td>
-      <td>1998</td>
-      <td>1999</td>
+      <td>24924</td>
+      <td>24924</td>
+      <td>24947</td>
     </tr>
   </tbody>
 </table>
@@ -1558,7 +1558,7 @@ the <code class="docutils literal notranslate"><span class="pre">tsinfer</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d1134da680cdbfc0153f72fc2df31379ee990bf8601728478ce443432941200e.png" src="../_images/d1134da680cdbfc0153f72fc2df31379ee990bf8601728478ce443432941200e.png" />
+<img alt="../_images/67cbc2bcc479f059a76012ca57475b8a7a38e1577ae85cd3c38fc6e37742430d.png" src="../_images/67cbc2bcc479f059a76012ca57475b8a7a38e1577ae85cd3c38fc6e37742430d.png" />
 </div>
 </div>
 <p>The number of trees are similar, between the two approaches (simplified or not).

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -513,7 +513,7 @@ script. Let’s explore data and check if everything is fine.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer-fit/threads/ts300I2k.1.trees.tsz&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_threads</span> <span class="o">=</span> <span class="n">tszip</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer-fit/threads/ts300I25k.1.trees.tsz&quot;</span><span class="p">)</span>
 <span class="n">ts_threads</span>
 </pre></div>
 </div>
@@ -543,18 +543,18 @@ script. Let’s explore data and check if everything is fine.</p>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Trees</td><td>1 999</td></tr>
-                            <tr><td>Sequence Length</td><td>99 981 261</td></tr>
+                            <tr><td>Trees</td><td>24 857</td></tr>
+                            <tr><td>Sequence Length</td><td>99 988 756</td></tr>
                             <tr><td>Time Units</td><td>unknown</td></tr>
                             <tr><td>Sample Nodes</td><td>3 200</td></tr>
-                            <tr><td>Total Size</td><td>85.3 MiB</td></tr>
+                            <tr><td>Total Size</td><td>354.1 MiB</td></tr>
                             <tr>
                                 <td>Metadata</td><td style="text-align: left;">
             <div>
                 <span class="tskit-details-label"></span>
                 <details open>
                     <summary>dict</summary>
-                    chromosome: 1<br/>offset: 8568<br/>
+                    chromosome: 1<br/>offset: 6714<br/>
                 </details>
             </div>
             </td>
@@ -576,8 +576,8 @@ script. Let’s explore data and check if everything is fine.</p>
                             
             <tr>
                 <td>Edges</td>
-                <td>1 979 642</td>
-                <td>60.4 MiB</td>
+                <td>8 329 337</td>
+                <td>254.2 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -603,8 +603,8 @@ script. Let’s explore data and check if everything is fine.</p>
         
             <tr>
                 <td>Mutations</td>
-                <td>1 998</td>
-                <td>72.2 KiB</td>
+                <td>24 924</td>
+                <td>900.6 KiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -612,8 +612,8 @@ script. Let’s explore data and check if everything is fine.</p>
         
             <tr>
                 <td>Nodes</td>
-                <td>358 846</td>
-                <td>9.6 MiB</td>
+                <td>1 304 983</td>
+                <td>34.8 MiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -631,7 +631,7 @@ script. Let’s explore data and check if everything is fine.</p>
             <tr>
                 <td>Provenances</td>
                 <td>1</td>
-                <td>384 Bytes</td>
+                <td>385 Bytes</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -639,8 +639,8 @@ script. Let’s explore data and check if everything is fine.</p>
         
             <tr>
                 <td>Sites</td>
-                <td>1 998</td>
-                <td>48.8 KiB</td>
+                <td>24 924</td>
+                <td>608.5 KiB</td>
                 <td style="text-align: center;">
                     
                 </td>
@@ -663,7 +663,7 @@ script. Let’s explore data and check if everything is fine.</p>
                         <tbody>
                             
                 <tr>
-                    <td>09 December, 2025 at 12:13:23 PM</td>
+                    <td>17 December, 2025 at 08:29:37 PM</td>
                     <td>threads</td>
                     <td>0.2.1</td>
                     <td>Unknown</td>
@@ -688,10 +688,10 @@ script. Let’s explore data and check if everything is fine.</p>
                 <span class="tskit-details-label">parameters:</span>
                 <details >
                     <summary>dict</summary>
-                    input_file: ts300I2k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
+                    input_file: ts300I25k.1.biallelic.vcf.gz<br/>metadata_added: True<br/>populations_added: 8<br/>individuals_added: 1600<br/>
                 </details>
             </div>
-            <br/>timestamp: 2025-12-<br/>09T12:13:23.094293+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
+            <br/>timestamp: 2025-12-<br/>17T20:29:37.025492+00:00<br/>description: Tree sequence annotated with<br/>population and individual<br/>metadata<br/>
                 </details>
             </div>
             
@@ -718,11 +718,11 @@ script. Let’s explore data and check if everything is fine.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
-Node 1: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
-Node 2: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
-Node 3: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
-Node 4: population=Population(id=7, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=2, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([4, 5], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_107&#39;})
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Node 0: population=Population(id=3, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
+Node 1: population=Population(id=3, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=0, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([0, 1], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_105&#39;})
+Node 2: population=Population(id=3, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
+Node 3: population=Population(id=3, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=1, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([2, 3], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_106&#39;})
+Node 4: population=Population(id=3, metadata={&#39;breed&#39;: &#39;II&#39;}), individual=Individual(id=2, flags=0, location=array([], dtype=float64), parents=array([], dtype=int32), nodes=array([4, 5], dtype=int32), metadata={&#39;sample_id&#39;: &#39;tsk_107&#39;})
 </pre></div>
 </div>
 </div>
@@ -786,7 +786,7 @@ Individual 4: sample=&#39;tsk_109&#39;, nodes=[8, 9]
 read the <code class="docutils literal notranslate"><span class="pre">focal</span></code> sample generated through the pipeline:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcf_file</span> <span class="o">=</span> <span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/focal/ts300I2k.1.vcf.gz&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vcf_file</span> <span class="o">=</span> <span class="n">get_project_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;results-threads/toInfer/focal/ts300I25k.1.vcf.gz&quot;</span>
 <span class="k">with</span> <span class="n">cyvcf2</span><span class="o">.</span><span class="n">VCF</span><span class="p">(</span><span class="n">vcf_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">vcf_reader</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">vcf_reader</span><span class="o">.</span><span class="n">samples</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># show first 5 sample names in VCF</span>
 </pre></div>
@@ -818,9 +818,9 @@ read the <code class="docutils literal notranslate"><span class="pre">focal</spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>N. of variants in VCF: 2000
-N. of variants TreeSequence: 1998
-✗ Warning: VCF has 2000 variants, TreeSequence has 1998
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>N. of variants in VCF: 25000
+N. of variants TreeSequence: 24924
+✗ Warning: VCF has 25000 variants, TreeSequence has 24924
 </pre></div>
 </div>
 </div>
@@ -845,10 +845,10 @@ so let’s read first position on vcf file and determine the offset of <em>TS</e
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  8568  11982  54502  99207  99302 110491 132927 136059 144274 177369]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 6714  7016  8568 15841 19058 19766 20650 24037 29977 37199]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  8568  11982  54502  99207  99302 110491 132927 136059 144274 177369]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 6714  7016  8568 15841 19058 19766 20650 24037 29977 37199]
 </pre></div>
 </div>
 </div>
@@ -923,17 +923,18 @@ so let’s read first position on vcf file and determine the offset of <em>TS</e
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TreeSequence positions: 1998 variants
-VCF positions: 2000 variants
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TreeSequence positions: 24924 variants
+VCF positions: 25000 variants
 
 Extracting variant positions from VCF...
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variants in VCF but missing in TreeSequence: 2
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variants in VCF but missing in TreeSequence: 76
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s explore those variants missing in the threads TreeSequence:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_variants_full</span>
@@ -976,7 +977,7 @@ Extracting variant positions from VCF...
     <tr>
       <th>0</th>
       <td>1</td>
-      <td>45384357</td>
+      <td>1359872</td>
       <td>C</td>
       <td>T</td>
       <td>None</td>
@@ -990,7 +991,105 @@ Extracting variant positions from VCF...
     <tr>
       <th>1</th>
       <td>1</td>
-      <td>63257441</td>
+      <td>2602623</td>
+      <td>C</td>
+      <td>A</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3132835</td>
+      <td>T</td>
+      <td>C</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>3813782</td>
+      <td>G</td>
+      <td>A,T</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>3</td>
+      <td>False</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 111, 1: 470, 2: 2619}</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>5065536</td>
+      <td>C</td>
+      <td>T</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>1</td>
+      <td>94983763</td>
+      <td>A</td>
+      <td>T</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>1</td>
+      <td>96413425</td>
+      <td>T</td>
+      <td>G</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>1</td>
+      <td>98046345</td>
       <td>C</td>
       <td>T,G</td>
       <td>None</td>
@@ -999,15 +1098,140 @@ Extracting variant positions from VCF...
       <td>False</td>
       <td>0</td>
       <td>3200</td>
-      <td>{0: 3145, 1: 7, 2: 48}</td>
+      <td>{0: 102, 1: 3037, 2: 61}</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>1</td>
+      <td>99412716</td>
+      <td>G</td>
+      <td>C</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3200}</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>1</td>
+      <td>99701719</td>
+      <td>T</td>
+      <td>C,G</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>3</td>
+      <td>False</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 70, 1: 2987, 2: 143}</td>
+    </tr>
+  </tbody>
+</table>
+<p>76 rows × 11 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count monomorphic variants</span>
+<span class="n">monomorphic_count</span> <span class="o">=</span> <span class="n">missing_variants_full</span><span class="p">[</span><span class="s1">&#39;is_monomorphic&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of monomorphic variants: </span><span class="si">{</span><span class="n">monomorphic_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Group by unique_alleles and count</span>
+<span class="n">allele_counts</span> <span class="o">=</span> <span class="n">missing_variants_full</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;unique_alleles&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Counts by number of unique alleles:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">allele_counts</span><span class="p">)</span>
+
+<span class="c1"># More detailed breakdown</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Detailed breakdown:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n_alleles</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">allele_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">percentage</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">count</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_variants_full</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">n_alleles</span><span class="si">}</span><span class="s2"> unique allele(s): </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> variants (</span><span class="si">{</span><span class="n">percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of monomorphic variants: 53
+
+Counts by number of unique alleles:
+unique_alleles
+1    53
+2     1
+3    22
+dtype: int64
+
+Detailed breakdown:
+  1 unique allele(s): 53 variants (69.7%)
+  2 unique allele(s): 1 variants (1.3%)
+  3 unique allele(s): 22 variants (28.9%)
+</pre></div>
+</div>
+</div>
+</div>
+<p>So the missing variants are monomorphic SNPs (no alternates) and SNPs with more
+than 2 alleles. What about the SNP with two alleles? let’s check it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_variants_full</span><span class="p">[</span><span class="n">missing_variants_full</span><span class="p">[</span><span class="s2">&quot;unique_alleles&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>chrom</th>
+      <th>pos</th>
+      <th>ref</th>
+      <th>alt</th>
+      <th>qual</th>
+      <th>filter</th>
+      <th>unique_alleles</th>
+      <th>is_monomorphic</th>
+      <th>missing_gts</th>
+      <th>total_gts</th>
+      <th>allele_counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>16</th>
+      <td>1</td>
+      <td>14337436</td>
+      <td>G</td>
+      <td>A,C</td>
+      <td>None</td>
+      <td>PASS</td>
+      <td>2</td>
+      <td>False</td>
+      <td>0</td>
+      <td>3200</td>
+      <td>{0: 3152, 1: 48}</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>So the missing variants are one monomorphic SNP (no alternates) in position <code class="docutils literal notranslate"><span class="pre">45384357</span></code> and
-one biallelic SNP in position <code class="docutils literal notranslate"><span class="pre">63257441</span></code> (filtered out by the <code class="docutils literal notranslate"><span class="pre">BCFTOOLS_BIALLELIC</span></code> step).
-Let’s track the position to skip:</p>
+<p>Ok, is a SNP with tree alleles, but no allele reference is found in samples, so
+this is why has 2 unique alleles instead of 3. Let’s determine the position to skip
+in order to check genotypes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skip_positions</span> <span class="o">=</span> <span class="n">missing_variants_full</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -1031,16 +1255,16 @@ Let’s track the position to skip:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genotype matrix from TS: (1998, 3200)
-Number of sites: 1998
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Genotype matrix from TS: (24924, 3200)
+Number of sites: 24924
 Number of samples: 3200
 
 Subsetting first 5 objects in both dimensions
-[[0 0 0 0 0]
- [0 0 0 0 1]
- [0 0 0 1 1]
- [0 0 0 1 0]
- [0 0 0 1 0]]
+[[1 1 0 1 1]
+ [1 1 0 1 1]
+ [0 0 0 0 0]
+ [1 0 0 1 0]
+ [0 0 0 0 0]]
 </pre></div>
 </div>
 </div>
@@ -1087,18 +1311,24 @@ Subsetting first 5 objects in both dimensions
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting genotypes from VCF...
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Processed 10000 variants...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Processed 20000 variants...
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VCF genotype matrix created:
-  Shape: (1998, 3200)
+  Shape: (24924, 3200)
   Dtype: int8
-  Number of variants: 1998
+  Number of variants: 24924
   Number of samples: 3200
 
 Example - first 5 genotypes of the first sample:
-[[0 0 0 0 0]
- [0 0 0 0 1]
- [0 0 0 1 1]
- [0 0 0 1 0]
- [0 0 0 1 0]]
+[[1 1 0 1 1]
+ [1 1 0 1 1]
+ [0 0 0 0 0]
+ [1 0 0 1 0]
+ [0 0 0 0 0]]
 </pre></div>
 </div>
 </div>
@@ -1165,14 +1395,16 @@ Example - first 5 genotypes of the first sample:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Matrices have the same shape: (1998, 3200)
-
-Global result:
-  Sites with matching genotypes: 1998/1998 (100.00%)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✓ Matrices have the same shape: (24924, 3200)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Global result:
+  Sites with matching genotypes: 24924/24924 (100.00%)
 
 ✓ All matrices match perfectly!
-
-Samples with all matching genotypes: 3200/3200
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples with all matching genotypes: 3200/3200
 </pre></div>
 </div>
 </div>
