@@ -1,11 +1,11 @@
 #
-# VERSION 0.5.1
+# VERSION 0.5.2
 # DOCKER-VERSION  27.2.0
 # AUTHOR:         Paolo Cozzi <paolo.cozzi@ibba.cnr.it>
 # DESCRIPTION:    A codespaces base image with tskitetude installed
 # TO_BUILD:       docker build --rm -t bunop/tskitetude .
 # TO_RUN:         docker run --rm -ti bunop/tskitetude bash
-# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.5.1
+# TO_TAG:         docker tag bunop/tskitetude:latest bunop/tskitetude:0.5.2
 #
 
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04

@@ -2,13 +2,16 @@ import io
 import csv
 import json
 import logging
+import datetime
 import collections
+from functools import partial
 from typing import Dict, Tuple, List, Union
 
 import click
 import cyvcf2
 import tsdate
 import tsinfer
+import tszip
 import numpy as np
 from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from tskit import MISSING_DATA
@@ -84,7 +87,8 @@ def add_diploid_individuals(
     csv_file: str, pop_lookup: Dict[str, int], samples: tsinfer.SampleData
 ) -> Dict[str, Tuple[int, List[int]]]:
     """
-    Try to add diploid samples
+    Try to add diploid samples. Returns a dictionary mapping sample_id to
+    (individual_id, [sample_indices]).
     """
 
     # track added individuals
@@ -155,6 +159,7 @@ def add_diploid_sites(
     vcf: cyvcf2.VCF,
     samples: tsinfer.Sample,
     ancestors_alleles: Dict[Tuple[str, int], int],
+    indv_lookup: Dict[str, int],
     allele_chars=set("ATCG*"),
     ancestral_method="estsfs",
 ):
@@ -258,8 +263,37 @@ def add_diploid_sites(
                 print(f"Ignoring site at pos {pos}: allele {a} not in {allele_chars}")
                 continue
 
-        # Map original allele indexes to their indexes in the new alleles list.
-        genotypes = [g for row in variant.genotypes for g in row[0:2]]
+        # Get genotypes from VCF and reorder them to match the order of individuals in samples
+        # VCF.samples gives us the order of samples in the VCF file
+        # We need to reorder genotypes to match the order individuals were added to samples
+        vcf_genotypes = [g for row in variant.genotypes for g in row[0:2]]
+
+        # Create a mapping from VCF sample order to the individual order in samples
+        # vcf.samples gives the VCF order, indv_lookup maps sample_id to individual_id
+        # We need to create an index mapping: vcf_index -> samples_index
+        vcf_sample_order = vcf.samples
+
+        # Create reordered genotypes array
+        # For each individual in the order they were added to samples,
+        # find their position in the VCF and extract their genotypes
+        genotypes = []
+        sample_id_to_vcf_idx = {
+            sample_id: idx for idx, sample_id in enumerate(vcf_sample_order)
+        }
+
+        # Sort individuals by their individual_id to get them in insertion order
+        sorted_samples = sorted(indv_lookup.items(), key=lambda x: x[1])
+
+        for sample_id, _ in sorted_samples:
+            if sample_id not in sample_id_to_vcf_idx:
+                raise ValueError(
+                    f"Sample {sample_id} found in CSV but not in VCF. "
+                    f"VCF samples: {vcf_sample_order}"
+                )
+            vcf_idx = sample_id_to_vcf_idx[sample_id]
+            # Each individual is diploid, so genotypes are at positions [vcf_idx*2, vcf_idx*2+1]
+            genotypes.extend(vcf_genotypes[vcf_idx * 2 : vcf_idx * 2 + 2])
+
         samples.add_site(pos, genotypes, alleles, ancestral_allele=ancestral_allele)
 
 
@@ -347,6 +381,13 @@ def add_diploid_sites(
     show_default=True,
 )
 @click.option(
+    "--recombination_rate",
+    help="tsinfer recombination rate",
+    type=float,
+    default=None,
+    show_default=True,
+)
+@click.option(
     "--ne",
     "Ne",
     help=(
@@ -369,6 +410,7 @@ def create_tstree(
     num_threads: int,
     tsdate_method: click.Choice,
     mutation_rate: float,
+    recombination_rate: float,
     Ne: float,
 ):
     """
@@ -385,8 +427,7 @@ def create_tstree(
     sequence_length = chromosome_lengths[chrom]
 
     logging.info(
-        f"Getting information for chromosome {chrom} "
-        f"with length {sequence_length} bp"
+        f"Getting information for chromosome {chrom} with length {sequence_length} bp"
     )
 
     # reset the vcf
@@ -422,9 +463,13 @@ def create_tstree(
         path=output_samples, sequence_length=sequence_length
     ) as samples:
         pop_lookup = add_populations(focal_csv, samples)
-        add_diploid_individuals(focal_csv, pop_lookup, samples)
+        indv_lookup = add_diploid_individuals(focal_csv, pop_lookup, samples)
         add_diploid_sites(
-            vcf, samples, ancestors_alleles, ancestral_method=ancestral_method
+            vcf,
+            samples,
+            ancestors_alleles,
+            indv_lookup,
+            ancestral_method=ancestral_method,
         )
 
     logger.info(
@@ -434,7 +479,9 @@ def create_tstree(
     )
 
     # Do the inference
-    sparrow_ts = tsinfer.infer(samples, num_threads=num_threads)
+    sparrow_ts = tsinfer.infer(
+        samples, num_threads=num_threads, recombination_rate=recombination_rate
+    )
 
     # Simplify the tree sequence
     ts = sparrow_ts.simplify()
@@ -470,15 +517,16 @@ def create_tstree(
             "but it will ignored by the 'variational_gamma' method."
         )
 
-    # date the tree using the appropriate method
+    # Prepare the base tsdate call with common parameters
+    date_partial = partial(
+        tsdate.date, inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
+    )
+
+    # Add Ne parameter only for methods that support it
     if tsdate_method in ("inside_outside", "maximization"):
-        dated_ts = tsdate.date(
-            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate, Ne=Ne
-        )
+        dated_ts = date_partial(Ne=Ne)
     elif tsdate_method == "variational_gamma":
-        dated_ts = tsdate.date(
-            inferred_ts, method=tsdate_method, mutation_rate=mutation_rate
-        )
+        dated_ts = date_partial()
     else:
         raise NotImplementedError(f"Dating method '{tsdate_method}' not implemented")
 
@@ -510,3 +558,160 @@ def create_windows(ts):
     windows = np.unique(windows)
 
     return windows
+
+
+@click.command()
+@click.option(
+    "--input_tsz",
+    help="Input tree sequence file",
+    type=click.Path(exists=True),
+    required=True,
+)
+@click.option(
+    "--input_vcf",
+    help="Input VCF file with sample metadata",
+    type=click.Path(exists=True),
+    required=True,
+)
+@click.option(
+    "--sample_file",
+    help="File with sample ID and breed information",
+    type=click.Path(exists=True),
+    required=True,
+)
+@click.option(
+    "--output_tsz",
+    help="Output annotated tree sequence file",
+    type=click.Path(exists=False),
+    required=True,
+)
+@click.option(
+    "--software_name",
+    help="Software name for provenance record",
+    type=str,
+    required=True,
+)
+@click.option(
+    "--software_version",
+    help="Software version for provenance record",
+    type=str,
+    required=True,
+)
+def annotate_tree(
+    input_tsz: click.Path,
+    input_vcf: click.Path,
+    sample_file: click.Path,
+    output_tsz: click.Path,
+    software_name: str,
+    software_version: str,
+):
+    """
+    Annotate tree sequence with sample metadata.
+    """
+
+    # Read sample metadata from the provided file
+    with open(sample_file, "r") as f:
+        sniffer = csv.Sniffer()
+        dialect = sniffer.sniff(f.read(1024))
+        f.seek(0)
+
+        reader = csv.reader(f, dialect)
+        sample_info = []
+
+        for row in reader:
+            if len(row) < 2:
+                logger.error(
+                    f"Malformed line in sample file: '{row}'. "
+                    "Each line must contain at least two fields."
+                )
+                raise ValueError("Malformed line in sample file")
+
+            breed, sample_id = row[:2]
+            sample_info.append((sample_id, breed))
+
+    logger.info(f"Loaded metadata for {len(sample_info)} samples.")
+
+    # open vcf and get sample names
+    with cyvcf2.VCF(input_vcf) as vcf:
+        vcf_sample_order = vcf.samples
+
+    # now order sample_info according to VCF sample order
+    try:
+        sample_info = sorted(sample_info, key=lambda x: vcf_sample_order.index(x[0]))
+
+    except ValueError:
+        logger.critical(
+            "Sample information doesn't match VCF samples. "
+            f"Please check that all samples in {sample_file} are present in {input_vcf}"
+        )
+        raise
+
+    # Load the input tree sequence
+    ts = tszip.load(input_tsz)
+
+    # create a copy of the table that can be modified
+    tables = ts.dump_tables()
+
+    # now I need to determine how many distinct populations (breeds) there are
+    breeds = set(breed for _, breed in sample_info)
+
+    breed_to_id = {}
+
+    for breed in breeds:
+        metadata = {"breed": breed}
+        metadata_bytes = json.dumps(metadata).encode()
+        pop_id = tables.populations.add_row(metadata=metadata_bytes)
+        breed_to_id[breed] = pop_id
+
+    individual_to_id = {}
+
+    for sample_id, _ in sample_info:
+        if sample_id not in individual_to_id:
+            metadata = {"sample_id": sample_id}
+            metadata_bytes = json.dumps(metadata).encode()
+            ind_id = tables.individuals.add_row(metadata=metadata_bytes)
+            individual_to_id[sample_id] = ind_id
+
+    # now set the population for each individual
+    # we are talking about diploid individuals here
+    for i, (sample_id, breed) in enumerate(sample_info):
+        pop_id = breed_to_id[breed]
+        ind_id = individual_to_id[sample_id]
+
+        # update both nodes for the diploid individual
+        for j in range(2):
+            node_id = i * 2 + j
+            node = tables.nodes[node_id]
+
+            # Replace the node with an updated one
+            tables.nodes[node_id] = node.replace(population=pop_id, individual=ind_id)
+
+    # Create provenance record
+    provenance_record = {
+        "software": {"name": software_name, "version": software_version},
+        "parameters": {
+            "input_file": str(input_vcf),
+            "metadata_added": True,
+            "populations_added": len(breed_to_id),
+            "individuals_added": len(individual_to_id),
+        },
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "description": "Tree sequence annotated with population and individual metadata",
+    }
+
+    # Add provenance to tables
+    tables.provenances.add_row(
+        timestamp=provenance_record["timestamp"], record=json.dumps(provenance_record)
+    )
+
+    # write a tsz file as output
+    annotated_ts = tables.tree_sequence()
+
+    logger.info(f"Num of populations: {annotated_ts.num_populations}")
+    logger.info(f"Num of individuals: {annotated_ts.num_individuals}")
+    logger.info(f"Num of nodes: {annotated_ts.num_nodes}")
+
+    tszip.compress(annotated_ts, output_tsz)
+
+    logger.info(f"Annotated tree sequence saved to {output_tsz}")
+    logger.info("Done!")
