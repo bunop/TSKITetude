@@ -17,6 +17,8 @@ from click_option_group import optgroup, RequiredMutuallyExclusiveOptionGroup
 from tskit import MISSING_DATA
 from tqdm import tqdm
 
+from tskitetude import POPULATION_METADATA_SCHEMA, INDIVIDUAL_METADATA_SCHEMA
+
 log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(level=logging.INFO, format=log_fmt)
 
@@ -78,7 +80,7 @@ def add_populations(csv_file: str, samples: tsinfer.SampleData) -> Dict[str, int
 
     for breed, _ in open_csv(csv_file):
         if breed not in pop_lookup:
-            pop_lookup[breed] = samples.add_population(metadata={"breed": breed})
+            pop_lookup[breed] = samples.add_population(metadata={"name": breed})
 
     return pop_lookup
 
@@ -97,7 +99,7 @@ def add_diploid_individuals(
     for breed, sample_id in open_csv(csv_file):
         population = pop_lookup[breed]
         indv_lookup[sample_id] = samples.add_individual(
-            ploidy=2, metadata={"sample_id": sample_id}, population=population
+            ploidy=2, metadata={"name": sample_id}, population=population
         )
 
     return indv_lookup
@@ -494,10 +496,10 @@ def create_tstree(
     # Check the metadata
     for sample_node_id in ts.samples():
         individual_id = ts.node(sample_node_id).individual
-        individual = json.loads(ts.individual(individual_id).metadata)["sample_id"]
+        individual = json.loads(ts.individual(individual_id).metadata)["name"]
 
         population_id = ts.node(sample_node_id).population
-        population = json.loads(ts.population(population_id).metadata)["breed"]
+        population = json.loads(ts.population(population_id).metadata)["name"]
 
         logger.debug(
             f"Node {sample_node_id} "
@@ -655,21 +657,25 @@ def annotate_tree(
     # now I need to determine how many distinct populations (breeds) there are
     breeds = set(breed for _, breed in sample_info)
 
+    # apply population metadata
+    tables.populations.metadata_schema = POPULATION_METADATA_SCHEMA
+
     breed_to_id = {}
 
     for breed in breeds:
-        metadata = {"breed": breed}
-        metadata_bytes = json.dumps(metadata).encode()
-        pop_id = tables.populations.add_row(metadata=metadata_bytes)
+        metadata = {"name": breed}
+        pop_id = tables.populations.add_row(metadata=metadata)
         breed_to_id[breed] = pop_id
+
+    # apply individual metadata and set population
+    tables.individuals.metadata_schema = INDIVIDUAL_METADATA_SCHEMA
 
     individual_to_id = {}
 
     for sample_id, _ in sample_info:
         if sample_id not in individual_to_id:
-            metadata = {"sample_id": sample_id}
-            metadata_bytes = json.dumps(metadata).encode()
-            ind_id = tables.individuals.add_row(metadata=metadata_bytes)
+            metadata = {"name": sample_id}
+            ind_id = tables.individuals.add_row(metadata=metadata)
             individual_to_id[sample_id] = ind_id
 
     # now set the population for each individual
